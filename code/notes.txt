@@ -1,0 +1,85 @@
+# no stack
+make-condor.py --run run-nostack01c --njobs 2000 --seed 22414 --ntrial 100 --nepochs 1 --nostack
+
+nostack m1: 0.000460004 +/- 0.000619505 (3 sigma)
+
+
+# odd image, no dithers or rotations etc.
+om1: 0.000180467 +/- 0.00138297 (3 sigma)
+
+# odd image, now with only dithers turned on
+om1: 0.00447688 +/- 0.00184495 (3 sigma)
+
+# doing our own psf coadd, dithers, 1 epoch, 1 band, odd image
+# run-dither-psfcoadd01wq
+# run-dither-psfcoadd01
+
+d m1: -0.000190355 +/- 0.000817988 (3 sigma)
+
+
+# doing our own psf coadd, dithers, rotation, 1 epoch 1 band, odd image
+# run-dithrot-psfcoadd01wq
+# run-dithrot-psfcoadd01
+
+make-condor.py --run run-dithrot-psfcoadd01 --njobs 2000 --seed 22427 --ntrial 100 --nepochs 1 --bands r --coadd-dim 351 --dither --rotate
+so far
+
+dr m1: 0.00022097 +/- 0.000780681 (3 sigma)
+
+# doing our own psf coadd, dithers, rotation, cosmics, 1 epoch 1 band, odd image
+# run-cosmics01
+# run-cosmics01c
+
+make-condor.py --run run-cosmics01c --njobs 8000  --seed 22432 --ntrial 100 --nepochs 1 --bands r --coadd-dim 351 --dither --rotate --cosmic-rays
+
+processed: 26455
+drc m1: 0.000518781 +/- 0.000711157 (3 sigma)
+
+# doing our own psf coadd, dithers, rotation, cosmics, bad columns, 1 epoch 1 band, odd image
+# run-cosbc01c
+
+make-condor.py --run run-cosbc01c --njobs 5000 --seed 22442 --ntrial 100 --nepochs 1 --bands r --coadd-dim 351 --dither --rotate --cosmic-rays --bad-columns
+
+
+# processed: 29165
+drcb m1: -0.00015786 +/- 0.000791077 (3 sigma)
+
+
+# run-*descwl*
+# wldeblend galaxies,
+# doing our own psf coadd, dithers, rotation, cosmics, bad columns, 1 epoch 1 band, odd image
+
+processed: 210117
+drcbR m1: -7.60145e-05 +/- 0.000787508 (3 sigma)
+
+# run-varywcs01
+# varied both wcs shear and scale
+# exp galaxies,
+
+make-condor.py --run run-varywcs01 --njobs 2000 --seed 22445 --ntrial 100
+--nepochs 1 --bands r --coadd-dim 351 --dither --rotate --cosmic-rays
+--bad-columns --vary-wcs-shear --vary-scale
+
+processed: 31025
+drcbv m1: -0.00010605 +/- 0.000767164 (3 sigma) c2: -8.22732e-07 +/- 1.50306e-05 (3 sigma)
+
+# next put in some psf shape in g2. This means we should
+# add ability to do additive in the shear calculator
+# all else same as run-varywcs01
+
+# run-psfg2
+make-condor.py --run run-psfg2 --njobs 2000 --seed 230${i} --ntrial 100
+--nepochs 1 --bands r --coadd-dim 351 --dither --rotate --cosmic-rays
+--bad-columns --vary-wcs-shear --vary-scale --psf-g2 0.02
+
+processed: 29178
+drcbvp m1: -0.000136185 +/- 0.000790829 (3 sigma) c2: -2.74396e-06 +/- 1.51087e-05 (3 sigma)
+
+# riz but still one epoch
+
+python make-condor.py --run run-riz01 --njobs 2000 --seed 340${i} --ntrial 100
+--nepochs 1 --coadd-dim 351 --dither --rotate --cosmic-rays --bad-columns
+--vary-wcs-shear --vary-scale --psf-g2 0.02; done
+
+processed: 29171
+drcbvpRIZ m1: 6.09361e-05 +/- 0.00058318 (3 sigma) c2: -3.92082e-07 +/- 1.41084e-05 (3 sigma)

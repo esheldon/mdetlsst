@@ -1,0 +1,146 @@
+% mnras
+% \documentclass[fleqn,useAMS,usenatbib]{mnras}
+
+% apj
+%\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{emulateapj}
+\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{hackemulateapj}
+%\documentclass{emulateapj}
+
+%=====================================================================
+% CUSTOM: PACKAGES, MACROS & SETTINGS
+%=====================================================================
+% packages for figures
+\usepackage{graphicx,todonotes}
+
+% packages for symbols
+\usepackage{latexsym,amssymb}
+
+% AMS-LaTeX package for e.g. subequations
+\usepackage{amsmath,morefloats}
+\usepackage[backref,breaklinks,colorlinks,citecolor=blue]{hyperref}
+\usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor}
+%\usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor,hyperref}
+\usepackage{verbatim}
+\usepackage{threeparttable}
+
+%\usepackage{lineno}
+%\linenumbers
+
+\topmargin-1cm
+
+\newcommand\notedo[1]{\todo[color=yellow, inline, size=\small]{To do:#1}}
+\newcommand\notewrite[1]{\todo[color=orange, inline, size=\small]{To write: #1}}
+\newcommand\noteask[1]{\todo[color=cyan, inline, size=\small]{To ask: #1}}
+\newcommand\notecontrib[1]{\todo[color=green, inline, size=\small]{Contributors: #1}}
+\newcommand\esstodo[1]{\todo[color=yellow, inline, size=\small]{ESS: #1}}
+\newcommand{\ess}[1]{\textcolor{red}{[ESS: \bf #1]}}
+\newcommand{\mrb}[1]{\textcolor{purple}{[MRB: \bf #1]}}
+
+
+\newcommand{\vecg}{\mbox{\boldmath $g$}}
+\newcommand{\vece}{\mbox{\boldmath $e$}}
+\newcommand{\veck}{\mbox{\boldmath $k$}}
+\newcommand{\vecQ}{\mbox{\boldmath $Q$}}
+\newcommand{\vecF}{\mbox{\boldmath $F$}}
+\newcommand{\vecD}{\mbox{\boldmath $D$}}
+\newcommand{\matR}{\mbox{$\bf R$}}
+\newcommand{\matC}{\mbox{$\bf C$}}
+\newcommand{\bnab}{\boldsymbol{\nabla}}
+\newcommand{\bnabg}{\boldsymbol{\nabla_g}}
+\newcommand{\galsim}{\texttt{GALSIM}}
+\newcommand{\ngmix}{\texttt{ngmix}}
+\newcommand{\nnsim}{\texttt{nsim}}
+\newcommand{\snr}{$S/N$}
+\newcommand{\sn}{$S/N$}
+\newcommand{\coadd}{{\rm coadd}}
+\newcommand{\desreq}{$4\times 10^{-3}$}
+\newcommand{\lsstreq}{$2\times 10^{-3}$}
+
+\newcommand{\mcal}{\textsc{metacalibration}}
+\newcommand{\mdet}{\textsc{metadetection}}
+\newcommand{\Mcalshort}{\textsc{metacal}}
+\newcommand{\Mcal}{\textsc{Metacalibration}}
+\newcommand{\Mdet}{\textsc{Metadetection}}
+\newcommand{\vest}{\mbox{\boldmath $e$}}
+\newcommand{\est}{e}
+\newcommand{\mcalR}{\mbox{\boldmath $R$}}
+\newcommand{\mcalRS}{\mbox{\boldmath $R_S$}}
+\newcommand{\gest}{\mbox{\boldmath $\hat \gamma$}}
+\newcommand{\vecgam}{\mbox{\boldmath $\gamma$}}
+
+\newcommand{\sx}{\textsc{Source Extractor}}
+
+\newcommand{\bfd}{\textsc{BFD}}
+
+\newcommand{\vonkarman}{{von K\'arm\'an}~}
+
+
+%\setuphead[section][before={\testpage[2]}]
+
+%mnras
+%\title[\Mdet]{\Mdet: Mitigating Shear-dependent Object Detection Biases with \Mcal}
+
+%\author[Sheldon et~al.]{Erin Sheldon$^1$, Matthew R. Becker$^2$,
+%Niall MacCrann$^{3,4}$, Michael Jarvis$^5$
+%  \\$^1$Brookhaven National Laboratory, Bldg. 510, Upton, NY 11973, USA
+%  \\$^2$High Energy Physics Division, Argonne National Laboratory, Lemont, IL 60439, USA
+%  \\$^3$Center for Cosmology and Astro-Particle Physics, The Ohio State University, Columbus, OH 43210, USA
+%  \\$^4$Department of Physics, The Ohio State University, Columbus, OH 43210, USA
+%  \\$^5$Department of Physics and Astronomy, University of Pennsylvania, Philadelphia, PA 19104, USA
+%}
+
+
+% apj
+\shorttitle{\Mdet}
+\shortauthors{Sheldon, Becker, Armstrong}
+
+\begin{document}
+% mnrad
+% \date{Draft \today}
+
+% mnras
+%\maketitle
+
+% apj
+%\title{\Mdet: Mitigating Shear-dependent Object Detection Biases with \Mcal}
+\title{Metadetection: Mitigating Shear-dependent Object Detection Biases with Metacalibration}
+
+\author{Erin S. Sheldon}
+\affil{Brookhaven National Laboratory, Bldg 510, Upton, New York 11973, USA}
+\author{Matthew R. Becker}
+\affil{High Energy Physics Division, Argonne National Laboratory, Lemont, IL 60439, USA}
+\author{Robert Armstrong}
+\affil{Lawrence Livermore National Laboratory, Livermore, CA 94551, USA}
+
+
+\begin{abstract}
+
+    \Mcal\ for LSST
+
+\end{abstract}
+
+\section{Introduction}
+
+blah
+
+\section{Results}
+
+
+\input{code/mtable.tex}
+
+
+\section*{Acknowledgments}
+
+ES is supported by DOE grant DE-AC02-98CH10886, and MB is supported by DOE
+grant DE-AC02-06CH11357.  RM is supported by the US Department of Energy Cosmic
+Frontier program, grant DE-SC0010118.
+
+
+%\bibliographystyle{mnras}
+%\bibliography{references}
+%\bibliography{apj-jour,references}
+%\bibliographystyle{apj}
+\bibliographystyle{aasjournal}
+\bibliography{references}
+
+\end{document}

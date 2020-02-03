@@ -1,0 +1,36 @@
+
+\begin{table}
+\centering
+\begin{threeparttable}
+      \caption{
+      nostack: the LSST DM stack was not used; d: dithers, r: rotations, c: cosmic rays,
+      b: bad columns, R: realistc galaxy properties and noise, v: variable pixel scale
+      and WCS shear, p: psf $g_2 = 0.02$, RIZ: $r, i$ and $z$ bands used.
+      }
+ \label{tab:shearmeas}
+
+  \begin{tabular}{lcc}
+    \hline
+    \noalign{\vskip 1mm}
+    Simulation & m (99.7\% conf.) & c (99.7\% conf.) \\
+     &  $[10^{-3}]$ & $[10^{-5}]$ \\
+    \noalign{\vskip 1mm}
+    \hline
+    \noalign{\vskip 1mm}
+        nostack & -0.2 $< m_1 <$ 1.1 & -\\
+        d & -1.0 $< m_1 <$ 0.6 & -\\
+        dr & -0.6 $< m_1 <$ 1.0 & -\\
+        drc & -0.2 $< m_1 <$ 1.2 & -\\
+        drcb & -0.9 $< m_1 <$ 0.6 & -\\
+        drcbR & -0.9 $< m_1 <$ 0.7 & -\\
+        drcbv & -0.9 $< m_1 <$ 0.7 & -\\
+        drcbvp & -0.9 $< m_1 <$ 0.7 & $-1.8 < c_2 < 1.2$\\
+        drcbvpRIZ & -0.5 $< m_1 <$ 0.6 & -\\
+
+    \noalign{\vskip 1mm}
+    \hline
+  \end{tabular}
+
+    \end{threeparttable}
+\end{table}
+
