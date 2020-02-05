@@ -83,3 +83,12 @@ python make-condor.py --run run-riz01 --njobs 2000 --seed 340${i} --ntrial 100
 
 processed: 29171
 drcbvpRIZ m1: 6.09361e-05 +/- 0.00058318 (3 sigma) c2: -3.92082e-07 +/- 1.41084e-05 (3 sigma)
+
+# large offsets
+ make-condor.py --run run-bigdith01 --njobs 1000 --seed 341${i} --ntrial 100
+ --nepochs 1 --coadd-dim 351 --dither --rotate --cosmic-rays --bad-columns
+ --vary-wcs-shear --vary-scale --psf-g2 0.02 --dither-range 500 --se-dim 2048
+ --bands r
+
+processed: 25920
+drcbvpLD m1: 3.55206e-05 +/- 0.000832433 (3 sigma) c2: -8.15667e-07 +/- 1.61921e-05 (3 sigma)

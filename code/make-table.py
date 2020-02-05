@@ -5,7 +5,7 @@ print(r'''
       \caption{
       nostack: the LSST DM stack was not used; d: dithers, r: rotations, c: cosmic rays,
       b: bad columns, R: realistc galaxy properties and noise, v: variable pixel scale
-      and WCS shear, p: psf $g_2 = 0.02$, RIZ: $r, i$ and $z$ bands used.
+      and WCS shear, p: psf $g_2 = 0.02$, RIZ: $r, i$ and $z$ bands used, LD: large dithers
       }
  \label{tab:shearmeas}
 
