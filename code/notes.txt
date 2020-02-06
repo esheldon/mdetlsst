@@ -92,3 +92,17 @@ drcbvpRIZ m1: 6.09361e-05 +/- 0.00058318 (3 sigma) c2: -3.92082e-07 +/- 1.41084e
 
 processed: 25920
 drcbvpLD m1: 3.55206e-05 +/- 0.000832433 (3 sigma) c2: -8.15667e-07 +/- 1.61921e-05 (3 sigma)
+
+
+# ran with both images even, looks fine, with m -0.0009 < m < 0.0009.
+run-even01*
+# ran with both coadd even se odd, looks fine, with m -0.001 < m < 0.001 so
+# far.
+run-evencoadd01*
+
+
+# ran with power spectrum psf, variation_factor 1.0 (default 10) which should
+# be not extreme.  3 bands, 1 epoch per band
+
+drcbvpRIZVP m1: 0.000212033 +/- 0.000834829 (3 sigma) c2: -2.29927e-06 +/- 1.55003e-05 (3 sigma)
+
