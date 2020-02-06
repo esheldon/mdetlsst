@@ -104,5 +104,5 @@ run-evencoadd01*
 # ran with power spectrum psf, variation_factor 1.0 (default 10) which should
 # be not extreme.  3 bands, 1 epoch per band
 
-drcbvpRIZVP m1: 0.000212033 +/- 0.000834829 (3 sigma) c2: -2.29927e-06 +/- 1.55003e-05 (3 sigma)
+drcbvRIZVP m1: 0.000212033 +/- 0.000834829 (3 sigma) c2: -2.29927e-06 +/- 1.55003e-05 (3 sigma)
 

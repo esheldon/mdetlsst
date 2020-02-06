@@ -36,7 +36,7 @@ with open('notes.txt') as fobj:
             low = mean - err3
             high = mean + err3
 
-            if 'drcbvp' in line:
+            if 'drcbvp' in line or 'VP' in line:
                 c2 = float(ls[8])/1.0e-5
                 c2err3 = float(ls[10])/1.0e-5
                 clow = c2 - c2err3
