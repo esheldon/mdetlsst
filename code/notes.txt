@@ -114,4 +114,4 @@ drcbvRIZVP10-1 m1: 0.00164567 +/- 0.00087049 (3 sigma) c2: -5.31603e-06 +/- 1.94
 
 # run with variance factor 10, but 10 epochs per band
 run-pspsf04 so far
-drcbvRIZVP10-10 m1: 0.000151141 +/- 0.0011384 (3 sigma) c2: -4.38242e-06 +/- 2.30777e-05 (3 sigma)
+drcbvRIZVP10-10 m1: 0.000196262 +/- 0.000799391 (3 sigma) c2: 2.05778e-07 +/- 1.64111e-05 (3 sigma)
