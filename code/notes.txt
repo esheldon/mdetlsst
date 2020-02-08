@@ -105,7 +105,8 @@ run-evencoadd01*
 # be not extreme.  3 bands, 1 epoch per band
 run-pspsf02*
 
-drcbvRIZVP1-1 m1: 0.000212033 +/- 0.000834829 (3 sigma) c2: -2.29927e-06 +/- 1.55003e-05 (3 sigma)
+drcbvRIZVP1-1 m1: 5.46647e-05 +/- 0.000511308 (3 sigma) c2: 1.99231e-06 +/- 9.4422e-06 (3 sigma)
+
 
 # run with variance factor 10 still just riz one epoch
 run-pspsf03
