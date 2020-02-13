@@ -109,8 +109,9 @@ drcbvRIZVP1-1 m1: 5.46647e-05 +/- 0.000511308 (3 sigma) c2: 1.99231e-06 +/- 9.44
 
 
 # run with variance factor 10 still just riz one epoch
-run-pspsf03
-drcbvRIZVP10-1 m1: 0.00164567 +/- 0.00087049 (3 sigma) c2: -5.31603e-06 +/- 1.94556e-05 (3 sigma)
+run-pspsf03 and run-drcbvRIZVP10-1 combined
+
+drcbvRIZVP10-1 m1: 0.0015791370619251863 +/- 0.0006143070568584828 (3 sigma) c2: -2.7998012106269173e-06 +/-  1.3837405146683827e-05 (3 sigma)
 
 
 # run with variance factor 10, but 10 epochs per band
