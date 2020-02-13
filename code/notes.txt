@@ -50,7 +50,7 @@ drcb m1: -0.00015786 +/- 0.000791077 (3 sigma)
 # doing our own psf coadd, dithers, rotation, cosmics, bad columns, 1 epoch 1 band, odd image
 
 processed: 210117
-drcbR m1: -7.60145e-05 +/- 0.000787508 (3 sigma)
+drcbW m1: -7.60145e-05 +/- 0.000787508 (3 sigma)
 
 # run-varywcs01
 # varied both wcs shear and scale

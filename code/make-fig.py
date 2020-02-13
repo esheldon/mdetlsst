@@ -14,6 +14,8 @@ plt.y2.draw_ticks = False
 plt.y2.draw_ticklabels = None
 
 plt.add(biggles.LineX(0, color='darkgreen', width=width))
+plt.add(biggles.LineX(-1, color='red', type='dashed', width=width))
+plt.add(biggles.LineX(1, color='red', type='dashed', width=width))
 
 with open('notes.txt') as fobj:
     descs = []

@@ -4,7 +4,8 @@ print(r'''
 \begin{threeparttable}
       \caption{
       nostack: the LSST DM stack was not used; d: dithers; r: rotations; c: cosmic rays;
-      b: bad columns; R: realistic galaxy properties and noise; v: variable pixel scale
+      b: bad columns; W: realistic galaxy properties and noise using
+      the WeakLensingDeblending package; v: variable pixel scale
       and WCS shear; p: psf $g_2 = 0.02$; RIZ: $r, i$ and $z$ bands used; LD: large dithers;
       VPX-Y: spatially variable moffat PSF with X times the expected variation for LSST,
       and Y epochs per band.
