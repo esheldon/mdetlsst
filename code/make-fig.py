@@ -13,9 +13,22 @@ plt.y1.draw_ticklabels = None
 plt.y2.draw_ticks = False
 plt.y2.draw_ticklabels = None
 
+"""
 plt.add(biggles.LineX(0, color='darkgreen', width=width))
-plt.add(biggles.LineX(-1, color='red', type='dashed', width=width))
-plt.add(biggles.LineX(1, color='red', type='dashed', width=width))
+plt.add(biggles.LineX(-1, color='magenta', type='dashed', width=width))
+plt.add(biggles.LineX(1, color='magenta', type='dashed', width=width))
+plt.add(biggles.LineX(-2, color='red', type='dashed', width=width))
+plt.add(biggles.LineX(2, color='red', type='dashed', width=width))
+"""
+
+plt.add(
+    biggles.FillBetween([-2, 2], [1, 1], [-2, 2], [0, 0], color='grey90'),
+)
+
+plt.add(
+    biggles.FillBetween([-1, 1], [1, 1], [-1, 1], [0, 0], color='grey75'),
+)
+
 
 with open('notes.txt') as fobj:
     descs = []
@@ -25,7 +38,6 @@ with open('notes.txt') as fobj:
         line = line.strip()
 
         if 'm1:' in line and 'om1:' not in line:
-            # print(line)
 
             ls = line.split()
 
@@ -69,7 +81,7 @@ for i in range(num):
         [y],
         [err3val],
         width=width,
-        color='blue',
+        color='firebrick',
     )
 
     plt.add(err)

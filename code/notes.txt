@@ -118,8 +118,17 @@ drcbvRIZVP10-1 m1: 0.0015791370619251863 +/- 0.0006143070568584828 (3 sigma) c2:
 run-pspsf04 so far
 drcbvRIZVP10-10 m1: 0.000196262 +/- 0.000799391 (3 sigma) c2: 2.05778e-07 +/- 1.64111e-05 (3 sigma)
 
+# stars and star masks and bleed trails
+run-drcbvsSRIZVP01-01*
+
+drcbvsSRIZVP01-01 m1: -0.00108199 +/- 0.000755978 (3 sigma) c2: -6.79178e-07 +/- 1.12536e-05 (3 sigma)
+
 
 # slurm notes
 run-drcbvRIZVP10-1
 50 nodes 1 hour queued for 8.5 hours (actually ran for only 35 min)
 100 nodes 3 hours
+
+run-drcbvsSRIZVP01-01-anl*
+16 nodes, 9 hours, did not wait that long actually ran in 7:15 so could do
+7:45 or 8 hours for those
