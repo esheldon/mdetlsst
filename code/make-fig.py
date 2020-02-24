@@ -28,6 +28,8 @@ plt.add(
 plt.add(
     biggles.FillBetween([-1, 1], [1, 1], [-1, 1], [0, 0], color='grey75'),
 )
+# plt.add(biggles.LineX(0, color='darkgreen', width=width))
+plt.add(biggles.Curve([0, 0], [0, 1], color='darkgreen', width=width, type='dashed'))
 
 
 with open('notes.txt') as fobj:
@@ -65,7 +67,7 @@ with open('notes.txt') as fobj:
 num = len(mvals)
 print('found:', num)
 
-start = 0.1
+start = 0.075
 step = 0.9/num
 
 labx = 7.5
