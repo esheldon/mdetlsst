@@ -3,8 +3,8 @@ import biggles
 width = 3
 # key = biggles.PlotKey(4, 0.1, halign='right')
 plt = biggles.FramedPlot(
-    # xlabel=r'$m$ 99.7% confidence range $[10^{-3}]$',
-    xlabel=r'$m/10^{-3}$ 99.7% confidence range',
+    xlabel=r'$m$ 99.7% confidence range $[10^{-3}]$',
+    # xlabel=r'$m/10^{-3}$ 99.7% confidence range',
     xrange=[-3, 8],
     # key=key,
 )
@@ -29,7 +29,8 @@ plt.add(
     biggles.FillBetween([-1, 1], [1, 1], [-1, 1], [0, 0], color='grey75'),
 )
 # plt.add(biggles.LineX(0, color='darkgreen', width=width))
-plt.add(biggles.Curve([0, 0], [0, 1], color='darkgreen', width=width, type='dashed'))
+plt.add(biggles.Curve([0, 0], [0, 1], color='black', width=width, type='solid'))
+plt.add(biggles.Curve([0.24, 0.24], [0, 1], color='black', width=width, type='dashed'))
 
 
 with open('notes.txt') as fobj:
@@ -72,6 +73,8 @@ step = 0.9/num
 
 labx = 7.5
 
+# dcolor = 'firebrick'
+dcolor = 'darkgreen'
 for i in range(num):
     mval = mvals[i]
     err3val = err3vals[i]
@@ -83,7 +86,7 @@ for i in range(num):
         [y],
         [err3val],
         width=width,
-        color='firebrick',
+        color=dcolor,
     )
 
     plt.add(err)

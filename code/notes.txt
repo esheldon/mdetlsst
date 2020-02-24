@@ -121,7 +121,7 @@ drcbvRIZVP10-10 m1: 0.000196262 +/- 0.000799391 (3 sigma) c2: 2.05778e-07 +/- 1.
 # stars
 run-drcbvsRIZVP01-01*
 
-drcbvsRIZVP01-01 m1: -0.000934491 +/- 0.000651256 (3 sigma) c2: 3.6553e-06 +/- 9.83987e-06 (3 sigma)
+drcbvRIZVP1-01s m1: -0.000934491 +/- 0.000651256 (3 sigma) c2: 3.6553e-06 +/- 9.83987e-06 (3 sigma)
 
 
 
@@ -129,7 +129,7 @@ drcbvsRIZVP01-01 m1: -0.000934491 +/- 0.000651256 (3 sigma) c2: 3.6553e-06 +/- 9
 # stars and star masks and bleed trails
 run-drcbvsSRIZVP01-01*
 
-drcbvsSRIZVP01-01 m1: -0.00108199 +/- 0.000755978 (3 sigma) c2: -6.79178e-07 +/- 1.12536e-05 (3 sigma)
+drcbvRIZVP1-01sS m1: -0.00108199 +/- 0.000755978 (3 sigma) c2: -6.79178e-07 +/- 1.12536e-05 (3 sigma)
 
 
 # slurm notes
@@ -137,6 +137,6 @@ run-drcbvRIZVP10-1
 50 nodes 1 hour queued for 8.5 hours (actually ran for only 35 min)
 100 nodes 3 hours
 
-run-drcbvsSRIZVP01-01-anl*
+run-drcbvsSRIZVP1-01-anl*
 16 nodes, 9 hours, did not wait that long actually ran in 7:15 so could do
 7:45 or 8 hours for those
