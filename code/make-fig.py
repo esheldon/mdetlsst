@@ -40,7 +40,7 @@ with open('notes.txt') as fobj:
     for line in fobj:
         line = line.strip()
 
-        if 'm1:' in line and 'om1:' not in line:
+        if 'm1:' in line and 'om1:' not in line and line[0] != '#':
 
             ls = line.split()
 

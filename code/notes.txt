@@ -75,6 +75,18 @@ make-condor.py --run run-psfg2 --njobs 2000 --seed 230${i} --ntrial 100
 processed: 29178
 drcbvp m1: -0.000136185 +/- 0.000790829 (3 sigma) c2: -2.74396e-06 +/- 1.51087e-05 (3 sigma)
 
+
+# large dither offsets
+ make-condor.py --run run-bigdith01 --njobs 1000 --seed 341${i} --ntrial 100
+ --nepochs 1 --coadd-dim 351 --dither --rotate --cosmic-rays --bad-columns
+ --vary-wcs-shear --vary-scale --psf-g2 0.02 --dither-range 500 --se-dim 2048
+ --bands r
+
+processed: 25920
+drcbvpLD m1: 3.55206e-05 +/- 0.000832433 (3 sigma) c2: -8.15667e-07 +/- 1.61921e-05 (3 sigma)
+
+
+
 # riz but still one epoch
 
 python make-condor.py --run run-riz01 --njobs 2000 --seed 340${i} --ntrial 100
@@ -83,15 +95,6 @@ python make-condor.py --run run-riz01 --njobs 2000 --seed 340${i} --ntrial 100
 
 processed: 29171
 drcbvpRIZ m1: 6.09361e-05 +/- 0.00058318 (3 sigma) c2: -3.92082e-07 +/- 1.41084e-05 (3 sigma)
-
-# large offsets
- make-condor.py --run run-bigdith01 --njobs 1000 --seed 341${i} --ntrial 100
- --nepochs 1 --coadd-dim 351 --dither --rotate --cosmic-rays --bad-columns
- --vary-wcs-shear --vary-scale --psf-g2 0.02 --dither-range 500 --se-dim 2048
- --bands r
-
-processed: 25920
-drcbvpLD m1: 3.55206e-05 +/- 0.000832433 (3 sigma) c2: -8.15667e-07 +/- 1.61921e-05 (3 sigma)
 
 
 # ran with both images even, looks fine, with m -0.0009 < m < 0.0009.
@@ -118,19 +121,22 @@ drcbvRIZVP10-1 m1: 0.0015791370619251863 +/- 0.0006143070568584828 (3 sigma) c2:
 run-pspsf04 so far
 drcbvRIZVP10-10 m1: 0.000196262 +/- 0.000799391 (3 sigma) c2: 2.05778e-07 +/- 1.64111e-05 (3 sigma)
 
-# stars
-run-drcbvsRIZVP01-01*
+# stars at high density 20/sq arcmin
+#run-drcbvsRIZVP01-01*
 
-drcbvRIZVP1-1s m1: -0.000934491 +/- 0.000651256 (3 sigma) c2: 3.6553e-06 +/- 9.83987e-06 (3 sigma)
-
-
+#drcbvRIZVP1-1s m1: -0.000934491 +/- 0.000651256 (3 sigma) c2: 3.6553e-06 +/- 9.83987e-06 (3 sigma)
 
 
 # stars and star masks and bleed trails
+# this one was at high density, 20/sq arcmin
 run-drcbvsSRIZVP01-01*
 
-drcbvRIZVP1-1sS m1: -0.00108199 +/- 0.000755978 (3 sigma) c2: -6.79178e-07 +/- 1.12536e-05 (3 sigma)
+# drcbvRIZVP1-1sS m1: -0.00108199 +/- 0.000755978 (3 sigma) c2: -6.79178e-07 +/- 1.12536e-05 (3 sigma)
 
+# stars and star masks and bleed trails at 1/sq arcmine
+run-drcbvsSRIZVP01-01-v2*
+
+drcbvRIZVP1-1sS m1: -0.000108033 +/- 0.000479581 (3 sigma) c2: -4.84301e-06 +/- 8.76489e-06 (3 sigma)
 
 # slurm notes
 run-drcbvRIZVP10-1
