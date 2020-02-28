@@ -138,6 +138,12 @@ run-drcbvsSRIZVP01-01-v2*
 
 drcbvRIZVP1-1sS m1: -0.000108033 +/- 0.000479581 (3 sigma) c2: -4.84301e-06 +/- 8.76489e-06 (3 sigma)
 
+# fixed bug weighting in psf coadd with run run-drcbvsSRIZVP01-01-v3* and got
+# m1: -0.00018967 +/- 0.00049179 (3 sigma)
+# c2: -1.36212e-06 +/- 9.09072e-06 (3 sigma)
+# looks consistent with v2 before bug fix
+
+
 # slurm notes
 run-drcbvRIZVP10-1
 50 nodes 1 hour queued for 8.5 hours (actually ran for only 35 min)
@@ -146,3 +152,6 @@ run-drcbvRIZVP10-1
 run-drcbvsSRIZVP1-01-anl*
 16 nodes, 9 hours, did not wait that long actually ran in 7:15 so could do
 7:45 or 8 hours for those
+
+run-drcbvsSRIZVP01-01-v3-anl*
+16 nodes took 6:50 to finish, had set limit to 7:50
