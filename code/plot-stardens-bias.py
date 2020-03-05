@@ -64,6 +64,7 @@ tg = graph.graphxy(
     ypos=gbot.height+0.5,
     x=graph.axis.linkedaxis(gbot.axes["x"]),
     y=graph.axis.linear(min=-0.0075, max=0.0075, title='$m$', density=2),
+    key=graph.key.key(pos="br", dist=0.1),
 )
 
 gtop = c.insert(tg)
@@ -88,14 +89,16 @@ lattr = [
     ),
 ]
 
-gtop.plot(graph.data.function('y(x)=0'))
-gtop.plot(graph.data.function("y(x)=0.001"), lattr)
-gtop.plot(graph.data.function("y(x)=-0.001"), lattr)
+gtop.plot(graph.data.function('y(x)=0', title=None))
+gtop.plot(graph.data.function("y(x)=0.001", title=None), lattr)
+gtop.plot(graph.data.function("y(x)=-0.001", title=None), lattr)
+
+gtop.plot(graph.data.function("y(x)=0.0005*sqrt(x)", title=r'$0.0005*\sqrt{dmax}$'))
 
 gtop.plot(
-    graph.data.values(x=density_cut, y=m, dy=merr),
+    graph.data.values(x=density_cut, y=m, dy=merr, title='data'),
     [
-        graph.style.line(lineattrs=[color.rgb.blue,  style.linewidth.Thin, style.linestyle.solid]),
+        # graph.style.line(lineattrs=[color.rgb.blue,  style.linewidth.Thin, style.linestyle.solid]),
         graph.style.symbol(symbol=graph.style.symbol.circle,
                            size=0.1,
                            symbolattrs=[deco.filled([color.rgb.blue])]),
