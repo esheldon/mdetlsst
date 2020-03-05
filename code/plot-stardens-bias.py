@@ -93,7 +93,7 @@ gtop.plot(graph.data.function('y(x)=0', title=None))
 gtop.plot(graph.data.function("y(x)=0.001", title=None), lattr)
 gtop.plot(graph.data.function("y(x)=-0.001", title=None), lattr)
 
-gtop.plot(graph.data.function("y(x)=0.0005*sqrt(x)", title=r'$0.0005*\sqrt{dmax}$'))
+gtop.plot(graph.data.function("y(x)=0.0005*sqrt(x)", title=r'$0.0005\sqrt{dmax}$'))
 
 gtop.plot(
     graph.data.values(x=density_cut, y=m, dy=merr, title='data'),
