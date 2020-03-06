@@ -1,6 +1,6 @@
 import numpy as np
 from glob import glob
-from pyx import *
+import biggles
 
 
 def get_m(fname):
@@ -16,7 +16,7 @@ def get_m(fname):
     return density_cut, m, merr
 
 
-flist = glob('doshear.yaml.wqlog.test01-cut*')
+flist = glob('mc-*')
 flist.sort()
 
 density_cut = []
@@ -29,91 +29,43 @@ for f in flist:
     m.append(tm)
     merr.append(tmerr)
 
-c = canvas.canvas()
-
-
-xmin = 0
-xmax = 110
-
-gbot = c.insert(
-    graph.graphxy(
-        width=8,
-        x=graph.axis.linear(min=xmin, max=xmax, title='Stellar Density Cut [per sq arcmin]'),
-        y=graph.axis.linear(min=0.9, max=1.5, density=1.5, title='$\sigma_m/\sigma_m^{100}$'),
-    )
-)
-gbot.plot(graph.data.function('y(x)=1'))
-
+m = np.array(m)
 merr = np.array(merr)
 merr_rat = merr/merr[-1]
 
-gbot.plot(
-    graph.data.values(x=density_cut, y=list(merr_rat)),
-    [
-        graph.style.line(lineattrs=[color.rgb.blue,  style.linewidth.Thin, style.linestyle.solid]),
-        graph.style.symbol(symbol=graph.style.symbol.circle,
-                           size=0.1,
-                           symbolattrs=[deco.filled([color.rgb.blue])]),
-    ],
-
+xmin = 0
+xmax = 110
+arr = biggles.FramedArray(
+    2, 1,
+    xlabel='Stellar Density Cut [#/sq arcmin]',
+    cellspacing=3,
+    aspect_ratio=1.2,
+    xrange=[xmin, xmax], 
 )
 
 
-tg = graph.graphxy(
-    width=8,
-    ypos=gbot.height+0.5,
-    x=graph.axis.linkedaxis(gbot.axes["x"]),
-    y=graph.axis.linear(min=-0.0075, max=0.0075, title='$m$', density=2),
-    key=graph.key.key(pos="br", dist=0.1),
-)
 
-gtop = c.insert(tg)
+sx = [xmin, xmax]
+high = [0.001]*2
+low = [-0.001]*2
+
+shaded = biggles.FillBetween(sx, low, sx, high)
+zl = biggles.LineY(0)
+pts = biggles.Points(density_cut, m, type='filled circle', color='blue')
+perr = biggles.SymmetricErrorBarsY(density_cut, m, merr, color='blue')
+curve = biggles.Curve(density_cut, m, type='filled circle', color='blue')
+
+arr[0, 0].ylabel = 'm'
+arr[0, 0].yrange=[-0.002, 0.007]
+arr[0, 0] += shaded, zl, pts, perr, curve
 
 
-"""
-x1,y1 = gtop.pos(xmin, 0.001)
-x2,y2 = gtop.pos(xmax, -0.001)
+onel = biggles.LineY(1)
+pts = biggles.Points(density_cut, merr_rat, type='filled circle', color='blue')
+curve = biggles.Curve(density_cut, merr_rat, type='filled circle', color='blue')
 
-gtop.stroke(path.rect(x1,y1,x2-x1,y2-y1),[deco.filled([color.gray(0.8)])
-])
-"""
+arr[1, 0].ylabel = r'$\sigma_m/\sigma_m^{100}$'
+arr[1, 0].yrange = [0.9, 1.5]
+arr[1, 0] += onel, pts, curve
 
-lattr = [
-    graph.style.line(
-        lineattrs=[
-            # color.gray(0.4),
-            color.rgb(r=0, g=100/255, b=0),
-            # style.linewidth.Thin,
-            style.linestyle.solid,
-        ],
-    ),
-]
-
-gtop.plot(graph.data.function('y(x)=0', title=None))
-gtop.plot(graph.data.function("y(x)=0.001", title=None), lattr)
-gtop.plot(graph.data.function("y(x)=-0.001", title=None), lattr)
-
-gtop.plot(graph.data.function("y(x)=0.0005*sqrt(x)", title=r'$0.0005\sqrt{dmax}$'))
-
-gtop.plot(
-    graph.data.values(x=density_cut, y=m, dy=merr, title='data'),
-    [
-        # graph.style.line(lineattrs=[color.rgb.blue,  style.linewidth.Thin, style.linestyle.solid]),
-        graph.style.symbol(symbol=graph.style.symbol.circle,
-                           size=0.1,
-                           symbolattrs=[deco.filled([color.rgb.blue])]),
-        graph.style.errorbar(errorbarattrs=[color.rgb.blue]),
-    ],
-)
-
-"""
-gtop.dolayout()
-
-x1,y1 = gtop.pos(xmin, 0.001)
-x2,y2 = gtop.pos(xmax, -0.001)
-
-gtop.stroke(path.rect(x1,y1,x2-x1,y2-y1),[deco.filled([color.gray(0.8)]) ])
-"""
-
-c.writeGSfile("stardens-bias.png", resolution=150)
-c.writePDFfile("stardens-bias.pdf")
+arr.write('stardens-bias.pdf')
