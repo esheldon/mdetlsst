@@ -2,6 +2,7 @@ import numpy as np
 from glob import glob
 import biggles
 
+biggles.configure('default', 'fontsize_min', 2)
 
 def get_m(fname):
 
@@ -40,10 +41,8 @@ arr = biggles.FramedArray(
     xlabel='Stellar Density Cut [#/sq arcmin]',
     cellspacing=3,
     aspect_ratio=1.2,
-    xrange=[xmin, xmax], 
+    xrange=[xmin, xmax],
 )
-
-
 
 sx = [xmin, xmax]
 high = [0.001]*2
@@ -52,20 +51,23 @@ low = [-0.001]*2
 shaded = biggles.FillBetween(sx, low, sx, high)
 zl = biggles.LineY(0)
 pts = biggles.Points(density_cut, m, type='filled circle', color='blue')
+pts2 = biggles.Points(density_cut, m, type='circle', color='black')
 perr = biggles.SymmetricErrorBarsY(density_cut, m, merr, color='blue')
 curve = biggles.Curve(density_cut, m, type='filled circle', color='blue')
 
 arr[0, 0].ylabel = 'm'
-arr[0, 0].yrange=[-0.002, 0.007]
-arr[0, 0] += shaded, zl, pts, perr, curve
+arr[0, 0].yrange = [-0.002, 0.007]
+arr[0, 0] += shaded, zl, pts, pts2, perr, curve
 
 
 onel = biggles.LineY(1)
 pts = biggles.Points(density_cut, merr_rat, type='filled circle', color='blue')
-curve = biggles.Curve(density_cut, merr_rat, type='filled circle', color='blue')
+pts2 = biggles.Points(density_cut, merr_rat, type='circle', color='black')
+curve = biggles.Curve(density_cut, merr_rat,
+                      type='filled circle', color='blue')
 
 arr[1, 0].ylabel = r'$\sigma_m/\sigma_m^{100}$'
 arr[1, 0].yrange = [0.9, 1.5]
-arr[1, 0] += onel, pts, curve
+arr[1, 0] += onel, pts, pts2, curve
 
 arr.write('stardens-bias.pdf')
