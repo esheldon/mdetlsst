@@ -23,6 +23,16 @@
 \usepackage{verbatim}
 \usepackage{threeparttable}
 
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\pagestyle{empty}
+\usepackage{pgfplotstable}
+\usepgfplotslibrary{fillbetween}
+%\usepgfplotslibrary{groupplot}                                                      
+\usepgfplotslibrary{groupplots}
+
+
 %\usepackage{lineno}
 %\linenumbers
 
@@ -164,6 +174,64 @@ blah
         simulation was used for all points, so the errors are correlated.
     }
 \end{figure}
+
+
+
+\begin{figure}
+\begin{tikzpicture}
+    \begin{groupplot}[
+        group style={group size=1 by 2, vertical sep=0.3cm},
+        xmin=0.0,
+        xmax=110.0,
+        width=0.9\columnwidth,
+        height=0.6\columnwidth,
+        minor tick num=3,
+        axis on top
+    ]
+    \nextgroupplot[
+        ylabel={$m/10^{-3}$},ymin=-2,xticklabels={,,},
+    ]
+
+	\addplot+[name path=A,gray!20,no markers] coordinates {
+        (0.0,-1)
+        (110.0,-1)
+    };
+    \addplot+[name path=B,gray!20,no markers] coordinates {
+        (0.0,1)
+        (110.0,1)
+    };
+
+    \addplot+[gray!20] fill between[of=A and B];
+	\addplot+[black!80,no markers] coordinates {
+        (0.0,0.0)
+        (110.0,0.0)
+    };
+
+	\addplot+[
+        brown!60!black,mark=otimes*, mark options={fill=brown!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/m-vs-star-density.txt};
+
+    \nextgroupplot[
+        ymin=0.93,
+        xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m/\sigma_m^{100}$}
+    ]
+
+	\addplot+[black!80,no markers] coordinates {
+        (0.0,1.0)
+        (110.0,1.0)
+    };
+
+    \addplot+[
+        teal!60!black,mark=triangle*, mark options={fill=teal!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=3
+    ] {code/m-vs-star-density.txt};
+
+    \end{groupplot}
+\end{tikzpicture}
+    \caption{Caption here blah blah ehllo sadfk ksjdflkaj ;ljdsflkjdsf  ksd f jsdkf dsf }
+\end{figure}
+
 
 
 \section*{Acknowledgments}
