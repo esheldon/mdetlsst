@@ -174,6 +174,7 @@ blah
 
 
 \begin{figure}
+    \centering
 \begin{tikzpicture}
     \begin{groupplot}[
         group style={group size=1 by 2, vertical sep=0.3cm},
@@ -225,7 +226,20 @@ blah
 
     \end{groupplot}
 \end{tikzpicture}
-    \caption{Caption here blah blah ehllo sadfk ksjdflkaj ;ljdsflkjdsf  ksd f jsdkf dsf }
+
+    \caption{Metadetection performance as a function of maximum stellar
+    density.  Simulations were run with the expected stellar density
+    distribution for the full LSST 18,000 square degree survey, with a maximum
+    allowed value of 100/sq. arcminute.  Stars bright enough to saturate were
+    not included.  Top panel:  the multiplicative bias $m$ as a function of the
+    stellar density cut.  We interpret this bias as due to the position of
+    stars moving after the metacalibraton shear is applied to the image.  The
+    stars incorrectly contribute a net value to the calculated shear response,
+    biasing the shear recovery.  Bottom panel: increase in the uncertainty on
+    the mean shear, relative to a cut at 100/sq. arcminute, a function of the
+    stellar density cut.  Note that many lensing probes are dominated by cosmic
+    variance, which is not included in these uncertainties.  }
+
 \end{figure}
 
 
