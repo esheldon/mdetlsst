@@ -155,3 +155,11 @@ run-drcbvsSRIZVP1-01-anl*
 
 run-drcbvsSRIZVP01-01-v3-anl*
 16 nodes took 6:50 to finish, had set limit to 7:50
+
+
+# seeing bias with stellar density
+# noticed that the mean R of stars is non zero
+# mag limit 20 gives no problem in R but 17 does
+# turning off saturation of pixels made the mean R like -0.3!
+# using variable folding threshold did not help (worried about sharp edges in
+# stamps)
