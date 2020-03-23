@@ -163,3 +163,21 @@ run-drcbvsSRIZVP01-01-v3-anl*
 # turning off saturation of pixels made the mean R like -0.3!
 # using variable folding threshold did not help (worried about sharp edges in
 # stamps)
+
+- things to try
+    * different peak finder etc. -> sextractor
+        - -0.3 for all?
+        - going back to stack reduced it greatly
+    - masking bright-ish stars; we even did a cut at 17 though!
+    - full deblending
+    - just taking peaks and not centers after deblending
+
+- cutting s/n helps!
+    - ideas why
+    - junk objects more likely with bright stars around?
+    - things near the edge of the image due to wings?  Would just do a cut
+      which we should be doing anyway
+        - running with trim
+        - no difference
+    - could be junk near the stars rather than far, in which case the star
+      mask for bright stars would be key
