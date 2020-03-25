@@ -181,3 +181,9 @@ run-drcbvsSRIZVP01-01-v3-anl*
         - no difference
     - could be junk near the stars rather than far, in which case the star
       mask for bright stars would be key
+    - stamps too small for low s/n objects?
+        - 32x32, 48x48 looks no better
+    - deblending
+        - still biased, maybe worse?
+    - lower thresh to 5
+        - about the same
