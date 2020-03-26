@@ -226,20 +226,43 @@ blah
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
     ] {code/m-vs-star-density-s2n30.txt};
 
+    % \nextgroupplot[
+    %     ymin=0.93,
+    %     xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m/\sigma_m^{100}$}
+    % ]
+
+	% \addplot+[black!80,no markers] coordinates {
+    %     (0.0,1.0)
+    %     (110.0,1.0)
+    % };
+
+    % \addplot+[
+    %     teal!60!black,mark=triangle*, mark options={fill=teal!40},
+    %     error bars/.cd,y dir=both,y explicit] table[x index=0, y index=3
+    % ] {code/m-vs-star-density.txt};
+
     \nextgroupplot[
-        ymin=0.93,
-        xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m/\sigma_m^{100}$}
+        xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m$}
     ]
 
-	\addplot+[black!80,no markers] coordinates {
-        (0.0,1.0)
-        (110.0,1.0)
-    };
+	\addplot+[
+        brown!60!black,mark=otimes*, solid, mark options={fill=brown!40} 
+        ] table[x index=0, y index=2,
+    ] {code/m-vs-star-density-s2n14.txt};
+    \addlegendentry{$S/N > 10$}
 
-    \addplot+[
-        teal!60!black,mark=triangle*, mark options={fill=teal!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=3
-    ] {code/m-vs-star-density.txt};
+	\addplot+[
+        teal!60!black,mark=triangle*, solid, mark options={fill=teal!40}
+        ] table[x index=0, y index=2,
+    ] {code/m-vs-star-density-s2n20.txt};
+    \addlegendentry{$S/N > 15$}
+
+	\addplot+[
+        red!60!black,mark=triangle*, solid, mark options={fill=red!40}
+        ] table[x index=0, y index=2,
+    ] {code/m-vs-star-density-s2n30.txt};
+    \addlegendentry{$S/N > 20$}
+
 
     \end{groupplot}
 \end{tikzpicture}
