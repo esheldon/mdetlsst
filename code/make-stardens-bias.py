@@ -1,5 +1,13 @@
 import numpy as np
 from glob import glob
+import argparse
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--s2n-cut', type=int)
+    return parser.parse_args()
+
 
 def read_one(fname):
 
@@ -13,25 +21,34 @@ def read_one(fname):
 
     return density_cut, m, merr
 
+def main():
 
-flist = glob('mc-*')
-flist.sort()
+    args = get_args()
 
-density_cut = []
-m = []
-merr = []
-for f in flist:
-    tdcut, tm, tmerr = read_one(f)
+    if args.s2n_cut is not None:
+        flist = glob('mc-s2n%02d*' % args.s2n_cut)
+    else:
+        flist = glob('mc-cut*')
 
-    density_cut.append(tdcut)
-    m.append(tm)
-    merr.append(tmerr)
+    flist.sort()
 
-density_cut = np.array(density_cut)
-m = np.array(m)
-merr = np.array(merr)
-merr_rat = merr/merr[-1]
+    density_cut = []
+    m = []
+    merr = []
+    for f in flist:
+        tdcut, tm, tmerr = read_one(f)
 
-for i in range(density_cut.size):
-    print(density_cut[i], m[i], merr[i], merr_rat[i])
+        density_cut.append(tdcut)
+        m.append(tm)
+        merr.append(tmerr)
 
+    density_cut = np.array(density_cut)
+    m = np.array(m)
+    merr = np.array(merr)
+    merr_rat = merr/merr[-1]
+
+    for i in range(density_cut.size):
+        print(density_cut[i], m[i], merr[i], merr_rat[i])
+
+
+main()

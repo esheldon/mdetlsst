@@ -163,6 +163,7 @@ blah
 \end{figure}
 
 
+\begin{comment}
 \begin{figure}
     \includegraphics[width=\columnwidth]{code/stardens-bias.pdf}
     \caption{
@@ -170,6 +171,7 @@ blah
         simulation was used for all points, so the errors are correlated.
     }
 \end{figure}
+\end{comment}
 
 
 
@@ -204,10 +206,25 @@ blah
         (110.0,0.0)
     };
 
+	% \addplot+[
+    %     brown!60!black,mark=otimes*, mark options={fill=brown!40},
+    %     error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    % ] {code/m-vs-star-density.txt};
+
 	\addplot+[
-        brown!60!black,mark=otimes*, mark options={fill=brown!40},
+        brown!60!black,mark=otimes*, solid, mark options={fill=brown!40},
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/m-vs-star-density.txt};
+    ] {code/m-vs-star-density-s2n14.txt};
+
+	\addplot+[
+        teal!60!black,mark=triangle*, solid, mark options={fill=teal!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/m-vs-star-density-s2n20.txt};
+
+	\addplot+[
+        red!60!black,mark=triangle*, solid, mark options={fill=red!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/m-vs-star-density-s2n30.txt};
 
     \nextgroupplot[
         ymin=0.93,
