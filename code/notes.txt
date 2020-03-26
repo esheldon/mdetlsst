@@ -173,17 +173,26 @@ run-drcbvsSRIZVP01-01-v3-anl*
     - just taking peaks and not centers after deblending
 
 - cutting s/n helps!
+
+    - so low s/n objects are biased when there are bright and brightish stars 
+
     - ideas why
-    - junk objects more likely with bright stars around?
-    - things near the edge of the image due to wings?  Would just do a cut
-      which we should be doing anyway
-        - running with trim
-        - no difference
-    - could be junk near the stars rather than far, in which case the star
-      mask for bright stars would be key
-    - stamps too small for low s/n objects?
-        - 32x32, 48x48 looks no better
-    - deblending
-        - still biased, maybe worse?
-    - lower thresh to 5
-        - about the same
+        - junk objects more likely with bright stars around?
+        - things near the edge of the image due to wings?  Would just do a cut
+          which we should be doing anyway
+            - running with trim
+            - no difference
+        - could be junk near the stars rather than far away, in which case the
+          star mask for bright stars would be key
+        - stamps too small for low s/n objects?
+            - 32x32, 48x48 looks no better
+        - deblending
+            - still biased, maybe worse?
+        - lower thresh to 5
+            - about the same
+        - 6'' box around stars with mag < 18
+            - about the same
+        - did grid run with mag 17 (grid gals with small size and fixed mag)
+          and all looks fine
+             - this suggests it isn't the drawing of mag 17 objects that is
+               the problem
