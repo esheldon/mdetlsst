@@ -196,3 +196,8 @@ run-drcbvsSRIZVP01-01-v3-anl*
           and all looks fine
              - this suggests it isn't the drawing of mag 17 objects that is
                the problem
+        - ran with blending
+            run-drcbvWsDRIZVP01-01-mag17-brightmask-*
+            bias is much higher now, maybe it was deblending?
+        - running without deblending now
+            run-drcbvWsDRIZVP01-01-mag17-nodeblend-*
