@@ -201,3 +201,8 @@ run-drcbvsSRIZVP01-01-v3-anl*
             bias is much higher now, maybe it was deblending?
         - running without deblending now
             run-drcbvWsDRIZVP01-01-mag17-nodeblend-*
+
+        - bias is higher.  Put back in expand stamps rather than fold
+            descwl-shear-sims d946958ed0964ff0a6dc4584e3a11d6d2ad79fa7
+            - run-drcbvWsDRIZVP01-01-mag17-expand-*
+            (not wq one had name redo instead, need to rename)
