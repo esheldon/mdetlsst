@@ -158,6 +158,8 @@ run-drcbvsSRIZVP01-01-v3-anl*
 
 
 # seeing bias with stellar density
+# *test01 runs, used hash 1fbb7e7
+#
 # noticed that the mean R of stars is non zero
 # mag limit 20 gives no problem in R but 17 does
 # turning off saturation of pixels made the mean R like -0.3!
@@ -196,13 +198,74 @@ run-drcbvsSRIZVP01-01-v3-anl*
           and all looks fine
              - this suggests it isn't the drawing of mag 17 objects that is
                the problem
-        - ran with blending
-            run-drcbvWsDRIZVP01-01-mag17-brightmask-*
-            bias is much higher now, maybe it was deblending?
-        - running without deblending now
-            run-drcbvWsDRIZVP01-01-mag17-nodeblend-*
 
-        - bias is higher.  Put back in expand stamps rather than fold
-            descwl-shear-sims d946958ed0964ff0a6dc4584e3a11d6d2ad79fa7
-            - run-drcbvWsDRIZVP01-01-mag17-expand-*
-            (not wq one had name redo instead, need to rename)
+- trying full run
+    - ran with blending
+        run-drcbvWsDRIZVP01-01-mag17-brightmask-*
+        bias is much higher now, maybe it was deblending?
+    - running without deblending now
+        run-drcbvWsDRIZVP01-01-mag17-nodeblend-*
+
+    - bias is higher.  Put back in expand stamps rather than fold
+      descwl-shear-sims d946958ed0964ff0a6dc4584e3a11d6d2ad79fa7
+        - run-drcbvWsDRIZVP01-01-mag17-expand-* (not wq one had name redo
+          instead, need to rename)
+
+
+    - running through and testing commits (although by hand)
+
+        - I reverted sim code to 1fbb7e7 on 2020-03-04 and did a single job
+          and the outputs are identical, so it is something in the sim since
+          that commit
+        - b29ca9e filter stars outside sampler
+            - single trial looks same
+        - 5dc71f2 remove duplicated code 
+            - single trial looks same
+
+
+        - 72bb0eb (current on bright_stars) remove unused import
+            - does differ
+
+        - 72bb0eb but bright strateget expand and trim_stamps false
+            - does differ and is exactly same as above
+
+        - 72bb0eb but reverting by band sat
+            - does differ
+
+        - 5dc71f2 but with by band sat test-5dc71f2-byband-sat.fits agrees
+          with test-72bb0eb.fits for single trial
+
+            for 20 trials there were differences, but less common
+
+            The newer by band sat generally saturates at *brighter* levels in
+            r,i,z. Is having them saturate a good thing since they can't get
+            too bright?  I did try with the bright mask but it didn't help
+            this problem
+
+            recall mag 20 limit worked fine
+
+            are our sat vals correct when we have the full 10 year depth
+            in wldeblend?
+
+            try repeating recent bright_stars branch with saturation off,
+            and it should get worse
+            run-drcbvWsDRIZVP01-01-mag17-expand-notrim-nosat-wq 
+            72bb0ebf9a0ce356938d6b09bab8d86559e24ea2
+
+- I think it is the psf dims being too small
+    - running again with config
+            run-drcbvWsDRIZVP01-01-mag17-expand-notrim.yaml 
+      runs are
+            run-drcbvWsDRIZVP01-01-mag17-expand-notrim-psf-dims-wq
+            run-drcbvWsDRIZVP01-01-mag17-expand-notrim-psf-dims-c1
+
+      Now using original psf dims and setting zeros for the bad psf pixels.
+      This fixes the issue with visible boxes around bright stars in the
+      reconvolved images.
+      
+      I think this could work ok for many epochs but maybe not for 3 (r+i+z)
+      but I'll do a test
+
+      mdet-lsst-sim (psf-dims) 3afd6fa7090f3ba0256c2ea4310e39bb784edc4c
+      descwl_shear_sims (master) 85fe859b789a75ea4a7234b39ca8148a06884cc5
+      descwl_coadd (zero-bad-psf) c5676905ad5f20b46ffae5f6c0ac81ed30ed8ea4
