@@ -269,3 +269,4 @@ run-drcbvsSRIZVP01-01-v3-anl*
       mdet-lsst-sim (psf-dims) 3afd6fa7090f3ba0256c2ea4310e39bb784edc4c
       descwl_shear_sims (master) 85fe859b789a75ea4a7234b39ca8148a06884cc5
       descwl_coadd (zero-bad-psf) c5676905ad5f20b46ffae5f6c0ac81ed30ed8ea4
+      metadetect (deblend) b9062a7fa3b70eeed393b7171250f75daf7bef28
