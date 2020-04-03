@@ -189,6 +189,7 @@ blah
     ]
     \nextgroupplot[
         ylabel={$m/10^{-3}$},ymin=-2,xticklabels={,,},
+        ymin=-2, ymax=2
     ]
 
 	\addplot+[name path=A,gray!20,no markers] coordinates {
@@ -254,7 +255,8 @@ blah
     % ] {code/m-vs-star-density.txt};
 
     \nextgroupplot[
-        xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m$}
+        xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m$},
+        ymin=0.6, ymax=1.1
     ]
 
 	\addplot+[
