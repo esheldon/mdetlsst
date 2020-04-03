@@ -1,12 +1,5 @@
 import numpy as np
 from glob import glob
-import argparse
-
-
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--s2n-cut', type=int)
-    return parser.parse_args()
 
 
 def read_one(fname):
@@ -21,34 +14,37 @@ def read_one(fname):
 
     return density_cut, m, merr
 
+
 def main():
 
-    args = get_args()
+    for s2n_cut in [10, 15, 20, 25, 30]:
+        output = 'm-vs-star-density-s2n%02d.txt' % s2n_cut
+        print(output)
+        with open(output, 'w') as fobj:
 
-    if args.s2n_cut is not None:
-        flist = glob('mc-s2n%02d*' % args.s2n_cut)
-    else:
-        flist = glob('mc-cut*')
+            flist = glob(
+                'mc-mag17-expand-notrim-psf-dims-s2n%02d-cut*' % s2n_cut
+            )
 
-    flist.sort()
+            flist.sort()
 
-    density_cut = []
-    m = []
-    merr = []
-    for f in flist:
-        tdcut, tm, tmerr = read_one(f)
+            density_cut = []
+            m = []
+            merr = []
+            for f in flist:
+                tdcut, tm, tmerr = read_one(f)
 
-        density_cut.append(tdcut)
-        m.append(tm)
-        merr.append(tmerr)
+                density_cut.append(tdcut)
+                m.append(tm)
+                merr.append(tmerr)
 
-    density_cut = np.array(density_cut)
-    m = np.array(m)
-    merr = np.array(merr)
-    merr_rat = merr/merr[-1]
+            density_cut = np.array(density_cut)
+            m = np.array(m)
+            merr = np.array(merr)
+            merr_rat = merr/merr[-1]
 
-    for i in range(density_cut.size):
-        print(density_cut[i], m[i], merr[i], merr_rat[i])
+            for i in range(density_cut.size):
+                print(density_cut[i], m[i], merr[i], merr_rat[i], file=fobj)
 
 
 main()

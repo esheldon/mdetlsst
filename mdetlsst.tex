@@ -214,17 +214,29 @@ blah
 	\addplot+[
         brown!60!black,mark=otimes*, solid, mark options={fill=brown!40},
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/m-vs-star-density-s2n14.txt};
+    ] {code/m-vs-star-density-s2n10.txt};
 
 	\addplot+[
         teal!60!black,mark=triangle*, solid, mark options={fill=teal!40},
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/m-vs-star-density-s2n20.txt};
+    ] {code/m-vs-star-density-s2n15.txt};
 
 	\addplot+[
         red!60!black,mark=diamond*, solid, mark options={fill=red!40},
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/m-vs-star-density-s2n20.txt};
+
+	\addplot+[
+        blue!60!black,mark=square*, solid, mark options={fill=blue!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/m-vs-star-density-s2n25.txt};
+
+	\addplot+[
+        brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
     ] {code/m-vs-star-density-s2n30.txt};
+
+
 
     % \nextgroupplot[
     %     ymin=0.93,
@@ -248,34 +260,49 @@ blah
 	\addplot+[
         brown!60!black,mark=otimes*, solid, mark options={fill=brown!40} 
         ] table[x index=0, y index=2,
-    ] {code/m-vs-star-density-s2n14.txt};
+    ] {code/m-vs-star-density-s2n10.txt};
     \addlegendentry{$S/N > 10$}
 
 	\addplot+[
         teal!60!black,mark=triangle*, solid, mark options={fill=teal!40}
         ] table[x index=0, y index=2,
-    ] {code/m-vs-star-density-s2n20.txt};
+    ] {code/m-vs-star-density-s2n15.txt};
     \addlegendentry{$S/N > 15$}
 
 	\addplot+[
         red!60!black,mark=diamond*, solid, mark options={fill=red!40}
         ] table[x index=0, y index=2,
-    ] {code/m-vs-star-density-s2n30.txt};
+    ] {code/m-vs-star-density-s2n20.txt};
     \addlegendentry{$S/N > 20$}
+
+	\addplot+[
+        blue!60!black,mark=square*, solid, mark options={fill=blue!40}
+        ] table[x index=0, y index=2,
+    ] {code/m-vs-star-density-s2n25.txt};
+    \addlegendentry{$S/N > 25$}
+
+	\addplot+[
+        brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40}
+        ] table[x index=0, y index=2,
+    ] {code/m-vs-star-density-s2n30.txt};
+    \addlegendentry{$S/N > 30$}
 
 
     \end{groupplot}
 \end{tikzpicture}
 
-    \caption{Metadetection performance as a function of maximum stellar
-    density.  Simulations were run with the expected stellar density
-    distribution for the full LSST 18,000 square degree survey, with a maximum
-    allowed value of 100/sq. arcminute.  Stars bright enough to saturate were
-    not included.  Top panel:  the multiplicative bias $m$ as a function of the
-    stellar density cut.  Bottom panel: increase in the uncertainty on
-    the mean shear, relative to a cut at 100/sq. arcminute, as a function of the
-    stellar density cut.  Note that many lensing probes are dominated by cosmic
-    variance, which is not included in these uncertainties.  }
+    \caption{ Metadetection performance as a function of maximum stellar
+    density and for different object S/N thresholds.  Simulations were run with
+    the expected stellar density distribution for the full LSST 18,000 square
+    degree survey, with a maximum allowed value of 100/sq. arcminute.  Stars
+    bright enough to saturate were not included.  Top panel:  the
+    multiplicative bias $m$ as a function of the stellar density cut and S/N
+    threshold.  Objects with small measured size $T/T_{PSF} < 1.2$ were
+    removed, where $T$ is the psf convolved not intrinsic size of the object.
+    Bottom panel: the uncertainty on the mean shear as a function of the
+    stellar density cut, for different S/N thresholds.  Note that many lensing
+    probes are dominated by cosmic variance, which is not included in these
+    uncertainties.  }
 
 \end{figure}
 

@@ -258,6 +258,8 @@ run-drcbvsSRIZVP01-01-v3-anl*
       runs are
             run-drcbvWsDRIZVP01-01-mag17-expand-notrim-psf-dims-wq
             run-drcbvWsDRIZVP01-01-mag17-expand-notrim-psf-dims-c1
+            run-drcbvWsDRIZVP01-01-mag17-expand-notrim-psf-dims-anl*
+                had time 7:15:00 but ran over
 
       Now using original psf dims and setting zeros for the bad psf pixels.
       This fixes the issue with visible boxes around bright stars in the
@@ -270,3 +272,7 @@ run-drcbvsSRIZVP01-01-v3-anl*
       descwl_shear_sims (master) 85fe859b789a75ea4a7234b39ca8148a06884cc5
       descwl_coadd (zero-bad-psf) c5676905ad5f20b46ffae5f6c0ac81ed30ed8ea4
       metadetect (deblend) b9062a7fa3b70eeed393b7171250f75daf7bef28
+
+- next
+    - use bleed trail templates
+        - should we still do saturation?
