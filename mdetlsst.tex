@@ -179,6 +179,7 @@ blah
     \centering
 \begin{tikzpicture}
     \begin{groupplot}[
+        legend style={draw=none},
         group style={group size=1 by 2, vertical sep=0.3cm},
         xmin=0.0,
         xmax=110.0,
@@ -305,6 +306,62 @@ blah
     stellar density cut, for different S/N thresholds.  Note that many lensing
     probes are dominated by cosmic variance, which is not included in these
     uncertainties.  }
+
+\end{figure}
+
+
+\begin{figure}
+    \centering
+\begin{tikzpicture}
+
+	\begin{axis}[
+        legend style={draw=none},
+        xlabel=min S/N,
+        ylabel={$\sigma/\sigma_{\mathrm{no~stars}}$},
+        xmin=5.0,
+        xmax=50.0,
+        ymin=1.1,
+        ymax=1.4,
+        width=0.9\columnwidth,
+        height=0.6\columnwidth,
+        minor tick num=3,
+        axis on top
+	]
+
+	\addplot+[black,no markers] coordinates {
+        (0.0,1.0)
+        (110.0,1.0)
+    };
+
+
+	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut005.txt};
+    \addlegendentry{$d < 5$}
+	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut010.txt};
+    \addlegendentry{$d < 10$}
+	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut020.txt};
+    \addlegendentry{$d < 20$}
+	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut040.txt};
+    \addlegendentry{$d < 40$}
+	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut060.txt};
+    \addlegendentry{$d < 60$}
+	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut080.txt};
+    \addlegendentry{$d < 80$}
+	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut100.txt};
+    \addlegendentry{$d < 100$}
+
+	%\addplot+[mark=*, black, solid] table[x index=0, y index=1]
+    %    {code/mc-results-50000/noise-ratio-dcut040.txt};
+
+	\end{axis}
+\end{tikzpicture}
+
+    \caption{Increased noise in the recovered shear when stars are present in
+    the simulation, compared to a simulation without stars, as a function of
+    the minimum signal-to-noise ratio and maximum stellar density.  The stellar density was drawn from the
+    expected distribution for the full LSST 18,000 square degree survey.  To select galaxies, only
+    objects with size $T/T_{PSF} > 1.2$ were used, where $T$ is the psf
+    convolved not intrinsic size of the object.  Even in the best case, the
+    presence of stars increases the noise by about 15\%.}
 
 \end{figure}
 
