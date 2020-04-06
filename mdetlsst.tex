@@ -336,18 +336,26 @@ blah
 
 	%\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut005.txt};
     %\addlegendentry{$d < 5$}
-	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut010.txt};
-    \addlegendentry{$d < 10$}
-	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut020.txt};
-    \addlegendentry{$d < 20$}
-	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut040.txt};
-    \addlegendentry{$d < 40$}
-	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut060.txt};
-    \addlegendentry{$d < 60$}
-	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut080.txt};
-    \addlegendentry{$d < 80$}
-	\addplot table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut100.txt};
-    \addlegendentry{$d < 100$}
+        \addplot+[brown!60!black,mark=otimes*, solid, mark options={fill=brown!40}]
+            table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut010.txt};
+        \addlegendentry{$d < 10$}
+
+        \addplot+[teal!60!black,mark=triangle*, solid, mark options={fill=teal!40}]
+            table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut020.txt};
+        \addlegendentry{$d < 20$}
+
+        \addplot+[red!60!black,mark=diamond*, solid, mark options={fill=red!40}]
+            table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut040.txt};
+        \addlegendentry{$d < 40$}
+        \addplot+[blue!60!black,mark=square*, solid, mark options={fill=blue!40}]
+            table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut060.txt};
+        \addlegendentry{$d < 60$}
+        \addplot+[brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40}]
+            table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut080.txt};
+        \addlegendentry{$d < 80$}
+        \addplot+[orange!60!black,mark=*, solid, mark options={fill=orange!40}]
+            table[x index=0, y index=1] {code/mc-results-50000/noise-ratio-dcut100.txt};
+        \addlegendentry{$d < 100$}
 
 	%\addplot+[mark=*, black, solid] table[x index=0, y index=1]
     %    {code/mc-results-50000/noise-ratio-dcut040.txt};
