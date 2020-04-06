@@ -300,12 +300,12 @@ blah
     degree survey, with a maximum allowed value of 100/sq. arcminute.  Stars
     bright enough to saturate were not included.  Top panel:  the
     multiplicative bias $m$ as a function of the stellar density cut and S/N
-    threshold.  Objects with small measured size $T/T_{PSF} < 1.2$ were
-    removed, where $T$ is the psf convolved not intrinsic size of the object.
-    Bottom panel: the uncertainty on the mean shear as a function of the
-    stellar density cut, for different S/N thresholds.  Note that many lensing
-    probes are dominated by cosmic variance, which is not included in these
-    uncertainties.  }
+    threshold.  Objects with small measured size $T/T_{\mathrm{PSF}} < 1.2$
+    were removed, where $T = \langle x^2 \rangle + \langle y^2 \rangle$ is the
+    estimated psf convolved size of the object.  Bottom panel: the uncertainty
+    on the mean shear as a function of the stellar density cut, for different
+    S/N thresholds.  Note that many lensing probes are dominated by cosmic
+    variance, which is not included in these uncertainties.  }
 
 \end{figure}
 
@@ -321,7 +321,7 @@ blah
         xmin=5.0,
         xmax=50.0,
         ymin=1.1,
-        ymax=1.4,
+        ymax=1.425,
         width=0.9\columnwidth,
         height=0.6\columnwidth,
         minor tick num=3,
@@ -357,11 +357,14 @@ blah
 
     \caption{Increased noise in the recovered shear when stars are present in
     the simulation, compared to a simulation without stars, as a function of
-    the minimum signal-to-noise ratio and maximum stellar density.  The stellar density was drawn from the
-    expected distribution for the full LSST 18,000 square degree survey.  To select galaxies, only
-    objects with size $T/T_{PSF} > 1.2$ were used, where $T$ is the psf
-    convolved not intrinsic size of the object.  Even in the best case, the
-    presence of stars increases the noise by about 15\%.}
+    the minimum signal-to-noise ratio and maximum stellar density.  The stellar
+    density was drawn from the expected distribution for the full LSST 18,000
+    square degree survey.  To select galaxies, only objects with size
+    $T/T_{\mathrm{PSF}} > 1.2$ were used, where $T = \langle x^2 \rangle +
+    \langle y^2 \rangle$ is the estimated psf convolved size of the object.
+    Even in the best case, the presence of stars increases the noise by about
+    15\%.  Note that many lensing probes are dominated by cosmic variance,
+    which is not included in these uncertainties.  }
 
 \end{figure}
 
