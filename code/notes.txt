@@ -297,5 +297,9 @@ run-drcbvsSRIZVP01-01-v3-anl*
                drcbvWDRIZVP01-01 m1: -0.000572808 +/- 0.0014463 (3 sigma) c2: 6.41395e-06 +/- 1.61771e-05 (3 sigma)
 
 - next
+    - for now, maybe easiest to just take any star marked as "saturated" and
+      draw the bright star mask for all bands, and turn off saturation.
+        - turn off the placing of fake bleeds etc.
+    - scaling of wldeblend is wrong
     - use bleed trail templates
         - should we still do saturation?
