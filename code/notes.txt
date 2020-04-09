@@ -273,6 +273,29 @@ run-drcbvsSRIZVP01-01-v3-anl*
       descwl_coadd (zero-bad-psf) c5676905ad5f20b46ffae5f6c0ac81ed30ed8ea4
       metadetect (deblend) b9062a7fa3b70eeed393b7171250f75daf7bef28
 
+      runs
+          - with stars no mag cut
+              - run-drcbvWsDRIZVP01-01-expand-notrim-psf-dims-*
+              (one was --expand accidentally)
+              - so far seeing close to 3 sigma *negative* m, opposite
+              sign.  Running more
+              - if it holds up, how can we explain?  Rendering?
+              I checked, for mag 12 stars we are getting artifacts in the
+              sheared images, even for huge stamps being put in or using
+              folding threshold adjustments.  Maybe issue
+              is with rendering the psf image?
+
+              worse artifacts with saturation/interpolation
+
+              it is due to psf fwhm being to small, making it larger it
+              goes away
+
+          - galaxies only for noise comparision and to make sure tweaks
+            have not caused biases
+              - run-drcbvWDRIZVP01-01-expand-notrim-psf-dims-*
+              
+               drcbvWDRIZVP01-01 m1: -0.000572808 +/- 0.0014463 (3 sigma) c2: 6.41395e-06 +/- 1.61771e-05 (3 sigma)
+
 - next
     - use bleed trail templates
         - should we still do saturation?
