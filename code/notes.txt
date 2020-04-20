@@ -296,6 +296,12 @@ run-drcbvsSRIZVP01-01-v3-anl*
               
                drcbvWDRIZVP01-01 m1: -0.000572808 +/- 0.0014463 (3 sigma) c2: 6.41395e-06 +/- 1.61771e-05 (3 sigma)
 
+- now doing masking of BRIGHT and interpolating
+    - descwl_coadd (replace-bright-stars) 4ec1118c982c5950dc9ae7d89dfc5b1508c2d7d3
+    - metadetect (deblend) 73e49c13fa9e14a1d7cf5841b3e830170ab35bcb
+    - mdet-lsst-sims (send-rng-to-coadds) e38d09524756e14e8f4c910569922900cecf79a9
+    - descwl-shear-sims (bright-star-mask) f67dab03c7c95d00983fcf640827ca491539d71a
+
 - next
     - for now, maybe easiest to just take any star marked as "saturated" and
       draw the bright star mask for all bands, and turn off saturation.
