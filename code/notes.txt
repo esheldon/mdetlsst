@@ -309,3 +309,41 @@ run-drcbvsSRIZVP01-01-v3-anl*
     - scaling of wldeblend is wrong
     - use bleed trail templates
         - should we still do saturation?
+
+
+- noise tests
+    - don't use round wldeblend
+    - don't do noise cancelling
+    - stars run run-drsWRIZ-v3
+    - no stars run run-drWRIZ-v2
+    - descwl-shear-sims (master) da9d033ce1b713a07e8fbdd5764637f3e17c7546
+    - descwl_coadd (master) 19db82809c9d2aee9f12c62eb51611bf3b2732e3
+    - metadetect (master) 9b57df37de943e0a8198ffa2f517572fb300d33d
+    - mdet-lsst-sim (weighting) 96aa4fca9408440bd72c8092f149184d32dec771
+
+    - now I see that using the most area (in terms of star cut) and lowest s/n
+      cut gives the most precise shear recovery.
+    - the increase in noise is about 14%
+    - so for plot we can just do s/n > 10 and compare noise with stars, but
+      since we are not seeing a bias I think maybe we don't even need the
+      plot.
+
+- lessons from the above
+	- when you do noise cancelling you get smaller errors using higher s/n cuts
+	- this is not true without the noise cancelling
+	- Hypothesis: higher s/n objects are more likely to be detected in both runs so we cancel the shape noise
+
+    - Corollary
+        - the noise cancelling works differently with stars in place because
+          they are not sheared (they don't move)
+        - To test noise differences with and without stars we can't do noise
+          cancelling
+
+    - what should have been obvious
+        - you can't test noise with and without stars (or in any other way)
+          with round objects.
+        - You will think the differences are bigger than they are because you
+          ignored the dominant noise source
+
+- larger test with round wldeblend and stars
+    - stars run run-drsWRIZ-v4
