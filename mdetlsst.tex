@@ -363,15 +363,16 @@ blah
     the simulation, compared to a simulation without stars, as a function of
     the minimum signal-to-noise ratio and maximum stellar density.  The stellar
     density was drawn from the expected distribution for the full LSST 18,000
-    square degree survey, including regions with density as high as 100
-    per square arcmin.  Stars were allowed to saturate, and a fixed size
-    star mask was used, but no bleed trails were present.  To select galaxies,
-    only objects with size $T/T_{\mathrm{PSF}} > 1.2$ were used, where $T =
-    \langle x^2 \rangle + \langle y^2 \rangle$ is the estimated psf convolved
-    size of the object.  The lowest absolute noise is for $S/N > 10$ and
-    $d < 80$, which also results in the smallest increase in noise relative
-    to a simulation with no stars.  Note that many lensing probes are dominated by
-    cosmic variance, which is not included in these uncertainties.  }
+    square degree survey, including regions with density as high as 100 per
+    square arcmin.  Stars were allowed to saturate, and a fixed size star mask
+    was used, but no bleed trails were present.  To select galaxies, only
+    objects with size $T/T_{\mathrm{PSF}} > 1.2$ were used, where $T = \langle
+    x^2 \rangle + \langle y^2 \rangle$ is the estimated psf convolved size of
+    the object.  The lowest absolute noise is for $S/N > 10$ and a liberal cut
+    on stellar density at $d < 60$, which also results in the smallest
+    increase in noise relative to a simulation with no stars.  Note that many
+    lensing probes are dominated by cosmic variance, which is not included in
+    these uncertainties.  }
 
 \end{figure}
 
