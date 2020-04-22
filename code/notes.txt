@@ -347,3 +347,7 @@ run-drcbvsSRIZVP01-01-v3-anl*
 
 - larger test with round wldeblend and stars
     - stars run run-drsWRIZ-v4
+    - s/n > 10 T ratio 1.2  
+
+drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (99.7%)
+

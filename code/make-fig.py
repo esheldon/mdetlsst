@@ -40,14 +40,20 @@ with open('notes.txt') as fobj:
     for line in fobj:
         line = line.strip()
 
-        if 'm1:' in line and 'om1:' not in line and line[0] != '#':
+        if '< m1 <' in line or ('m1:' in line and 'om1:' not in line and line[0] != '#'):
 
             ls = line.split()
 
             desc = ls[0]
 
-            mean = float(ls[2])/1.0e-3
-            err3 = float(ls[4])/1.0e-3
+            if '< m1 <' in line:
+                lowval = float(ls[1])
+                highval = float(ls[5])
+                mean = (lowval + highval)/2 / 1.0e-3
+                err3 = (highval - lowval)/2 / 1.0e-3
+            else:
+                mean = float(ls[2])/1.0e-3
+                err3 = float(ls[4])/1.0e-3
 
             mvals.append(mean)
             err3vals.append(err3)
