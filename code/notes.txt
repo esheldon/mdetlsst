@@ -351,3 +351,16 @@ run-drcbvsSRIZVP01-01-v3-anl*
 
 drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (99.7%)
 
+- using star bleeds but still gauss psf (moffat bright stars are huge and our
+  masks are inadequate)
+
+    descwl-shear-sims (bleeds) 481b67ae2659807f0757a36015b319840d7cfaea
+    descwl_coadd (bright-flag-sat) b65bf4a685832e7c21394b1235829c16486bfafd
+    metadetect (master) 9b57df37de943e0a8198ffa2f517572fb300d33d
+    mdet-lsst-sim (weighting) 5b55ec0c19ff3afa574a5565b47231484ba6957e
+    mdet-lsst-config (master) 29d16e609d2b5b7245f42bdd34373faa07eef50d
+
+    drsSWRIZ-v1
+
+* with power specrum psf and moffat, not run, we need to make the masks adaptive
+    drsSPWRIZ-v1
