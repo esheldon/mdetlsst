@@ -362,5 +362,6 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
     drsSWRIZ-v1
 
-* with power specrum psf and moffat, not run, we need to make the masks adaptive
-    drsSPWRIZ-v1
+- with power specrum psf and moffat, not run, we need to make the masks adaptive
+    drsSBWRIZ-v1
+    running
