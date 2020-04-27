@@ -313,6 +313,89 @@ blah
 \begin{figure}
     \centering
 \begin{tikzpicture}
+    \begin{axis}[
+        legend style={draw=none,at={(0.97,0.5)},anchor=east},
+        ylabel={$m/10^{-3}$},
+        xmin=-5.0,
+        xmax=190.0,
+        ymin=-5,
+        ymax=10,
+        width=0.9\columnwidth,
+        height=0.6\columnwidth,
+        minor tick num=4,
+        axis on top
+    ]
+
+	\addplot+[name path=A,gray!20,no markers, forget plot] coordinates {
+        (0.0,-1)
+        (110.0,-1)
+    };
+    \addplot+[name path=B,gray!20,no markers, forget plot] coordinates {
+        (0.0,1)
+        (110.0,1)
+    };
+
+    \addplot+[gray!20, forget plot] fill between[of=A and B];
+	\addplot+[black!80,no markers, forget plot] coordinates {
+        (0.0,0.0)
+        (110.0,0.0)
+    };
+
+	\addplot+[
+        brown!60!black,mark=otimes*, solid, mark options={fill=brown!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n10.txt};
+    \addlegendentry{$S/N > 10$}
+
+	\addplot+[
+        teal!60!black,mark=triangle*, solid, mark options={fill=teal!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n15.txt};
+    \addlegendentry{$S/N > 15$}
+
+	\addplot+[
+        red!60!black,mark=diamond*, solid, mark options={fill=red!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n20.txt};
+    \addlegendentry{$S/N > 20$}
+
+	\addplot+[
+        blue!60!black,mark=square*, solid, mark options={fill=blue!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n25.txt};
+    \addlegendentry{$S/N > 25$}
+
+	\addplot+[
+        brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40},
+        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n30.txt};
+    \addlegendentry{$S/N > 30$}
+
+
+    \end{axis}
+
+\end{tikzpicture}
+
+    \caption{ Metadetection multiplicative bias as a function of maximum
+    stellar density and for different object S/N thresholds.  Simulations were
+    run with the expected stellar density distribution for the full LSST 18,000
+    square degree survey, with a maximum allowed value of 100/sq. arcminute.
+    Stars were simulated as Moffat profiles and were allowed to saturate, with
+    simulated bleed trails.  A circular mask was used for saturates stars and
+    this area was interpolated.  Error bars are 99.7\% confidence regions.
+    Objects with small measured size $T/T_{\mathrm{PSF}} < 1.2$ were removed,
+    where $T = \langle x^2 \rangle + \langle y^2 \rangle$ is the estimated psf
+    convolved size of the object.}
+
+\end{figure}
+
+
+
+
+
+\begin{figure}
+    \centering
+\begin{tikzpicture}
 
 	\begin{axis}[
         legend style={draw=none},
