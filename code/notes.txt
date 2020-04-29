@@ -372,3 +372,10 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 - drsSWRIZ-v1
     no saturation, no bleeds, but still PS/moffat psf
 
+    if this works it could mean we need better interpolation for
+    the bright stars
+
+        - could try Matt's idea of fitting a psf model to the area,
+          subtracting it, interpolating, then adding back
+        - a simple way forward would be to exclude any fields with a
+        bright stars, say brighter than 17
