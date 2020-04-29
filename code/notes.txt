@@ -363,5 +363,12 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     drsSWRIZ-v1
 
 - with power specrum psf and moffat, not run, we need to make the masks adaptive
-    drsSBWRIZ-v1
-    running
+    drsSBWRIZ-v1, v2
+
+    bias as a function of density
+    with v2 saved masked frac and cutting on that also leaves a bias
+    still doing full analysis to make a plot
+
+- drsSWRIZ-v1
+    no saturation, no bleeds, but still PS/moffat psf
+
