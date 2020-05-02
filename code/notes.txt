@@ -379,3 +379,46 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
           subtracting it, interpolating, then adding back
         - a simple way forward would be to exclude any fields with a
         bright stars, say brighter than 17
+    - bias
+
+    looked at some reconvolved images: there are boxes, go away
+    if we use larger psfs
+
+    still barely visible for mag 17!
+
+- drsSBWRIZ-v3
+    - saving min_star_mag
+    - mdet-lsst-sims (mask-frac) c85c3f8582402b33eb351a5186b2693b151004c3
+    - descwl-shear-sims (bleeds) f1138bb9cd16f55f7be92f89a163bb49262dc8ea
+    - descwl_coadds (bright-flag-sat) 79fff565110169019b6fabfa3a5adb335334251a
+    - metadetect (master) 9b57df37de943e0a8198ffa2f517572fb300d33d
+
+    - seeing negative m1 bias
+
+    - I had tested with PS psf before, so it is not that fundamentally
+    - even cutting to low star density or min mag 19 retains the bias
+    - maybe related to rendering changes?
+
+- drgridRIZ-v1
+    - grid exp 22 mag 8x8, for got P on it! it is power spectrum psf
+    - see 
+        0.0012705 < m1 < 0.00178272 (99.7%)
+        -3.92948e-06 < c1 < 6.27837e-06 (99.7%)
+        -4.41974e-06 < c2 < 6.31765e-06 (99.7%)
+
+- drgridRIZ-v2
+
+    - same but 17.75 mag
+    m1err: 7.06484e-05 (99.7%)
+    0.000262936 < m1 < 0.000404232 (99.7%)
+    -1.72265e-05 < c1 < 5.51327e-06 (99.7%)
+    -8.08049e-06 < c2 < 1.4998e-05 (99.7%)
+
+- run-drPRIZ-v1
+   like run-drgridRIZ-v1 but random placement (not forgot P on that one)
+    1.63693e-05 < m1 < 0.000960245 (99.7%)
+    -1.67374e-05 < c1 < 1.43325e-05 (99.7%)
+    -1.71032e-05 < c2 < 1.15102e-05 (99.7%)
+
+    running more
+
