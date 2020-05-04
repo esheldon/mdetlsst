@@ -436,3 +436,6 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -3.257e-06 < c1 < 8.4159e-06 (99.7%)
     -8.27095e-06 < c2 < 4.39109e-06 (99.7%)
 
+- run-drgridPRIZ-mag17.75-hlr0.1-v2
+    - should not have called v2
+    - using mdet-v002.yaml mdet config with psf gauss rather than fitgauss
