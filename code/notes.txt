@@ -439,3 +439,14 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 - run-drgridPRIZ-mag17.75-hlr0.1-v2
     - should not have called v2
     - using mdet-v002.yaml mdet config with psf gauss rather than fitgauss
+    - horrible, not sure what went wrong
+
+- run-drgridPRIZ-mag17.75-hlr0.1-3epoch-v1.yaml
+    - looks fine!
+    - it was the psf variation
+
+    m1err: 0.00017257 (99.7%)
+    0.000121935 < m1 < 0.000467075 (99.7%)
+    -7.32199e-06 < c1 < 2.26714e-06 (99.7%)
+    -7.63162e-06 < c2 < 2.7438e-06 (99.7%)
+
