@@ -459,7 +459,5 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     - mdet-lsst-sim (mask-frac) 0c30e0c63a368b43e5011d6069b23f827828a33b
 
     - so far
-    m1err: 0.00246868 (99.7%)
-    -0.00115027 < m1 < 0.00378709 (99.7%)
-    -2.31646e-05 < c1 < 1.28906e-05 (99.7%)
-    -1.2214e-05 < c2 < 2.38157e-05 (99.7%)
+    see trend with stellar density cut, but it is gone or much less
+    when cutting s2n > 20, should try other s2n cuts
