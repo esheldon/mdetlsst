@@ -399,7 +399,6 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
     - seeing negative m1 bias
 
-    - I had tested with PS psf before, so it is not that fundamentally
     - even cutting to low star density or min mag 19 retains the bias
     - maybe related to rendering changes?
 
@@ -409,6 +408,7 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
         0.0012705 < m1 < 0.00178272 (99.7%)
         -3.92948e-06 < c1 < 6.27837e-06 (99.7%)
         -4.41974e-06 < c2 < 6.31765e-06 (99.7%)
+    - it was due to the close grid!  Not sure why exactly
 
 - run-drgridRIZ-v2
     - forgot P on it
@@ -450,3 +450,16 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -7.32199e-06 < c1 < 2.26714e-06 (99.7%)
     -7.63162e-06 < c2 < 2.7438e-06 (99.7%)
 
+- run-drsBMWRIZ-v1
+    - Moffat psf, using PS psf with small variations
+
+    - descwl-shear-sims (master) 7ba7fddc38aa639c176dc37c3138058e053a9264
+    - descwl_coadd (master) 09f3ce40101c7707fe80abbb9d85169e1740ad01
+    - metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
+    - mdet-lsst-sim (mask-frac) 0c30e0c63a368b43e5011d6069b23f827828a33b
+
+    - so far
+    m1err: 0.00246868 (99.7%)
+    -0.00115027 < m1 < 0.00378709 (99.7%)
+    -2.31646e-05 < c1 < 1.28906e-05 (99.7%)
+    -1.2214e-05 < c2 < 2.38157e-05 (99.7%)
