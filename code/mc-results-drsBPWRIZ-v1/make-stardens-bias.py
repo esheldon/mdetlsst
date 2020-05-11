@@ -27,9 +27,10 @@ def main():
         print(output)
         with open(output, 'w') as fobj:
 
-            flist = glob(
-                'mc-run-drsBPWRIZ-v1-s2n%02d-Tratio1.2-cut*' % s2n_cut
-            )
+            pattern = 'mc-run-drsBMWRIZ-v1-s2n%02d-s2nmax-100000-Tratio1.2-cut*' % s2n_cut
+            # print('pattern:', pattern)
+            flist = glob(pattern)
+            # print(flist)
 
             flist.sort()
 
