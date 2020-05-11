@@ -318,8 +318,8 @@ blah
         ylabel={$m/10^{-3}$},
         xmin=-5.0,
         xmax=190.0,
-        ymin=-5,
-        ymax=10,
+        ymin=-8,
+        ymax=8,
         width=0.9\columnwidth,
         height=0.6\columnwidth,
         minor tick num=4,
@@ -344,31 +344,31 @@ blah
 	\addplot+[
         brown!60!black,mark=otimes*, solid, mark options={fill=brown!40},
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n10.txt};
+    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n10.txt};
     \addlegendentry{$S/N > 10$}
 
 	\addplot+[
         teal!60!black,mark=triangle*, solid, mark options={fill=teal!40},
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n15.txt};
+    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n15.txt};
     \addlegendentry{$S/N > 15$}
 
 	\addplot+[
         red!60!black,mark=diamond*, solid, mark options={fill=red!40},
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n20.txt};
+    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n20.txt};
     \addlegendentry{$S/N > 20$}
 
 	\addplot+[
         blue!60!black,mark=square*, solid, mark options={fill=blue!40},
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n25.txt};
+    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n25.txt};
     \addlegendentry{$S/N > 25$}
 
 	\addplot+[
         brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40},
         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-drsBPWRIZ-v1/m-vs-star-density-s2n30.txt};
+    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n30.txt};
     \addlegendentry{$S/N > 30$}
 
 
