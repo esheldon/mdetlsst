@@ -461,3 +461,12 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     - so far
     see trend with stellar density cut, but it is gone or much less
     when cutting s2n > 20, should try other s2n cuts
+
+    - definitely seeing bias that depends on s/n, sign of some kind of
+    selection effect
+        - we know stars will move and the should not, we tested it with
+        galaxies
+        - the interpolated region is also moving
+        - the *mask* is not moving, shearing.
+        - need to explore this more but shelving it for now to work on wcs
+
