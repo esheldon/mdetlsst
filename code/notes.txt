@@ -470,3 +470,11 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
         - the *mask* is not moving, shearing.
         - need to explore this more but shelving it for now to work on wcs
 
+- run-drsMWRIZsub-v1
+    subtract bright stars
+    no star bleeds
+    saturation ON
+    - looks terrible
+
+- run-drMWRIZsub-v1
+    - same as run-drsMWRIZsub-v1 but no stars
