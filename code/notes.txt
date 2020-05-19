@@ -476,5 +476,11 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     saturation ON
     - looks terrible
 
-- run-drMWRIZsub-v1
-    - same as run-drsMWRIZsub-v1 but no stars
+- run-drMWRIZ-v1
+    - same as run-drsMWRIZsub-v1 but no stars, does have saturation
+    - biased!
+
+- run-drgridMWRIZ-v1
+    - same as run-drMWRIZsub-v1 but on a grid
+- run-drMWRIZ-e03-v1
+    - non grid but with 3 epochs
