@@ -471,18 +471,22 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
         - need to explore this more but shelving it for now to work on wcs
 
 - run-drsMWRIZsub-v1
+    - PS psf not pure moffat
     subtract bright stars
     no star bleeds
     saturation ON
     - looks terrible
 
 - run-drMWRIZ-v1
+    - PS psf not pure moffat
     - same as run-drsMWRIZsub-v1 but no stars, does have saturation
     - biased!
 
 - run-drgridMWRIZ-v1
+    - PS psf not pure moffat
     - same as run-drMWRIZsub-v1 but on a grid
 - run-drMWRIZ-e03-v1
+    - PS psf not pure moffat
     - non grid but with 3 epochs
     - might be better
 
@@ -495,6 +499,7 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 
 - run-drMWRIZ-e01-v1
+    - PS psf not pure moffat
     - non grid 1 epochs
 
     s2n*-s2nmax-1000-Tratio1.2
@@ -505,6 +510,7 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -0.00417858 < m1 < -0.00221654 (99.7%)
 
 - run-drMWRIZ-e01-pdim101-v1
+    - PS psf not pure moffat
     - psf dim 101x101
     -0.00643398 < m1 < -0.00236129 (99.7%)
     -0.00628634 < m1 < -0.00222532 (99.7%)
@@ -513,6 +519,7 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -0.00572281 < m1 < -0.00309834 (99.7%)
 
 - run-drMWRIZ-e01-pdim101-gauss-v1
+    - PS psf not pure moffat
     - metacal gauss psf treatment
     - psf dim 101x101
     -0.00561233 < m1 < -0.00131793 (99.7%)
