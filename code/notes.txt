@@ -550,9 +550,14 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 - run-drMWRIZ-e01-pdim101-v2
     - pure moffat no PS psf
     - first results
-    -0.00378399 < m1 < 0.0020387 (99.7%)
-    -0.00389222 < m1 < 0.00192169 (99.7%)
-    -0.00461449 < m1 < 0.000243362 (99.7%)
-    -0.00326519 < m1 < 0.000864656 (99.7%)
-    -0.00272836 < m1 < 0.00101713 (99.7%)
 
+    -0.00200233 < m1 < 0.000901179 (99.7%)
+    -0.00232032 < m1 < 0.000112974 (99.7%)
+    -0.00208602 < m1 < -1.09187e-05 (99.7%)
+    -0.00191414 < m1 < -5.91293e-05 (99.7%)
+
+
+- run-drcbPWRIZ-e01-v1
+    repeat of run-drcbvWDRIZVP01-01-expand-notrim, only difference is trimming
+    stamps (no longer an option ) and expand stars (only for stars) instead
+    using gsparams
