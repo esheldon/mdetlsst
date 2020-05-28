@@ -572,3 +572,23 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -0.00569964 < m1 < -0.00228601 (99.7%)
     -0.0055499 < m1 < -0.00253859 (99.7%)
     -0.00446522 < m1 < -0.00170969 (99.7%)
+    regression
+
+    what we know
+        - gaussian psf looks ok
+        - we know bias decreases for PS psf with more epochs
+        - smaller bias for moffat.
+        - larger psf dims didn't help
+    ideas
+        - scaling of wldeblend?  Our weights are 
+        being ignored down stream, if we rescale it
+        changes the wrongness
+        - maybe try running with a single band and 3 epochs
+          no dithering or rotations, moffat psf
+
+- run-drMWI-e03-pdim101-v1
+    - i band only, moffat, 3 epochs
+    descwl-shear-sims 93c82488babbbb6def9e18875357db5dace39e9f
+    descwl_coadd 6f89a8aa4a5484a1573e1c389d50974c6a9099e3
+    mdetadetect a63236f063fe2979c7fbf89563080e6fe66895fb
+    mdet-lsst-sim 8b05b37c8b178259b245f1a9b46a1002f04d9dfc
