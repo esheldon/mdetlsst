@@ -560,8 +560,15 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 - run-drcbPWRIZ-e01-v1
     repeat of run-drcbvWDRIZVP01-01-expand-notrim, only difference is trimming
     stamps (no longer an option ) and expand stars (only for stars) instead
-    using gsparams
-    mc-run-drcbPWRIZ-e01-v1-s2n10-s2nmax-1000-Tratio1.2:-0.00494484 < m1 < -0.000974678 (99.7%)
-    mc-run-drcbPWRIZ-e01-v1-s2n20-s2nmax-1000-Tratio1.2:-0.00485397 < m1 < -0.00144677 (99.7%)
-    mc-run-drcbPWRIZ-e01-v1-s2n25-s2nmax-1000-Tratio1.2:-0.00463954 < m1 < -0.00163184 (99.7%)
-    mc-run-drcbPWRIZ-e01-v1-s2n30-s2nmax-1000-Tratio1.2:-0.00459561 < m1 < -0.00183136 (99.7%)
+    using gsparams, but there are no stars here
+    -0.00494484 < m1 < -0.000974678 (99.7%)
+    -0.00485397 < m1 < -0.00144677 (99.7%)
+    -0.00463954 < m1 < -0.00163184 (99.7%)
+    -0.00459561 < m1 < -0.00183136 (99.7%)
+
+- run-drcbPWRIZ-e01-notrim-v1
+    not trimming stamps
+    -0.00609754 < m1 < -0.00211825 (99.7%)
+    -0.00569964 < m1 < -0.00228601 (99.7%)
+    -0.0055499 < m1 < -0.00253859 (99.7%)
+    -0.00446522 < m1 < -0.00170969 (99.7%)
