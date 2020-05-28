@@ -592,3 +592,13 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     descwl_coadd 6f89a8aa4a5484a1573e1c389d50974c6a9099e3
     mdetadetect a63236f063fe2979c7fbf89563080e6fe66895fb
     mdet-lsst-sim 8b05b37c8b178259b245f1a9b46a1002f04d9dfc
+
+    -0.0017871 < m1 < 0.00186224 (99.7%)
+    -0.00147252 < m1 < 0.00147524 (99.7%)
+    -0.00134231 < m1 < 0.00128938 (99.7%)
+    -0.0010626 < m1 < 0.00137614 (99.7%)
+
+    Matt pointed out the 3 band won't work since the actual
+    images are different, would need to do each coadd.
+
+    so that solves this problem
