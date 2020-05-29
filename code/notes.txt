@@ -601,4 +601,13 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     Matt pointed out the 3 band won't work since the actual
     images are different, would need to do each coadd.
 
-    so that solves this problem
+    That's a problem but doesn't really solve this issue since
+    we know it worked before and works for gaussians
+
+- run-drMWI-e03-pdim101-nfac0.58-v1
+    - added noise factor 1/sqrt(3) to get expected noise for
+      bands
+    -0.00213746 < m1 < 0.00135389 (99.7%)
+    -0.00184046 < m1 < 0.00101496 (99.7%)
+    -0.00155517 < m1 < 0.000984405 (99.7%)
+    -0.00150881 < m1 < 0.000825307 (99.7%)
