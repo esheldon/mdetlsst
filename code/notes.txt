@@ -587,7 +587,8 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
           no dithering or rotations, moffat psf
 
 - run-drMWI-e03-pdim101-v1
-    - i band only, moffat, 3 epochs
+    - i band only, moffat, 3 epochs not dithers or rotations
+    THIS WAS MISNAMED
     descwl-shear-sims 93c82488babbbb6def9e18875357db5dace39e9f
     descwl_coadd 6f89a8aa4a5484a1573e1c389d50974c6a9099e3
     mdetadetect a63236f063fe2979c7fbf89563080e6fe66895fb
@@ -607,7 +608,13 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 - run-drMWI-e03-pdim101-nfac0.58-v1
     - added noise factor 1/sqrt(3) to get expected noise for
       bands
+    - THIS WAS MISNAMED
+
     -0.00213746 < m1 < 0.00135389 (99.7%)
     -0.00184046 < m1 < 0.00101496 (99.7%)
     -0.00155517 < m1 < 0.000984405 (99.7%)
     -0.00150881 < m1 < 0.000825307 (99.7%)
+
+- run-drMWI-e03-pdim101-nfac0.58-v2
+    - now with dithers and rotations
+    - PROPERLY NAMED
