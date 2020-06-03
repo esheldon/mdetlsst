@@ -615,6 +615,13 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -0.00155517 < m1 < 0.000984405 (99.7%)
     -0.00150881 < m1 < 0.000825307 (99.7%)
 
+    more stats
+    -0.00166158 < m1 < 0.000605883 (99.7%)
+    -0.00130965 < m1 < 0.000537503 (99.7%)
+    -0.00104434 < m1 < 0.000599194 (99.7%)
+    -0.000888527 < m1 < 0.000629005 (99.7%)
+
+
 - run-drMWI-e03-pdim101-nfac0.58-v2
     - now with dithers and rotations
     - PROPERLY NAMED
@@ -626,3 +633,18 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 - run-drMWI-e03-pdim201-nfac0.58-v1
     - see if larger psf images help
+    -0.00292175 < m1 < -0.000696507 (99.7%)
+    -0.00285748 < m1 < -0.000891879 (99.7%)
+    -0.00283519 < m1 < -0.0010765 (99.7%)
+    -0.00231508 < m1 < -0.00069203 (99.7%)
+
+    It appears that in a single band we have a bias with just Moffat,
+    but this is consistent with what we saw in multiple bands
+    with just moffat and one epoch per band
+    (run-drMWRIZ-e01-pdim101-v2).  So this is most likely not
+    related to weighting (which larger PS bias might be)
+
+    Don't know yet if related to the dithers and rot. Running more on
+    run-drMWI-e03-pdim101-nfac0.58-v1 which had no dithers/rot despite name
+
+- do a run with PS psf in single band
