@@ -645,6 +645,8 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     - whoops, was epochs_per_band 10!
     6.50298e-05 < m1 < 0.00155616 (99.7%)
 
+    - note also ran higher s/n on laptop, very small bias
+
 - run-gridMI-e01-s2n15-hlr0.1-v1
     - s/n ~ 15 for all objects, 6x6 grid, no dithers or rotations
       hlr 0.1
@@ -653,5 +655,10 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 - run-gridI-e01-s2n15-hlr0.1-v1
     - same but gaussian psf
+    - opposite sign bias
+    -0.0239321 < m1 < -0.0043429 (99.7%)
+    -0.000169974 < c1 < 0.000212005 (99.7%)
+    -0.000341177 < c2 < 5.65919e-05 (99.7%)
+
 
 - do a run with PS psf in single band
