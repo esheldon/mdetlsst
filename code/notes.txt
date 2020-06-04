@@ -610,17 +610,10 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
       bands
     - THIS WAS MISNAMED
 
-    -0.00213746 < m1 < 0.00135389 (99.7%)
-    -0.00184046 < m1 < 0.00101496 (99.7%)
-    -0.00155517 < m1 < 0.000984405 (99.7%)
-    -0.00150881 < m1 < 0.000825307 (99.7%)
-
-    more stats
-    -0.00166158 < m1 < 0.000605883 (99.7%)
-    -0.00130965 < m1 < 0.000537503 (99.7%)
-    -0.00104434 < m1 < 0.000599194 (99.7%)
-    -0.000888527 < m1 < 0.000629005 (99.7%)
-
+    -0.00140477 < m1 < 0.000444606 (99.7%)
+    -0.00110189 < m1 < 0.000405356 (99.7%)
+    -0.00107245 < m1 < 0.000268034 (99.7%)
+    -0.000990446 < m1 < 0.00024526 (99.7%)
 
 - run-drMWI-e03-pdim101-nfac0.58-v2
     - now with dithers and rotations
@@ -646,5 +639,19 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
     Don't know yet if related to the dithers and rot. Running more on
     run-drMWI-e03-pdim101-nfac0.58-v1 which had no dithers/rot despite name
+
+- run-gridMI-mag22-hlr0.1-v1
+    - grid with small exp objects, still s/n ~ 250
+    - whoops, was epochs_per_band 10!
+    6.50298e-05 < m1 < 0.00155616 (99.7%)
+
+- run-gridMI-e01-s2n15-hlr0.1-v1
+    - s/n ~ 15 for all objects, 6x6 grid, no dithers or rotations
+      hlr 0.1
+
+      0.0030434 < m1 < 0.0207799 (99.7%)
+
+- run-gridI-e01-s2n15-hlr0.1-v1
+    - same but gaussian psf
 
 - do a run with PS psf in single band
