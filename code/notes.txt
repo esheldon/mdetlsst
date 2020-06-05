@@ -691,3 +691,9 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -0.00568339 < m1 < -0.00265748 (99.7%)
     -0.00571323 < m1 < -0.00305525 (99.7%)
     -0.00603989 < m1 < -0.00360843 (99.7%)
+
+- run-gridI-e01-s2n15-hlr0.1-v2
+    - after using ngmix with bug fixes
+    - turns out the container had an old version of ngmix
+    - I had been testing with master for a long time without
+      a new release.
