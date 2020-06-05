@@ -653,14 +653,41 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
       0.0030434 < m1 < 0.0207799 (99.7%)
 
+- run-gridI-e01-mag18-hlr0.1-v1
+    - same but gaussian psf
+    - at s/n 10000 looks fine
+    -0.000106696 < m1 < 0.000617305 (99.7%)
+
 - run-gridI-e01-s2n15-hlr0.1-v1
     - same but gaussian psf
     - opposite sign bias
+    - I saw no bias for high s/n with either Gaussian or Moffat
+
     -0.0239321 < m1 < -0.0043429 (99.7%)
     -0.000169974 < c1 < 0.000212005 (99.7%)
     -0.000341177 < c2 < 5.65919e-05 (99.7%)
 
 - run-gridI-e01-s2n15-hlr0.1-nostack-v1
     - same but using nostack
+    - huge error, must be a bug with the nostack code
+    - note I saw no bias for high s/n so must be related to
+      the noise
 
-- do a run with PS psf in single band
+- TODO do a run with PS psf in single band
+
+
+- run-drcbPWRIZ-e01-v2
+    - repeating run-drcbPWRIZ-e01-v1 with Matt's bug fix, adding
+      stats_ctrl.setWeighted(True)
+
+  descwl-shear-sims 0f9abcd8d13152cca5277e1c64a2ddb4200bd718
+      descwl_coadd e7b73bfe24b33927782f57548203a775d7e79047
+      metadetect a63236f063fe2979c7fbf89563080e6fe66895fb
+      mdet-lsst-sim a8e3912504c866b26d3ec45347357ccfcd23f6fb
+
+    same
+
+    -0.0062901 < m1 < -0.00279941 (99.7%)
+    -0.00568339 < m1 < -0.00265748 (99.7%)
+    -0.00571323 < m1 < -0.00305525 (99.7%)
+    -0.00603989 < m1 < -0.00360843 (99.7%)
