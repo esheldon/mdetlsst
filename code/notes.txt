@@ -697,3 +697,24 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     - turns out the container had an old version of ngmix
     - I had been testing with master for a long time without
       a new release.
+
+      -0.0185231 < m1 < -0.00711675 (99.7%)
+      -0.000125071 < c1 < 9.78248e-05 (99.7%)
+      -0.000131175 < c2 < 0.000100158 (99.7%)
+
+- run-grid-dI-e06-s2n15-hlr0.1-v1
+    - 6 epochs with dithers
+    -0.0251275 < m1 < -0.00855712 (99.7%)
+    -0.000158408 < c1 < 0.000166946 (99.7%)
+    -0.000199293 < c2 < 0.000141235 (99.7%)
+
+- run-grid-dI-e01-s2n15-hlr0.5-v1
+    - what?
+    - 0.0080492 < m1 < 0.0101611 (99.7%)
+
+- run-grid-dI-e01-m18-hlr0.5-v1
+    - mag 18 ok?
+    - yes
+
+    0.000373288 < m1 < 0.000431207 (99.7%)
+
