@@ -718,3 +718,21 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
     0.000373288 < m1 < 0.000431207 (99.7%)
 
+
+- added tests of repeatability
+     - checked that if I just copy the image to the noise it goes through 
+       the same way, differences might be at the floating
+       point level
+
+- trivial sim
+    - descwl-shear-sims (trivial-sim) 81eb76984093e829f91b3fcb55a2390ed6d59465
+    - mdet-lsst-sim (trivial-sim-run) d713adea59b4f8b5d702ee9a755dab889fb35e67
+    - descwl_coadd (master) e7b73bfe24b33927782f57548203a775d7e79047
+    - metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
+
+    - run-trivial-grid-s2n10000-hlr0.5-v1
+        0.000403327 < m1 < 0.000472004 (99.7%)
+    - run-trivial-grid-s2n100-hlr0.5-v1
+        -0.000173387 < m1 < 0.000883123 (99.7%)
+    - run-trivial-grid-s2n050-hlr0.5-v1
+        0.00027537 < m1 < 0.000888845 (99.7%)
