@@ -750,3 +750,23 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     mc-run-gridI-e01-s2n15-hlr0.1-p101-ptrim-v1-Tratio1.0:-0.0431838 < m1 < -0.0083105 (99.7%)
 
 - run-grid-dI-e01-s2n15-hlr0.5-p101-ptrim-v1
+    - also biased
+
+- run-grid-dI-e01-s2n15-hlr0.5-p101-ptrim-v1
+    - reverted to old descwl_coadd c567690
+    - 0.00590452 < m1 < 0.0139226 (99.7%)
+
+- run-grid-dI-e01-s2n15-hlr0.5-oldsim-v1
+    - old sim
+    m1err: 0.00394083 (99.7%)
+    0.00608936 < m1 < 0.013971 (99.7%)
+    -6.90215e-05 < c1 < 9.54642e-05 (99.7%)
+    -0.000160613 < c2 < 8.75015e-06 (99.7%)
+- run-grid-dI-e01-s2n15-hlr0.5-oldall-v1
+    - revert all 
+      mdet-lsst-sim (psf-dims) 3afd6fa7090f3ba0256c2ea4310e39bb784edc4c
+      descwl_shear_sims (master) 85fe859b789a75ea4a7234b39ca8148a06884cc5
+      descwl_coadd (zero-bad-psf) c5676905ad5f20b46ffae5f6c0ac81ed30ed8ea4
+      metadetect (deblend) b9062a7fa3b70eeed393b7171250f75daf7bef28
+
+
