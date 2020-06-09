@@ -737,4 +737,16 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     - run-trivial-grid-s2n050-hlr0.5-v1
         0.00027537 < m1 < 0.000888845 (99.7%)
     - run-trivial-grid-s2n015-hlr0.5-v1
-        -0.000412054 < m1 < 0.00106555 (99.7%)
+        -0.000330092 < m1 < 0.000711955 (99.7%)
+
+- run-gridI-e01-s2n15-hlr0.1-p101-ptrim-v1
+    - maybe the zeroing of bad psf pixels is causing a problem
+    - added ability to go ahead and trim psf
+    - curious dependence on measured size cut
+    mc-run-gridI-e01-s2n15-hlr0.1-p101-ptrim-v1-Tratio0.1:0.00794972 < m1 < 0.0351616 (99.7%)
+    mc-run-gridI-e01-s2n15-hlr0.1-p101-ptrim-v1-Tratio0.7:0.00821586 < m1 < 0.0354435 (99.7%)
+    mc-run-gridI-e01-s2n15-hlr0.1-p101-ptrim-v1-Tratio0.8:0.00932194 < m1 < 0.0366977 (99.7%)
+    mc-run-gridI-e01-s2n15-hlr0.1-p101-ptrim-v1-Tratio0.9:0.0022908 < m1 < 0.0309245 (99.7%)
+    mc-run-gridI-e01-s2n15-hlr0.1-p101-ptrim-v1-Tratio1.0:-0.0431838 < m1 < -0.0083105 (99.7%)
+
+- run-grid-dI-e01-s2n15-hlr0.5-p101-ptrim-v1
