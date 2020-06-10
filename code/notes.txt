@@ -772,3 +772,6 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 - run-trivial-grid-s2n10000-hlr0.5-v2
     - running trivial sim through stack etc.
+    - 0.000415041 < m1 < 0.00043025 (99.7%)
+
+- run-trivial-grid-s2n015-hlr0.5-v2
