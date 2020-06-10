@@ -762,6 +762,7 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     0.00608936 < m1 < 0.013971 (99.7%)
     -6.90215e-05 < c1 < 9.54642e-05 (99.7%)
     -0.000160613 < c2 < 8.75015e-06 (99.7%)
+
 - run-grid-dI-e01-s2n15-hlr0.5-oldall-v1
     - revert all 
       mdet-lsst-sim (psf-dims) 3afd6fa7090f3ba0256c2ea4310e39bb784edc4c
@@ -769,9 +770,21 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
       descwl_coadd (zero-bad-psf) c5676905ad5f20b46ffae5f6c0ac81ed30ed8ea4
       metadetect (deblend) b9062a7fa3b70eeed393b7171250f75daf7bef28
 
+      0.00604535 < m1 < 0.0170174 (99.7%)
+
+      possibilities
+      - these are the wrong git hashes
+      - this case would have always been biased
 
 - run-trivial-grid-s2n10000-hlr0.5-v2
     - running trivial sim through stack etc.
     - 0.000415041 < m1 < 0.00043025 (99.7%)
 
 - run-trivial-grid-s2n015-hlr0.5-v2
+    - so far 23/80
+    - 0.000510423 < m1 < 0.00289329 (99.7%)
+
+    mdet-lsst-sim (refactor-trivial-wcs) d6505ee65654aa8e91994034a23227ca5b9f5567
+    descwl-shear-sims (fake-tan-wcs-trivial-sim) 50ec575a8f6e8a55f0c9dc13679dc8bef85ee163
+    metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
+    descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
