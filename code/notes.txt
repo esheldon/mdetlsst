@@ -781,9 +781,27 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     - 0.000415041 < m1 < 0.00043025 (99.7%)
 
 - run-trivial-grid-s2n015-hlr0.5-v2
-    0.000383614 < m1 < 0.00141222 (99.7%)
+    0.000368861 < m1 < 0.00135832 (99.7%)
 
-    mdet-lsst-sim (refactor-trivial-wcs) d6505ee65654aa8e91994034a23227ca5b9f5567
     descwl-shear-sims (fake-tan-wcs-trivial-sim) 50ec575a8f6e8a55f0c9dc13679dc8bef85ee163
+    descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
+    metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
+    mdet-lsst-sim (refactor-trivial-wcs) d6505ee65654aa8e91994034a23227ca5b9f5567
+
+    more running at nersc
+
+- testing dithers
+    - offseting psf exactly as image is offset
+    - If I don't offset the psf 0.00373711 < m1 < 0.00516374 (99.7%)
+    - If I do offset the psf 0.000151796 < m1 < 0.000704616 (99.7%)
+    - this checks out
+
+- run-trivial-grid-d-s2n015-hlr0.5-v1
+    - dithers at low s/n
+    - note mdet-lsst-sim hash below is just a merge of refactor-trivial-wcs
+    with no additional changes
+
+    mdet-lsst-sim (master) b08559943dc25443eb955b7e4139c3b3b4e0bdf4
+    descwl-shear-sims (add-dithers-trivial-sim) ad8e0bc87b793580ceb0e18ea24b5c9dc4e7791b
     metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
     descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
