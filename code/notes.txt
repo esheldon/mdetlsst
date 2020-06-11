@@ -781,8 +781,7 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     - 0.000415041 < m1 < 0.00043025 (99.7%)
 
 - run-trivial-grid-s2n015-hlr0.5-v2
-    0.0002852 < m1 < 0.00156574 (99.7%)
-
+    0.000383614 < m1 < 0.00141222 (99.7%)
 
     mdet-lsst-sim (refactor-trivial-wcs) d6505ee65654aa8e91994034a23227ca5b9f5567
     descwl-shear-sims (fake-tan-wcs-trivial-sim) 50ec575a8f6e8a55f0c9dc13679dc8bef85ee163
