@@ -801,6 +801,9 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     - note mdet-lsst-sim hash below is just a merge of refactor-trivial-wcs
     with no additional changes
 
+    so far 7/40
+    -8.28577e-06 < m1 < 0.00248692 (99.7%)
+
     mdet-lsst-sim (master) b08559943dc25443eb955b7e4139c3b3b4e0bdf4
     descwl-shear-sims (add-dithers-trivial-sim) ad8e0bc87b793580ceb0e18ea24b5c9dc4e7791b
     metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
