@@ -809,3 +809,12 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     descwl-shear-sims (add-dithers-trivial-sim) ad8e0bc87b793580ceb0e18ea24b5c9dc4e7791b
     metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
     descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
+
+- run-trivial-grid-dr-s2n10000-hlr0.5-v1
+    - rotations added high s/n
+    0.000352043 < m1 < 0.000543963 (99.7%)
+
+ run-trivial-grid-dr-e03-s2n10000-hlr0.5-v1
+    - 3 epochs to make sure everything is lining up
+    - looks ok
+    0.000358413 < m1 < 0.000498766 (99.7%)
