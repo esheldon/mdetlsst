@@ -820,3 +820,6 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 - run-trivial-grid-dr-s2n015-hlr0.5-v1
     descwl-shear-sims (master) 0d9a7326373084c27f5df56daf412f94451e2cbe
+    descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
+    mdet-lsst-sim (master) b08559943dc25443eb955b7e4139c3b3b4e0bdf4
+    metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
