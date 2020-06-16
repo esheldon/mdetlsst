@@ -781,14 +781,13 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     - 0.000415041 < m1 < 0.00043025 (99.7%)
 
 - run-trivial-grid-s2n015-hlr0.5-v2
-    0.000368861 < m1 < 0.00135832 (99.7%)
+    0.00033353 < m1 < 0.00122106 (99.7%)
+    older 0.000368861 < m1 < 0.00135832 (99.7%)
 
     descwl-shear-sims (fake-tan-wcs-trivial-sim) 50ec575a8f6e8a55f0c9dc13679dc8bef85ee163
     descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
     metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
     mdet-lsst-sim (refactor-trivial-wcs) d6505ee65654aa8e91994034a23227ca5b9f5567
-
-    more running at nersc
 
 - testing dithers
     - offseting psf exactly as image is offset
@@ -835,3 +834,7 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     mdet-lsst-sim (refactor-trivial-sim) d390967b81201a3bbce83baf3df016c35dda9348
     metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
     descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
+
+- run-trivial-grid-drM-s2n10000-hlr0.5-v1
+    - moffat
+    - 0.000290286 < m1 < 0.000403891 (99.7%)
