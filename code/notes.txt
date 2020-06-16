@@ -829,3 +829,9 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     159958
     m1err: 0.000371595 (99.7%)
     0.000361468 < m1 < 0.00110466 (99.7%)
+
+- run-trivial-drW-v1
+    descwl-shear-sims (random-offsets) b30d96bdcf1d7d1fc7ca14c89855bc841cc3cc13
+    mdet-lsst-sim (refactor-trivial-sim) d390967b81201a3bbce83baf3df016c35dda9348
+    metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
+    descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
