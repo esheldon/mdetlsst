@@ -835,6 +835,10 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
     descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
 
+- run-trivial-drW-nfac0.58-v1-001.lsf
+    - lower noise to match 3 band
+
 - run-trivial-grid-drM-s2n10000-hlr0.5-v1
     - moffat
     - 0.000290286 < m1 < 0.000403891 (99.7%)
+
