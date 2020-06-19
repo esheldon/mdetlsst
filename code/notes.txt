@@ -843,13 +843,11 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 - run-trivial-drW-nfac0.58-v1-001.lsf
     - lower noise to match 3 band
     - lower noise doesn't seem to lower the shear noise much
-    - so far 28/40
 
     -0.000155605 < m1 < 0.00105179 (99.7%)
     4.40132e-05 < m1 < 0.000962923 (99.7%)
     1.02923e-05 < m1 < 0.00083154 (99.7%)
     0.000104515 < m1 < 0.000856681 (99.7%)
-
 
 - run-trivial-grid-drM-s2n10000-hlr0.5-v1
     - moffat
@@ -872,4 +870,10 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -4.05005e-05 < c1 < 2.0139e-05 (99.7%)
     -2.54865e-05 < c2 < 4.11157e-05 (99.7%)
 
-    
+- run-trivial-drPW-nfac0.58-v1
+    - ps PSF
+
+    descwl-shear-sims (random-offsets) 036813d34df456463b4ad0a10bf5a60855b42030
+    mdet-lsst-sim (refactor-trivial-sim) 2be13ae0be38cec600afda6490a36fc0a86a53ac
+    metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
+    descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
