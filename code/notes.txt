@@ -872,11 +872,19 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 - run-trivial-drPW-nfac0.58-v1
     - ps PSF
+    - decided to kill it in favor of run-trivial-drPW-nfac0.58-v2 which
+    does not do cancelling, and is thus faster
 
     descwl-shear-sims (random-offsets) 036813d34df456463b4ad0a10bf5a60855b42030
     mdet-lsst-sim (refactor-trivial-sim) 2be13ae0be38cec600afda6490a36fc0a86a53ac
     metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
     descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
+
+    -0.00103872 < m1 < 0.00205587 (99.7%)
+    -0.000373993 < m1 < 0.0022061 (99.7%)
+    -0.000399428 < m1 < 0.00183986 (99.7%)
+    -9.39876e-05 < m1 < 0.00193392 (99.7%)
+
 
 - run-trivial-drPW-nfac0.58-v2
     - started new version without cancelling, to speed it up
