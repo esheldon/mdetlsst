@@ -885,6 +885,7 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -0.000399428 < m1 < 0.00183986 (99.7%)
     -9.39876e-05 < m1 < 0.00193392 (99.7%)
 
+    gonna run more
 
 - run-trivial-drPW-nfac0.58-v2
     - started new version without cancelling, to speed it up
@@ -896,3 +897,5 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
     mdet-lsst-sim (refactor-trivial-sim) 10fcf9b25ff6082b27fe66aa06f74fc7335ccc39
     metadetect (add-gauss-fit) ae4026cc8d6277301c3c1ab4c98adf66497c89b4
+
+    I was wrong, it is definitely noisier.  I don't really understand
