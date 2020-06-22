@@ -872,23 +872,35 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 - run-trivial-drPW-nfac0.58-v1
     - ps PSF
-    - decided to kill it in favor of run-trivial-drPW-nfac0.58-v2 which
-    does not do cancelling, and is thus faster
 
     descwl-shear-sims (random-offsets) 036813d34df456463b4ad0a10bf5a60855b42030
     mdet-lsst-sim (refactor-trivial-sim) 2be13ae0be38cec600afda6490a36fc0a86a53ac
     metadetect (master) a63236f063fe2979c7fbf89563080e6fe66895fb
     descwl_coadd (master) 6465c54b4f2aa3372790bc3c8cab87e1cd3d1082
 
-    -0.00103872 < m1 < 0.00205587 (99.7%)
-    -0.000373993 < m1 < 0.0022061 (99.7%)
-    -0.000399428 < m1 < 0.00183986 (99.7%)
-    -9.39876e-05 < m1 < 0.00193392 (99.7%)
+    16/40
 
-    gonna run more
+    m1err: 0.0016361 (99.7%)
+    -0.00159921 < m1 < 0.00167298 (99.7%)
+
+    m1err: 0.00162876 (99.7%)
+    -0.00157462 < m1 < 0.0016829 (99.7%)
+
+    m1err: 0.00142153 (99.7%)
+    -0.00087344 < m1 < 0.00196961 (99.7%)
+
+    m1err: 0.00125709 (99.7%)
+    -0.000991009 < m1 < 0.00152317 (99.7%)
+
+    m1err: 0.00113944 (99.7%)
+    -0.000824236 < m1 < 0.00145464 (99.7%)
+
+
 
 - run-trivial-drPW-nfac0.58-v2
-    - started new version without cancelling, to speed it up
+    - started new version without cancelling, to speed it up, but it turns out
+    I had misinterpreted the nocancel calculations, they are indeed
+    noisier
 
     ngmix (release2) 7fc0fe694911cb3c5c70284640c194e3ba4d5f9b
 
@@ -898,4 +910,9 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     mdet-lsst-sim (refactor-trivial-sim) 10fcf9b25ff6082b27fe66aa06f74fc7335ccc39
     metadetect (add-gauss-fit) ae4026cc8d6277301c3c1ab4c98adf66497c89b4
 
-    I was wrong, it is definitely noisier.  I don't really understand
+- stars
+    - to avoid boxes, need big psf image for bright stars and Moffat
+    - can mask these areas though
+    - readying for run
+        - get new descwl_coadd master
+        - make sure --interp-bright is set
