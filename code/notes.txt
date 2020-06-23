@@ -896,6 +896,8 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     -0.000824236 < m1 < 0.00145464 (99.7%)
 
 
+    agh bug not writing 1m
+    tried nocancel but even larger error
 
 - run-trivial-drPW-nfac0.58-v2
     - started new version without cancelling, to speed it up, but it turns out
@@ -912,7 +914,12 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 - stars
     - to avoid boxes, need big psf image for bright stars and Moffat
-    - can mask these areas though
-    - readying for run
-        - get new descwl_coadd master
-        - make sure --interp-bright is set
+    - masking these areas though
+
+- run-trivial-drsPW-nfac0.58-v1
+    - stars!  with masking and saturation
+      ngmix (release2) 7fc0fe694911cb3c5c70284640c194e3ba4d5f9b
+      descwl-shear-sims (random-offsets) 4b40ae473e8a149391ddaa8268244be9b929649c
+      mdet-lsst-sim (refactor-trivial-sim) 81a677e350a3f64fb8747402dfe13700eb03aa86
+      metadetect (add-gauss-fit) ae4026cc8d6277301c3c1ab4c98adf66497c89b4
+      descwl_coadd (master) d6ac39bf479e4065167730ccc318405ff099001f
