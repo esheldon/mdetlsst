@@ -1,4 +1,12 @@
-# no stack
+TODO:
+    * run with cosmics, bad cols, EDGE, bleeds
+    * document all functions
+    * run without buff
+    * run 3 bands# no stack
+    * pixel level tests of all
+    * normalize bmask vs mask in the sim code: always
+      use bmask
+
 make-condor.py --run run-nostack01c --njobs 2000 --seed 22414 --ntrial 100 --nepochs 1 --nostack
 
 nostack m1: 0.000460004 +/- 0.000619505 (3 sigma)
@@ -923,3 +931,10 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
       mdet-lsst-sim (refactor-trivial-sim) 81a677e350a3f64fb8747402dfe13700eb03aa86
       metadetect (add-gauss-fit) ae4026cc8d6277301c3c1ab4c98adf66497c89b4
       descwl_coadd (master) d6ac39bf479e4065167730ccc318405ff099001f
+
+     after 21/40
+     m1err: 0.00161364 (99.7%)
+      -0.00163617 < m1 < 0.0015911 (99.7%)
+      -7.66667e-05 < c1 < 7.27086e-05 (99.7%)
+      -3.33972e-05 < c2 < 0.000114519 (99.7%)
+
