@@ -926,15 +926,26 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 - run-trivial-drsPW-nfac0.58-v1
     - stars!  with masking and saturation
+
       ngmix (release2) 7fc0fe694911cb3c5c70284640c194e3ba4d5f9b
       descwl-shear-sims (random-offsets) 4b40ae473e8a149391ddaa8268244be9b929649c
       mdet-lsst-sim (refactor-trivial-sim) 81a677e350a3f64fb8747402dfe13700eb03aa86
       metadetect (add-gauss-fit) ae4026cc8d6277301c3c1ab4c98adf66497c89b4
       descwl_coadd (master) d6ac39bf479e4065167730ccc318405ff099001f
 
-     after 21/40
-     m1err: 0.00161364 (99.7%)
-      -0.00163617 < m1 < 0.0015911 (99.7%)
-      -7.66667e-05 < c1 < 7.27086e-05 (99.7%)
-      -3.33972e-05 < c2 < 0.000114519 (99.7%)
+      s2n > 30 stellar density cut 20 max mask frac 0.05
+      m1err: 0.00117162 (99.7%)
+      -0.00103505 < m1 < 0.00130819 (99.7%)
+      -3.92551e-05 < c1 < 6.88251e-05 (99.7%)
+      -3.87661e-05 < c2 < 6.83338e-05 (99.7%)
 
+
+
+- run-trivial-drcbsBPW-nfac0.58-v1
+    - turning on defects, cosmics, bad cols, bleed trails
+    
+    ngmix (release2) 7fc0fe694911cb3c5c70284640c194e3ba4d5f9b
+    descwl-shear-sims (random-offset) 3274ab2361cda30231f2160b97a4c760489890da
+    mdet-lsst-sim (refactor-trivial-sim) 2532e3015af689a6528292aca6effea4f29e2252
+    metadetect (add-gauss-fit) ae4026cc8d6277301c3c1ab4c98adf66497c89b4
+    descwl_coadd (master) d6ac39bf479e4065167730ccc318405ff099001f
