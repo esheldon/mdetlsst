@@ -943,7 +943,17 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
 
 - run-trivial-drcbsBPW-nfac0.58-v1
     - turning on defects, cosmics, bad cols, bleed trails
+    - FORGOT TO INTERP BRIGHT
     
+    ngmix (release2) 7fc0fe694911cb3c5c70284640c194e3ba4d5f9b
+    descwl-shear-sims (random-offset) 3274ab2361cda30231f2160b97a4c760489890da
+    mdet-lsst-sim (refactor-trivial-sim) 2532e3015af689a6528292aca6effea4f29e2252
+    metadetect (add-gauss-fit) ae4026cc8d6277301c3c1ab4c98adf66497c89b4
+    descwl_coadd (master) d6ac39bf479e4065167730ccc318405ff099001f
+
+- run-trivial-drcbsBPW-nfac0.58-v2
+    - now with interp bright
+
     ngmix (release2) 7fc0fe694911cb3c5c70284640c194e3ba4d5f9b
     descwl-shear-sims (random-offset) 3274ab2361cda30231f2160b97a4c760489890da
     mdet-lsst-sim (refactor-trivial-sim) 2532e3015af689a6528292aca6effea4f29e2252
