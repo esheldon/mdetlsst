@@ -959,3 +959,20 @@ drsWRIZ -0.00219223 < m1 < 0.00336053 (99.7%)  -1.9183e-05 < c2 < 3.13332e-05 (9
     mdet-lsst-sim (refactor-trivial-sim) 2532e3015af689a6528292aca6effea4f29e2252
     metadetect (add-gauss-fit) ae4026cc8d6277301c3c1ab4c98adf66497c89b4
     descwl_coadd (master) d6ac39bf479e4065167730ccc318405ff099001f
+
+
+New sim code returning DM ExposureF, mocked up DM PSF
+-----------------------------------------------------
+
+- run-lsst-grid-dr-s2n1000-v1
+    m1err: 0.000171468 (99.7%)
+    0.000262771 < m1 < 0.000605706 (99.7%)
+    -4.49436e-06 < c1 < 5.15852e-06 (99.7%)
+    -1.61866e-05 < c2 < 1.61308e-05 (99.7%)
+
+- run-lsst-grid-dr-s2n100-v1
+
+    m1err: 0.0001961 (99.7%)
+    0.000266208 < m1 < 0.000658408 (99.7%)
+    -3.91681e-06 < c1 < 4.18256e-06 (99.7%)
+    -4.28025e-06 < c2 < 4.846e-06 (99.7%)
