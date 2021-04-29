@@ -990,3 +990,17 @@ New sim code returning DM ExposureF, mocked up DM PSF
     0.000146301 < m1 < 0.000497619 (99.7%)
     -9.4787e-06 < c1 < 7.41165e-07 (99.7%)
     -1.70056e-05 < c2 < 1.84086e-05 (99.7%)
+
+- run-lsst-drcbsBPW-nfac0.58-v2
+    - using config for run-lsst-drcbsBPW-nfac0.58-v1
+    - no interp bright
+    - biased for higher stellar densities, e.g.
+		maskfrac-0.02-Tratio1.2-sdens025:0.00144233 < m1 < 0.00671157 (99.7%)
+		maskfrac-0.02-Tratio1.2-sdens040:0.00311316 < m1 < 0.00834286 (99.7%)
+		maskfrac-0.02-Tratio1.2-sdens060:0.00414311 < m1 < 0.00941382 (99.7%)
+		maskfrac-0.02-Tratio1.2-sdens080:0.00504413 < m1 < 0.0103555 (99.7%)
+		maskfrac-0.02-Tratio1.2-sdens100:0.00553631 < m1 < 0.0108679 (99.7%)
+
+- run-lsst-drcbsBPW-nfac0.58-v3
+    - using config for run-lsst-drcbsBPW-nfac0.58-v1
+    - with interp bright
