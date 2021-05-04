@@ -1003,4 +1003,7 @@ New sim code returning DM ExposureF, mocked up DM PSF
 
 - run-lsst-drcbsBPW-nfac0.58-v3
     - using config for run-lsst-drcbsBPW-nfac0.58-v1
+    - descwl-shear-sims v0.3.0rc1
+    - descwl_coadd 0.1.0rc1
+    - mdet-lsst-sim 0.1.0rc1
     - with interp bright
