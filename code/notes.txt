@@ -1003,7 +1003,26 @@ New sim code returning DM ExposureF, mocked up DM PSF
 
 - run-lsst-drcbsBPW-nfac0.58-v3
     - using config for run-lsst-drcbsBPW-nfac0.58-v1
-    - descwl-shear-sims v0.3.0rc1
-    - descwl_coadd 0.1.0rc1
-    - mdet-lsst-sim 0.1.0rc1
     - with interp bright
+    - versions
+        - descwl-shear-sims v0.3.0rc1
+        - descwl_coadd 0.1.0rc1
+        - mdet-lsst-sim 0.1.0rc1
+    - current results after 46/80
+	maskfrac-0.02-Tratio1.2-sdens005:-0.00127977 < m1 < 0.00129521 (99.7%)
+	maskfrac-0.02-Tratio1.2-sdens010:-0.000452107 < m1 < 0.00171633 (99.7%)
+	maskfrac-0.02-Tratio1.2-sdens025:-0.000531117 < m1 < 0.00154958 (99.7%)
+	maskfrac-0.02-Tratio1.2-sdens040:-0.000452779 < m1 < 0.00162708 (99.7%)
+	maskfrac-0.02-Tratio1.2-sdens060:-0.000402339 < m1 < 0.00168382 (99.7%)
+	maskfrac-0.02-Tratio1.2-sdens080:-0.000432238 < m1 < 0.00165753 (99.7%)
+	maskfrac-0.02-Tratio1.2-sdens100:-0.000415728 < m1 < 0.0016747 (99.7%)
+
+- run-lsst-grid-dr-s2n1000-v4
+  - uses config run-lsst-grid-dr-s2n1000-v3.yaml
+  - using new "online coadds"
+  - no tags for this quick test
+
+      m1err: 0.000188099 (99.7%)
+       0.000262191 < m1 < 0.000638389 (99.7%)
+      -4.41028e-06 < c1 < 5.85632e-06 (99.7%)
+      -9.09472e-06 < c2 < 2.24379e-05 (99.7%)
