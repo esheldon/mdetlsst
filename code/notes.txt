@@ -1026,3 +1026,12 @@ New sim code returning DM ExposureF, mocked up DM PSF
        0.000262191 < m1 < 0.000638389 (99.7%)
       -4.41028e-06 < c1 < 5.85632e-06 (99.7%)
       -9.09472e-06 < c2 < 2.24379e-05 (99.7%)
+
+- run-lsst-grid-dr-s2n100-v2
+  - uses config run-lsst-grid-dr-s2n100-v1.yaml
+  - using new "online coadds"
+  - no tags for this quick test
+  m1err: 0.00184129 (99.7%)
+  -0.001675 < m1 < 0.00200758 (99.7%)
+  -4.25881e-05 < c1 < 3.26525e-05 (99.7%)
+  -6.07621e-05 < c2 < 2.41908e-05 (99.7%)
