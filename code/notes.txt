@@ -1035,3 +1035,12 @@ New sim code returning DM ExposureF, mocked up DM PSF
   -0.001675 < m1 < 0.00200758 (99.7%)
   -4.25881e-05 < c1 < 3.26525e-05 (99.7%)
   -6.07621e-05 < c2 < 2.41908e-05 (99.7%)
+
+- run-lsst-grid-drcbP-s2n15-v1
+  - using new "online coadds"
+    - versions
+        - descwl-shear-sims v0.3.0rc1
+        - descwl_coadd 0.1.0rc2
+        - mdet-lsst-sim 0.1.0rc2
+        - metadetect 0.3.2
+
