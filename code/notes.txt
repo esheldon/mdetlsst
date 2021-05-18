@@ -1065,3 +1065,11 @@ New sim code returning DM ExposureF, mocked up DM PSF
         - mdet-lsst-sim 0.1.0rc2
         - metadetect 0.3.2
 
+      consistent with run-lsst-drcbsBPW-nfac0.58-v3
+    s2n-10-1000-maskfrac-0.02-Tratio1.2-sdens005:-0.000795469 < m1 < 0.00122918 (99.7%)
+    s2n-10-1000-maskfrac-0.02-Tratio1.2-sdens010:-0.000275685 < m1 < 0.00143669 (99.7%)
+    s2n-10-1000-maskfrac-0.02-Tratio1.2-sdens025:-0.00010142 < m1 < 0.00154207 (99.7%)
+    s2n-10-1000-maskfrac-0.02-Tratio1.2-sdens040:-0.000200594 < m1 < 0.00144314 (99.7%)
+    s2n-10-1000-maskfrac-0.02-Tratio1.2-sdens060:-0.000150246 < m1 < 0.00149976 (99.7%)
+    s2n-10-1000-maskfrac-0.02-Tratio1.2-sdens080:-0.000174064 < m1 < 0.00147865 (99.7%)
+    s2n-10-1000-maskfrac-0.02-Tratio1.2-sdens100:-0.000169504 < m1 < 0.00148439 (99.7%)
