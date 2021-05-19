@@ -1060,7 +1060,7 @@ New sim code returning DM ExposureF, mocked up DM PSF
 - run-lsst-drcbsBPW-nfac0.58-online-v1
     - using new online coadds
     - versions
-        - descwl-shear-sims v0.3.0rc1
+        - descwl-shear-sims v0.3.0rc2
         - descwl_coadd 0.1.0rc2
         - mdet-lsst-sim 0.1.0rc2
         - metadetect 0.3.2
