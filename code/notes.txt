@@ -1082,9 +1082,21 @@ New sim code returning DM ExposureF, mocked up DM PSF
       - descwl_coadds branch nonoise
       - metadetect branch new-coadds
       - mdet-lsst-sim branch new-coadds
+
       s/n > 10
 
       m1err: 0.000123481 (99.7%)
       0.000320115 < m1 < 0.000567077 (99.7%)
       -3.55912e-06 < c1 < 2.98597e-06 (99.7%)
       -1.01252e-05 < c2 < 1.24163e-05 (99.7%)
+
+- run-lsst-grid-drP-s2n1000-v1
+    - config run-lsst-grid-drP-s2n1000-v1.yaml
+    - using new codes that only use online coadds
+      - descwl-shear-sims branch nonoise
+      - descwl_coadds branch nonoise
+      - metadetect branch new-coadds
+      - mdet-lsst-sim branch new-coadds
+
+      s/n > 10
+
