@@ -1132,3 +1132,8 @@ New sim code returning DM ExposureF, mocked up DM PSF
       - mdet-lsst-sim branch new-coadds
 
       s/n > 10
+
+    m1err: 0.00018709 (99.7%)
+    0.00018623 < m1 < 0.00056041 (99.7%)
+    -3.92339e-05 < c1 < 3.1792e-05 (99.7%)
+    -4.03592e-05 < c2 < 3.41894e-05 (99.7%)
