@@ -1133,7 +1133,15 @@ New sim code returning DM ExposureF, mocked up DM PSF
 
       s/n > 10
 
-    m1err: 0.00018709 (99.7%)
-    0.00018623 < m1 < 0.00056041 (99.7%)
-    -3.92339e-05 < c1 < 3.1792e-05 (99.7%)
-    -4.03592e-05 < c2 < 3.41894e-05 (99.7%)
+- run-lsst-grid-drP-s2n1000-v4
+    - same as v3 but running again with tags
+    - config run-lsst-grid-drP-s2n1000-v1.yaml
+      - descwl-shear-sims 0.3.1
+      - descwl_coadds 0.2.0
+      - metadetect 0.3.6
+      - mdet-lsst-sim 0.2.0
+
+      m1err: 0.000182114 (99.7%)
+      0.00024959 < m1 < 0.000613818 (99.7%)
+      -4.67773e-05 < c1 < 2.20203e-05 (99.7%)
+      -4.32459e-05 < c2 < 2.85379e-05 (99.7%)
