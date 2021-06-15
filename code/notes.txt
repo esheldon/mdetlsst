@@ -1145,3 +1145,31 @@ New sim code returning DM ExposureF, mocked up DM PSF
       0.00024959 < m1 < 0.000613818 (99.7%)
       -4.67773e-05 < c1 < 2.20203e-05 (99.7%)
       -4.32459e-05 < c2 < 2.85379e-05 (99.7%)
+
+- run-lsst-grid-drP-s2n1000-v5
+    - same but with new masking code, star density now kept, mfrac
+      in place
+    - config run-lsst-grid-drP-s2n1000-v1.yaml
+      - ngmix 2.0.0rc2
+      - descwl-shear-sims 0.3.2
+      - descwl_coadds 0.2.1
+      - metadetect 0.3.6
+      - mdet-lsst-sim 0.2.1
+
+      m1err: 0.000184521 (99.7%)
+      0.000210731 < m1 < 0.000579772 (99.7%)
+      -2.78854e-05 < c1 < 3.98741e-05 (99.7%)
+      -2.36296e-05 < c2 < 4.99874e-05 (99.7%)
+
+- run-lsst-drcbsBPW-nfac0.58-v4
+    - config run-lsst-drcbsBPW-nfac0.58-v1
+    - same but with new masking code, star density now kept, mfrac
+      in place
+    - config run-lsst-grid-drP-s2n1000-v1.yaml
+      - ngmix 2.0.0rc2
+      - descwl-shear-sims 0.3.2
+      - descwl_coadds 0.2.1
+      - metadetect 0.3.6
+      - mdet-lsst-sim 0.2.1
+
+
