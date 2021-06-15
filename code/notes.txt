@@ -1170,6 +1170,7 @@ New sim code returning DM ExposureF, mocked up DM PSF
       - descwl-shear-sims 0.3.2
       - descwl_coadds 0.2.1
       - metadetect 0.3.6
+          switched to branch bbox bd05a86e2e8d8f6d3e5384559f25aa34b750dc3e 
       - mdet-lsst-sim 0.2.1
 
 
