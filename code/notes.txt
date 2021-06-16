@@ -1168,9 +1168,12 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - config run-lsst-grid-drP-s2n1000-v1.yaml
       - ngmix 2.0.0rc2
       - descwl-shear-sims 0.3.2
-      - descwl_coadds 0.2.1
+      - descwl_coadds 0.2.2
       - metadetect 0.3.6
-          switched to branch bbox bd05a86e2e8d8f6d3e5384559f25aa34b750dc3e 
+          switched to branch bbox
+          a3d3f7481f168364a935ca431b3465b9cc440670
       - mdet-lsst-sim 0.2.1
+          switched to branch cleanup-and-logging
+          e8bc46dc6c6382977d984ee844a487189f690c1d
 
 
