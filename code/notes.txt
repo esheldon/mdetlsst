@@ -1171,9 +1171,9 @@ New sim code returning DM ExposureF, mocked up DM PSF
       - descwl_coadds 0.2.2
       - metadetect 0.3.6
           switched to branch bbox
-          a3d3f7481f168364a935ca431b3465b9cc440670
+          677d6b63c964cf1e7fe2e9475cb7738fdbca8755
+          TODO tag
       - mdet-lsst-sim 0.2.1
           switched to branch cleanup-and-logging
           e8bc46dc6c6382977d984ee844a487189f690c1d
-
-
+          TODO tag
