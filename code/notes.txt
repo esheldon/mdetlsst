@@ -1169,11 +1169,11 @@ New sim code returning DM ExposureF, mocked up DM PSF
       - ngmix 2.0.0rc2
       - descwl-shear-sims 0.3.2
       - descwl_coadds 0.2.2
-      - metadetect 0.3.6
-          switched to branch bbox
+      - metadetect
+          in branch bbox
           677d6b63c964cf1e7fe2e9475cb7738fdbca8755
-          TODO tag
-      - mdet-lsst-sim 0.2.1
-          switched to branch cleanup-and-logging
+          should be equivalent to 0.3.8
+      - mdet-lsst-sim
+          in branch cleanup-and-logging
           e8bc46dc6c6382977d984ee844a487189f690c1d
-          TODO tag
+          should be equivalent to 0.2.2
