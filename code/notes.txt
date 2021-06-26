@@ -1177,3 +1177,33 @@ New sim code returning DM ExposureF, mocked up DM PSF
           in branch cleanup-and-logging
           e8bc46dc6c6382977d984ee844a487189f690c1d
           should be equivalent to 0.2.2
+
+          looks similar to last one run-lsst-drcbsBPW-nfac0.58-online-v1
+          when doing image mask fraction cuts
+
+- run-lsst-grid-drP-skysub-s2n1000-v1
+    - running sky subtraction; note the true sky is
+      zero so this is a check that sky subtraction doesn't
+      cause problems in the absence of a sky
+    - descwl-shear-sims master a808ffb377b1936964db312e87bd72299268ff2e
+    - descwl_coadds 0.2.2
+    - metadetect branch skysub-exceptions
+        8c10478e2597b54499f853596ac2f5c310e8c293
+    - mdet-lsst-sim branch skysub 6a7b635c75b9bd85be3aefb751fbe2272fd0c362
+       equivalent to 0.2.3
+
+    m1err: 0.000237871 (99.7%%)
+    0.0001141 < m1 < 0.000589842 (99.7%%)
+    -1.65888e-05 < c1 < 5.20693e-05 (99.7%%)
+    -1.00742e-05 < c2 < 3.14521e-05 (99.7%%)
+
+- run-lsst-drcbsBPW-nfac0.58-sky-v1
+    - running sky subtraction; note the true sky is
+      zero so this is a check that sky subtraction doesn't
+      cause problems in the absence of a sky
+
+    - descwl-shear-sims master a808ffb377b1936964db312e87bd72299268ff2e
+    - descwl_coadds 0.2.2
+    - mdet-lsst-sim 0.2.3
+    - metadetect skysub-exceptions
+        8c10478e2597b54499f853596ac2f5c310e8c293
