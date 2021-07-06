@@ -1207,3 +1207,9 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - mdet-lsst-sim 0.2.3
     - metadetect skysub-exceptions
         8c10478e2597b54499f853596ac2f5c310e8c293
+    looks same as run-lsst-grid-drP-skysub-s2n1000-v1, so when input
+    sky is ok running sky sub again doesn't mess anything up
+
+- run-lsst-drcbsBPW-nfac0.58-thresh5-v1
+    same as run-lsst-drcbsBPW-nfac0.58-sky-v1 with
+    same software versions but with threshold of 5 sigma
