@@ -1207,3 +1207,31 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - mdet-lsst-sim 0.2.3
     - metadetect skysub-exceptions
         8c10478e2597b54499f853596ac2f5c310e8c293
+
+- run-lsst-drcbsBPW-nfac0.58-thresh5-v1.yaml
+    - lower detection threshold
+    - sky subtraction
+    - descwl-shear-sims master a808ffb377b1936964db312e87bd72299268ff2e
+    - descwl_coadds 0.2.2
+    - mdet-lsst-sim 0.2.3
+    - metadetect skysub-exceptions
+        8c10478e2597b54499f853596ac2f5c310e8c293
+
+    - looks significantly worse especially for cuts at s/n > 10
+
+- run-lsst-drcbBPW-nfac0.58-thresh5-v1.yaml
+    - lower detection threshold but no stars
+    - sky subtraction
+    - descwl-shear-sims master a808ffb377b1936964db312e87bd72299268ff2e
+    - descwl_coadds 0.2.2
+    - mdet-lsst-sim 0.2.3
+    - metadetect skysub-exceptions
+        8c10478e2597b54499f853596ac2f5c310e8c293
+    - looking biased low
+
+- if above is biased low also then this might be an issue with sky subtraction
+  rather than the stars, or both.  Will need to run without sky sub on
+
+  So need to wait for above to finish.
+
+  Can we devise tests that work at high s/n?
