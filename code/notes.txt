@@ -1209,7 +1209,8 @@ New sim code returning DM ExposureF, mocked up DM PSF
         8c10478e2597b54499f853596ac2f5c310e8c293
 
 - run-lsst-drcbsBPW-nfac0.58-thresh5-v1.yaml
-    - lower detection threshold
+    - same as run-lsst-drcbsBPW-nfac0.58-sky-v1 with
+    - same software versions but with threshold of 5 sigma
     - sky subtraction
     - descwl-shear-sims master a808ffb377b1936964db312e87bd72299268ff2e
     - descwl_coadds 0.2.2
