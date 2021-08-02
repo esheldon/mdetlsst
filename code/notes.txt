@@ -1236,3 +1236,30 @@ New sim code returning DM ExposureF, mocked up DM PSF
   So need to wait for above to finish.
 
   Can we devise tests that work at high s/n?
+
+
+- run-lsst-grid-drP-s2n1000-stamp-v1
+    - drawing with stamps
+    - descwl-shear-sims master optimize-draw adde5c814d0152486b38ff052a25014e7f97f5d3
+    - descwl_coadds 0.2.2
+    - metadetect branch master b215c6dd52cedffe1dca7ba9571fda379ae768b1
+    - mdet-lsst-sim 0.2.3
+    m1err: 0.000182021 (99.7%%)
+    0.000219848 < m1 < 0.00058389 (99.7%%)
+    -4.55716e-05 < c1 < 2.03545e-05 (99.7%%)
+    -3.16218e-05 < c2 < 3.07224e-05 (99.7%%)
+
+- run-lsst-grid-drsP-s2n1000-stamp-v1
+    - drawing with stamps
+    - with stars added
+    - descwl-shear-sims master optimize-draw adde5c814d0152486b38ff052a25014e7f97f5d3
+    - descwl_coadds 0.2.2
+    - metadetect branch master b215c6dd52cedffe1dca7ba9571fda379ae768b1
+    - mdet-lsst-sim 0.2.3
+
+    m1err: 0.00317146 (99.7%%)
+    0.0149288 < m1 < 0.0212717 (99.7%%)
+    -9.07783e-05 < c1 < 7.67876e-05 (99.7%%)
+    -3.62716e-05 < c2 < 8.76013e-05 (99.7%%)
+
+    ouch
