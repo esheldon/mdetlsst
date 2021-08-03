@@ -1257,9 +1257,37 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - metadetect branch master b215c6dd52cedffe1dca7ba9571fda379ae768b1
     - mdet-lsst-sim 0.2.3
 
+    star dens < 100
     m1err: 0.00317146 (99.7%%)
     0.0149288 < m1 < 0.0212717 (99.7%%)
     -9.07783e-05 < c1 < 7.67876e-05 (99.7%%)
     -3.62716e-05 < c2 < 8.76013e-05 (99.7%%)
 
+    star dens < 10
+    m1err: 0.00232639 (99.7%%)
+    0.00568357 < m1 < 0.0103364 (99.7%%)
+    -6.33224e-05 < c1 < 8.67692e-05 (99.7%%)
+    -6.35173e-05 < c2 < 6.82142e-05 (99.7%%)
+
+    star dens < 5
+    m1err: 0.00234128 (99.7%%)
+    0.00319264 < m1 < 0.00787519 (99.7%%)
+    -6.82548e-05 < c1 < 9.84844e-05 (99.7%%)
+    -8.09768e-05 < c2 < 4.93207e-05 (99.7%%)
+
     ouch
+
+- run-lsst-cbPW-stamp-nowarp
+    - stamps
+    - no warping, no stars for speed
+    - thresh 10
+    - descwl_coadds branch coadd-simple 4ce050eea9fa50a4d42141fa6a349ac12375a576 
+    - mdet-lsst-sim branch nocoadd 5978b461f2683d890255d3d29a6257747eeb9ca8
+    - descwl-shear-sims branch optimize-draw 32fc9101fc4513e33df8fa2125458d9b6903c421
+    - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
+
+    biased
+    m1err: 0.00170639 (99.7%%)
+    -0.00381147 < m1 < -0.000398686 (99.7%%)
+    -8.00928e-05 < c1 < 0.000136424 (99.7%%)
+    -8.98773e-05 < c2 < 7.58657e-05 (99.7%%)
