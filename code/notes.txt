@@ -1291,3 +1291,13 @@ New sim code returning DM ExposureF, mocked up DM PSF
     -0.00381147 < m1 < -0.000398686 (99.7%%)
     -8.00928e-05 < c1 < 0.000136424 (99.7%%)
     -8.98773e-05 < c2 < 7.58657e-05 (99.7%%)
+
+- run-lsst-W-stamp-nowarp
+    - stamps
+    - no warping, no stars for speed, no features other than wldeblend
+    - thresh 10
+    - descwl_coadds branch coadd-simple 4ce050eea9fa50a4d42141fa6a349ac12375a576 
+    - mdet-lsst-sim branch nocoadd 5978b461f2683d890255d3d29a6257747eeb9ca8
+    - descwl-shear-sims branch optimize-draw 32fc9101fc4513e33df8fa2125458d9b6903c421
+    - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
+
