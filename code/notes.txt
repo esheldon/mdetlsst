@@ -1294,10 +1294,38 @@ New sim code returning DM ExposureF, mocked up DM PSF
 
 - run-lsst-W-stamp-nowarp
     - stamps
-    - no warping, no stars for speed, no features other than wldeblend
+    - no warping, gauss psf and no stars for speed, no features other than wldeblend
     - thresh 10
     - descwl_coadds branch coadd-simple 4ce050eea9fa50a4d42141fa6a349ac12375a576 
     - mdet-lsst-sim branch nocoadd 5978b461f2683d890255d3d29a6257747eeb9ca8
     - descwl-shear-sims branch optimize-draw 32fc9101fc4513e33df8fa2125458d9b6903c421
     - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
 
+    - lower noise than I expected.
+    - after 74
+    18 < s2n < 1000
+    m1err: 0.000331957 (99.7%%)
+    -0.000385221 < m1 < 0.000278693 (99.7%%)
+    -3.2841e-05 < c1 < 1.61806e-05 (99.7%%)
+    -2.63967e-05 < c2 < 2.14044e-05 (99.7%%)
+
+
+- run-lsst-grid-W-s2n15-stamp-nowarp
+
+    - descwl_coadds branch coadd-simple 4ce050eea9fa50a4d42141fa6a349ac12375a576 
+    - mdet-lsst-sim branch nocoadd f612e8f7fc169859aa5de6d8dcedb6243075cf1a
+    - descwl-shear-sims branch optimize-draw 32fc9101fc4513e33df8fa2125458d9b6903c421
+    - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
+
+- run-lsst-grid-MW-s2n15-stamp-nowarp
+    - same code as run-lsst-grid-W-s2n15-stamp-nowarp
+    - the s/n is slightly lower for moffat, maybe we can sort
+      of rescale assuming all is from shot noise
+
+    m1err: 0.00345385 (99.7%%)
+    -0.00387063 < m1 < 0.00303707 (99.7%%)
+    -7.07567e-05 < c1 < 2.87876e-05 (99.7%%)
+    -4.15268e-05 < c2 < 0.000104125 (99.7%%)
+
+- run-lsst-grid-PW-s2n15-stamp-nowarp
+    - same code as run-lsst-grid-W-s2n15-stamp-nowarp
