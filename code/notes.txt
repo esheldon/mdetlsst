@@ -1228,15 +1228,17 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - mdet-lsst-sim 0.2.3
     - metadetect skysub-exceptions
         8c10478e2597b54499f853596ac2f5c310e8c293
-    - looking biased low
+    - looking biased low, e.g. for s2n-18-1000-mask_frac-0.10-mfrac-1.00-Tratio-1.2-sdens-100
 
-- if above is biased low also then this might be an issue with sky subtraction
+    m1err: 0.000388854 (99.7%%)
+    -0.000702049 < m1 < 7.56583e-05 (99.7%%)
+    -1.43929e-05 < c1 < 2.7945e-05 (99.7%%)
+    -1.56653e-05 < c2 < 2.66561e-05 (99.7%%)
+
+- this might be an issue with sky subtraction
   rather than the stars, or both.  Will need to run without sky sub on
 
-  So need to wait for above to finish.
-
-  Can we devise tests that work at high s/n?
-
+- try to speed up for faster tests like above: no coadd and use stamps
 
 - run-lsst-grid-drP-s2n1000-stamp-v1
     - drawing with stamps
@@ -1275,7 +1277,7 @@ New sim code returning DM ExposureF, mocked up DM PSF
     -6.82548e-05 < c1 < 9.84844e-05 (99.7%%)
     -8.09768e-05 < c2 < 4.93207e-05 (99.7%%)
 
-    ouch
+    ouch, maybe some issue with stars in grid mode
 
 - run-lsst-cbPW-stamp-nowarp
     - stamps
@@ -1286,7 +1288,8 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - descwl-shear-sims branch optimize-draw 32fc9101fc4513e33df8fa2125458d9b6903c421
     - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
 
-    biased
+    biased, maybe due to bad cols with no rotations?
+
     m1err: 0.00170639 (99.7%%)
     -0.00381147 < m1 < -0.000398686 (99.7%%)
     -8.00928e-05 < c1 < 0.000136424 (99.7%%)
@@ -1301,15 +1304,17 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - descwl-shear-sims branch optimize-draw 32fc9101fc4513e33df8fa2125458d9b6903c421
     - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
 
-    - lower noise than I expected.
+    - lower noise than I expected (due to gauss psf, see below)
     - after 74
+    - looks a bit low
+
     18 < s2n < 1000
     m1err: 0.000331957 (99.7%%)
     -0.000385221 < m1 < 0.000278693 (99.7%%)
     -3.2841e-05 < c1 < 1.61806e-05 (99.7%%)
     -2.63967e-05 < c2 < 2.14044e-05 (99.7%%)
 
-
+- Figure out why noise was lower than expected
 - run-lsst-grid-W-s2n15-stamp-nowarp
 
     - descwl_coadds branch coadd-simple 4ce050eea9fa50a4d42141fa6a349ac12375a576 
@@ -1317,11 +1322,20 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - descwl-shear-sims branch optimize-draw 32fc9101fc4513e33df8fa2125458d9b6903c421
     - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
 
+    2000
+    m1err: 0.00142037 (99.7%%)
+    -0.00171841 < m1 < 0.00112234 (99.7%%)
+    -6.17078e-05 < c1 < 3.68508e-05 (99.7%%)
+    -5.75412e-05 < c2 < 5.27996e-05 (99.7%%)
+
+    running more
+
 - run-lsst-grid-MW-s2n15-stamp-nowarp
     - same code as run-lsst-grid-W-s2n15-stamp-nowarp
     - the s/n is slightly lower for moffat, maybe we can sort
       of rescale assuming all is from shot noise
 
+    2000
     m1err: 0.00345385 (99.7%%)
     -0.00387063 < m1 < 0.00303707 (99.7%%)
     -7.07567e-05 < c1 < 2.87876e-05 (99.7%%)
@@ -1329,3 +1343,11 @@ New sim code returning DM ExposureF, mocked up DM PSF
 
 - run-lsst-grid-PW-s2n15-stamp-nowarp
     - same code as run-lsst-grid-W-s2n15-stamp-nowarp
+
+    2000
+    m1err: 0.00352145 (99.7%%)
+    -0.00438957 < m1 < 0.00265332 (99.7%%)
+    -5.03842e-05 < c1 < 7.11804e-05 (99.7%%)
+    -6.84838e-05 < c2 < 4.99106e-05 (99.7%%)
+
+Massive difference in noise due to moffat!
