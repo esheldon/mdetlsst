@@ -1178,8 +1178,12 @@ New sim code returning DM ExposureF, mocked up DM PSF
           e8bc46dc6c6382977d984ee844a487189f690c1d
           should be equivalent to 0.2.2
 
-          looks similar to last one run-lsst-drcbsBPW-nfac0.58-online-v1
-          when doing image mask fraction cuts
+          why noise higher than run-lsst-drcbsBPW-nfac0.58-online-v1 ?
+          maybe related to bug in mask radius fixed here?  cb89bf10f77512b99939c9494ea6feba679dbf2a
+          m1err: 0.00388083 (99.7%)
+          -0.00589002 < m1 < 0.00187164 (99.7%)
+          -2.23004e-05 < c2 < 1.55198e-05 (99.7%)
+          (stack) [esheldon@astro0010 test-lsst-m
 
 - run-lsst-grid-drP-skysub-s2n1000-v1
     - running sky subtraction; note the true sky is
