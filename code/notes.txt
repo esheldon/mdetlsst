@@ -1180,10 +1180,16 @@ New sim code returning DM ExposureF, mocked up DM PSF
 
           why noise higher than run-lsst-drcbsBPW-nfac0.58-online-v1 ?
           maybe related to bug in mask radius fixed here?  cb89bf10f77512b99939c9494ea6feba679dbf2a
-          m1err: 0.00388083 (99.7%)
-          -0.00589002 < m1 < 0.00187164 (99.7%)
-          -2.23004e-05 < c2 < 1.55198e-05 (99.7%)
-          (stack) [esheldon@astro0010 test-lsst-m
+          m1err: 0.0016161 (99.7%)
+          -0.00224403 < m1 < 0.000988175 (99.7%)
+          -0.000105155 < c1 < 6.30475e-05 (99.7%)
+          -8.18646e-05 < c2 < 8.60453e-05 (99.7%)
+
+
+- run-lsst-drcbsBPW-nfac0.58-v5
+    - config run-lsst-drcbsBPW-nfac0.58-v1
+    - checking errors with new code, in particular bug fix with star mask
+    - new one does seem to be less noisy
 
 - run-lsst-grid-drP-skysub-s2n1000-v1
     - running sky subtraction; note the true sky is
@@ -1196,10 +1202,10 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - mdet-lsst-sim branch skysub 6a7b635c75b9bd85be3aefb751fbe2272fd0c362
        equivalent to 0.2.3
 
-    m1err: 0.000237871 (99.7%%)
-    0.0001141 < m1 < 0.000589842 (99.7%%)
-    -1.65888e-05 < c1 < 5.20693e-05 (99.7%%)
-    -1.00742e-05 < c2 < 3.14521e-05 (99.7%%)
+    m1err: 0.000237871 (99.7%)
+    0.0001141 < m1 < 0.000589842 (99.7%)
+    -1.65888e-05 < c1 < 5.20693e-05 (99.7%)
+    -1.00742e-05 < c2 < 3.14521e-05 (99.7%)
 
 - run-lsst-drcbsBPW-nfac0.58-sky-v1
     - running sky subtraction; note the true sky is
@@ -1234,10 +1240,10 @@ New sim code returning DM ExposureF, mocked up DM PSF
         8c10478e2597b54499f853596ac2f5c310e8c293
     - looking biased low, e.g. for s2n-18-1000-mask_frac-0.10-mfrac-1.00-Tratio-1.2-sdens-100
 
-    m1err: 0.000388854 (99.7%%)
-    -0.000702049 < m1 < 7.56583e-05 (99.7%%)
-    -1.43929e-05 < c1 < 2.7945e-05 (99.7%%)
-    -1.56653e-05 < c2 < 2.66561e-05 (99.7%%)
+    m1err: 0.000388854 (99.7%)
+    -0.000702049 < m1 < 7.56583e-05 (99.7%)
+    -1.43929e-05 < c1 < 2.7945e-05 (99.7%)
+    -1.56653e-05 < c2 < 2.66561e-05 (99.7%)
 
 - this might be an issue with sky subtraction
   rather than the stars, or both.  Will need to run without sky sub on
@@ -1250,10 +1256,10 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - descwl_coadds 0.2.2
     - metadetect branch master b215c6dd52cedffe1dca7ba9571fda379ae768b1
     - mdet-lsst-sim 0.2.3
-    m1err: 0.000182021 (99.7%%)
-    0.000219848 < m1 < 0.00058389 (99.7%%)
-    -4.55716e-05 < c1 < 2.03545e-05 (99.7%%)
-    -3.16218e-05 < c2 < 3.07224e-05 (99.7%%)
+    m1err: 0.000182021 (99.7%)
+    0.000219848 < m1 < 0.00058389 (99.7%)
+    -4.55716e-05 < c1 < 2.03545e-05 (99.7%)
+    -3.16218e-05 < c2 < 3.07224e-05 (99.7%)
 
 - run-lsst-grid-drsP-s2n1000-stamp-v1
     - drawing with stamps
@@ -1264,22 +1270,22 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - mdet-lsst-sim 0.2.3
 
     star dens < 100
-    m1err: 0.00317146 (99.7%%)
-    0.0149288 < m1 < 0.0212717 (99.7%%)
-    -9.07783e-05 < c1 < 7.67876e-05 (99.7%%)
-    -3.62716e-05 < c2 < 8.76013e-05 (99.7%%)
+    m1err: 0.00317146 (99.7%)
+    0.0149288 < m1 < 0.0212717 (99.7%)
+    -9.07783e-05 < c1 < 7.67876e-05 (99.7%)
+    -3.62716e-05 < c2 < 8.76013e-05 (99.7%)
 
     star dens < 10
-    m1err: 0.00232639 (99.7%%)
-    0.00568357 < m1 < 0.0103364 (99.7%%)
-    -6.33224e-05 < c1 < 8.67692e-05 (99.7%%)
-    -6.35173e-05 < c2 < 6.82142e-05 (99.7%%)
+    m1err: 0.00232639 (99.7%)
+    0.00568357 < m1 < 0.0103364 (99.7%)
+    -6.33224e-05 < c1 < 8.67692e-05 (99.7%)
+    -6.35173e-05 < c2 < 6.82142e-05 (99.7%)
 
     star dens < 5
-    m1err: 0.00234128 (99.7%%)
-    0.00319264 < m1 < 0.00787519 (99.7%%)
-    -6.82548e-05 < c1 < 9.84844e-05 (99.7%%)
-    -8.09768e-05 < c2 < 4.93207e-05 (99.7%%)
+    m1err: 0.00234128 (99.7%)
+    0.00319264 < m1 < 0.00787519 (99.7%)
+    -6.82548e-05 < c1 < 9.84844e-05 (99.7%)
+    -8.09768e-05 < c2 < 4.93207e-05 (99.7%)
 
     ouch, maybe some issue with stars in grid mode
 
@@ -1294,10 +1300,10 @@ New sim code returning DM ExposureF, mocked up DM PSF
 
     biased, maybe due to bad cols with no rotations?
 
-    m1err: 0.00170639 (99.7%%)
-    -0.00381147 < m1 < -0.000398686 (99.7%%)
-    -8.00928e-05 < c1 < 0.000136424 (99.7%%)
-    -8.98773e-05 < c2 < 7.58657e-05 (99.7%%)
+    m1err: 0.00170639 (99.7%)
+    -0.00381147 < m1 < -0.000398686 (99.7%)
+    -8.00928e-05 < c1 < 0.000136424 (99.7%)
+    -8.98773e-05 < c2 < 7.58657e-05 (99.7%)
 
 - run-lsst-W-stamp-nowarp
     - stamps
@@ -1313,10 +1319,10 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - looks a bit low
 
     18 < s2n < 1000
-    m1err: 0.000331957 (99.7%%)
-    -0.000385221 < m1 < 0.000278693 (99.7%%)
-    -3.2841e-05 < c1 < 1.61806e-05 (99.7%%)
-    -2.63967e-05 < c2 < 2.14044e-05 (99.7%%)
+    m1err: 0.000331957 (99.7%)
+    -0.000385221 < m1 < 0.000278693 (99.7%)
+    -3.2841e-05 < c1 < 1.61806e-05 (99.7%)
+    -2.63967e-05 < c2 < 2.14044e-05 (99.7%)
 
 - Figure out why noise was lower than expected
 - run-lsst-grid-W-s2n15-stamp-nowarp
@@ -1327,12 +1333,20 @@ New sim code returning DM ExposureF, mocked up DM PSF
     - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
 
     2000
-    m1err: 0.00142037 (99.7%%)
-    -0.00171841 < m1 < 0.00112234 (99.7%%)
-    -6.17078e-05 < c1 < 3.68508e-05 (99.7%%)
-    -5.75412e-05 < c2 < 5.27996e-05 (99.7%%)
+    m1err: 0.00142037 (99.7%)
+    -0.00171841 < m1 < 0.00112234 (99.7%)
+    -6.17078e-05 < c1 < 3.68508e-05 (99.7%)
+    -5.75412e-05 < c2 < 5.27996e-05 (99.7%)
 
     running more
+    s2n-10-10000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    m1err: 0.000460826 (99.7%)
+    7.11892e-05 < m1 < 0.00099284 (99.7%)
+    -1.32165e-05 < c1 < 5.75921e-06 (99.7%)
+    -9.57981e-06 < c2 < 9.85111e-06 (99.7%)
+
+    nocancel
+    m1err: 0.00380652 (99.7%)
 
 - run-lsst-grid-MW-s2n15-stamp-nowarp
     - same code as run-lsst-grid-W-s2n15-stamp-nowarp
@@ -1340,18 +1354,46 @@ New sim code returning DM ExposureF, mocked up DM PSF
       of rescale assuming all is from shot noise
 
     2000
-    m1err: 0.00345385 (99.7%%)
-    -0.00387063 < m1 < 0.00303707 (99.7%%)
-    -7.07567e-05 < c1 < 2.87876e-05 (99.7%%)
-    -4.15268e-05 < c2 < 0.000104125 (99.7%%)
+    m1err: 0.00345385 (99.7%)
+    -0.00387063 < m1 < 0.00303707 (99.7%)
+    -7.07567e-05 < c1 < 2.87876e-05 (99.7%)
+    -4.15268e-05 < c2 < 0.000104125 (99.7%)
+
+    nocancel
+    m1err: 0.00454754 (99.7%)
 
 - run-lsst-grid-PW-s2n15-stamp-nowarp
     - same code as run-lsst-grid-W-s2n15-stamp-nowarp
 
     2000
-    m1err: 0.00352145 (99.7%%)
-    -0.00438957 < m1 < 0.00265332 (99.7%%)
-    -5.03842e-05 < c1 < 7.11804e-05 (99.7%%)
-    -6.84838e-05 < c2 < 4.99106e-05 (99.7%%)
+    m1err: 0.00352145 (99.7%)
+    -0.00438957 < m1 < 0.00265332 (99.7%)
+    -5.03842e-05 < c1 < 7.11804e-05 (99.7%)
+    -6.84838e-05 < c2 < 4.99106e-05 (99.7%)
 
-Massive difference in noise due to moffat!
+Massive difference in noise (2.5) when cancelling due to moffat! But only 18%
+diff when *not* cancelling
+
+With moffat the noise cancelling is less effective: for gauss
+cancelling reduces noise to 0.5 of nocancel, for moffat only 0.77
+
+always 36 detected for both
+
+maybe related to lower response for moffat?  If the response
+    is low maybe noise doesn't cancel as well?  R 0.46 for gauss, 0.38 for
+    moffat but only matters if there is some difference in detection or
+    measurement between + and - shear sims
+
+
+- run-lsst-grid-MW-s2n15-stamp-nowarp-dilate
+    - just dilate psf to see if less noisy
+    - same code as run-lsst-grid-W-s2n15-stamp-nowarp
+
+    m1err: 0.00305601 (99.7%)
+    -0.00548542 < m1 < 0.000626609 (99.7%)
+    -8.98643e-05 < c1 < 4.6474e-05 (99.7%)
+    -9.3957e-05 < c2 < 4.57204e-05 (99.7%)
+
+- run-lsst-grid-MW-s2n20-stamp-nowarp-wt2.00
+    - see if bigger weight matters
+    - same code as run-lsst-grid-W-s2n15-stamp-nowarp
