@@ -1324,8 +1324,11 @@ New sim code returning DM ExposureF, mocked up DM PSF
     -3.2841e-05 < c1 < 1.61806e-05 (99.7%)
     -2.63967e-05 < c2 < 2.14044e-05 (99.7%)
 
+- run-lsst-dMW-stamp-nowarp
+    - same as run-lsst-W-stamp-nowarp but moffat (and dithers)
+
 - Figure out why noise was lower than expected
-- run-lsst-grid-W-s2n15-stamp-nowarp
+- run-lsst-grid-W-s2n20-stamp-nowarp
 
     - descwl_coadds branch coadd-simple 4ce050eea9fa50a4d42141fa6a349ac12375a576 
     - mdet-lsst-sim branch nocoadd f612e8f7fc169859aa5de6d8dcedb6243075cf1a
@@ -1348,8 +1351,8 @@ New sim code returning DM ExposureF, mocked up DM PSF
     nocancel
     m1err: 0.00380652 (99.7%)
 
-- run-lsst-grid-MW-s2n15-stamp-nowarp
-    - same code as run-lsst-grid-W-s2n15-stamp-nowarp
+- run-lsst-grid-MW-s2n20-stamp-nowarp
+    - same code as run-lsst-grid-W-s2n20-stamp-nowarp
     - the s/n is slightly lower for moffat, maybe we can sort
       of rescale assuming all is from shot noise
 
@@ -1362,8 +1365,8 @@ New sim code returning DM ExposureF, mocked up DM PSF
     nocancel
     m1err: 0.00454754 (99.7%)
 
-- run-lsst-grid-PW-s2n15-stamp-nowarp
-    - same code as run-lsst-grid-W-s2n15-stamp-nowarp
+- run-lsst-grid-PW-s2n20-stamp-nowarp
+    - same code as run-lsst-grid-W-s2n20-stamp-nowarp
 
     2000
     m1err: 0.00352145 (99.7%)
@@ -1385,9 +1388,9 @@ maybe related to lower response for moffat?  If the response
     measurement between + and - shear sims
 
 
-- run-lsst-grid-MW-s2n15-stamp-nowarp-dilate
+- run-lsst-grid-MW-s2n20-stamp-nowarp-dilate
     - just dilate psf to see if less noisy
-    - same code as run-lsst-grid-W-s2n15-stamp-nowarp
+    - same code as run-lsst-grid-W-s2n20-stamp-nowarp
 
     m1err: 0.00305601 (99.7%)
     -0.00548542 < m1 < 0.000626609 (99.7%)
@@ -1396,4 +1399,57 @@ maybe related to lower response for moffat?  If the response
 
 - run-lsst-grid-MW-s2n20-stamp-nowarp-wt2.00
     - see if bigger weight matters
-    - same code as run-lsst-grid-W-s2n15-stamp-nowarp
+    - same code as run-lsst-grid-W-s2n20-stamp-nowarp
+
+    m1err: 0.00315538 (99.7%)
+    -0.00287034 < m1 < 0.00344043 (99.7%)
+    -6.92097e-05 < c1 < 4.98665e-05 (99.7%)
+    -5.16471e-05 < c2 < 0.000117282 (99.7%)
+
+    10% better
+
+- run-lsst-grid-W-s2n1000-stamp-nowarp.yaml
+    - same code as run-lsst-grid-W-s2n20-stamp-nowarp
+    - compare noise on shear when there is low image noise
+
+        R11: 0.4657350943109494
+        m1err: 5.13088e-05 (99.7%)
+        0.000414377 < m1 < 0.000516995 (99.7%)
+        -9.57891e-07 < c1 < 1.52656e-06 (99.7%)
+        -1.84983e-06 < c2 < 6.80244e-07 (99.7%)
+
+- run-lsst-grid-MW-s2n1000-stamp-nowarp.yaml
+    - same code as run-lsst-grid-W-s2n20-stamp-nowarp
+    - compare noise on shear when there is low image noise
+
+        R11: 0.38036695274480337
+        m1err: 8.95945e-05 (99.7%)
+        0.000214043 < m1 < 0.000393232 (99.7%)
+        -5.25911e-07 < c1 < 3.01904e-06 (99.7%)
+        -1.21143e-06 < c2 < 2.54645e-06 (99.7%)
+
+        1.75 times higher
+
+
+- run-lsst-grid-dW-s2n1000-stamp-nowarp.yaml
+    - dithering
+        R11: 0.46575027329709273
+        m1err: 9.62707e-05 (99.7%)
+        0.000323878 < m1 < 0.000516419 (99.7%)
+        -2.05804e-06 < c1 < 2.05529e-06 (99.7%)
+        -1.69456e-06 < c2 < 2.4495e-06 (99.7%)
+
+- run-lsst-grid-dMW-s2n1000-stamp-nowarp.yaml
+    - dithering
+
+    R11: 0.3803394833645206
+    m1err: 0.000155736 (99.7%)
+    0.000243746 < m1 < 0.000555219 (99.7%)
+    -2.41928e-06 < c1 < 3.72702e-06 (99.7%)
+    -4.56301e-06 < c2 < 1.97249e-06 (99.7%)
+
+    factor of 1.6
+
+- run-lsst-grid-dW-s2n20-stamp-nowarp.yaml
+- run-lsst-grid-dMW-s2n20-stamp-nowarp.yaml
+    factor of 1.4
