@@ -1326,6 +1326,27 @@ New sim code returning DM ExposureF, mocked up DM PSF
 
 - run-lsst-dMW-stamp-nowarp
     - same as run-lsst-W-stamp-nowarp but moffat (and dithers)
+    - descwl_coadds branch coadd-simple 4ce050eea9fa50a4d42141fa6a349ac12375a576 
+    - mdet-lsst-sim branch nocoadd f612e8f7fc169859aa5de6d8dcedb6243075cf1a
+    - descwl-shear-sims branch optimize-draw 32fc9101fc4513e33df8fa2125458d9b6903c421
+    - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
+
+    looks fine
+
+    processed: 175999
+    R11: 0.2706751981845648
+    m1err: 0.000418128 (99.7%)
+    -1.65699e-05 < m1 < 0.000819687 (99.7%)
+    -2.45596e-05 < c1 < 2.26771e-05 (99.7%)
+    -3.8357e-05 < c2 < 9.6613e-06 (99.7%)
+
+- run-lsst-dsMW-stamp-nowarp-thresh5
+    - same as run-lsst-dMW-stamp-nowarp with stars and thresh 5
+    - descwl_coadds branch coadd-simple 4ce050eea9fa50a4d42141fa6a349ac12375a576 
+    - mdet-lsst-sim branch nocoadd f612e8f7fc169859aa5de6d8dcedb6243075cf1a
+    - descwl-shear-sims branch optimize-draw 32fc9101fc4513e33df8fa2125458d9b6903c421
+    - metadetect master b215c6dd52cedffe1dca7ba9571fda379ae768b1
+
 
 - Figure out why noise was lower than expected
 - run-lsst-grid-W-s2n20-stamp-nowarp
