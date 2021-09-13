@@ -1496,3 +1496,14 @@ runs with non zero offset of sky
 
 - run-lsst-dsMW-skyn3-nowarp-thresh5
     - adding -3-sigma offset, mocking up an over subtraction
+    - descwl-shear-sims nonzerosky 0342a0e60de5c83fe21b64aa9a0a336d13ea8fa0
+    - descwl_coadd no-zero-edge 6e1fd220ab86afe29adff594ab92039959c5e595
+    - metadetect use-skynsigma d1342e351736eb490081fa989e601980e58c0b3e
+    - mdet-lsst-sim master 4085f05b5e31515d203548aca7e4fc07c454edb1
+
+    so far (11)
+    R11: 0.27998231487483805
+    m1err: 0.00216353 (99.7%)
+    -0.00301973 < m1 < 0.00130732 (99.7%)
+    -0.000487961 < c1 < -0.000311011 (99.7%)
+    -5.64752e-05 < c2 < 0.000138758 (99.7%)
