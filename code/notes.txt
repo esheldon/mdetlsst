@@ -1509,3 +1509,24 @@ runs with non zero offset of sky
     -0.00201911 < m1 < 0.00038732 (99.7%)
     -0.000445127 < c1 < -0.000337861 (99.7%)
     4.28551e-06 < c2 < 0.000117556 (99.7%)
+
+- run-pairs-sep4.0-s2n20-deblend
+    - new refactored lsst metadetect with proper deblending
+    - descwl-shear-sims master e96a7be58ac99272a8ded789d7b4b064151c8af0
+    - descwl_coadd master 078fa27e9778eb94031a155722cf4cc7f2af10cb
+    - metadetect deblend 5cd5fe4dd223ea704c6597785e551a3197607b13
+    - mdet-lsst-sim master 3ceb184b6659164478f8a085b7f1423d2ae33cc1
+
+    processed: 35576
+    jackknifing: s2n-10-10000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.4635457697344636
+    m1err: 0.000609328 (99.7%)
+    -5.47526e-05 < m1 < 0.0011639 (99.7%)
+    -7.91407e-05 < c1 < 0.000133769 (99.7%)
+    -8.70126e-05 < c2 < 0.000124 (99.7%)
+
+- run-pairs-sep1.35-s2n20-deblend
+    - descwl-shear-sims master e96a7be58ac99272a8ded789d7b4b064151c8af0
+    - descwl_coadd master 078fa27e9778eb94031a155722cf4cc7f2af10cb
+    - metadetect master 10cd228fff80622904831e1e4eb848ec640453c2
+    - mdet-lsst-sim master 3ceb184b6659164478f8a085b7f1423d2ae33cc1
