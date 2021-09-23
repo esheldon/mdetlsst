@@ -1523,3 +1523,88 @@ runs with non zero offset of sky
     - descwl_coadd master 078fa27e9778eb94031a155722cf4cc7f2af10cb
     - metadetect master 10cd228fff80622904831e1e4eb848ec640453c2
     - mdet-lsst-sim master 3ceb184b6659164478f8a085b7f1423d2ae33cc1
+
+    processed: 32000
+    R11: -0.11705789415099056
+    m1err: 0.00658352 (99.7%)
+    0.0635627 < m1 < 0.0767297 (99.7%)
+    -0.000278163 < c1 < 0.000361836 (99.7%)
+    -0.000237157 < c2 < 0.000421912 (99.7%)
+
+- run-pairs-sep1.35-s2n20-nodeblend
+    bias here too, sensible R, but smaller
+
+    processed: 7607
+    R11: 0.6750918136974189
+    m1err: 0.00177721 (99.7%)
+    0.00502345 < m1 < 0.00857787 (99.7%)
+    -0.000427798 < c1 < 8.32505e-05 (99.7%)
+    -0.000124052 < c2 < 0.000380599 (99.7%)
+
+    differences with regular metadetect?
+        - sep
+        - dithers in other tests?
+        - picking bounding boxes
+        - probably used moffat (why would it matter?)
+
+- run-pairs-sep1.35-s2n20-nodeblend-dither
+    - checking with image dithers and fixed se_dim to be sure
+    processed: 1200
+    R11: 0.6737755491156917
+    m1err: 0.00455229 (99.7%)
+    0.000697937 < m1 < 0.00980251 (99.7%)
+    -0.000393714 < c1 < 0.000877697 (99.7%)
+    -0.000822316 < c2 < 0.0004693 (99.7%)
+
+- run-pairs-sep1.35-s2n20-nodeblend-ksigma
+    - also has dithers, se_dim
+
+    processed: 1200
+    R11: 1.8938949967282521
+    m1err: 0.00224257 (99.7%)
+    0.00192677 < m1 < 0.00641192 (99.7%)
+    -0.000351573 < c1 < 0.000386173 (99.7%)
+    -0.000283042 < c2 < 0.00048786 (99.7%)
+
+- run-pairs-sep1.35-s2n20-sx
+    - descwl-shear-sims master e96a7be58ac99272a8ded789d7b4b064151c8af0
+    - descwl_coadd master 078fa27e9778eb94031a155722cf4cc7f2af10cb
+    - metadetect master 17674f7a852ddcc7b4f001604c8dff5ce6097532
+    - mdet-lsst-sim use_sx 13609a262cb3794be0ab649aaa5d5579ddc7b95b
+
+    processed: 3200
+    jackknifing: s2n-10-10000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.6170621700753418
+    m1err: 0.00225996 (99.7%)
+    0.0024349 < m1 < 0.00695481 (99.7%)
+    -0.000313439 < c1 < 0.000412127 (99.7%)
+    -0.000212201 < c2 < 0.000508058 (99.7%)
+
+
+- run-pairs-sep1.40-s2n20-hlr0.89-sx
+    - bigger galaxies
+    - descwl-shear-sims master e96a7be58ac99272a8ded789d7b4b064151c8af0
+    - descwl_coadd master 078fa27e9778eb94031a155722cf4cc7f2af10cb
+    - metadetect master 17674f7a852ddcc7b4f001604c8dff5ce6097532
+    - mdet-lsst-sim use_sx 13609a262cb3794be0ab649aaa5d5579ddc7b95b
+
+    processed: 97169
+    R11: 0.40945967028883923
+    m1err: 0.000435918 (99.7%)
+    0.000613935 < m1 < 0.00148577 (99.7%)
+    -5.31558e-05 < c1 < 8.88953e-05 (99.7%)
+    -3.13975e-05 < c2 < 0.000109373 (99.7%)
+
+Made a KMetacal run for comparison
+    - run-lsst-s2n20-wmom-mdet-pairs1.35
+    - main 72d93345c869ccb877269fa19c1e7291a04772e7
+    - shear 0.02
+
+    processed: 15999
+    R11: 0.571035
+    using expected bias: 0.000000
+    m1err: 0.000525 (99.7%)
+    uncorrected m1: 0.004587 +/- 0.000525 (99.7%)
+    0.004062 < m1 < 0.005112 (99.7%)
+    -0.000124 < c1 < 0.000070 (99.7%)
+    -0.000082 < c2 < 0.000114 (99.7%)
