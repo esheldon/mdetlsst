@@ -1608,3 +1608,22 @@ Made a KMetacal run for comparison
     0.004062 < m1 < 0.005112 (99.7%)
     -0.000124 < c1 < 0.000070 (99.7%)
     -0.000082 < c2 < 0.000114 (99.7%)
+
+false
+Scarlet
+--------
+run-pairs-sep1.35-s2n20-scarlet-admom
+    - descwl-shear-sims master e96a7be58ac99272a8ded789d7b4b064151c8af0
+    - descwl_coadd master 5b89b44eb79a8178a97bda5205002e97e3fb33ac
+    - metadetect scarlet-mdet 108330a253e710c35a7396425d40f6d817a9f6ba
+    - mdet-lsst-sim scarlet 6291cdba5a17206cc933888ee907f378a2916d7d
+
+    so far
+
+    processed: 31998
+    R11: 0.7332664223435019
+    m1err: 0.00253049 (99.7%)
+    -0.00262894 < m1 < 0.00243204 (99.7%)
+    -0.000211904 < c1 < 0.000150225 (99.7%)
+    -0.00018012 < c2 < 0.000189393 (99.7%)
+
