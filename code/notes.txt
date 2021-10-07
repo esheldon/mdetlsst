@@ -1613,6 +1613,7 @@ Scarlet
 --------
 run-pairs-sep1.35-s2n20-scarlet-admom
     - thresh = 10
+    - default shear of 0.02
     - accidentally didn't set se_dim to 100, coming out at 162x162
     - descwl-shear-sims master e96a7be58ac99272a8ded789d7b4b064151c8af0
     - descwl_coadd master 5b89b44eb79a8178a97bda5205002e97e3fb33ac
@@ -1624,6 +1625,10 @@ run-pairs-sep1.35-s2n20-scarlet-admom
        - deblend True and new scarlet code scarlet
        - admom for measurement
        - detect thresh 10
+
+    Also looks better than kmetacal runs, but could be due to using
+    poor settings for scarlet. I am not using defaults from stack
+    including snr_min=50 etc.
 
     processed: 31998
     R11: 0.7332664223435019
