@@ -1519,6 +1519,7 @@ runs with non zero offset of sky
     -8.70126e-05 < c2 < 0.000124 (99.7%)
 
 - run-pairs-sep1.35-s2n20-deblend
+    - sdss deblender using noise replacer
     - descwl-shear-sims master e96a7be58ac99272a8ded789d7b4b064151c8af0
     - descwl_coadd master 078fa27e9778eb94031a155722cf4cc7f2af10cb
     - metadetect master 10cd228fff80622904831e1e4eb848ec640453c2
@@ -1619,11 +1620,20 @@ run-pairs-sep1.35-s2n20-scarlet-admom
     - metadetect scarlet-mdet 108330a253e710c35a7396425d40f6d817a9f6ba
     - mdet-lsst-sim scarlet 6291cdba5a17206cc933888ee907f378a2916d7d
 
-    so far looks better than run-pairs-sep1.35-s2n20-nodeblend
+    so far looks better than run-pairs-sep1.35-s2n20-nodeblend, but
+    2.26 times more noisy
+
     differences
        - deblend True and new scarlet code scarlet
        - admom for measurement
        - detect thresh 10
+
+    processed: 65994
+    R11: 0.7325159984048433
+    m1err: 0.00175441 (99.7%)
+    -0.000497889 < m1 < 0.00301093 (99.7%)
+    -0.000161109 < c1 < 9.13522e-05 (99.7%)
+    -0.000125884 < c2 < 0.000131096 (99.7%)
 
     processed: 31998
     R11: 0.7332664223435019
