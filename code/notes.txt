@@ -1621,7 +1621,7 @@ run-pairs-sep1.35-s2n20-scarlet-admom
     - metadetect scarlet-mdet 108330a253e710c35a7396425d40f6d817a9f6ba
     - mdet-lsst-sim scarlet 6291cdba5a17206cc933888ee907f378a2916d7d
 
-    so far looks better than run-pairs-sep1.35-s2n20-nodeblend, but
+    looks better than run-pairs-sep1.35-s2n20-nodeblend, but
     2.26 times more noisy
 
     differences
@@ -1633,10 +1633,9 @@ run-pairs-sep1.35-s2n20-scarlet-admom
     poor settings for scarlet. I am not using defaults from stack
     including snr_min=50 etc.
 
-    processed: 183975
-    R11: 0.7325271683053738
-    m1err: 0.00105122 (99.7%)
-    5.95963e-05 < m1 < 0.00216204 (99.7%)
-    -8.0546e-05 < c1 < 7.01776e-05 (99.7%)
-    -4.60633e-05 < c2 < 0.000108008 (99.7%)
-
+    processed: 197972
+    R11: 0.7325307095550693
+    m1err: 0.00101331 (99.7%)
+    4.84727e-07 < m1 < 0.0020271 (99.7%)
+    -6.65516e-05 < c1 < 7.86594e-05 (99.7%)
+    -4.79227e-05 < c2 < 0.000100555 (99.7%)
