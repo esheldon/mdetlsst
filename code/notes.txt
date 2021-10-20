@@ -1648,6 +1648,21 @@ run-pairs-sep1.35-s2n20-scarlet-gap
     -0.000126712 < c1 < 0.000153352 (99.7%)
     -3.95362e-05 < c2 < 0.000240373 (99.7%)
 
+run-lsst-dMW-nowarp-scarlet
+    - descwl-shear-sims 9401cea
+    - descwl_coadd 5b89b44eb79a8178a97bda5205002e97e3fb33ac
+    - metadetect 0c53af0
+    - mdet-lsst-sim scarlet f2613ba597ad522f738c64730005b34df7885f29
+
+    so far
+    processed: 24814
+    R11: 1.007151738521229
+    m1err: 0.00338099 (99.7%)
+    -0.00313698 < m1 < 0.00362499 (99.7%)
+    -8.30234e-05 < c1 < 0.000177476 (99.7%)
+    -0.000215146 < c2 < 6.38723e-05 (99.7%)
+
+
 Shredder
 --------
 run-pairs-sep1.35-s2n20-shredder-gap
