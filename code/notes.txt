@@ -1548,6 +1548,44 @@ runs with non zero offset of sky
         - picking bounding boxes
         - probably used moffat (why would it matter?)
 
+- run-pairs-sep1.35-s2n20-nodeblend-v2
+    - using pgauss
+    - after the many changes to make the code multiband, etc.
+    - descwl-shear-sims 7cfdeec4c52c2db00cc893570986be894c156377
+    - descwl_coadd 5b89b44eb79a8178a97bda5205002e97e3fb33ac
+    - metadetect 23d01594c2cd95f02b1adfca4059d9a51645f386
+    - mdet-lsst-sim 870fddb3f0e90947066c36ca5659836a44db985e
+
+    - 2021-10-22
+    processed: 7786
+    R11: 1.7120397194900696
+    m1err: 0.000920271 (99.7%)
+    0.00312113 < m1 < 0.00496167 (99.7%)
+    -0.000138092 < c1 < 0.00012891 (99.7%)
+    -0.000197802 < c2 < 5.761e-05 (99.7%)
+
+- run-pairs-sep1.35-s2n20-nodeblend-findcen
+    - running the center finder
+    - using pgauss
+    - after the many changes to make the code multiband, etc.
+    - descwl-shear-sims 7cfdeec4c52c2db00cc893570986be894c156377
+    - descwl_coadd 5b89b44eb79a8178a97bda5205002e97e3fb33ac
+    - metadetect f2ab7519497205ddea7d070b05494b8ea688af9e
+    - mdet-lsst-sim 870fddb3f0e90947066c36ca5659836a44db985e
+
+    - 2021-10-22
+
+    clearly more biased
+
+    processed: 2040
+    jackknifing: s2n-10-10000-mask_frac-1.00-mfrac-1.00-Tratio-0.5-sdens-100
+    R11: 1.705566875522182
+    m1err: 0.00160697 (99.7%)
+    0.00685823 < m1 < 0.0100722 (99.7%)
+    -0.000229003 < c1 < 0.000267165 (99.7%)
+    -0.000260447 < c2 < 0.00023046 (99.7%)
+
+
 - run-pairs-sep1.35-s2n20-nodeblend-dither
     - checking with image dithers and fixed se_dim to be sure
     processed: 1200
