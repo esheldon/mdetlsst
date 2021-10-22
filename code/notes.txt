@@ -1575,7 +1575,7 @@ runs with non zero offset of sky
 
     - 2021-10-22
 
-    clearly more biased
+    more biased than run-pairs-sep1.35-s2n20-nodeblend-v2
 
     processed: 2040
     jackknifing: s2n-10-10000-mask_frac-1.00-mfrac-1.00-Tratio-0.5-sdens-100
