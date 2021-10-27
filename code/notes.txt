@@ -1701,6 +1701,11 @@ run-lsst-dMW-nowarp-scarlet
     -3.39389e-05 < c1 < 9.6376e-05 (99.7%)
     -0.00010343 < c2 < 2.64367e-05 (99.7%)
 
+run-pairs-sep1.35-s2n20-scarlet-metacal
+    - descwl-shear-sims 7cfdeec4c52c2db00cc893570986be894c156377
+    - not used descwl-coadd 5b89b44eb79a8178a97bda5205002e97e3fb33ac
+    - metadetect aeff7a4de7915f5f6da69c9be8b7a8f47ca90638
+    - scarlet-metacal d55670aef9ae9f2fb0b6b9450a775c6bbb30f995
 
 Shredder
 --------
