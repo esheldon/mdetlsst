@@ -1707,6 +1707,14 @@ run-pairs-sep1.35-s2n20-scarlet-metacal
     - metadetect aeff7a4de7915f5f6da69c9be8b7a8f47ca90638
     - scarlet-metacal d55670aef9ae9f2fb0b6b9450a775c6bbb30f995
 
+    processed: 3361
+    R11: 1.2854222631798038
+    m1err: 0.00158381 (99.7%)
+    -0.0630334 < m1 < -0.0598658 (99.7%)
+    -0.000184928 < c1 < 0.000114991 (99.7%)
+    -0.000174695 < c2 < 0.00013409 (99.7%)
+
+
 Shredder
 --------
 run-pairs-sep1.35-s2n20-shredder-gap
