@@ -1750,6 +1750,12 @@ run-pairs-sep1.35-s2n20-scarlet-pgauss-thresh10
     metadetect e2dba63d56b8ebf8556887cca9bb61d86cfa2336
     mdet-lsst-sim 00a456b64263f501f8f43461607ce8c3fc674f01
 
+    so far processed: 61005
+    R11: 1.0106634497497808
+    m1err: 0.00104772 (99.7%)
+    0.00152217 < m1 < 0.0036176 (99.7%)
+    -6.62714e-05 < c1 < 6.74041e-05 (99.7%)
+    -6.32835e-05 < c2 < 7.35543e-05 (99.7%)
 
 Shredder
 --------
