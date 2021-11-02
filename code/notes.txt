@@ -1715,6 +1715,42 @@ run-pairs-sep1.35-s2n20-scarlet-metacal
     -0.000174695 < c2 < 0.00013409 (99.7%)
 
 
+run-pairs-sep1.35-s2n20-scarlet-pgauss
+    - new coadd code (but not coadding)
+    - remember to set se_dim
+    - thresh 5
+    ngmix 508f94b5518b073ede5b91da78c1fd193ca36d02
+    descwl-shear-sims b8cfda1d7f9dbb34a8d8262ecd2b5f9bf65c8f07
+    descwl_coadds b83d906c93136a810f72f3003a07f97cd886ccdc
+    metadetect e2dba63d56b8ebf8556887cca9bb61d86cfa2336
+    mdet-lsst-sim 00a456b64263f501f8f43461607ce8c3fc674f01
+
+    Note R is different from run-pairs-sep1.35-s2n20-scarlet-gap
+    only thing that changed was 1) thresh and 2) se_dim
+
+    thresh should not make much difference, since these objects
+    are s/n > 10 anyway
+
+    processed: 8320
+    R11: 1.0715987837093865
+    m1err: 0.00223881 (99.7%)
+    0.00433194 < m1 < 0.00880955 (99.7%)
+    -0.0001376 < c1 < 0.000105261 (99.7%)
+    -0.000112049 < c2 < 0.000131643 (99.7%)
+
+run-pairs-sep1.35-s2n20-scarlet-pgauss-thresh10
+    - see if it was thresh
+    - new coadd code (but not coadding)
+    - remember to set se_dim
+    - thresh 10
+
+    ngmix 508f94b5518b073ede5b91da78c1fd193ca36d02
+    descwl-shear-sims b8cfda1d7f9dbb34a8d8262ecd2b5f9bf65c8f07
+    descwl_coadds b83d906c93136a810f72f3003a07f97cd886ccdc
+    metadetect e2dba63d56b8ebf8556887cca9bb61d86cfa2336
+    mdet-lsst-sim 00a456b64263f501f8f43461607ce8c3fc674f01
+
+
 Shredder
 --------
 run-pairs-sep1.35-s2n20-shredder-gap
