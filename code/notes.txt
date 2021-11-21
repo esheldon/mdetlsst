@@ -1765,3 +1765,29 @@ run-pairs-sep1.35-s2n20-shredder-gap
     -0.0364463 < m1 < -0.022748 (99.7%)
     -0.000340497 < c1 < 0.000314805 (99.7%)
     -0.000293359 < c2 < 0.000373701 (99.7%)
+
+Runs with no buffer but cutting objects within some buffer region
+------------------------------------------------------------------
+
+run-W-nowarp-trim
+
+    descwl-shear-sims 9edf260cc68ba4fe46ce57db7592eff14edcfcc2
+    descwl_coadd 1ee484403fb3a227b49421091982a8b40c482c1c
+    metadetect 74d298143870cca616f531ab39b6dc1879e8cf44
+    mdet-lsst-sim 8936707902bd5286fe950be9271d1c1bd75d40c0
+
+	processed: 96783
+	jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+	R11: 0.2580735323172586
+	m1err: 0.000502981 (99.7%)
+	-0.00174703 < m1 < -0.000741073 (99.7%)
+	-3.16952e-05 < c1 < 2.55707e-05 (99.7%)
+	-3.05106e-05 < c2 < 2.58601e-05 (99.7%)
+
+	jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+	R11: 0.2802008642003766
+	m1err: 0.000406836 (99.7%)
+	-0.00116829 < m1 < -0.000354615 (99.7%)
+	-9.8766e-06 < c1 < 5.0579e-05 (99.7%)
+	-3.56312e-05 < c2 < 2.48907e-05 (99.7%)
+
