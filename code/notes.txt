@@ -1790,3 +1790,33 @@ run-W-nowarp-trim
     -0.00117298 < m1 < -0.000382717 (99.7%)
     -1.19433e-05 < c1 < 4.70157e-05 (99.7%)
     -3.81013e-05 < c2 < 2.12085e-05 (99.7%)
+
+run-W-nowarp-trim-randshear
+
+    descwl-shear-sims 12a2dd7f04bdbf9a959480a21feb3e126b5351cf
+    descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
+    metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
+    mdet-lsst-sim 6037f353b7b1290da44d7115510fc2685b21185b
+
+    processed: 36788
+
+    jackknifing: s2n-10-100-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.24700381232267396
+    m1err: 0.00114031 (99.7%)
+    -0.00284526 < m1 < -0.000564646 (99.7%)
+
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2581623083559942
+    m1err: 0.000935733 (99.7%)
+    -0.0024626 < m1 < -0.000591131 (99.7%)
+
+    jackknifing: s2n-18-100-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.26841223292596883
+    m1err: 0.000954478 (99.7%)
+    -0.00182824 < m1 < 8.07143e-05 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.28023321254181
+    m1err: 0.000730169 (99.7%)
+    -0.00157607 < m1 < -0.000115733 (99.7%)
+
