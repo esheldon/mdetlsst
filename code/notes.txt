@@ -1820,3 +1820,28 @@ run-W-nowarp-trim-randshear
     m1err: 0.000730169 (99.7%)
     -0.00157607 < m1 < -0.000115733 (99.7%)
 
+run-W-nowarp-trim-randshear-cells
+    processed: 2489
+
+    descwl-shear-sims 12a2dd7f04bdbf9a959480a21feb3e126b5351cf
+    descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
+    metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
+    mdet-lsst-sim e9258fcf29fe9e06313cf97bc7f6b63b2d180ed2
+
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2588695454839146
+    m1err: 0.00388296 (99.7%)
+    0.00472786 < m1 < 0.0124938 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2811075556092225
+    m1err: 0.00289457 (99.7%)
+    0.00342257 < m1 < 0.00921171 (99.7%)
+
+    Ideas
+    -----
+
+    - true shear center no longer coincides with counterfactual shear center
+    - the psf is more wrong in these cells than at the center; but should that
+      not average out?
+    - Could there be an issue with wcs in these cells?
