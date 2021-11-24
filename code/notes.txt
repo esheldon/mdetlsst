@@ -1821,22 +1821,18 @@ run-W-nowarp-trim-randshear
     -0.00157607 < m1 < -0.000115733 (99.7%)
 
 run-W-nowarp-trim-randshear-cells
-    processed: 2489
 
-    descwl-shear-sims 12a2dd7f04bdbf9a959480a21feb3e126b5351cf
-    descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
-    metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
-    mdet-lsst-sim e9258fcf29fe9e06313cf97bc7f6b63b2d180ed2
+    processed: 6313
 
     jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
-    R11: 0.2588695454839146
-    m1err: 0.00388296 (99.7%)
-    0.00472786 < m1 < 0.0124938 (99.7%)
+    R11: 0.2584991826480236
+    m1err: 0.00245309 (99.7%)
+    0.00787869 < m1 < 0.0127849 (99.7%)
 
     jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
-    R11: 0.2811075556092225
-    m1err: 0.00289457 (99.7%)
-    0.00342257 < m1 < 0.00921171 (99.7%)
+    R11: 0.2806175665810346
+    m1err: 0.0018465 (99.7%)
+    0.00588093 < m1 < 0.00957392 (99.7%)
 
     Ideas
     -----
