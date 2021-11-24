@@ -1842,6 +1842,17 @@ run-W-nowarp-trim-randshear-cells
     -----
 
     - true shear center no longer coincides with counterfactual shear center
+        - a test would be to do a sim with a bigger image, all objects off
+          center like one of these cells but no natural border so we don't
+          deal with edges
+          ------------------
+          |                |
+          |                |
+          |                |
+          |  ***           |
+          |                |
+          ------------------
+
     - the psf is more wrong in these cells than at the center; but should that
       not average out?
     - Could there be an issue with wcs in these cells?
