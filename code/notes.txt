@@ -1852,3 +1852,22 @@ run-W-nowarp-trim-randshear-cells
     - the psf is more wrong in these cells than at the center; but should that
       not average out?
     - Could there be an issue with wcs in these cells?
+
+run-W-nowarp-trim-randshear850
+    - a control, same as run-W-nowarp-trim-randshear-cells but no cells
+
+    Is it the trimming or random shear?
+
+    processed: 8000
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.25814701743889523
+    m1err: 0.00405048 (99.7%)
+    -0.000586856 < m1 < 0.00751409 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2798508854612019
+    m1err: 0.00293905 (99.7%)
+    0.00246703 < m1 < 0.00834512 (99.7%)
+
+run-W-nowarp850
+    - same as above but neither randomized shear or trimming
