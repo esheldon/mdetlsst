@@ -1898,3 +1898,48 @@ run-W-nowarp-randshear850
     R11: 0.2792680113708441
     m1err: 0.00176701 (99.7%)
     -0.00165325 < m1 < 0.00188077 (99.7%)
+ 
+run-W-nowarp-trim-randshear850-ns
+    - same as run-W-nowarp-trim-randshear850 but using noshear positions
+    - same result basically
+
+    descwl-shear-sims 12a2dd7f04bdbf9a959480a21feb3e126b5351cf
+    descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
+    metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
+    mdet-lsst-sim 36ae6c9dccb967096f50db3653d906da049751d8
+
+    processed: 8000
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.25587320994374085
+    m1err: 0.00236626 (99.7%)
+    0.0100787 < m1 < 0.0148112 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.27886406920988727
+    m1err: 0.00176943 (99.7%)
+    0.00729595 < m1 < 0.0108348 (99.7%)
+
+
+run-W-nowarp-trim-randshear850-matchns-s005
+    - trim noshear, then match the unsheared positions to for sheared
+      detections to the noshear catalog. If those matched objects are in the
+      primary region keep it
+
+    - idea is that this will result in fewer "jumps" in the number of objects
+
+    descwl-shear-sims 12a2dd7f04bdbf9a959480a21feb3e126b5351cf
+    descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
+    metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
+    mdet-lsst-sim 858f81705a37bf22d2aacf93ba0b3665a48c2caa
+
+    processed: 7743
+
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.25586150133857705
+    m1err: 0.00259633 (99.7%)
+    0.0103956 < m1 < 0.0155883 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2787621036066702
+    m1err: 0.00180152 (99.7%)
+    0.00821235 < m1 < 0.0118154 (99.7%)
