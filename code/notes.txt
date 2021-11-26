@@ -1943,3 +1943,16 @@ run-W-nowarp-trim-randshear850-matchns-s005
     R11: 0.2787621036066702
     m1err: 0.00180152 (99.7%)
     0.00821235 < m1 < 0.0118154 (99.7%)
+
+
+run-W-nowarp-triminside-randshear-cells-s001-0001.lsf
+    - bug 850x850 iamge with 50 pixel border and doing cells
+    - don't trim the outside border, no way to pick those objects back up
+      with adjacent data
+
+    descwl-shear-sims 12a2dd7f04bdbf9a959480a21feb3e126b5351cf
+    descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
+    metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
+    mdet-lsst-sim 164cda7278de173ba36bd0a7aa731a929f578482
+
+
