@@ -1871,3 +1871,30 @@ run-W-nowarp-trim-randshear850
 
 run-W-nowarp850
     - same as above but neither randomized shear or trimming
+    processed: 7488
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.256153910305134
+    m1err: 0.00238054 (99.7%)
+    -0.000887482 < m1 < 0.00387359 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.279187933780792
+    m1err: 0.00171874 (99.7%)
+    -0.0013175 < m1 < 0.00211999 (99.7%)
+
+run-W-nowarp-randshear850
+    - see if it is the randomized shears that causes the bias
+
+    - bias is small, thus the bias in run-W-nowarp-trim-randshear850 is due to
+      trimming, even for such a large image
+
+    processed: 8000
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2563488030042327
+    m1err: 0.00243137 (99.7%)
+    -0.0019069 < m1 < 0.00295585 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2792680113708441
+    m1err: 0.00176701 (99.7%)
+    -0.00165325 < m1 < 0.00188077 (99.7%)
