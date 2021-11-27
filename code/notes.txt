@@ -1946,7 +1946,7 @@ run-W-nowarp-trim-randshear850-matchns-s005
 
 
 run-W-nowarp-triminside-randshear-cells-s001-0001.lsf
-    - bug 850x850 iamge with 50 pixel border and doing cells
+    - big 850x850 image with 50 pixel border and doing cells
     - don't trim the outside border, no way to pick those objects back up
       with adjacent data
 
@@ -1955,4 +1955,17 @@ run-W-nowarp-triminside-randshear-cells-s001-0001.lsf
     metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
     mdet-lsst-sim 164cda7278de173ba36bd0a7aa731a929f578482
 
+    so far
+
+    processed: 39985
+
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2588014727445386
+    m1err: 0.000919058 (99.7%)
+    -0.0017399 < m1 < 9.82205e-05 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2810299311972635
+    m1err: 0.000704672 (99.7%)
+    -0.00146814 < m1 < -5.87943e-05 (99.7%)
 
