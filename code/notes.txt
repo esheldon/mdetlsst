@@ -1955,17 +1955,24 @@ run-W-nowarp-triminside-randshear-cells-s001-0001.lsf
     metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
     mdet-lsst-sim 164cda7278de173ba36bd0a7aa731a929f578482
 
-    so far
 
-    processed: 39985
+    processed: 49609
 
     jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
-    R11: 0.2588014727445386
-    m1err: 0.000919058 (99.7%)
-    -0.0017399 < m1 < 9.82205e-05 (99.7%)
+    R11: 0.25877823911939646
+    m1err: 0.000826093 (99.7%)
+    -0.00165303 < m1 < -8.43011e-07 (99.7%)
 
     jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
-    R11: 0.2810299311972635
-    m1err: 0.000704672 (99.7%)
-    -0.00146814 < m1 < -5.87943e-05 (99.7%)
+    R11: 0.2810318184670565
+    m1err: 0.0006331 (99.7%)
+    -0.00137103 < m1 < -0.000104831 (99.7%)
 
+
+run-W-nowarp-triminside-randshear-cells-matchnoshear.yaml
+    - match noshear and don't trim edge
+
+    descwl-shear-sims 12a2dd7f04bdbf9a959480a21feb3e126b5351cf
+    descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
+    metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
+    mdet-lsst-sim d60e85fb7de63d40f299304a81ffc6a7a7b05092
