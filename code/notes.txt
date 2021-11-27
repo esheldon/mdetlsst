@@ -1976,3 +1976,16 @@ run-W-nowarp-triminside-randshear-cells-matchnoshear.yaml
     descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
     metadetect 324956bf8e56dba3898220cd4d794f1b0b702edb
     mdet-lsst-sim d60e85fb7de63d40f299304a81ffc6a7a7b05092
+
+
+    processed: 7274
+
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2606435145301559
+    m1err: 0.002223 (99.7%)
+    -0.0105277 < m1 < -0.00608164 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2817269714157362
+    m1err: 0.00161632 (99.7%)
+    -0.00502869 < m1 < -0.00179605 (99.7%)
