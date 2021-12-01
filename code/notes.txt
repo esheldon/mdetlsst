@@ -1989,3 +1989,41 @@ run-W-nowarp-triminside-randshear-cells-matchnoshear.yaml
     R11: 0.2817269714157362
     m1err: 0.00161632 (99.7%)
     -0.00502869 < m1 < -0.00179605 (99.7%)
+
+run-W-nowarp-triminside-randshear-cells-nspos
+    - using sheared positions (nspos was a misnomer, ouch)
+
+    processed: 80000
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.2584237938040983
+    m1err: 0.000691199 (99.7%)
+    -0.0003123 < m1 < 0.0010701 (99.7%)
+
+    jackknifing: s2n-18-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.28079540073325837
+    m1err: 0.000543093 (99.7%)
+    -0.000361641 < m1 < 0.000724544 (99.7%)
+
+run-FR-randshear
+
+    - fixed gal s/n ~ 50, randomly placed, random shears
+    - see if small bias when shear is not in same direction as counterfactual
+      shear; the idea is that we are trying to correct for objects moving in
+      and out of the cut which is fixed in the coordinate system, but true
+      shear is at a random direction, so a small bias may be present
+
+      so far
+
+      processed: 19804
+
+      jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+      R11: 0.3673139330063345
+      m1err: 0.000320356 (99.7%)
+      -0.000371021 < m1 < 0.000269692 (99.7%)
+
+run-FR-randshear
+
+    - see if no bias when shear is same direction as counterfactual shear; the
+    idea is that we are trying to correct for objects moving in and out of the
+    cut which is fixed in the coordinate system, but true shear is at a random
+    direction in above test but not here
