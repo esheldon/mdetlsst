@@ -1969,7 +1969,7 @@ run-W-nowarp-triminside-randshear-cells-s001-0001.lsf
     -0.00137103 < m1 < -0.000104831 (99.7%)
 
 
-run-W-nowarp-triminside-randshear-cells-matchnoshear.yaml
+run-W-nowarp-triminside-randshear-cells-matchnoshear
     - match noshear and don't trim edge
 
     descwl-shear-sims 12a2dd7f04bdbf9a959480a21feb3e126b5351cf
@@ -1989,3 +1989,7 @@ run-W-nowarp-triminside-randshear-cells-matchnoshear.yaml
     R11: 0.2817269714157362
     m1err: 0.00161632 (99.7%)
     -0.00502869 < m1 < -0.00179605 (99.7%)
+
+run-W-nowarp-triminside-randshear-cells-nspos
+    - same as run-W-nowarp-triminside-randshear-cells-matchnoshear
+    but using sheared positions
