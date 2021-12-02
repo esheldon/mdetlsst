@@ -2017,6 +2017,7 @@ run-FR-randshear
       so far
 
       processed: 36000
+
       jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
       R11: 0.36731481988848635
       m1err: 0.000238734 (99.7%)
@@ -2028,3 +2029,12 @@ run-FR
       idea is that we are trying to correct for objects moving in and out of
       the cut which is fixed in the coordinate system, but true shear is at a
       random direction in above test but not here
+
+      so far
+
+      processed: 31934
+
+      jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+      R11: 0.36699909828235083
+      m1err: 0.000250042 (99.7%)
+      0.000338779 < m1 < 0.000838863 (99.7%)
