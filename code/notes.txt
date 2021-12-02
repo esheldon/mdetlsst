@@ -2038,3 +2038,12 @@ run-FR
       R11: 0.36699909828235083
       m1err: 0.000250042 (99.7%)
       0.000338779 < m1 < 0.000838863 (99.7%)
+
+
+run-F-grid-nocell
+    - control for the above runs
+
+    descwl-shear-sims 12a2dd7f04bdbf9a959480a21feb3e126b5351cf
+    descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
+    metadetect 4f6b0d8ea554d91da5e577edf113f80ee651ed63
+    mdet-lsst-sim 8bd0b2181bb7c84b11f0b3e7c14bd7adf5ca2349
