@@ -2030,13 +2030,12 @@ run-FR
       the cut which is fixed in the coordinate system, but true shear is at a
       random direction in above test but not here
 
-      so far
-
-      processed: 64650
+      processed: 79992
       jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
-      R11: 0.366998164287688
-      m1err: 0.000177415 (99.7%)
-      0.000358056 < m1 < 0.000712886 (99.7%)
+      R11: 0.36699847235485566
+      m1err: 0.000160028 (99.7%)
+      0.000379793 < m1 < 0.00069985 (99.7%)
+
 
 run-F-grid-nocell
     - control for the above runs
@@ -2046,9 +2045,8 @@ run-F-grid-nocell
     metadetect 4f6b0d8ea554d91da5e577edf113f80ee651ed63
     mdet-lsst-sim 8bd0b2181bb7c84b11f0b3e7c14bd7adf5ca2349
 
-    processed: 71239
-
+    processed: 151239
     jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
-    R11: 0.4006678095662599
-    m1err: 0.000273088 (99.7%)
-    6.61285e-05 < m1 < 0.000612304 (99.7%)
+    R11: 0.40066835638969034
+    m1err: 0.000187875 (99.7%)
+    0.000186077 < m1 < 0.000561827 (99.7%)
