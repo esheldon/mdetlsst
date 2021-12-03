@@ -2032,13 +2032,11 @@ run-FR
 
       so far
 
-      processed: 31934
-
+      processed: 64650
       jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
-      R11: 0.36699909828235083
-      m1err: 0.000250042 (99.7%)
-      0.000338779 < m1 < 0.000838863 (99.7%)
-
+      R11: 0.366998164287688
+      m1err: 0.000177415 (99.7%)
+      0.000358056 < m1 < 0.000712886 (99.7%)
 
 run-F-grid-nocell
     - control for the above runs
@@ -2047,3 +2045,10 @@ run-F-grid-nocell
     descwl_coadd b2ccf587d51342c42bb2279f2f8bc826542f8b2a
     metadetect 4f6b0d8ea554d91da5e577edf113f80ee651ed63
     mdet-lsst-sim 8bd0b2181bb7c84b11f0b3e7c14bd7adf5ca2349
+
+    processed: 71239
+
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.4006678095662599
+    m1err: 0.000273088 (99.7%)
+    6.61285e-05 < m1 < 0.000612304 (99.7%)
