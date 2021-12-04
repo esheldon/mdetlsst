@@ -2059,3 +2059,16 @@ run-Fs20-grid.yaml
     descwl_coadd b2ccf58
     metadetect 43a35f5
     mdet-lsst-sim d914130
+
+    biased!
+    jackknifing: s2n-18-1000-mask_frac-0.02-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.39477535250948326
+    m1err: 0.000573516 (99.7%)
+    -0.0108483 < m1 < -0.00970129 (99.7%)
+
+run-Fs-grid.yaml
+    - usual range of star density
+    - big bias
+
+run-Ws.yaml
+    - wldeblend
