@@ -2072,10 +2072,41 @@ run-drFs20-grid-warp.yaml
     see if rotating helps.  dithering should not matter since we already
     move objects around randomly at the pixel level
 
+    note this was highly masked, none had less than mask frac 0.1 so that
+    may be part of the problem.  note bias is negative rather than positive
+    for cells
+
     descwl-shear-sims 160acea
     descwl_coadd b2ccf58
     metadetect 918ad3e
     mdet-lsst-sim 285afd3
+
+    processed: 1000 files
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.38906416203490823
+    m1err: 0.00364857 (99.7%)
+    -0.00986033 < m1 < -0.0025632 (99.7%)
+
+run-Fs20-grid-rs
+    randomized shear (don't expect this to work)
+
+    descwl-shear-sims 160acea
+    descwl_coadd b2ccf58
+    metadetect 918ad3e
+    mdet-lsst-sim 285afd3
+
+    processed: 1968 files
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.3947326026918624
+    m1err: 0.00271289 (99.7%)
+    -0.0087992 < m1 < -0.00337341 (99.7%)
+
+run-Fs20-rand
+    - random placement
+    - descwl-shear-sims 160acea
+    - descwl_coadd b2ccf58
+    - metadetect 918ad3e
+    - mdet-lsst-sim 285afd3
 
 run-Fs-grid.yaml
     - usual range of star density
