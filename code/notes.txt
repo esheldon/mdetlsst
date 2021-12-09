@@ -2008,6 +2008,7 @@ run-W-nowarp-triminside-randshear-cells-nspos
 
 run-FR-randshear
 
+    - cells 250/50
     - fixed gal s/n ~ 50, randomly placed, random shears
     - see if small bias when shear is not in same direction as counterfactual
       shear; the idea is that we are trying to correct for objects moving in
