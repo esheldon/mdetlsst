@@ -2054,6 +2054,7 @@ run-F-grid-nocell
 run-Fs20-grid.yaml
     - test that apodization is working
     - fixed s2n ~ 50 hlr 0.5 grid with stars at density 20
+    - must be the grid
 
     descwl-shear-sims 160acea
     descwl_coadd b2ccf58
@@ -2069,6 +2070,18 @@ run-Fs20-grid.yaml
 run-Fs-grid.yaml
     - usual range of star density
     - big bias
+    - must be the grid
 
 run-Ws.yaml
     - wldeblend
+    - forgot to do factor of 0.58 for noise
+    - looks ok
+
+run-Ws-cells.yaml
+    - DOES have the factor of 0.58
+    - saw, bias, rerunning using sheared pos and fixed mask_frac calc
+
+    descwl-shear-sims 160acea
+    descwl_coadd b2ccf58
+    metadetect 918ad3e
+    mdet-lsst-sim f9b40e9
