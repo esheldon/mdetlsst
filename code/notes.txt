@@ -2008,6 +2008,7 @@ run-W-nowarp-triminside-randshear-cells-nspos
 
 run-FR-randshear
 
+    - cells 250/50
     - fixed gal s/n ~ 50, randomly placed, random shears
     - see if small bias when shear is not in same direction as counterfactual
       shear; the idea is that we are trying to correct for objects moving in
@@ -2066,6 +2067,15 @@ run-Fs20-grid.yaml
     R11: 0.39477535250948326
     m1err: 0.000573516 (99.7%)
     -0.0108483 < m1 < -0.00970129 (99.7%)
+
+run-drFs20-grid-warp.yaml
+    see if rotating helps.  dithering should not matter since we already
+    move objects around randomly at the pixel level
+
+    descwl-shear-sims 160acea
+    descwl_coadd b2ccf58
+    metadetect 918ad3e
+    mdet-lsst-sim 285afd3
 
 run-Fs-grid.yaml
     - usual range of star density
