@@ -2108,6 +2108,14 @@ run-Fs20-rand
     - metadetect 918ad3e
     - mdet-lsst-sim 285afd3
 
+    Definitely better
+
+    processed: 2000 files
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
+    R11: 0.3602690586361927
+    m1err: 0.00339468 (99.7%)
+    -0.00317114 < m1 < 0.00361822 (99.7%)
+
 run-Fs-grid.yaml
     - usual range of star density
     - big bias
