@@ -2067,6 +2067,15 @@ run-Fs20-grid.yaml
     m1err: 0.000573516 (99.7%)
     -0.0108483 < m1 < -0.00970129 (99.7%)
 
+run-drFs20-grid-warp.yaml
+    see if rotating helps.  dithering should not matter since we already
+    move objects around randomly at the pixel level
+
+    descwl-shear-sims 160acea
+    descwl_coadd b2ccf58
+    metadetect 918ad3e
+    mdet-lsst-sim 285afd3
+
 run-Fs-grid.yaml
     - usual range of star density
     - big bias
