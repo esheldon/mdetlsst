@@ -2116,7 +2116,27 @@ run-Fs20-rand
     m1err: 0.00339468 (99.7%)
     -0.00317114 < m1 < 0.00361822 (99.7%)
 
-run-Fs-grid.yaml
+run-Fs20-hex
+    - use a randomly oriented hexagonal lattice
+
+    - descwl-shear-sims 6e4a0ba
+    - descwl_coadd b2ccf58
+    - metadetect 69e0184
+    - mdet-lsst-sim cells a65eed6
+
+    processed: 9999 files
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-0.02-Tratio-1.2-sdens-100
+    R11: 0.39013431150622435
+    m1err: 0.000765598 (99.7%)
+    -0.00343428 < m1 < -0.00190309 (99.7%)
+
+    blending is always with stars, bias gets worse choosing "larger" objects
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-0.02-Tratio-1.5-sdens-100
+    R11: 0.3729311653216987
+    m1err: 0.00352088 (99.7%)
+    -0.013952 < m1 < -0.00691023 (99.7%)
+
+run-Fs-grid
     - usual range of star density
     - big bias
     - must be the grid
