@@ -2136,6 +2136,21 @@ run-Fs20-hex
     m1err: 0.00352088 (99.7%)
     -0.013952 < m1 < -0.00691023 (99.7%)
 
+run-Fs20-hex-nodrawstars
+    don't draw stars, only do masking
+    looks fine
+
+    processed: 9999 files
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-0.02-Tratio-1.2-sdens-100
+    R11: 0.40069205070608804
+    m1err: 0.000263731 (99.7%)
+    0.000228334 < m1 < 0.000755796 (99.7%)
+
+    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-0.02-Tratio-1.5-sdens-100
+    R11: 0.39249288628531864
+    m1err: 0.00117047 (99.7%)
+    -0.000584596 < m1 < 0.00175634 (99.7%)
+
 run-Fs-grid
     - usual range of star density
     - big bias
