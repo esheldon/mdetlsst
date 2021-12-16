@@ -2169,3 +2169,10 @@ run-Ws-cells.yaml
     descwl_coadd b2ccf58
     metadetect 918ad3e
     mdet-lsst-sim f9b40e9
+
+    biased, and bias gets worse for T/Tpsf > 1.5 but goes away if this
+    is loosened T/Tpsf > 0.5
+
+
+selecting into cells with stars causes a bias, but only if we choose objects
+by size
