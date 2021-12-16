@@ -2108,13 +2108,25 @@ run-Fs20-rand
     - metadetect 918ad3e
     - mdet-lsst-sim 285afd3
 
-    Definitely better
+    Definitely better.  A small negative bias relative to 2nd order
+    shear effects
 
-    processed: 2000 files
-    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-1.2-sdens-100
-    R11: 0.3602690586361927
-    m1err: 0.00339468 (99.7%)
-    -0.00317114 < m1 < 0.00361822 (99.7%)
+    processed: 40000 files
+
+    jackknifing: s2n-10-100-mask_frac-1.00-mfrac-0.02-Tratio-0.5-sdens-100
+    R11: 0.3407970102413483
+    m1err: 0.000365252 (99.7%)
+    -0.000553764 < m1 < 0.000176741 (99.7%)
+
+    jackknifing: s2n-10-100-mask_frac-1.00-mfrac-0.02-Tratio-1.2-sdens-100
+    R11: 0.36183426021291054
+    m1err: 0.000329746 (99.7%)
+    -0.000419392 < m1 < 0.0002401 (99.7%)
+
+    jackknifing: s2n-10-100-mask_frac-1.00-mfrac-0.02-Tratio-1.5-sdens-100
+    R11: 0.3276005482017016
+    m1err: 0.000719141 (99.7%)
+    -0.00190237 < m1 < -0.000464084 (99.7%)
 
 run-Fs20-hex
     - use a randomly oriented hexagonal lattice
@@ -2176,3 +2188,10 @@ run-Ws-cells.yaml
 
 selecting into cells with stars causes a bias, but only if we choose objects
 by size
+
+    - could try masking all stars that should be in gaia (G < 21, what is that
+    in g?)
+        - note we should make sure that we can select against bright and bright
+          extended separately. Extended is maybe not important for the fainter
+          ones
+    - could try leaving in the duplicates:  don't cut before writing
