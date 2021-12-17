@@ -2189,9 +2189,20 @@ run-Ws-cells.yaml
 selecting into cells with stars causes a bias, but only if we choose objects
 by size
 
-    - could try masking all stars that should be in gaia (G < 21, what is that
+    - found bug, in cells the star masks were in the wrong place
+    / could try masking all stars that should be in gaia (G < 21, what is that
     in g?)
         - note we should make sure that we can select against bright and bright
           extended separately. Extended is maybe not important for the fainter
           ones
-    - could try leaving in the duplicates:  don't cut before writing
+    / could try leaving in the duplicates:  don't cut before writing
+
+run-Fs60-rand-cells
+    - after bug fix for star masks in cells
+
+    descwl-shear-sims 6e4a0ba
+    descwl_coadd b2ccf58
+    metadetect c5ec1a4
+    mdet-lsst-sim c30b276
+
+
