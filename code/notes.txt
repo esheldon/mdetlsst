@@ -2205,4 +2205,26 @@ run-Fs60-rand-cells
     metadetect c5ec1a4
     mdet-lsst-sim c30b276
 
+    processed: 111861
+    jackknifing: s2n-10-100-mask_frac-1.00-mfrac-0.02-Tratio-0.5-sdens-100
+    R11: 0.2931310596000247
+    m1err: 0.000568832 (99.7%)
+    -0.00192953 < m1 < -0.000791866 (99.7%)
 
+    jackknifing: s2n-10-100-mask_frac-1.00-mfrac-0.02-Tratio-1.2-sdens-100
+    R11: 0.34297425714149876
+    m1err: 0.000533547 (99.7%)
+    -0.00158547 < m1 < -0.000518371 (99.7%)
+
+    jackknifing: s2n-10-100-mask_frac-1.00-mfrac-0.02-Tratio-1.5-sdens-100
+    R11: 0.3158104395884506
+    m1err: 0.000973525 (99.7%)
+    -0.00303358 < m1 < -0.00108653 (99.7%)
+
+
+run-Ws-cells2
+    - repeat run-Ws-cells after bug fix
+    - descwl-shear-sims 6e4a0ba
+    - descwl_coadd b2ccf58
+    - metadetect c5ec1a4
+    - mdet-lsst-sim c30b276
