@@ -2221,6 +2221,15 @@ run-Fs60-rand-cells
     m1err: 0.000973525 (99.7%)
     -0.00303358 < m1 < -0.00108653 (99.7%)
 
+    processed: 122663
+    jackknifing: s2n-10-100-mask_frac-0.02-mfrac-0.02-Tratio-1.2-sdens-100
+    R11: 0.3429431467516164
+    m1err: 0.000770946 (99.7%)
+    -0.0012886 < m1 < 0.000253291 (99.7%)
+    -2.54061e-05 < c1 < 2.54968e-05 (99.7%)
+    -2.87535e-05 < c2 < 2.12922e-05 (99.7%)
+
+
 
 run-Ws-cells2
     - repeat run-Ws-cells after bug fix
@@ -2228,3 +2237,10 @@ run-Ws-cells2
     - descwl_coadd b2ccf58
     - metadetect c5ec1a4
     - mdet-lsst-sim c30b276
+
+    - looks fine
+    processed: 199996 (ntrial 30)
+
+
+run-drWsb-cells
+    - dithers/rotations/bleed trails (argh forgot cosmics and bad columns)
