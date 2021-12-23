@@ -2244,3 +2244,7 @@ run-Ws-cells2
 
 run-drWsb-cells
     - dithers/rotations/bleed trails (argh forgot cosmics and bad columns)
+    - looks fine
+
+run-drcbWsBP-cells.yaml
+    cosmics, bad columns and ps psf
