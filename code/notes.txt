@@ -2247,4 +2247,16 @@ run-drWsb-cells
     - looks fine
 
 run-drcbWsBP-cells.yaml
-    cosmics, bad columns and ps psf
+    dithers, rotations, cosmics, badcols, Weaklensingdeblending,
+    stars, Bleeds, PS PSF
+
+    Seems fine, but we were a bit surprised that imfrac made a difference
+
+run-riz-drcbWsBP-cells.yaml
+    same as run-drcbWsBP-cells.yaml but with r+i+z
+    dithers, rotations, cosmics, badcols, Weaklensingdeblending,
+    stars, Bleeds, PS PSF
+
+    shifted up but now imfrac makes only a tiny difference
+
+    Hypothesis is more epochs si helping to cancel some biases
