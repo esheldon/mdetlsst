@@ -2260,3 +2260,5 @@ run-riz-drcbWsBP-cells.yaml
     shifted up but now imfrac makes only a tiny difference
 
     Hypothesis is more epochs si helping to cancel some biases
+
+    R11 about 0.25
