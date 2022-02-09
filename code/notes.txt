@@ -2262,3 +2262,9 @@ run-riz-drcbWsBP-cells.yaml
     Hypothesis is more epochs si helping to cancel some biases
 
     R11 about 0.25
+
+- run-gridP-skyn0.25
+    - uncorrected sky with negative 1/4 noise
+    Could it be additive?
+
+    0.00206281 < m1 < 0.00369264 (99.7%)
