@@ -2272,3 +2272,17 @@ run-riz-drcbWsBP-cells.yaml
     0.00206281 < m1 < 0.00369264 (99.7%)
     -1.98995e-05 < c1 < 1.21722e-05 (99.7%)
     -1.11172e-05 < c2 < 2.14656e-05 (99.7%)
+
+- run-gridP-s2n500-skyn0.25
+    - test at high s/n
+    - background should matter less at high s/n
+
+    processed: 3007
+    R11: 1.4395399476100206
+    m1err: 7.184e-05 (99.7%)
+    0.000950828 < m1 < 0.00109451 (99.7%)
+    -1.38305e-05 < c1 < 1.01068e-05 (99.7%)
+    -1.16311e-05 < c2 < 1.15781e-05 (99.7%)
+
+- run-gridP-s2n500-skyn0.25-wmom
+    - same as run-gridP-s2n500-skyn0.25 but with wmom
