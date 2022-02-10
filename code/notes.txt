@@ -2265,6 +2265,10 @@ run-riz-drcbWsBP-cells.yaml
 
 - run-gridP-skyn0.25
     - uncorrected sky with negative 1/4 noise
-    Could it be additive?
 
+    processed: 76000
+    R11: 2.306705228618549
+    m1err: 0.000814915 (99.7%)
     0.00206281 < m1 < 0.00369264 (99.7%)
+    -1.98995e-05 < c1 < 1.21722e-05 (99.7%)
+    -1.11172e-05 < c2 < 2.14656e-05 (99.7%)
