@@ -2286,3 +2286,8 @@ run-riz-drcbWsBP-cells.yaml
 
 - run-gridP-s2n500-skyn0.25-wmom
     - same as run-gridP-s2n500-skyn0.25 but with wmom
+
+    0.000457674 < m1 < 0.000536237 (99.7%)
+    -5.91547e-06 < c1 < 3.85472e-06 (99.7%)
+    1.59153e-06 < c2 < 1.14675e-05 (99.7%)
+
