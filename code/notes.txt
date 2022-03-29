@@ -2273,6 +2273,16 @@ run-riz-drcbWsBP-cells.yaml
     -1.98995e-05 < c1 < 1.21722e-05 (99.7%)
     -1.11172e-05 < c2 < 2.14656e-05 (99.7%)
 
+    - allowing 2**19 cuts (g range) and moving
+      to |g| < 3 I get
+
+    processed: 76000
+    R11: 2.8683357875184115
+    m1err: 0.000693861 (99.7%)
+    -0.000623396 < m1 < 0.000764326 (99.7%)
+    -1.81161e-05 < c1 < 1.12807e-05 (99.7%)
+    -8.27003e-09 < c2 < 2.96126e-05 (99.7%)
+
 - run-gridP-skyn0.25-wmom
     - same as run-gridP-skyn0.25 but with wmom
     so far
