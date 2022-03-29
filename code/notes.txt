@@ -2285,16 +2285,13 @@ run-riz-drcbWsBP-cells.yaml
 
 - run-gridP-skyn0.25-wmom
     - same as run-gridP-skyn0.25 but with wmom
-    so far
 
-    processed: 8995
-    jackknifing: s2n-10-1000-mask_frac-1.00-mfrac-1.00-Tratio-0.5-sdens-100
-    R11: 0.49919789016904925
-    m1err: 0.00153294 (99.7%)
-    -0.00176166 < m1 < 0.00130421 (99.7%)
-    -1.58179e-05 < c1 < 4.9516e-05 (99.7%)
-    -1.80161e-05 < c2 < 4.91829e-05 (99.7%)
-
+    processed: 71000
+    R11: 0.5059150879936855
+    m1err: 0.000600291 (99.7%)
+    -0.000239749 < m1 < 0.000960832 (99.7%)
+    -9.81943e-06 < c1 < 1.40173e-05 (99.7%)
+    6.75938e-06 < c2 < 3.11358e-05 (99.7%)
 
 - run-gridP-s2n500-skyn0.25
     - test at high s/n
