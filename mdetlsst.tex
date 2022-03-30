@@ -38,8 +38,9 @@
 \newcommand\notewrite[1]{\todo[color=orange, inline, size=\small]{To write: #1}}
 \newcommand\noteask[1]{\todo[color=cyan, inline, size=\small]{To ask: #1}}
 \newcommand\notecontrib[1]{\todo[color=green, inline, size=\small]{Contributors: #1}}
-\newcommand\esstodo[1]{\todo[color=yellow, inline, size=\small]{ESS: #1}}
-\newcommand{\ess}[1]{\textcolor{red}{[ESS: \bf #1]}}
+\newcommand{\mattodo}[1]{\textcolor{red}{[MRB TODO: \bf #1]}}
+\newcommand{\esstodo}[1]{\textcolor{orange}{[ESS TODO: \bf #1]}}
+\newcommand{\ess}[1]{\textcolor{blue}{[ESS: \bf #1]}}
 \newcommand{\mrb}[1]{\textcolor{purple}{[MRB: \bf #1]}}
 
 
@@ -133,33 +134,64 @@
 
 blah
 
-\section{Simulation Features}
+\section{Simulation Features} \label{sec:simfeatures}
 
-\subsection{Image Filters and Noise}
-\subsection{Image Rotations and Dithers}
-\subsection{Image WCS}
-\subsection{Point Spread Function}
-\subsection{Stars}
-\subsection{Star Bleed Trails}
-\subsection{Image Saturation}
-\subsection{Cosmic Rays}
-\subsection{Bad Columns}
-\subsection{Galaxies}
-\subsection{Image Background}
+\esstodo{Introduce sims, explain much is same as mdet paper and DES paper}
 
-\subsection{Layouts}
+\subsection{Image Filters and Noise} \label{sec:simfeatures:noise}
+\esstodo{descwl}
 
-\subsection{Shear Patterns}
+\subsection{Image Rotations and Dithers} \label{sec:simfeatures:rotdith}
+\esstodo{brief}
+\subsection{Image WCS} \label{sec:simfeatures:wcs}
+\esstodo{brief}
+\subsection{Point Spread Function} \label{sec:simfeatures:psf}
 
-\subsection{Coadd Cells Regions}
+\mattodo{Briefly describe PS PSF and link to DES paper.}
 
-\section{Image and PSF Coaddition}
-\section{Metadetection}
-\subsection{Creation of Sheared Images}
-\subsection{Detection}
-\subsection{Object Measurement}
+\subsection{Stars} \label{sec:simfeatures:stars}
+\esstodo{From DC2}
+\subsection{Star Bleed Trails} \label{sec:simfeatures:bleeds}
+\esstodo{From DC2, Jim}
+\subsection{Image Saturation} \label{sec:simfeatures:sat}
+\esstodo{brief}
+
+\subsection{Cosmic Rays} \label{sec:simfeatures:cosmics}
+
+\mattodo{Briefly describe and link to DES paper}
+
+\subsection{Bad Columns} \label{sec:simfeatures:badcols}
+
+\mattodo{Briefly describe and link to DES paper}
+
+\subsection{Galaxies} \label{sec:simfeatures:galaxies}
+\esstodo{descwl}
+\subsection{Image Background} \label{sec:simfeatures:background}
+\esstodo{explain meant to be error in background determination}
+
+\subsection{Layouts} \label{sec:simfeatures:layouts}
+\esstodo{grid/random}
+
+\subsection{Shear Patterns} \label{sec:simfeatures:shears}
+\esstodo{fixed or random orientation}
+
+\subsection{Coadd Cells Regions} \label{sec:simfeatures:cells}
+
+\section{Image and PSF Coaddition} \label{sec:coadding}
+\esstodo{explain use of DM tools}
+
+\section{Metadetection} \label{sec:mdet}
+\esstodo{brief and ref to mdet paper, DES}
+
+\subsection{Creation of Sheared Images} \label{sec:mdet:sheared}
+\esstodo{use of DM data stuctures?}
+\subsection{Detection} \label{sec:mdet:detect}
+\esstodo{use of DM algo}
+\subsection{Object Measurement} \label{sec:mdet:meas}
+\esstodo{use of pgauss/wmom}
 
 \section{Results}
+\esstodo{Establish 2nd order shear effects with grid/simple.  Demonstrate PS PSF fine for expected variation, more epochs needed for higher variation (10). Show full stars sim with cells.}
 
 
 % \input{code/mtable.tex}
