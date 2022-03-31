@@ -98,7 +98,7 @@
 
 
 % apj
-\shorttitle{Metacalibration in LSST}
+\shorttitle{Metadetection for Rubin}
 \shortauthors{Sheldon, Becker, Armstrong}
 
 \begin{document}
@@ -111,12 +111,14 @@
 
 % apj
 %\title{\Mdet: Mitigating Shear-dependent Object Detection Biases with \Mcal}
-\title{Metacalibration in LSST}
+\title{Metadetection for the Vera C. Rubin Observatory}
 
 \author{Erin S. Sheldon}
 \affil{Brookhaven National Laboratory, Bldg 510, Upton, New York 11973, USA}
 \author{Matthew R. Becker}
 \affil{High Energy Physics Division, Argonne National Laboratory, Lemont, IL 60439, USA}
+\author{Michael Jarvis}
+\affil{Department of Physics and Astronomy, University of Pennsylvania, Philadelphia, PA 19104, USA}
 \author{Robert Armstrong}
 \affil{Lawrence Livermore National Laboratory, Livermore, CA 94551, USA}
 
@@ -132,7 +134,7 @@
 
 \section{Introduction} \label{sec:intro}
 
-\esstodo{brief}
+\esstodo{}
 
 \section{Simulation Features} \label{sec:simfeatures}
 
@@ -142,26 +144,32 @@ mdet paper and DES paper}
 \subsection{Image Filters and Noise} \label{sec:simfeatures:noise}
 \esstodo{descwl}
 
-\subsection{Image WCS} \label{sec:simfeatures:wcs}
-\esstodo{brief}
+We used the WeakLensingDeblending package (TODO cite) to determine the noise
+for images in each filter.  In all simulation runs we used predicted noise $n$
+for the final 10 year coadd. For individual simulated epochs we re-scale the
+noise appropriately, such that the noise in each epoch was $n * \sqrt{N}$.
+
+We did not add the expected amount of background to each image, rather we
+simulated errors in the background determination (see \S
+\ref{sec:simfeatures:bgerr}).  After drawing all image features and adding
+noise, we re-scaled the images to a common zero point of 30.
 
 \subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:simfeatures:rotdith}
-\esstodo{brief}
+\esstodo{}
 
 Each image was simulated as a tangent plane projection of the sky onto the
-image frame with the LSST camera pixel scale of 0.2 arcseconds (XXX reference).
+image frame with the LSST camera pixel scale of 0.2 arcseconds (TODO reference).
 The world coordinate system (WCS) transformation between sky and pixel
 coordinates was represented as a \galsim\ \texttt{TanWCS} object.  Each
 simulated WCS transformation had a random rotation applied, in order to mock up
-the camera rotations used by LSST cam (XXX cite proper paper).  The images were
-also shifted, or ``dithered'', randomly in two dimensions relative to a
-reference sky position corresponding to the center of the desired final coadded
-image.  We choose the dithers to be a unrealistically small, within two pixels,
-in order to minimize wasted time simulating portions of the image that would
-not overlap the final coadd.  The image size was large enough such that the
-rotated image, after dithers, would have no edge crossing the coadd region,
-again to avoid waste:  coadding an image with an edge produces a discontinuous
-PSF in the final coadd, so such images would be discarded.
+the camera rotations used by LSST cam (TODO cite proper paper).  The center of
+each image was shifted, or ``dithered'', randomly in two dimensions relative to
+the center of the desired coadded image.  We choose the dithers to be a
+unrealistically small, within two pixels, to minimize portions of the image
+that would not overlap the final coadd.  The image size was just large enough
+so that the rotated image, after dithers, would have no edge crossing the coadd
+region, again to avoid waste:  coadding an image with an edge produces a
+discontinuous PSF in the final coadd, so such images would be discarded.
 
 \subsection{Point Spread Function} \label{sec:simfeatures:psf}
 
@@ -169,10 +177,12 @@ PSF in the final coadd, so such images would be discarded.
 
 \subsection{Stars} \label{sec:simfeatures:stars}
 \esstodo{From DC2}
+
 \subsection{Star Bleed Trails} \label{sec:simfeatures:bleeds}
 \esstodo{From DC2, Jim}
+
 \subsection{Image Saturation} \label{sec:simfeatures:sat}
-\esstodo{brief}
+\esstodo{}
 
 \subsection{Cosmic Rays} \label{sec:simfeatures:cosmics}
 
@@ -184,7 +194,8 @@ PSF in the final coadd, so such images would be discarded.
 
 \subsection{Galaxies} \label{sec:simfeatures:galaxies}
 \esstodo{descwl}
-\subsection{Image Background} \label{sec:simfeatures:background}
+
+\subsection{Image Background} \label{sec:simfeatures:bgerr}
 \esstodo{explain meant to be error in background determination}
 
 \subsection{Layouts} \label{sec:simfeatures:layouts}
@@ -194,7 +205,7 @@ PSF in the final coadd, so such images would be discarded.
 \esstodo{fixed or random orientation}
 
 \subsection{Coadd Cells Regions} \label{sec:simfeatures:cells}
-\esstodo{brief}
+\esstodo{}
 
 \subsection{Features Not Simulated} \label{sec:notincluded}
 \esstodo{list what and why}
@@ -203,7 +214,7 @@ PSF in the final coadd, so such images would be discarded.
 \esstodo{explain use of DM tools}
 
 \section{Metadetection} \label{sec:mdet}
-\esstodo{brief and ref to mdet paper, DES}
+\esstodo{brief with ref to mdet paper, and DES paper}
 
 \subsection{Creation of Sheared Images} \label{sec:mdet:sheared}
 \esstodo{use of DM data stuctures?}
@@ -220,7 +231,7 @@ PSF in the final coadd, so such images would be discarded.
 
 \section{Summary} \label{sec:summary}
 
-\esstodo{brief}
+\esstodo{}
 
 % \input{code/mtable.tex}
 
