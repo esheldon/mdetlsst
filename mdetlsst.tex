@@ -136,15 +136,33 @@
 
 \section{Simulation Features} \label{sec:simfeatures}
 
-\esstodo{Introduce sims, explain much is same as mdet paper and DES paper}
+\esstodo{Introduce sims, coadd reference frame, galsim, explain much is same as
+mdet paper and DES paper}
 
 \subsection{Image Filters and Noise} \label{sec:simfeatures:noise}
 \esstodo{descwl}
 
-\subsection{Image Rotations and Dithers} \label{sec:simfeatures:rotdith}
-\esstodo{brief}
 \subsection{Image WCS} \label{sec:simfeatures:wcs}
 \esstodo{brief}
+
+\subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:simfeatures:rotdith}
+\esstodo{brief}
+
+Each image was simulated as a tangent plane projection of the sky onto the
+image frame with the LSST camera pixel scale of 0.2 arcseconds (XXX reference).
+The world coordinate system (WCS) transformation between sky and pixel
+coordinates was represented as a \galsim\ \texttt{TanWCS} object.  Each
+simulated WCS transformation had a random rotation applied, in order to mock up
+the camera rotations used by LSST cam (XXX cite proper paper).  The images were
+also shifted, or ``dithered'', randomly in two dimensions relative to a
+reference sky position corresponding to the center of the desired final coadded
+image.  We choose the dithers to be a unrealistically small, within two pixels,
+in order to minimize wasted time simulating portions of the image that would
+not overlap the final coadd.  The image size was large enough such that the
+rotated image, after dithers, would have no edge crossing the coadd region,
+again to avoid waste:  coadding an image with an edge produces a discontinuous
+PSF in the final coadd, so such images would be discarded.
+
 \subsection{Point Spread Function} \label{sec:simfeatures:psf}
 
 \mattodo{Briefly describe PS PSF and link to DES paper.}
