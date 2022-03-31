@@ -136,25 +136,26 @@
 
 \esstodo{}
 
-\section{Simulation Features} \label{sec:simfeatures}
+\section{Simulation Features} \label{sec:sim}
 
 \esstodo{Introduce sims, coadd reference frame, galsim, explain much is same as
 mdet paper and DES paper}
 
-\subsection{Image Filters and Noise} \label{sec:simfeatures:noise}
+\subsection{Image Filters and Noise} \label{sec:sim:noise}
 \esstodo{descwl}
 
 We used the WeakLensingDeblending package (TODO cite) to determine the noise
 for images in each filter.  In all simulation runs we used predicted noise $n$
-for the final 10 year coadd. For individual simulated epochs we re-scale the
-noise appropriately, such that the noise in each epoch was $n * \sqrt{N}$.
+for the final 10 year coadd.  For individual simulated epochs we re-scale the
+noise appropriately, such that the noise in each epoch was $n * \sqrt{N}$.  We
+used a Guassian random field to simulate the noise, which is a good
+approximation at the expected noise levels (TODO cite).
 
-We did not add the expected amount of background to each image, rather we
-simulated errors in the background determination (see \S
-\ref{sec:simfeatures:bgerr}).  After drawing all image features and adding
+We did not add the expected amount of background to each image (but see \S
+\ref{sec:sim:bgerr}).  After drawing all image features and adding
 noise, we re-scaled the images to a common zero point of 30.
 
-\subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:simfeatures:rotdith}
+\subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:sim:rotdith}
 \esstodo{}
 
 Each image was simulated as a tangent plane projection of the sky onto the
@@ -171,40 +172,51 @@ so that the rotated image, after dithers, would have no edge crossing the coadd
 region, again to avoid waste:  coadding an image with an edge produces a
 discontinuous PSF in the final coadd, so such images would be discarded.
 
-\subsection{Point Spread Function} \label{sec:simfeatures:psf}
+\subsection{Point Spread Function} \label{sec:sim:psf}
 
 \mattodo{Briefly describe PS PSF and link to DES paper.}
 
-\subsection{Stars} \label{sec:simfeatures:stars}
+\subsection{Stars} \label{sec:sim:stars}
 \esstodo{From DC2}
 
-\subsection{Star Bleed Trails} \label{sec:simfeatures:bleeds}
+We simulated stars using fluxes and densities sampled from the LSST DESC DC2
+simulation (TODO cite).  For each simulated field we sampled randomly, with
+replacement, from the map of stellar density used to generate DC2.  This
+density represents the total number of stars drawn, not the number detected.
+To determine each stars multiband flux, we sampled stars from the DC2 star
+catalog.  We modeled each star as a small Gaussian (FWHM $= 10^{-4}$ arcsec)
+convolved with the point spread function.  We drew stars at random locations,
+even when galaxies were drawn on a grid layout (see \S \ref{sec:sim:layouts}).
+Stars were allowed to saturate (see \S \ref{sec:sim:sat}) and have an associated
+bleed trail (see \S \ref{sec:sim:bleeds}).
+
+\subsection{Star Bleed Trails} \label{sec:sim:bleeds}
 \esstodo{From DC2, Jim}
 
-\subsection{Image Saturation} \label{sec:simfeatures:sat}
+\subsection{Image Saturation} \label{sec:sim:sat}
 \esstodo{}
 
-\subsection{Cosmic Rays} \label{sec:simfeatures:cosmics}
+\subsection{Cosmic Rays} \label{sec:sim:cosmics}
 
 \mattodo{Briefly describe and link to DES paper}
 
-\subsection{Bad Columns} \label{sec:simfeatures:badcols}
+\subsection{Bad Columns} \label{sec:sim:badcols}
 
 \mattodo{Briefly describe and link to DES paper}
 
-\subsection{Galaxies} \label{sec:simfeatures:galaxies}
+\subsection{Galaxies} \label{sec:sim:galaxies}
 \esstodo{descwl}
 
-\subsection{Image Background} \label{sec:simfeatures:bgerr}
+\subsection{Image Background} \label{sec:sim:bgerr}
 \esstodo{explain meant to be error in background determination}
 
-\subsection{Layouts} \label{sec:simfeatures:layouts}
+\subsection{Layouts} \label{sec:sim:layouts}
 \esstodo{grid/random}
 
-\subsection{Shear Patterns} \label{sec:simfeatures:shears}
+\subsection{Shear Patterns} \label{sec:sim:shears}
 \esstodo{fixed or random orientation}
 
-\subsection{Coadd Cells Regions} \label{sec:simfeatures:cells}
+\subsection{Coadd Cells Regions} \label{sec:sim:cells}
 \esstodo{}
 
 \subsection{Features Not Simulated} \label{sec:notincluded}
@@ -567,7 +579,11 @@ discontinuous PSF in the final coadd, so such images would be discarded.
 
 ES is supported by DOE grant DE-AC02-98CH10886, and MB is supported by DOE
 grant DE-AC02-06CH11357.  RM is supported by the US Department of Energy Cosmic
-Frontier program, grant DE-SC0010118.
+Frontier program, grant DE-SC0010118.  (TODO Mike's funding)
+
+We thank Javier Sanchez for providing the star and stellar density map for DC2,
+and Jim Chiang for providing example images containing simulated stars
+with bleed trails.
 
 
 %\bibliographystyle{mnras}
