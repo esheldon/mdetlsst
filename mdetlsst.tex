@@ -181,14 +181,15 @@ discontinuous PSF in the final coadd, so such images would be discarded.
 
 We simulated stars using fluxes and densities sampled from the LSST DESC DC2
 simulation (TODO cite).  For each simulated field we sampled randomly, with
-replacement, from the map of stellar density used to generate DC2.  This
-density represents the total number of stars drawn, not the number detected.
-To determine each stars multiband flux, we sampled stars from the DC2 star
-catalog.  We modeled each star as a small Gaussian (FWHM $= 10^{-4}$ arcsec)
-convolved with the point spread function.  We drew stars at random locations,
-even when galaxies were drawn on a grid layout (see \S \ref{sec:sim:layouts}).
-Stars were allowed to saturate (see \S \ref{sec:sim:sat}) and have an associated
-bleed trail (see \S \ref{sec:sim:bleeds}).
+replacement, from the map of stellar density used to generate DC2, with a
+maximum allowed density of 100 per square arcminute.  This density represents
+the total number of stars drawn, not the number detected.  To determine each
+stars multiband flux, we sampled stars from the DC2 star catalog.  We modeled
+each star as a small Gaussian (FWHM $= 10^{-4}$ arcsec) convolved with the
+point spread function.  We drew stars at random locations, even when galaxies
+were drawn on a grid layout (see \S \ref{sec:sim:layouts}).  Stars were allowed
+to saturate (see \S \ref{sec:sim:sat}) and have an associated bleed trail (see
+\S \ref{sec:sim:bleeds}).
 
 \subsection{Star Bleed Trails} \label{sec:sim:bleeds}
 \esstodo{From DC2, Jim}
