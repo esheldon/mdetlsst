@@ -43,6 +43,7 @@
 \newcommand{\ess}[1]{\textcolor{blue}{[ESS: \bf #1]}}
 \newcommand{\mrb}[1]{\textcolor{purple}{[MRB: \bf #1]}}
 
+\newcommand{\descwl}{\texttt{WeakLensingDeblending}}
 
 \newcommand{\vecg}{\mbox{\boldmath $g$}}
 \newcommand{\vece}{\mbox{\boldmath $e$}}
@@ -144,12 +145,12 @@ mdet paper and DES paper}
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 \esstodo{descwl}
 
-We used the WeakLensingDeblending package (TODO cite) to determine the noise
-for images in each filter.  In all simulation runs we used predicted noise $n$
-for the final 10 year coadd.  For individual simulated epochs we re-scale the
-noise appropriately, such that the noise in each epoch was $n * \sqrt{N}$.  We
-used a Guassian random field to simulate the noise, which is a good
-approximation at the expected noise levels (TODO cite).
+We used the \descwl\ package (TODO cite) to determine the
+noise for images in each filter.  In all simulation runs we used predicted
+noise $n$ for the final 10 year coadd.  For individual simulated epochs we
+re-scale the noise appropriately, such that the noise in each epoch was $n *
+\sqrt{N}$.  We used a Guassian random field to simulate the noise, which is a
+good approximation at the expected noise levels (TODO cite).
 
 We did not add the expected amount of background to each image (but see \S
 \ref{sec:sim:bgerr}).  After drawing all image features and adding
@@ -172,7 +173,7 @@ so that the rotated image, after dithers, would have no edge crossing the coadd
 region, again to avoid waste:  coadding an image with an edge produces a
 discontinuous PSF in the final coadd, so such images would be discarded.
 
-\subsection{Point Spread Function} \label{sec:sim:psf}
+\subsection{Point Spread Function} \label{sec:sim:psfs}
 
 \mattodo{Briefly describe PS PSF and link to DES paper.}
 
@@ -216,8 +217,18 @@ marked with the appropriate flag in the bitmask.
 \subsection{Galaxies} \label{sec:sim:galaxies}
 \esstodo{descwl}
 
+We used the \descwl\ package to generate galaxy models (TODO cite).  These
+elliptical, color models have bulge, disk and AGN components. We performed the
+drawing of these models in our code in order to enable the use of our on PSF
+models (see \S \ref{sec:sim:psfs}, and to allow for more efficient drawing.
+
 \subsection{Image Background} \label{sec:sim:bgerr}
-\esstodo{explain meant to be error in background determination}
+\esstodo{}
+
+We add a negative constant to the images to approximate errors in the
+background determination.  The motivation is to test if errors for individual
+epochs can be corrected in the final coadd image by running a second background
+determination (TODO reference a section where the result is mentioned).
 
 \subsection{Layouts} \label{sec:sim:layouts}
 \esstodo{grid/random}
@@ -266,7 +277,7 @@ marked with the appropriate flag in the bitmask.
 %      of each point is a code representing the simulation features used, which are
 %      nostack: the LSST DM stack was not used; d: dithers; r: rotations; c: cosmic rays;
 %      b: bad columns; W: realistic galaxy properties and noise using
-%       the WeakLensingDeblending package; v: variable pixel scale
+%       the \descwl\ package; v: variable pixel scale
 %      and WCS shear; p: psf $g_2 = 0.02$; RIZ: $r, i$ and $z$ bands used; LD: large dithers;
 %      VPX-Y: spatially variable moffat PSF with X times the expected variation for LSST,
 %      and Y epochs per band;  s: stars included at 2/sq arcminute, S: star masks and bleeds
