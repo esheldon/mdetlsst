@@ -188,14 +188,22 @@ stars multiband flux, we sampled stars from the DC2 star catalog.  We modeled
 each star as a small Gaussian (FWHM $= 10^{-4}$ arcsec) convolved with the
 point spread function.  We drew stars at random locations, even when galaxies
 were drawn on a grid layout (see \S \ref{sec:sim:layouts}).  Stars were allowed
-to saturate (see \S \ref{sec:sim:sat}) and have an associated bleed trail (see
-\S \ref{sec:sim:bleeds}).
+to saturate and have an associated bleed trail (see
+\S \ref{sec:sim:satbleeds}).
 
-\subsection{Star Bleed Trails} \label{sec:sim:bleeds}
-\esstodo{From DC2, Jim}
-
-\subsection{Image Saturation} \label{sec:sim:sat}
+\subsection{Image Saturation and Star Bleed Trails} \label{sec:sim:satbleeds}
 \esstodo{}
+
+The value in each pixel was artificially limited in order to simulate
+saturation, and saturated pixels were marked with the appropriate flag an
+integer bitmask image.  Non linear detector response was not simulated.
+
+Saturated stars were over-drawn with a simulated bleed trail image, taken from
+a set of pregenerated templates.  The bleed templates were identified in images
+of bright stars created using the DC2 code.  For each saturated star in our
+simulation, we found a close template match in the filter of interest and drew
+the associated bleed image directly over the star image. The bleed pixels were
+marked with the appropriate flag in the bitmask.
 
 \subsection{Cosmic Rays} \label{sec:sim:cosmics}
 
