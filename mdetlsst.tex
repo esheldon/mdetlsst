@@ -141,9 +141,6 @@
 
 \section{Simulation Features} \label{sec:sim}
 
-\esstodo{Introduce sims, coadd reference frame, galsim, explain much is same as
-mdet paper and DES paper}
-
 We simulated what are known in the LSST data management system (DM) as
 calibrated exposure images.  This data is stored in a data structure known as
 as a \calibexp, which carries with it the calibrated, background subtracted
@@ -164,7 +161,6 @@ sections we describe each of the image features.
 
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
-\esstodo{descwl}
 
 We used the \descwl\ package (TODO cite) to determine the
 noise for images in each filter.  In all simulation runs we used predicted
@@ -178,7 +174,6 @@ We did not add the expected amount of background to each image (but see \S
 noise, we re-scaled the images to a common zero point of 30.
 
 \subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:sim:rotdith}
-\esstodo{}
 
 Each image was simulated as a tangent plane projection of the sky onto the
 image frame with the LSST camera pixel scale of 0.2 arcseconds (TODO reference).
@@ -199,7 +194,6 @@ discontinuous PSF in the final coadd, so such images would be discarded.
 \mattodo{Briefly describe PS PSF and link to DES paper.}
 
 \subsection{Stars} \label{sec:sim:stars}
-\esstodo{From DC2}
 
 We simulated stars using fluxes and densities sampled from the LSST DESC DC2
 simulation (TODO cite).  For each simulated field we sampled randomly, with
@@ -214,7 +208,6 @@ to saturate and have an associated bleed trail (see
 \S \ref{sec:sim:satbleeds}).
 
 \subsection{Image Saturation and Star Bleed Trails} \label{sec:sim:satbleeds}
-\esstodo{}
 
 The value in each pixel was artificially limited in order to simulate
 saturation, and saturated pixels were marked with the appropriate flag an
@@ -236,7 +229,6 @@ marked with the appropriate flag in the bitmask.
 \mattodo{Briefly describe and link to DES paper}
 
 \subsection{Galaxies} \label{sec:sim:galaxies}
-\esstodo{descwl}
 
 We used the \descwl\ package to generate galaxy models (TODO cite).  These
 elliptical, color models have bulge, disk and AGN components. We performed the
@@ -264,7 +256,6 @@ effects.
 See \S \ref{sec:sim:galaxies} for descriptions of each galaxy model type.
 
 \subsection{Image Background} \label{sec:sim:bgerr}
-\esstodo{}
 
 We add a negative constant to the images to approximate errors in the
 background determination.  The motivation is to test if errors for individual
@@ -272,7 +263,6 @@ epochs can be corrected in the final coadd image by running a second background
 determination (TODO reference a section where the result is mentioned).
 
 \subsection{Shear Patterns} \label{sec:sim:shears}
-\esstodo{}
 
 We implemented two different types of shear pattern.  In one we used a single
 shear for all images, with constant magnitude and orientation.  The second type
@@ -283,7 +273,6 @@ see in \S \ref{sec:results:randshear}, a small additional selection bias is
 introduced for random shears when when trimming to cells.
 
 \subsection{Coadd Cells} \label{sec:sim:cells}
-\esstodo{}
 
 Coadds can be used for shear measurement (TODO cite bob's paper), but we
 require that the coadded images have a continuous PSF in order to faciliate
