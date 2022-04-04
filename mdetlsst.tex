@@ -251,7 +251,15 @@ epochs can be corrected in the final coadd image by running a second background
 determination (TODO reference a section where the result is mentioned).
 
 \subsection{Shear Patterns} \label{sec:sim:shears}
-\esstodo{fixed or random orientation}
+\esstodo{}
+
+We implemented two different types of shear pattern.  In one we used a single
+shear for all images, with constant magnitude and orientation.  The second type
+was a constant magnitude shear, but with random orientation for each image.
+These two scenarios result in equivalent shear recovery bias when objects are
+not divided into cells on the sky (see \S \ref{sec:sim:cells}) but, as we will
+see in \S \ref{sec:results:randshear}, a small additional selection bias is
+introduced for random shears when when trimming to cells.
 
 \subsection{Coadd Cells Regions} \label{sec:sim:cells}
 \esstodo{}
@@ -277,6 +285,15 @@ determination (TODO reference a section where the result is mentioned).
 \section{Results} \label{sec:results}
 
 \esstodo{Establish 2nd order shear effects with grid/simple.  Demonstrate PS PSF fine for expected variation, more epochs needed for higher variation (10). Show full stars sim with cells.}
+
+\subsection{Baseline Results for Fixed Galaxies on a Grid} \label{sec:results:secondorder}
+
+\subsection{Results with Randomized Shears} \label{sec:results:randshear}
+
+\subsection{Results with Stars and Realistic Galaxy Models} \label{sec:results:full}
+
+\subsection{Results with Coadds in Cells} \label{sec:results:cells}
+
 
 \section{Summary} \label{sec:summary}
 
