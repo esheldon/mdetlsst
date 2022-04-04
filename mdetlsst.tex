@@ -64,6 +64,8 @@
 \newcommand{\desreq}{$4\times 10^{-3}$}
 \newcommand{\lsstreq}{$2\times 10^{-3}$}
 
+\newcommand{\calibexp}{\texttt{calibExp}}
+
 \newcommand{\mcal}{\textsc{metacalibration}}
 \newcommand{\mdet}{\textsc{metadetection}}
 \newcommand{\Mcalshort}{\textsc{metacal}}
@@ -141,6 +143,25 @@
 
 \esstodo{Introduce sims, coadd reference frame, galsim, explain much is same as
 mdet paper and DES paper}
+
+We simulated what are known in the LSST data management system (DM) as
+calibrated exposure images.  This data is stored in a data structure known as
+as a \calibexp, which carries with it the calibrated, background subtracted
+image data, along with an estimated noise image plane, world coordinate system
+transformation (WCS) and position dependent PSF model.  Problem areas
+associated with saturation, cosmic rays, and bad columns are marked in an
+integer big mask image plane.
+
+We stored the true values for all these data in the \calibexp\ data structure
+passed onto the measurement algorithms, with the exception of the background
+which was optionally offset in order to test re-estimation of the
+background on the coadd.
+
+The basic simulation was similar to that created for the \mdet\ (TODO cite) and
+DES \mdet\ papers (TODO cite DES mdet test paper).  All images were rendered
+using the \galsim\ python package (TODO cite galsim).  In the following
+sections we describe each of the image features.
+
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 \esstodo{descwl}
@@ -277,9 +298,6 @@ to the cell processing and trimming of objects to non overlapping regions.  We
 adopted the cell definitions outlined above: 250x250 pixel cells with 50 pixel
 overlaps. The object list was trimmed to the non-overlapping region in post
 processing.
-
-\subsection{Features Not Simulated} \label{sec:notincluded}
-\esstodo{list what and why}
 
 \section{Image and PSF Coaddition} \label{sec:coadding}
 \esstodo{explain use of DM tools}
