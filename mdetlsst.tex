@@ -261,8 +261,22 @@ not divided into cells on the sky (see \S \ref{sec:sim:cells}) but, as we will
 see in \S \ref{sec:results:randshear}, a small additional selection bias is
 introduced for random shears when when trimming to cells.
 
-\subsection{Coadd Cells Regions} \label{sec:sim:cells}
+\subsection{Coadd Cells} \label{sec:sim:cells}
 \esstodo{}
+
+Coadds can be used for shear measurement (TODO cite bob's paper), but we
+require that the coadded images have a continuous PSF in order to faciliate
+accurate PSF modeling.  Images that have an edge in the coadd region must be
+rejected.  Smaller coadds result in fewer images being rejected, but very small
+coadds would complicate object identification deblending.  For LSST, we plan to
+use relatively small (250x250 pixels) overlapping (50 pixels) coadded regions
+for shear measurement, which we call ``cells'' (TODO cite).
+
+We ran simulations with and without cells in order control for issues specific
+to the cell processing and trimming of objects to non overlapping regions.  We
+adopted the cell definitions outlined above: 250x250 pixel cells with 50 pixel
+overlaps. The object list was trimmed to the non-overlapping region in post
+processing.
 
 \subsection{Features Not Simulated} \label{sec:notincluded}
 \esstodo{list what and why}
