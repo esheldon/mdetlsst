@@ -142,7 +142,7 @@
 
 \section{Simulation Features} \label{sec:sim}
 
-We simulated what are known in the LSST data management system (\dm) as
+We simulated what are known in the LSST data management system (\dm, TODO cite) as
 calibrated exposure images.  This data is stored in a data structure known as
 as a \calibexp, which carries with it the calibrated, background subtracted
 image data, along with an estimated noise image plane, world coordinate system
@@ -301,6 +301,21 @@ processed in a similar manner but with orthogonal shear.  We stored this
 noise image in a copy of the image \calibexp\ structure, but replacing the
 real image data with the noise image.
 
+\begin{figure}
+    \includegraphics[width=\columnwidth]{example-image.jpg}
+    \caption{
+        Example simulated image
+    }
+\end{figure}
+\begin{figure}
+    \includegraphics[width=\columnwidth]{example-masked-image.pdf}
+    \caption{
+        Example masked images
+    }
+\end{figure}
+
+
+
 \section{Image and PSF Coaddition} \label{sec:coadding}
 \esstodo{explain use of DM tools}
 
@@ -336,9 +351,11 @@ our purposes.
 The resulting coadd and PSF coadd data were stored in a new \calibexp\ data
 structure for use in \mdet.
 
-\esstodo{This should go elsewhere}  We used the package \texttt{mdet-lsst-sim}
-version 0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to
-run the simulation, make coadds and run metadetection.
+\esstodo{This should go elsewhere}  We used the ``wrapper'' package
+\texttt{mdet-lsst-sim} version
+0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to run the
+simulation, coaddition and \mdet\ and deal with organize, submit and collate
+large runs on computing clusters.
 
 \section{Metadetection} \label{sec:mdet}
 \esstodo{brief with ref to mdet paper, and DES paper}
