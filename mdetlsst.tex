@@ -210,18 +210,27 @@ were drawn on a grid layout (see \S \ref{sec:sim:layouts}).  Stars were allowed
 to saturate and have an associated bleed trail (see
 \S \ref{sec:sim:satbleeds}).
 
-\subsection{Image Saturation and Star Bleed Trails} \label{sec:sim:satbleeds}
+\subsection{Image Saturation, Star Masking and Star Bleed Trails} \label{sec:sim:satbleeds}
 
 The value in each pixel was artificially limited in order to simulate
 saturation, and saturated pixels were marked with the appropriate flag an
 integer bitmask image.  Non linear detector response was not simulated.
 
 Saturated stars were over-drawn with a simulated bleed trail image, taken from
-a set of pregenerated templates.  The bleed templates were identified in images
-of bright stars created using the DC2 code.  For each saturated star in our
-simulation, we found a close template match in the filter of interest and drew
-the associated bleed image directly over the star image. The bleed pixels were
-marked with the appropriate flag in the bitmask.
+a set of previously generated templates.  The bleed templates were identified
+in images of bright stars created using the DC2 code.  For each saturated star
+in our simulation, we found a close template match in the filter of interest
+and drew the associated bleed image directly over the star image with a value
+set to the saturation level. The bleed pixels were marked with the appropriate
+flag in the bitmask.
+
+We marked saturated stars in the bitmask image with a circular mask that
+covered the star out to the radius where the profile reached the noise level.
+Note in real data such a mask would need to be determined algorithmically.
+This mask does not necessarily cover the bleed trail completely, although the
+trail was interpolated (see \S \ref{sec:coadding}).  We find that these
+unmasked trails do not cause a shear bias, which we attribute to the
+camera rotations, which randomize the direction of the trail on the sky.
 
 \subsection{Cosmic Rays} \label{sec:sim:cosmics}
 
@@ -304,20 +313,19 @@ real image data with the noise image.
 \begin{figure}
     \includegraphics[width=\columnwidth]{example-image.jpg}
     \caption{
-        Example simulated image
+        Example simulated image. \esstodo{caption}
     }
 \end{figure}
 \begin{figure}
     \includegraphics[width=\columnwidth]{example-masked-image.pdf}
     \caption{
-        Example masked images
+        Example masked images. \esstodo{caption}
     }
 \end{figure}
 
 
 
 \section{Image and PSF Coaddition} \label{sec:coadding}
-\esstodo{explain use of DM tools}
 
 For coaddition, we used the package \texttt{descwl\_coadd} version
 0.3.0\footnote{\url{https://github.com/LSSTDESC/descwl_coadd}}.  This code uses
