@@ -65,6 +65,7 @@
 \newcommand{\lsstreq}{$2\times 10^{-3}$}
 
 \newcommand{\calibexp}{\texttt{calibExp}}
+\newcommand{\dm}{\texttt{LSST DM}}
 
 \newcommand{\mcal}{\textsc{metacalibration}}
 \newcommand{\mdet}{\textsc{metadetection}}
@@ -141,7 +142,7 @@
 
 \section{Simulation Features} \label{sec:sim}
 
-We simulated what are known in the LSST data management system (DM) as
+We simulated what are known in the LSST data management system (\dm) as
 calibrated exposure images.  This data is stored in a data structure known as
 as a \calibexp, which carries with it the calibrated, background subtracted
 image data, along with an estimated noise image plane, world coordinate system
@@ -290,13 +291,52 @@ adopted the cell definitions outlined above: 250x250 pixel cells with 50 pixel
 overlaps. The object list was trimmed to the non-overlapping region in post
 processing.
 
+\subsection{Noise Images} \label{sec:sim:noise}
+
+The \mcal\ procedure involves deconvolution by the PSF, shearing of the image,
+and reconvolution by a round kernel.  This process alters the noise and
+produces a spurious shear response.  We can cancel this bias by adding a noise
+image, with properties that statistically match the real background noise,
+processed in a similar manner but with orthogonal shear.  We stored this
+noise image in a copy of the image \calibexp\ structure, but replacing the
+real image data with the noise image.
+
 \section{Image and PSF Coaddition} \label{sec:coadding}
 \esstodo{explain use of DM tools}
 
-For coaddition, we used the package \texttt{descwl\_coadd}
-version 0.3.0\footnote{\url{https://github.com/LSSTDESC/descwl_coadd}}.
+For coaddition, we used the package \texttt{descwl\_coadd} version
+0.3.0\footnote{\url{https://github.com/LSSTDESC/descwl_coadd}}.  This code uses
+\dm\ algorithms for warping images onto the coadd pixel grid, in particular the
+\texttt{AccumulatorMeanStack} from \texttt{lsst.meas.algorithms} sub package.
+We used an inverse variance weighting, based on the noise in the image.
 
-This should go elsewhere:  We used the package \texttt{mdet-lsst-sim}
+Before warping, we interpolated artifacts such as cosmic rays, bad columns, and
+saturated pixels.  The interpolation and warping modifies the noise properties
+of the image.  Thus, for accurate \mcal\ noise corrections (see \S
+\ref{sec:sim:noise}) we must also run the noise image through the same
+procedures.  Rather than use the \dm\ codes, we performed all interpolation of
+artifacts and saturated regions using the \texttt{CloughTocher2DInterpolator}
+from the scipy software
+package\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CloughTocher2DInterpolator.html}}.
+We used this interpolation because the \dm\ cosmic ray interpolation available
+at the time of writing is intertwined with the detection of cosmic rays, so
+cannot be run on the noise image.
+
+Using the same code, we also created PSF coadded images.  For each input image,
+we generated an image of the PSF at the location of the coadd center, including
+any sub-pixel offsets between the pixel grids, so the PSF images where
+generally not centered.  We then warped on these images using the same weights
+as the image data.  This off-centering and warping is important so that the PSF
+includes the same small amount of smearing present in the image interpolation.
+Not including this offset results in percent level multiplicative shear biases
+(TODO cite bob's paper).  Note \dm\ provides a PSF coadding code, but at the
+time of writing it did not perform sub-pixel offsets, so was unsuitable for
+our purposes.
+
+The resulting coadd and PSF coadd data were stored in a new \calibexp\ data
+structure for use in \mdet.
+
+\esstodo{This should go elsewhere}  We used the package \texttt{mdet-lsst-sim}
 version 0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to
 run the simulation, make coadds and run metadetection.
 
