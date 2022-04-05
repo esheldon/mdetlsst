@@ -403,302 +403,290 @@ For \mdet, we used the package \texttt{metadetect} version
 \end{figure}
 
 
-\begin{comment}
-\begin{figure}
-    \includegraphics[width=\columnwidth]{code/stardens-bias.pdf}
-    \caption{
-        Bias as a function of minimum stellar density.  The same
-        simulation was used for all points, so the errors are correlated.
-    }
-\end{figure}
-\end{comment}
-
-
-
-\begin{figure}
-    \centering
-\begin{tikzpicture}
-    \begin{groupplot}[
-        legend style={draw=none},
-        group style={group size=1 by 2, vertical sep=0.3cm},
-        xmin=0.0,
-        xmax=110.0,
-        width=0.9\columnwidth,
-        height=0.6\columnwidth,
-        minor tick num=3,
-        axis on top
-    ]
-    \nextgroupplot[
-        ylabel={$m/10^{-3}$},ymin=-2,xticklabels={,,},
-        ymin=-2, ymax=2
-    ]
-
-	\addplot+[name path=A,gray!20,no markers] coordinates {
-        (0.0,-1)
-        (110.0,-1)
-    };
-    \addplot+[name path=B,gray!20,no markers] coordinates {
-        (0.0,1)
-        (110.0,1)
-    };
-
-    \addplot+[gray!20] fill between[of=A and B];
-	\addplot+[black!80,no markers] coordinates {
-        (0.0,0.0)
-        (110.0,0.0)
-    };
-
-	% \addplot+[
-    %     brown!60!black,mark=otimes*, mark options={fill=brown!40},
-    %     error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    % ] {code/m-vs-star-density.txt};
-
-	\addplot+[
-        brown!60!black,mark=otimes*, solid, mark options={fill=brown!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/m-vs-star-density-s2n10.txt};
-
-	\addplot+[
-        teal!60!black,mark=triangle*, solid, mark options={fill=teal!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/m-vs-star-density-s2n15.txt};
-
-	\addplot+[
-        red!60!black,mark=diamond*, solid, mark options={fill=red!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/m-vs-star-density-s2n20.txt};
-
-	\addplot+[
-        blue!60!black,mark=square*, solid, mark options={fill=blue!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/m-vs-star-density-s2n25.txt};
-
-	\addplot+[
-        brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/m-vs-star-density-s2n30.txt};
-
-
-
-    % \nextgroupplot[
-    %     ymin=0.93,
-    %     xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m/\sigma_m^{100}$}
-    % ]
-
-	% \addplot+[black!80,no markers] coordinates {
-    %     (0.0,1.0)
-    %     (110.0,1.0)
-    % };
-
-    % \addplot+[
-    %     teal!60!black,mark=triangle*, mark options={fill=teal!40},
-    %     error bars/.cd,y dir=both,y explicit] table[x index=0, y index=3
-    % ] {code/m-vs-star-density.txt};
-
-    \nextgroupplot[
-        xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m$},
-        ymin=0.6, ymax=1.1
-    ]
-
-	\addplot+[
-        brown!60!black,mark=otimes*, solid, mark options={fill=brown!40} 
-        ] table[x index=0, y index=2,
-    ] {code/m-vs-star-density-s2n10.txt};
-    \addlegendentry{$S/N > 10$}
-
-	\addplot+[
-        teal!60!black,mark=triangle*, solid, mark options={fill=teal!40}
-        ] table[x index=0, y index=2,
-    ] {code/m-vs-star-density-s2n15.txt};
-    \addlegendentry{$S/N > 15$}
-
-	\addplot+[
-        red!60!black,mark=diamond*, solid, mark options={fill=red!40}
-        ] table[x index=0, y index=2,
-    ] {code/m-vs-star-density-s2n20.txt};
-    \addlegendentry{$S/N > 20$}
-
-	\addplot+[
-        blue!60!black,mark=square*, solid, mark options={fill=blue!40}
-        ] table[x index=0, y index=2,
-    ] {code/m-vs-star-density-s2n25.txt};
-    \addlegendentry{$S/N > 25$}
-
-	\addplot+[
-        brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40}
-        ] table[x index=0, y index=2,
-    ] {code/m-vs-star-density-s2n30.txt};
-    \addlegendentry{$S/N > 30$}
-
-
-    \end{groupplot}
-\end{tikzpicture}
-
-    \caption{ Metadetection performance as a function of maximum stellar
-    density and for different object S/N thresholds.  Simulations were run with
-    the expected stellar density distribution for the full LSST 18,000 square
-    degree survey, with a maximum allowed value of 100/sq. arcminute.  Stars
-    bright enough to saturate were not included.  Top panel:  the
-    multiplicative bias $m$ as a function of the stellar density cut and S/N
-    threshold.  Objects with small measured size $T/T_{\mathrm{PSF}} < 1.2$
-    were removed, where $T = \langle x^2 \rangle + \langle y^2 \rangle$ is the
-    estimated psf convolved size of the object.  Bottom panel: the uncertainty
-    on the mean shear as a function of the stellar density cut, for different
-    S/N thresholds.  Note that many lensing probes are dominated by cosmic
-    variance, which is not included in these uncertainties.  }
-
-\end{figure}
-
-
-\begin{figure}
-    \centering
-\begin{tikzpicture}
-    \begin{axis}[
-        legend style={draw=none,at={(0.97,0.5)},anchor=east},
-        ylabel={$m/10^{-3}$},
-        xlabel={Stellar Density $[\#/sq. arcmin]$},
-        xmin=-5.0,
-        xmax=190.0,
-        ymin=-8,
-        ymax=8,
-        width=0.9\columnwidth,
-        height=0.6\columnwidth,
-        minor tick num=4,
-        axis on top
-    ]
-
-	\addplot+[name path=A,gray!20,no markers, forget plot] coordinates {
-        (0.0,-1)
-        (110.0,-1)
-    };
-    \addplot+[name path=B,gray!20,no markers, forget plot] coordinates {
-        (0.0,1)
-        (110.0,1)
-    };
-
-    \addplot+[gray!20, forget plot] fill between[of=A and B];
-	\addplot+[black!80,no markers, forget plot] coordinates {
-        (0.0,0.0)
-        (110.0,0.0)
-    };
-
-	\addplot+[
-        brown!60!black,mark=otimes*, solid, mark options={fill=brown!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n10.txt};
-    \addlegendentry{$S/N > 10$}
-
-	\addplot+[
-        teal!60!black,mark=triangle*, solid, mark options={fill=teal!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n15.txt};
-    \addlegendentry{$S/N > 15$}
-
-	\addplot+[
-        red!60!black,mark=diamond*, solid, mark options={fill=red!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n20.txt};
-    \addlegendentry{$S/N > 20$}
-
-	\addplot+[
-        blue!60!black,mark=square*, solid, mark options={fill=blue!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n25.txt};
-    \addlegendentry{$S/N > 25$}
-
-	\addplot+[
-        brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40},
-        error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
-    ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n30.txt};
-    \addlegendentry{$S/N > 30$}
-
-
-    \end{axis}
-
-\end{tikzpicture}
-
-    \caption{ Metadetection multiplicative bias as a function of maximum
-    stellar density and for different object S/N thresholds.  Simulations were
-    run with the expected stellar density distribution for the full LSST 18,000
-    square degree survey, with a maximum allowed value of 100/sq. arcminute.
-    Stars were simulated as Moffat profiles and were allowed to saturate, with
-    simulated bleed trails.  A circular mask was used for saturates stars and
-    this area was interpolated.  Error bars are 99.7\% confidence regions.
-    Objects with small measured size $T/T_{\mathrm{PSF}} < 1.2$ were removed,
-    where $T = \langle x^2 \rangle + \langle y^2 \rangle$ is the estimated psf
-    convolved size of the object.}
-
-\end{figure}
-
-
-
-
-
-\begin{figure}
-    \centering
-\begin{tikzpicture}
-
-	\begin{axis}[
-        legend style={draw=none},
-        xlabel=min S/N,
-        ylabel={$\sigma/\sigma_{\mathrm{no~stars}}$},
-        xmin=5.0,
-        xmax=50.0,
-        ymin=1.1,
-        ymax=1.225,
-        width=0.9\columnwidth,
-        height=0.6\columnwidth,
-        minor tick num=3,
-        axis on top
-	]
-
-	%\addplot+[black,no markers] coordinates {
-    %    (0.0,1.0)
-    %    (110.0,1.0)
-    %};
-
-
-        %\addplot+[brown!60!black,mark=otimes*, solid, mark options={fill=brown!40}]
-        %    table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut010.txt};
-        %\addlegendentry{$d < 10$}
-
-        \addplot+[teal!60!black,mark=triangle*, solid, mark options={fill=teal!40}]
-            table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut020.txt};
-        \addlegendentry{$d < 20$}
-
-        \addplot+[red!60!black,mark=diamond*, solid, mark options={fill=red!40}]
-            table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut040.txt};
-        \addlegendentry{$d < 40$}
-        \addplot+[blue!60!black,mark=square*, solid, mark options={fill=blue!40}]
-            table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut060.txt};
-        \addlegendentry{$d < 60$}
-        \addplot+[brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40}]
-            table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut080.txt};
-        \addlegendentry{$d < 80$}
-        \addplot+[orange!60!black,mark=*, solid, mark options={fill=orange!40}]
-            table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut100.txt};
-        \addlegendentry{$d < 100$}
-
-
-	\end{axis}
-\end{tikzpicture}
-
-    \caption{Increased noise in the recovered shear when stars are present in
-    the simulation, compared to a simulation without stars, as a function of
-    the minimum signal-to-noise ratio and maximum stellar density.  The stellar
-    density was drawn from the expected distribution for the full LSST 18,000
-    square degree survey, including regions with density as high as 100 per
-    square arcmin.  Stars were allowed to saturate, and a fixed size star mask
-    was used, but no bleed trails were present.  To select galaxies, only
-    objects with size $T/T_{\mathrm{PSF}} > 1.2$ were used, where $T = \langle
-    x^2 \rangle + \langle y^2 \rangle$ is the estimated psf convolved size of
-    the object.  The lowest absolute noise is for $S/N > 10$ and a liberal cut
-    on stellar density at $d < 60$, which also results in the smallest
-    increase in noise relative to a simulation with no stars.  Note that many
-    lensing probes are dominated by cosmic variance, which is not included in
-    these uncertainties.  }
-
-\end{figure}
+% \begin{figure}
+%     \centering
+% \begin{tikzpicture}
+%     \begin{groupplot}[
+%         legend style={draw=none},
+%         group style={group size=1 by 2, vertical sep=0.3cm},
+%         xmin=0.0,
+%         xmax=110.0,
+%         width=0.9\columnwidth,
+%         height=0.6\columnwidth,
+%         minor tick num=3,
+%         axis on top
+%     ]
+%     \nextgroupplot[
+%         ylabel={$m/10^{-3}$},ymin=-2,xticklabels={,,},
+%         ymin=-2, ymax=2
+%     ]
+%
+% 	\addplot+[name path=A,gray!20,no markers] coordinates {
+%         (0.0,-1)
+%         (110.0,-1)
+%     };
+%     \addplot+[name path=B,gray!20,no markers] coordinates {
+%         (0.0,1)
+%         (110.0,1)
+%     };
+%
+%     \addplot+[gray!20] fill between[of=A and B];
+% 	\addplot+[black!80,no markers] coordinates {
+%         (0.0,0.0)
+%         (110.0,0.0)
+%     };
+%
+% 	% \addplot+[
+%     %     brown!60!black,mark=otimes*, mark options={fill=brown!40},
+%     %     error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     % ] {code/m-vs-star-density.txt};
+%
+% 	\addplot+[
+%         brown!60!black,mark=otimes*, solid, mark options={fill=brown!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/m-vs-star-density-s2n10.txt};
+%
+% 	\addplot+[
+%         teal!60!black,mark=triangle*, solid, mark options={fill=teal!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/m-vs-star-density-s2n15.txt};
+%
+% 	\addplot+[
+%         red!60!black,mark=diamond*, solid, mark options={fill=red!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/m-vs-star-density-s2n20.txt};
+%
+% 	\addplot+[
+%         blue!60!black,mark=square*, solid, mark options={fill=blue!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/m-vs-star-density-s2n25.txt};
+%
+% 	\addplot+[
+%         brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/m-vs-star-density-s2n30.txt};
+%
+%
+%
+%     % \nextgroupplot[
+%     %     ymin=0.93,
+%     %     xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m/\sigma_m^{100}$}
+%     % ]
+%
+% 	% \addplot+[black!80,no markers] coordinates {
+%     %     (0.0,1.0)
+%     %     (110.0,1.0)
+%     % };
+%
+%     % \addplot+[
+%     %     teal!60!black,mark=triangle*, mark options={fill=teal!40},
+%     %     error bars/.cd,y dir=both,y explicit] table[x index=0, y index=3
+%     % ] {code/m-vs-star-density.txt};
+%
+%     \nextgroupplot[
+%         xlabel=Stellar Density Cut {[\#/sq arcmin]},ylabel={$\sigma_m$},
+%         ymin=0.6, ymax=1.1
+%     ]
+%
+% 	\addplot+[
+%         brown!60!black,mark=otimes*, solid, mark options={fill=brown!40} 
+%         ] table[x index=0, y index=2,
+%     ] {code/m-vs-star-density-s2n10.txt};
+%     \addlegendentry{$S/N > 10$}
+%
+% 	\addplot+[
+%         teal!60!black,mark=triangle*, solid, mark options={fill=teal!40}
+%         ] table[x index=0, y index=2,
+%     ] {code/m-vs-star-density-s2n15.txt};
+%     \addlegendentry{$S/N > 15$}
+%
+% 	\addplot+[
+%         red!60!black,mark=diamond*, solid, mark options={fill=red!40}
+%         ] table[x index=0, y index=2,
+%     ] {code/m-vs-star-density-s2n20.txt};
+%     \addlegendentry{$S/N > 20$}
+%
+% 	\addplot+[
+%         blue!60!black,mark=square*, solid, mark options={fill=blue!40}
+%         ] table[x index=0, y index=2,
+%     ] {code/m-vs-star-density-s2n25.txt};
+%     \addlegendentry{$S/N > 25$}
+%
+% 	\addplot+[
+%         brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40}
+%         ] table[x index=0, y index=2,
+%     ] {code/m-vs-star-density-s2n30.txt};
+%     \addlegendentry{$S/N > 30$}
+%
+%
+%     \end{groupplot}
+% \end{tikzpicture}
+%
+%     \caption{ Metadetection performance as a function of maximum stellar
+%     density and for different object S/N thresholds.  Simulations were run with
+%     the expected stellar density distribution for the full LSST 18,000 square
+%     degree survey, with a maximum allowed value of 100/sq. arcminute.  Stars
+%     bright enough to saturate were not included.  Top panel:  the
+%     multiplicative bias $m$ as a function of the stellar density cut and S/N
+%     threshold.  Objects with small measured size $T/T_{\mathrm{PSF}} < 1.2$
+%     were removed, where $T = \langle x^2 \rangle + \langle y^2 \rangle$ is the
+%     estimated psf convolved size of the object.  Bottom panel: the uncertainty
+%     on the mean shear as a function of the stellar density cut, for different
+%     S/N thresholds.  Note that many lensing probes are dominated by cosmic
+%     variance, which is not included in these uncertainties.  }
+%
+% \end{figure}
+%
+%
+% \begin{figure}
+%     \centering
+% \begin{tikzpicture}
+%     \begin{axis}[
+%         legend style={draw=none,at={(0.97,0.5)},anchor=east},
+%         ylabel={$m/10^{-3}$},
+%         xlabel={Stellar Density $[\#/sq. arcmin]$},
+%         xmin=-5.0,
+%         xmax=190.0,
+%         ymin=-8,
+%         ymax=8,
+%         width=0.9\columnwidth,
+%         height=0.6\columnwidth,
+%         minor tick num=4,
+%         axis on top
+%     ]
+%
+% 	\addplot+[name path=A,gray!20,no markers, forget plot] coordinates {
+%         (0.0,-1)
+%         (110.0,-1)
+%     };
+%     \addplot+[name path=B,gray!20,no markers, forget plot] coordinates {
+%         (0.0,1)
+%         (110.0,1)
+%     };
+%
+%     \addplot+[gray!20, forget plot] fill between[of=A and B];
+% 	\addplot+[black!80,no markers, forget plot] coordinates {
+%         (0.0,0.0)
+%         (110.0,0.0)
+%     };
+%
+% 	\addplot+[
+%         brown!60!black,mark=otimes*, solid, mark options={fill=brown!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n10.txt};
+%     \addlegendentry{$S/N > 10$}
+%
+% 	\addplot+[
+%         teal!60!black,mark=triangle*, solid, mark options={fill=teal!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n15.txt};
+%     \addlegendentry{$S/N > 15$}
+%
+% 	\addplot+[
+%         red!60!black,mark=diamond*, solid, mark options={fill=red!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n20.txt};
+%     \addlegendentry{$S/N > 20$}
+%
+% 	\addplot+[
+%         blue!60!black,mark=square*, solid, mark options={fill=blue!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n25.txt};
+%     \addlegendentry{$S/N > 25$}
+%
+% 	\addplot+[
+%         brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40},
+%         error bars/.cd,y dir=both,y explicit] table[x index=0, y index=1, y error index=2
+%     ] {code/mc-results-run-drsBMWRIZ-v1/m-vs-star-density-s2n30.txt};
+%     \addlegendentry{$S/N > 30$}
+%
+%
+%     \end{axis}
+%
+% \end{tikzpicture}
+%
+%     \caption{ Metadetection multiplicative bias as a function of maximum
+%     stellar density and for different object S/N thresholds.  Simulations were
+%     run with the expected stellar density distribution for the full LSST 18,000
+%     square degree survey, with a maximum allowed value of 100/sq. arcminute.
+%     Stars were simulated as Moffat profiles and were allowed to saturate, with
+%     simulated bleed trails.  A circular mask was used for saturates stars and
+%     this area was interpolated.  Error bars are 99.7\% confidence regions.
+%     Objects with small measured size $T/T_{\mathrm{PSF}} < 1.2$ were removed,
+%     where $T = \langle x^2 \rangle + \langle y^2 \rangle$ is the estimated psf
+%     convolved size of the object.}
+%
+% \end{figure}
+%
+%
+%
+%
+%
+% \begin{figure}
+%     \centering
+% \begin{tikzpicture}
+%
+% 	\begin{axis}[
+%         legend style={draw=none},
+%         xlabel=min S/N,
+%         ylabel={$\sigma/\sigma_{\mathrm{no~stars}}$},
+%         xmin=5.0,
+%         xmax=50.0,
+%         ymin=1.1,
+%         ymax=1.225,
+%         width=0.9\columnwidth,
+%         height=0.6\columnwidth,
+%         minor tick num=3,
+%         axis on top
+% 	]
+%
+% 	%\addplot+[black,no markers] coordinates {
+%     %    (0.0,1.0)
+%     %    (110.0,1.0)
+%     %};
+%
+%
+%         %\addplot+[brown!60!black,mark=otimes*, solid, mark options={fill=brown!40}]
+%         %    table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut010.txt};
+%         %\addlegendentry{$d < 10$}
+%
+%         \addplot+[teal!60!black,mark=triangle*, solid, mark options={fill=teal!40}]
+%             table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut020.txt};
+%         \addlegendentry{$d < 20$}
+%
+%         \addplot+[red!60!black,mark=diamond*, solid, mark options={fill=red!40}]
+%             table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut040.txt};
+%         \addlegendentry{$d < 40$}
+%         \addplot+[blue!60!black,mark=square*, solid, mark options={fill=blue!40}]
+%             table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut060.txt};
+%         \addlegendentry{$d < 60$}
+%         \addplot+[brown!60!black,mark=oplus*, solid, mark options={fill=yellow!40}]
+%             table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut080.txt};
+%         \addlegendentry{$d < 80$}
+%         \addplot+[orange!60!black,mark=*, solid, mark options={fill=orange!40}]
+%             table[x index=0, y index=1] {code/mc-results-6700/noise-ratio-dcut100.txt};
+%         \addlegendentry{$d < 100$}
+%
+%
+% 	\end{axis}
+% \end{tikzpicture}
+%
+%     \caption{Increased noise in the recovered shear when stars are present in
+%     the simulation, compared to a simulation without stars, as a function of
+%     the minimum signal-to-noise ratio and maximum stellar density.  The stellar
+%     density was drawn from the expected distribution for the full LSST 18,000
+%     square degree survey, including regions with density as high as 100 per
+%     square arcmin.  Stars were allowed to saturate, and a fixed size star mask
+%     was used, but no bleed trails were present.  To select galaxies, only
+%     objects with size $T/T_{\mathrm{PSF}} > 1.2$ were used, where $T = \langle
+%     x^2 \rangle + \langle y^2 \rangle$ is the estimated psf convolved size of
+%     the object.  The lowest absolute noise is for $S/N > 10$ and a liberal cut
+%     on stellar density at $d < 60$, which also results in the smallest
+%     increase in noise relative to a simulation with no stars.  Note that many
+%     lensing probes are dominated by cosmic variance, which is not included in
+%     these uncertainties.  }
+%
+% \end{figure}
 
 
 
