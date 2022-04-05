@@ -159,6 +159,8 @@ DES \mdet\ papers (TODO cite DES mdet test paper).  All images were rendered
 using the \galsim\ python package (TODO cite galsim).  In the following
 sections we describe each of the image features.
 
+For this work, we used the simulation package \texttt{descwl-shear-sims}
+version 0.4.0\footnote{\url{https://github.com/LSSTDESC/descwl-shear-sims}}.
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 
@@ -291,8 +293,18 @@ processing.
 \section{Image and PSF Coaddition} \label{sec:coadding}
 \esstodo{explain use of DM tools}
 
+For coaddition, we used the package \texttt{descwl\_coadd}
+version 0.3.0\footnote{\url{https://github.com/LSSTDESC/descwl_coadd}}.
+
+This should go elsewhere:  We used the package \texttt{mdet-lsst-sim}
+version 0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to
+run the simulation, make coadds and run metadetection.
+
 \section{Metadetection} \label{sec:mdet}
 \esstodo{brief with ref to mdet paper, and DES paper}
+
+For \mdet, we used the package \texttt{metadetect} version
+0.6.1b\footnote{\url{https://github.com/esheldon/mdetadetect}}.
 
 \subsection{Creation of Sheared Images} \label{sec:mdet:sheared}
 \esstodo{use of DM data stuctures?}
