@@ -142,13 +142,13 @@
 
 \section{Simulation Features} \label{sec:sim}
 
-We simulated what are known in the LSST data management system (\dm, TODO cite) as
-calibrated exposure images.  This data is stored in a data structure known as
-as a \calexp, which carries with it the calibrated, background subtracted
-image data, along with an estimated noise image plane, world coordinate system
-transformation (WCS) and position dependent PSF model.  Problem areas
-associated with saturation, cosmic rays, and bad columns are marked in an
-integer big mask image plane.
+We simulated what are known in the LSST data management system (\dm, TODO cite)
+as calibrated exposure images.  This data is stored in a data structure known
+as as a \calexp, which carries with it the calibrated, background subtracted
+image data, along with an estimated noise variance image plane, world
+coordinate system transformation (WCS) and position dependent PSF model.
+Problem areas associated with saturation, cosmic rays, and bad columns are
+marked in an integer big mask image plane.
 
 We stored the true values for all these data in the \calexp\ data structure
 passed onto the measurement algorithms, with the exception of the background
@@ -194,7 +194,8 @@ discontinuous PSF in the final coadd, so such images would be discarded.
 
 \subsection{Point Spread Function} \label{sec:sim:psfs}
 
-\mattodo{Briefly describe PS PSF and link to DES paper.}
+\mattodo{Briefly describe PS PSF and link to original mdet paper and possibly
+DES paper.}
 
 \subsection{Stars} \label{sec:sim:stars}
 
@@ -214,7 +215,8 @@ to saturate and have an associated bleed trail (see
 
 The value in each pixel was artificially limited in order to simulate
 saturation, and saturated pixels were marked with the appropriate flag an
-integer bitmask image.  Non linear detector response was not simulated.
+integer bitmask image, and set the variance is set to infinity.  Non linear
+detector response was not simulated.
 
 Saturated stars were over-drawn with a simulated bleed trail image, taken from
 a set of previously generated templates.  The bleed templates were identified
@@ -234,11 +236,13 @@ camera rotations, which randomize the direction of the trail on the sky.
 
 \subsection{Cosmic Rays} \label{sec:sim:cosmics}
 
-\mattodo{Briefly describe and link to DES paper}
+\mattodo{Briefly describe and link to DES paper, note affect on image and
+bitmask/variance plane}
 
 \subsection{Bad Columns} \label{sec:sim:badcols}
 
-\mattodo{Briefly describe and link to DES paper}
+\mattodo{Briefly describe and link to DES paper, note affect on image and
+bitmask/variance plane}
 
 \subsection{Galaxies} \label{sec:sim:galaxies}
 
@@ -464,7 +468,29 @@ presumably improve the performance of other critical algorithms such as
 redshift determination.  We will explore deblending more in future work.
 
 \subsection{Object Measurement} \label{sec:mdet:meas}
-\esstodo{use of pgauss/wmom}
+
+We use weighted moments for object measurement, with a fixed, circular, Gaussian
+weight function $G(x, y)$ with full width at half maximum of 1.2 arcseconds.  We record
+the flux, S/N, second moments, and ellipticity derived from the second moments:
+\begin{eqnarray}
+    F &=& \sum G(x, y) I(x, y) \\
+    \sigma^2(F) &=& \sum \sigma^2(I(x, y)) \\
+    T &=& \sum G(x, y) I(x, y) ~ (x^2 + y^2) \\
+    M_1 &=& \sum G(x, y) I(x, y) ~ (x^2 - y^2) \\
+    M_2 &=& \sum G(x, y) I(x, y) ~ 2 x y \\
+    e_1 &=& M_1 / T \\
+    e_2 &=& M_2 / T \\
+    S/N &=& F / \sigma(F)
+\end{eqnarray}
+where $I(x, y)$ is the intensity of the image, and $\sigma^2(I(x, y))$ is the
+noise variance. The sums run over all pixels in a 48x48 postage stamp image
+extracted around the object of interest.  The $x$ and $y$ coordinates are
+relative to the center found during detection.  Note in practice we weight each
+pixel by its inverse variance; because the noise is constant across the coadd
+this only has an effect for masked, zero weight pixels.
+
+We also record the moments of the coadded PSF for use in object selection (see
+\S \ref{sec:results:full}).
 
 \section{Computing Requirements and Usage} \label{sec:timing}
 
