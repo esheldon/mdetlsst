@@ -155,7 +155,7 @@ passed onto the measurement algorithms, with the exception of the background
 which was optionally offset in order to test re-estimation of the
 background on the coadd.
 
-The basic simulation was similar to that created for the \mdet\ (TODO cite) and
+The basic simulation was similar to that created for the \mdet\ \citep{mdet20} and
 DES \mdet\ papers (TODO cite DES mdet test paper).  All images were rendered
 using the \galsim\ python package (TODO cite galsim).  In the following
 sections we describe each of the image features.
@@ -300,7 +300,7 @@ adopted the cell definitions outlined above: 250x250 pixel cells with 50 pixel
 overlaps. The object list was trimmed to the non-overlapping region in post
 processing.
 
-\subsection{Noise Images} \label{sec:sim:noise}
+\subsection{Noise Images} \label{sec:sim:noiseimages}
 
 The \mcal\ procedure involves deconvolution by the PSF, shearing of the image,
 and reconvolution by a round kernel.  This process alters the noise and
@@ -336,7 +336,7 @@ We used an inverse variance weighting, based on the noise in the image.
 Before warping, we interpolated artifacts such as cosmic rays, bad columns, and
 saturated pixels.  The interpolation and warping modifies the noise properties
 of the image.  Thus, for accurate \mcal\ noise corrections (see \S
-\ref{sec:sim:noise}) we must also run the noise image through the same
+\ref{sec:sim:noiseimages}) we must also run the noise image through the same
 procedures.  Rather than use the \dm\ codes, we performed all interpolation of
 artifacts and saturated regions using the \texttt{CloughTocher2DInterpolator}
 from the scipy software
@@ -366,15 +366,75 @@ simulation, coaddition and \mdet\ and deal with organize, submit and collate
 large runs on computing clusters.
 
 \section{Metadetection} \label{sec:mdet}
-\esstodo{brief with ref to mdet paper, and DES paper}
+
+For shear inference we used the \mdet\ method presented in \cite{mdet20}.
+\Mdet\ is an extension of the \mcal\ method
+\citep{HuffMcal2017,SheldonMcal2017} to include the object identification
+stage. We call this ``detection'', meaning specifically object identification
+rather than detection of pixels with significant signal.  \Mdet\ mitigates
+biases due to the shear-dependent nature of the detection processing in finite
+resolution images, which are expected to be a few percent for LSST
+\citep{mdet20}.
+
+Briefly, with \mdet\ we assume that the true applied, two-component shear
+$\boldsymbol{\gamma}$ is small, so that a measured ellipticity $\boldsymbol{e}$
+of a galaxy is linear in the shear:
+\begin{eqnarray} \label{eq:response}
+\boldsymbol{e} & \approx & \left.\boldsymbol{e}\right|_{\gamma=0} +
+                           \left.\frac{\partial \boldsymbol{e}}{\partial\boldsymbol\gamma}\right|_{\gamma=0} \boldsymbol\gamma +
+                           O(\boldsymbol\gamma^2)\nonumber\\
+               & \equiv  & \left.\boldsymbol{e}\right|_{\gamma=0} +
+                           \boldsymbol{R} \boldsymbol\gamma +
+                           O(\boldsymbol\gamma^2)
+\end{eqnarray}
+Here, the matrix $\boldsymbol{R}$ represents the linear response of the
+measurement to an applied shear. It can be written component wise as
+$R_{ij}=\partial e_i /\partial \gamma_j$, with $i$ and
+$j$ taking all combinations of the two shear components.  For ellipticity
+measurements we use weighted moments (see \S \ref{sec:mdet:meas}).
+
+We use a finite difference to estimate $\boldsymbol{R}$.  The image is
+deconvolved by the PSF, sheared, and reconvolved with a round kernel.  This
+process is repeated for a small positive and negative shear, and a finite
+difference response term is formed
+\begin{equation}
+R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j}\ .
+\end{equation}
+where $e_i^{+}$ is measured on the positively sheared image and $e_i^{-}$ is
+measured on the negatively sheared image.
+
+As mentioned in \S \ref{sec:sim:noiseimages}, the deconvolve, shear, reconvolve
+process produces a spurious shear response that we correct by adding a noise
+image run through the same process but with orthogonal shear.
+
+The responses too noisy to be applied to individual ellipticity measurements.
+We instead average the shapes and responses in equation \ref{eq:response} to
+recover a mean shear
+\begin{eqnarray}
+    \left< \boldsymbol{R} \right> &=& \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0} \right>, \nonumber \\
+    \langle R_{ij}\rangle &=& \left< \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j} \right>, \nonumber \\
+    \langle \boldsymbol\gamma \rangle & \approx & \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle.
+\end{eqnarray}
+
+However, this process is incomplete:  the detection phase also depends on
+shear.  We can incorporate detection by running object detection on the image
+as well as the sheared images independently and producing the averages from
+separate catalogs.  Moving the derivative outside of the average, we find
+\begin{eqnarray} \label{eq:fullR}
+    \left< \boldsymbol{R} \right> &=& \frac{\partial \left< \boldsymbol{e} \right> }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0},  \nonumber \\
+    \langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j} \nonumber \\
+\end{eqnarray}
+where now the averages for $e_i^{+/-}$ are for different object catalogs.
 
 For \mdet, we used the package \texttt{metadetect} version
 0.6.1b\footnote{\url{https://github.com/esheldon/mdetadetect}}.
 
 \subsection{Creation of Sheared Images} \label{sec:mdet:sheared}
 \esstodo{use of DM data stuctures?}
+
 \subsection{Detection} \label{sec:mdet:detect}
 \esstodo{use of DM algo}
+
 \subsection{Object Measurement} \label{sec:mdet:meas}
 \esstodo{use of pgauss/wmom}
 
