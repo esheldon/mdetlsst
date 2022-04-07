@@ -440,8 +440,28 @@ package\footnote{\url{https://github.com/esheldon/ngmix}} to use these data
 structures.  The new code is part of the \texttt{metadetect} software package.
 
 
-\subsection{Detection} \label{sec:mdet:detect}
-\esstodo{use of DM algo}
+\subsection{Detection and Deblending} \label{sec:mdet:detect}
+
+We used the \dm\ algorithm for detection (TODO cite Jims paper).  We ran with
+the default settings at the time of writing, which retains sources with a
+$S/N \gtrsim 5$ calculated from a PSF template flux measurement.
+
+Deblending was performed during the object detection phase as part of the
+process of finding sub-peaks, but we did not use the deblender to remove the
+light of neighboring objects when measuring object properties (see \S
+\ref{sec:mdet:meas}).  We found that using the models to remove neighbor light
+resulted in shear biases of order ten percent.
+
+We did limited testing with the Scarlet (TODO cite) deblender, which has
+recently received support in the \dm\ software stack. Scarlet performed better
+in the tests we performed, showing a bias of $< 1$\%, but due to the high
+computational cost of the deblender, we did not gather enough statistics to
+perform more precise tests.
+
+As we will show in \S \ref{sec:results}, measuring shapes without deblending
+the light of neighbors caused no detectable bias.  However, deblending will
+presumably improve the performance of other critical algorithms such as 
+redshift determination.  We will explore deblending more in future work.
 
 \subsection{Object Measurement} \label{sec:mdet:meas}
 \esstodo{use of pgauss/wmom}
