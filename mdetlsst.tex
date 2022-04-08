@@ -481,21 +481,18 @@ noise variance. The sums run over all pixels in a 48x48 postage stamp image
 extracted around the object of interest.  The $x$ and $y$ coordinates are
 relative to the center found during detection.  Note in practice we weight each
 pixel in the sum by the inverse noise variance. However, the noise variance is
-roughly constant across the coadd so this is only relevant for masked, zero
+nearly constant across the coadd so this is only relevant for masked, zero
 weight pixels.
 
 We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
 
-\section{Computing Requirements and Usage} \label{sec:timing}
-
-\esstodo{Describe processing}
-
-We used the ``wrapper'' package
-\texttt{mdet-lsst-sim} version
-0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to run the
-simulation, coaddition and \mdet\ and deal with organize, submit and collate
-large runs on computing clusters.
+% \section{Computing Requirements and Usage} \label{sec:timing}
+%
+% We used the ``wrapper'' package \texttt{mdet-lsst-sim} version
+% 0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to run the
+% simulation, coaddition and \mdet\ and deal with organize, as well as submit and
+% collate large runs on computing clusters.
 
 \section{Results} \label{sec:results}
 
