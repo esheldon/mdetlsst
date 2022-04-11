@@ -51,6 +51,8 @@
 \newcommand{\vecQ}{\mbox{\boldmath $Q$}}
 \newcommand{\vecF}{\mbox{\boldmath $F$}}
 \newcommand{\vecD}{\mbox{\boldmath $D$}}
+\newcommand{\vecc}{\mbox{\boldmath $c$}}
+\newcommand{\vecm}{\mbox{\boldmath $m$}}
 \newcommand{\matR}{\mbox{$\bf R$}}
 \newcommand{\matC}{\mbox{$\bf C$}}
 \newcommand{\bnab}{\boldsymbol{\nabla}}
@@ -407,11 +409,11 @@ image run through the same process but with orthogonal shear.
 
 The responses too noisy to be applied to individual ellipticity measurements.
 We instead average the shapes and responses in equation \ref{eq:response} to
-recover a mean shear
-\begin{eqnarray}
+recover a mean shear \vecg
+\begin{eqnarray} \label{eq:shearmeas}
     \left< \boldsymbol{R} \right> &=& \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0} \right>, \nonumber \\
     \langle R_{ij}\rangle &=& \left< \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j} \right>, \nonumber \\
-    \langle \boldsymbol\gamma \rangle & \approx & \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle.
+    \langle \vecg \rangle & \approx & \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle.
 \end{eqnarray}
 
 However, this process is incomplete:  the detection phase also depends on
@@ -463,9 +465,10 @@ redshift determination.  We will explore deblending more in future work.
 
 \subsection{Object Measurement} \label{sec:mdet:meas}
 
-We use weighted moments for object measurement, with a fixed, circular, Gaussian
-weight function $G(x, y)$ with full width at half maximum of 1.2 arcseconds.  We record
-the flux, S/N, second moments, and ellipticity derived from the second moments:
+We used version v2.0.6 of the \ngmix\ package to measure weighted moments for
+each detected object. The weight function was a fixed, circular, Gaussian $G(x,
+y)$ with full width at half maximum of 1.2 arcseconds.  We recorded the flux,
+S/N, second moments, and ellipticity derived from the second moments:
 \begin{eqnarray}
     F &=& \sum G(x, y) I(x, y) \\
     \sigma^2(F) &=& \sum \sigma^2(I(x, y)) \\
@@ -487,25 +490,66 @@ weight pixels.
 We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
 
-% \section{Computing Requirements and Usage} \label{sec:timing}
-%
-% We used the ``wrapper'' package \texttt{mdet-lsst-sim} version
-% 0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to run the
-% simulation, coaddition and \mdet\ and deal with organize, as well as submit and
-% collate large runs on computing clusters.
+
+\section{Running the Simulation and Metadetection} \label{sec:timing}
+
+We used the ``wrapper'' package \texttt{mdet-lsst-sim} version
+0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to run the
+simulation, coaddition and \mdet, and to organize, submit and collate large
+runs on computing clusters.
+
+In all cases we used a constant shear, with possible random orientations for
+each simulated scene (see \S \ref{sec:sim:shears}).  We simulated each scene
+with equal but opposite shears in order to implement the noise canceling method
+of \citep{pujol2019}.  For randomized shear directions, the shape measurements
+from different scenes where placed in a common reference frame before averaging
+to get a mean shear.
+
+We estimated the uncertainty in the averaged shear measurements using a
+jackknife technique, with chunks defined as a few tens to hundreds of scenes.
 
 \section{Results} \label{sec:results}
 
-\esstodo{Establish 2nd order shear effects with grid/simple.  Demonstrate PS PSF fine for expected variation, more epochs needed for higher variation (10). Show full stars sim with cells.}
+In this section we present the results for various simulation and analysis
+configurations.
+
+We consider our ``base'' simulation to be one with fixed size, high S/N, round
+galaxies on a grid layout, which provides the highest signal-to-noise ratio for
+the shear recovery. From the results in \citet{mdet20}, we expect a small bias
+in this configuration due only to second order shear effects (see \S
+\ref{sec:results:secondorder}).
+
+We then shear recovery with each additional feature separately in order to
+isolate the cause of potential biases.  We found a bias only in the case of
+extreme spatial PSF variation and few simulated epochs (see \S
+\ref{sec:results:psfvar}).  We present results with all simulated features in
+\S \ref{sec:results:cells}.
+
+We assume a simple linear model \citep[see, e.g.,][]{heymans2006} for
+estimating a bias in the recovered shear
+\begin{equation} \label{eq:m}
+\langle \vecg \rangle \equiv \vecc + (1 + \vecm) \vecgam
+\end{equation}
+where \vecg\ is the inferred shear, measured using equation \ref{eq:shearmeas},
+\vecgam\ is the true shear, \vecc\ is the additive bias, and \vecm\ is the
+multiplicative bias. We found \vecc\ was consistent with zero in all tests, so
+in what follows we only report \vecm.
+
+\esstodo{Establish 2nd order shear effects with grid/simple.  Demonstrate PS
+PSF fine for expected variation, more epochs needed for higher variation (10).
+Show full stars sim with cells.  Define m and c}
 
 \subsection{Baseline Results for Fixed Galaxies on a Grid} \label{sec:results:secondorder}
 
-\subsection{Results with Randomized Shears} \label{sec:results:randshear}
+\subsection{PSF Variation} \label{sec:results:psfvar}
 
 \subsection{Results with Stars and Realistic Galaxy Models} \label{sec:results:full}
 
 \subsection{Results with Coadds in Cells} \label{sec:results:cells}
 
+\subsection{Results with Randomized Shears} \label{sec:results:randshear}
+
+\subsection{Effective Density} \label{sec:results:effdens}
 
 \section{Summary} \label{sec:summary}
 
@@ -531,15 +575,15 @@ We also record the moments of the coadded PSF for use in object selection (see
 %     }
 % \end{figure}
 
-\begin{figure}
-    \includegraphics[width=\columnwidth]{mag-hist.pdf}
-    \caption{
-        Star magnitudes measured in simulated $r+i+z$ combined coadds.  The
-        $r-band$ magnitude limit for the input star sample is shown as a
-        vertical line at 28.  The detection in the combined image is
-        somewhat deeper.
-    }
-\end{figure}
+% \begin{figure}
+%     \includegraphics[width=\columnwidth]{mag-hist.pdf}
+%     \caption{
+%         Star magnitudes measured in simulated $r+i+z$ combined coadds.  The
+%         $r-band$ magnitude limit for the input star sample is shown as a
+%         vertical line at 28.  The detection in the combined image is
+%         somewhat deeper.
+%     }
+% \end{figure}
 
 
 % \begin{figure}
@@ -832,12 +876,17 @@ We also record the moments of the coadded PSF for use in object selection (see
 \section*{Acknowledgments}
 
 ES is supported by DOE grant DE-AC02-98CH10886, and MB is supported by DOE
-grant DE-AC02-06CH11357.  RM is supported by the US Department of Energy Cosmic
+grant DE-AC02-06CH11357.  RA is supported by the US Department of Energy Cosmic
 Frontier program, grant DE-SC0010118.  (TODO Mike's funding)
 
 We thank Javier Sanchez for providing the star and stellar density map for DC2,
 and Jim Chiang for providing example images containing simulated stars
 with bleed trails.
+
+We thank the excellent computing staffs of the RHIC Atlas Computing Facility at
+Brookhaven National Laboratory and \mattodo{how to acknowledge SLAC resources?}
+
+\esstodo{}
 
 
 %\bibliographystyle{mnras}
