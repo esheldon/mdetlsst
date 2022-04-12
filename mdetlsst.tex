@@ -290,7 +290,7 @@ not divided into cells on the sky (see \S \ref{sec:sim:cells}) but, as we will
 see in \S \ref{sec:results:randshear}, a small additional selection bias is
 introduced for random shears when when trimming to cells.
 
-\subsection{Coadd Cells} \label{sec:sim:cells}
+\subsection{Overlapping Coadd Cells} \label{sec:sim:cells}
 
 Coadds can be used for shear measurement (TODO cite bob's paper), but we
 require that the coadded images have a continuous PSF in order to faciliate
@@ -517,7 +517,7 @@ We consider our ``base'' simulation to be one with fixed size, high S/N, round
 galaxies on a grid layout, which provides the highest signal-to-noise ratio for
 the shear recovery. From the results in \citet{mdet20}, we expect a small bias
 in this configuration due to higher order shear effects (see \S
-\ref{sec:results:highorder}).
+\ref{sec:results:base}).
 
 We performed shear recovery with each additional feature separately in order to
 isolate the cause of potential biases.  We found a bias only in the case of
@@ -539,7 +539,7 @@ in what follows we only report \vecm.
 PSF fine for expected variation, more epochs needed for higher variation (10).
 Show full stars sim with cells.  Define m and c}
 
-\subsection{Baseline Results for Fixed Galaxies on a Grid} \label{sec:results:highorder}
+\subsection{Baseline Results for Fixed Galaxies on a Grid} \label{sec:results:base}
 
 In order to establish a baseline for the bias due to higher order shear
 effects, we ran a simulation with fixed, round exponential, S/N $= 10,000$,
@@ -566,7 +566,7 @@ rotations, and large number of images used to make the coadd, we expect most of
 this PSF variation to be averaged down.  Thus the single coadded PSF that we
 generate at the coadd center (see \S \ref{sec:sim:psfs}) may be sufficient.
 
-We ran the same grid simulation from \S \ref{sec:results:highorder} with the
+We ran the same grid simulation from \S \ref{sec:results:base} with the
 spatially varying PSF presented in \S \ref{sec:sim:psfs}. We used the $r, i, z$
 bands but with a single image epoch per band, with rotations and dithers. We
 did not see any increase in the bias.   We interpret this result to indicate
@@ -604,9 +604,25 @@ varied cuts on mfrac}
 	\caption{\esstodo{caption}} \label{fig:stardens}
 \end{figure}
 
-\subsection{Results with Coadds in Cells} \label{sec:results:cells}
+\subsection{Results with Overlapping Coadd Cells} \label{sec:results:cells}
 
-\subsection{Results with Randomized Shears} \label{sec:results:randshear}
+We ran a modification of the base simulation as described in \S
+\ref{sec:results:base} with a randomized position layout and overlapping cells
+as described in \S \ref{sec:sim:cells}.  Because the cells overlap, the catalog
+created for each coadd must be trimmed to a unique region.  Shear changes the
+locations of objects, so this trimming introduces a shear dependent selection
+effect.
+
+In the case where the true simulated shear aligns with the artificially applied
+shear used to create the \mcal\ images, we found that \mdet\ correctly
+calibrated this effect.  However, when using randomized shear orientations (see
+\S \ref{sec:sim:shears}), we found the multiplicative bias $m$ was reduced
+below the expected bias due to higher order shear effects by about $-0.0004$.
+We interpret this to mean that the artificial shearing slightly over-predicts
+the selection effect when it is not perfectly aligned with the true shear.
+This bias is smaller than LSST requirements.  However, we speculate that using
+artificial shears with random orientations could mitigate this effect.   We may
+explore this in more in a future work.
 
 \subsection{Effective Density} \label{sec:results:effdens}
 
