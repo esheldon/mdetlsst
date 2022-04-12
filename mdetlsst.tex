@@ -542,15 +542,16 @@ Show full stars sim with cells.  Define m and c}
 \subsection{Baseline Results for Fixed Galaxies on a Grid} \label{sec:results:highorder}
 
 In order to establish a baseline for the bias due to higher order shear
-effects, we ran a simulation with fixed, round exponential, S/N $= 10,000$, half
-light radius 0.5 arcsecond galaxies placed in the grid layout (see sections
-\ref{sec:sim:galaxies} and \ref{sec:sim:layouts}) with image dithers and
-rotations.  In order to make the test as efficient as possible, we used only
-the $i$ band with a single image ``epoch'', but with approximately the full
-expected LSST 10 year depth in the combined $r, i, z$ bands.  We used a fixed
-Moffat PSF\citep{Moffat1969} with FWHM=0.8.  We expect a bias $m$ of a few
-parts in ten thousand for this sim \citep{SheldonMcal2017}.  We found a bias of
-$4.2\times 10^{-4} < m < 4.3\times 10^{-4}$, consistent with our expectations. 
+effects, we ran a simulation with fixed, round exponential, S/N $= 10,000$,
+half light radius 0.5 arcsecond galaxies placed in the grid layout (see
+sections \ref{sec:sim:galaxies} and \ref{sec:sim:layouts}) with image dithers
+and rotations.  In order to make the test as efficient as possible, we used
+only the $i$ band with a single image ``epoch'', but with approximately the
+full expected LSST 10 year depth in the combined $r, i, z$ bands.  We used a
+fixed Moffat PSF\citep{Moffat1969} with FWHM=0.8.  We expect a bias $m$ of a
+few parts in ten thousand for this sim \citep{SheldonMcal2017}.  We found a
+bias of $4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\% confidence),
+consistent with our expectations. 
 
 We reran this simulation after all major code updates as a kind of extended
 unit test to look for bugs and regressions.
@@ -581,7 +582,27 @@ cancel out very large PSFs.  LSST will take hundreds of images in each band
 (\esstodo{cite}), so we do no expect PSF variation to be a significant source
 of bias.
 
-\subsection{Results with Stars and Realistic Galaxy Models} \label{sec:results:full}
+For the remaining tests in this paper we use the spatially variable PSF with
+expected variation level.
+
+\subsection{Results with Additional Simulation Features} \label{sec:results:more}
+
+We ran the simulation with realistic galaxies, random layout, and image
+artifacts, and background subtraction errors, as listed in \S \ref{sec:sim}.
+We turned on each feature separately in order to isolate possible biases.  In
+no case did we find additional bias in the shear recovery.
+
+\subsection{Results with Stars} \label{sec:results:full}
+
+We included simulated stars as described in \S \ref{sec:sim:stars}.  In figure
+\ref{fig:stardens} we show the multiplicative bias as a function of maximum
+stellar density and various cut on masked fraction.  \esstodo{figure with more
+varied cuts on mfrac}
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n10-100-Tratio1.2-sdens}.pdf}
+	\caption{\esstodo{caption}} \label{fig:stardens}
+\end{figure}
 
 \subsection{Results with Coadds in Cells} \label{sec:results:cells}
 
