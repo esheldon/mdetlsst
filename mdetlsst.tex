@@ -469,7 +469,7 @@ We used version v2.0.6 of the \ngmix\ package to measure weighted moments for
 each detected object. The weight function was a fixed, circular, Gaussian $G(x,
 y)$ with full width at half maximum of 1.2 arcseconds.  We recorded the flux,
 S/N, second moments, and ellipticity derived from the second moments:
-\begin{eqnarray}
+\begin{eqnarray} \label{eq:moments}
     F &=& \sum G(x, y) I(x, y) \\
     \sigma^2(F) &=& \sum \sigma^2(I(x, y)) \\
     T &=& \sum G(x, y) I(x, y) ~ (x^2 + y^2) \\
@@ -485,7 +485,8 @@ extracted around the object of interest.  The $x$ and $y$ coordinates are
 relative to the center found during detection.  Note in practice we weight each
 pixel in the sum by the inverse noise variance. However, the noise variance is
 nearly constant across the coadd so this is only relevant for masked, zero
-weight pixels.
+weight pixels.  Note $T$ is the basic measure of size we use for applying
+cuts to the object size.
 
 We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
@@ -589,8 +590,18 @@ expected variation level.
 
 We ran the simulation with realistic galaxies, random layout, and image
 artifacts, and background subtraction errors, as listed in \S \ref{sec:sim}.
+For the realistic galaxy configuration, adopted a basic set of cuts
+\begin{eqnarray}
+    \mathrm{S/N} & > & 10 \\
+    T/T_{PSF} & > & 1.2
+\end{eqnarray}
+where $T$ is the Gaussian weighted square size of the object,
+as defined in equation \ref{eq:moments}, and $T_{PSF}$ is the corresponding
+value for the PSF.
+
 We turned on each feature separately in order to isolate possible biases.  In
-no case did we find additional bias in the shear recovery.
+no case did we find additional bias in the shear recovery.  Nor did we find
+any bias with alternative cuts on S/N and size ratio $T/T_{PSF}$.
 
 \subsection{Results with Stars} \label{sec:results:full}
 
@@ -624,7 +635,24 @@ This bias is smaller than LSST requirements.  However, we speculate that using
 artificial shears with random orientations could mitigate this effect.   We may
 explore this in more in a future work.
 
-\subsection{Effective Density} \label{sec:results:effdens}
+\subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
+
+The uncertainties presented thus far are artificially reduced due to the noise
+cancelling effect (see \S  \label{sec:timing}).  In order to estimate the noise
+we expect for LSST, we can use the measurements for one of the two paired
+images.
+
+For the results shown in \S \ref{sec:results:full}, we simulated approximately
+31,000 square degrees of images.  We converted the measured variance to an
+effective density using a simple formula
+\begin{equation} \label{eq:neff}
+   n = \frac{\sigma^2_{SN}}{R^2 \mathrm{A} \sigma^2_{\gamma}.
+\end{equation}
+In equation \ref{eq:neff}, $R$ is the scalar response from averaging the
+diagonal components of the response matrix, $\sigma^2_{SN}$ is the shape noise
+for our catalog, about \esstodo{get}, $\sigma^2_{\gamma}$ is the uncertainty in
+the recovered shear without noise cancellation, and A is the area simulated
+area.
 
 \section{Summary} \label{sec:summary}
 
