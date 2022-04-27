@@ -289,7 +289,7 @@ shear for all images, with constant magnitude and orientation.  The second type
 was a constant magnitude shear, but with random orientation for each image.
 These two scenarios result in equivalent shear recovery bias when objects are
 not divided into cells on the sky (see \S \ref{sec:sim:cells}) but, as we will
-see in \S \ref{sec:results:randshear}, a small additional selection bias is
+see in \S \ref{sec:results:cells}, a small additional selection bias is
 introduced for random shears when when trimming to cells.
 
 \subsection{Overlapping Coadd Cells} \label{sec:sim:cells}
@@ -494,7 +494,7 @@ We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
 
 
-\section{Running the Simulation and Metadetection} \label{sec:timing}
+\section{Running the Simulation and Metadetection} \label{sec:running}
 
 We used the ``wrapper'' package \texttt{mdet-lsst-sim} version
 0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to run the
@@ -605,16 +605,22 @@ We turned on each feature separately in order to isolate possible biases.  In
 no case did we find additional bias in the shear recovery.  Nor did we find
 any bias with alternative cuts on S/N and size ratio $T/T_{PSF}$.
 
-\subsection{Results with Stars} \label{sec:results:full}
+\subsection{Results with Stars and Bleed Trails} \label{sec:results:full}
 
-We included simulated stars as described in \S \ref{sec:sim:stars}.  In figure
-\ref{fig:stardens} we show the multiplicative bias as a function of maximum
-stellar density and various cut on masked fraction.  \esstodo{figure with more
-varied cuts on mfrac}
+We included simulated stars and bleed trails as described in \S
+\ref{sec:sim:stars} and \ref{sec:sim:satbleeds}.  In figure \ref{fig:stardens}
+we show the multiplicative bias as a function of maximum stellar density and
+various cut on masked fraction.  \esstodo{figure with more varied cuts on
+mfrac}
 
 \begin{figure}
-	\includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n10-100-Tratio1.2-sdens}.pdf}
+	\includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n}.pdf}
 	\caption{\esstodo{caption}} \label{fig:stardens}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n-nocancel-error}.pdf}
+	\caption{\esstodo{caption}} \label{fig:stardenserror}
 \end{figure}
 
 \subsection{Results with Overlapping Coadd Cells} \label{sec:results:cells}
@@ -640,7 +646,7 @@ explore this in more in a future work.
 \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
 
 The uncertainties presented thus far are artificially reduced due to the noise
-cancelling effect (see \S  \label{sec:timing}).  In order to estimate the noise
+cancelling effect (see \S \ref{sec:running}).  In order to estimate the noise
 we expect for LSST, we can use the measurements for one of the two paired
 images.
 
@@ -648,7 +654,7 @@ For the results shown in \S \ref{sec:results:full}, we simulated approximately
 31,000 square degrees of images.  We converted the measured variance to an
 effective density using a simple formula
 \begin{equation} \label{eq:neff}
-   n = \frac{\sigma^2_{SN}}{R^2 \mathrm{A} \sigma^2_{\gamma}.
+    n = \frac{\sigma^2_{SN}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
 \end{equation}
 In equation \ref{eq:neff}, $R$ is the scalar response from averaging the
 diagonal components of the response matrix, $\sigma^2_{SN}$ is the shape noise
