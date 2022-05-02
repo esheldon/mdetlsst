@@ -608,24 +608,6 @@ We turned on each feature separately in order to isolate possible biases.  In
 no case did we find additional bias in the shear recovery.  Nor did we find
 any bias with alternative cuts on S/N and size ratio $T/T_{PSF}$.
 
-\subsection{Results with Stars and Bleed Trails} \label{sec:results:full}
-
-We included simulated stars and bleed trails as described in \S
-\ref{sec:sim:stars} and \ref{sec:sim:satbleeds}.  In figure \ref{fig:stardens}
-we show the multiplicative bias as a function of maximum stellar density and
-various cut on masked fraction.  \esstodo{figure with more varied cuts on
-mfrac}
-
-\begin{figure}
-	\includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n}.pdf}
-	\caption{\esstodo{caption}} \label{fig:stardens}
-\end{figure}
-
-\begin{figure}
-	\includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n-nocancel-error}.pdf}
-	\caption{\esstodo{caption}} \label{fig:stardenserror}
-\end{figure}
-
 \subsection{Results with Overlapping Coadd Cells} \label{sec:results:cells}
 
 We ran a modification of the base simulation as described in \S
@@ -646,24 +628,47 @@ This bias is smaller than LSST requirements.  However, we speculate that using
 artificial shears with random orientations could mitigate this effect.   We may
 explore this in more in a future work.
 
+\subsection{Results with Stars and Bleed Trails} \label{sec:results:full}
+
+Our ``full'' simulation configuration included stars and bleed trails as
+described in \S \ref{sec:sim:stars} and \ref{sec:sim:satbleeds}, in addition to
+the features tested in the previous sections.  In figure \ref{fig:stardens} we
+show the multiplicative bias as a function of maximum stellar density and
+various cut on masked fraction.  \esstodo{figure with more varied cuts on
+mfrac}
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n}.pdf}
+	\caption{\esstodo{caption}} \label{fig:stardens}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n-nocancel-error}.pdf}
+	\caption{\esstodo{caption}} \label{fig:stardenserror}
+\end{figure}
+
 \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
 
 The uncertainties presented thus far are artificially reduced due to the noise
 cancelling effect (see \S \ref{sec:running}).  In order to estimate the noise
-we expect for LSST, we can use the measurements for one of the two paired
-images.
+we expect for LSST, we used the measurements for one of the two paired images.
 
 For the results shown in \S \ref{sec:results:full}, we simulated approximately
-31,000 square degrees of images.  We converted the measured variance to an
+21,000 square degrees of images, with about 6\% of that area masked due to
+bright stars and defects.  We converted the measured variance to an
 effective density using a simple formula
 \begin{equation} \label{eq:neff}
-    n = \frac{\sigma^2_{SN}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
+    n_{\mathrm{eff}} = \frac{\sigma^2_{SN}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
 \end{equation}
-In equation \ref{eq:neff}, $R$ is the scalar response from averaging the
-diagonal components of the response matrix, $\sigma^2_{SN}$ is the shape noise
-for our catalog, about \esstodo{get}, $\sigma^2_{\gamma}$ is the uncertainty in
-the recovered shear without noise cancellation, and A is the area simulated
-area.
+In equation \ref{eq:neff}, $R \sim 0.253$ is the scalar response from averaging
+the diagonal components of the response matrix, $\sigma_{SN} \sim 0.126$ is the
+shape noise for our catalog after cuts, $\sigma_{\gamma} \sim 8.8 \times
+10^{-6}$ is the uncertainty in the recovered shear without noise cancellation,
+and $A \sim 21,000$ is the simulated area.  We find $n_\mathrm{eff} \sim 42$
+per square arcminute for basic cuts (see \S \ref{sec:results:more}), 
+no explicit cut on stellar density, and no explicit weighting scheme.  The
+effective density will vary with the choice of ellipticity estimate, and
+may be improvied with optimized weights.
 
 \section{Summary} \label{sec:summary}
 
