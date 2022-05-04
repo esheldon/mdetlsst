@@ -631,22 +631,28 @@ this effect.  We may explore this more in a future work.
 
 \subsection{Results with Stars and Bleed Trails} \label{sec:results:full}
 
+\subsubsection{Dependence of Shear Bias on Stellar Density Cut} \label{sec:results:sdens}
+
 Our ``full'' simulation configuration included stars and bleed trails as
 described in \S \ref{sec:sim:stars} and \ref{sec:sim:satbleeds}, in addition to
 the features tested in the previous sections.  In figure \ref{fig:stardens} we
 show the multiplicative bias as a function of maximum stellar density and various
-cuts on the measured signal to noise ratio.
+cuts on the measured signal to noise ratio. \esstodo{describe results}
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n}.pdf}
 	\caption{\esstodo{caption}} \label{fig:stardens}
 \end{figure}
 
+\subsubsection{Dependence of Shear Sensitivity on Cuts}
+\label{sec:results:sdensnoise}
+
 We explored what set of cuts on stellar density and \snr\ result in the lowest
 noise in the recovered shear.  In figure \ref{fig:stardenserror} we show the
 uncertainty in the recovered shear as a function of maximum allowed stellar
 density and \snr\ cut, relative to the cuts that provide the lowest noise.  We
-find the lowest uncertainty for the case of maximum stellar density 100 per
+find the lowest uncertainty for the case of maximum stellar density less
+than 100 per
 square arcminute (we did not simulate higher density) and a minimum \snr\ of
 15.  For this measure of uncertainty we used only one of the paired images used
 for noise cancellation.  This is because the noise cancellation is more
@@ -662,23 +668,23 @@ We find that including higher stellar density areas reduces the noise, but with
 limited benefit beyond a density of about 40 stars per square arcminute.
 
 Although we find no significant increase in shear bias when including images
-with higher stellar density, we may want to exclude them for other reasons,
+with higher stellar density, it may be beneficial to exclude them for other reasons,
 such as to reduce the impact of interstellar extinction or other sources of
-error that correlate with stellar density.  It may be that we can tune such
-data cuts to optimize a combination of accuracy and shear sensitivity.
+error that correlate with stellar density.  Such cuts could be tuned
+to provide a beneficial trade off between accuracy and shear sensitivity.
 
-We find that including detections with \snr\ as low 10 does not result less
-uncertainty cutting at 12.5 or 15.  It may seem surprising that including more
-objects can result in a noisier measurement.  This can occur with \mcal\
-because the shear estimator involves dividing by the mean response, which is
-typically smaller and noisier for lower \snr\ objects.  However, we have two
-notes on this.  First, we did not use any explicit weighting of the
-ellipticities when calculating the mean shear.   It may be that a smooth weight
-that is a function of \snr, $T$, and other relevant parameters will provide a
-better sensitivity \esstodo{cite Y3 paper weighting}.  Second, these results
-will vary significantly with the measurement type, e.g.  the specific weight
-function used or model fitted, which generally provide different \snr\
-estimates.
+We find that including detections with \snr\ as low 10 does not reduce the
+shear uncertainty compared to cutting at 12.5 or 15.  It may seem surprising
+that including more resulted in a noisier measurement.  This can
+occur with \mcal\ because the shear estimator involves dividing by the mean
+response, which is typically smaller and noisier for lower \snr\ objects.
+However, we have two notes on this.  First, we did not use any explicit
+weighting of the ellipticities when calculating the mean shear.   It may be
+that a smooth weight that is a function of \snr, $T$, and other relevant
+parameters will provide a better sensitivity \esstodo{cite Y3 paper weighting}.
+Second, these results will vary significantly with the measurement type, for
+example the specific weight function used or the model that is fitted,
+each of which will provide a different estimate of the \snr.
 
 \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
 
