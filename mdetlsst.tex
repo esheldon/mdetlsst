@@ -667,14 +667,18 @@ such as to reduce the impact of interstellar extinction or other sources of
 error that correlate with stellar density.  It may be that we can tune such
 data cuts to optimize a combination of accuracy and shear sensitivity.
 
-In terms of \snr, we find that cutting \snr\ less than 10 or 12.5 does not
-result in a better \snr\ than a cut at 15, indicating that these objects are
-providing relatively little information.  However, we have two notes on this.
-First, we are not using any explicit weighting.   It may be that a smooth
-weight that is a function of \snr, $T$, and other relevant parameters will
-provide a better sensitivity \esstodo{cite Y3 paper weighting}.  Second, these
-results will vary significantly with the measurement type, e.g. the weight
-function or fitted model, which in turn affects the \snr\ estimate.
+We find that including detections with \snr\ as low 10 does not result less
+uncertainty cutting at 12.5 or 15.  It may seem surprising that including more
+objects can result in a noisier measurement.  This can occur with \mcal\
+because the shear estimator involves dividing by the mean response, which is
+typically smaller and noisier for lower \snr\ objects.  However, we have two
+notes on this.  First, we did not use any explicit weighting of the
+ellipticities when calculating the mean shear.   It may be that a smooth weight
+that is a function of \snr, $T$, and other relevant parameters will provide a
+better sensitivity \esstodo{cite Y3 paper weighting}.  Second, these results
+will vary significantly with the measurement type, e.g.  the specific weight
+function used or model fitted, which generally provide different \snr\
+estimates.
 
 \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
 
