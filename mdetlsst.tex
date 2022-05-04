@@ -145,8 +145,8 @@
 \section{Simulation Features} \label{sec:sim}
 
 The basic simulation was similar to that created for the \mdet\ \citep{mdet20}
-and DES \mdet\ papers (TODO cite DES mdet test paper), but with additional
-featuers such as defects and stars which we will describe in the following
+and DES \mdet\ papers (TODO cite DES mdet test paper). We added additional
+features such as defects and stars which we will describe in the following
 sections.  All images were rendered using the \galsim\ python package (TODO
 cite galsim).
 
@@ -173,7 +173,7 @@ For this work, we used the newly written simulation package
 We used the \descwl\ package (TODO cite) to determine the
 noise for images in each filter.  In all simulation runs we used predicted
 noise $n$ for the final 10 year coadd.  For individual simulated epochs we
-re-scale the noise appropriately, such that the noise in each epoch was $n *
+re-scaled the noise appropriately, such that the noise in each epoch was $n *
 \sqrt{N}$.  We used a Guassian random field to simulate the noise, which is a
 good approximation at the expected noise levels (TODO cite).
 
@@ -192,7 +192,7 @@ the camera rotations used by LSST cam (TODO cite proper paper).  The center of
 each image was shifted, or ``dithered'', randomly in two dimensions relative to
 the center of the desired coadded image.  We choose the dithers to be a
 unrealistically small, within two pixels, to minimize portions of the image
-that would not overlap the final coadd.  The image size was just large enough
+that would not overlap the final coadd.  We created images with size just large enough
 so that the rotated image, after dithers, would have no edge crossing the coadd
 region, again to avoid waste:  coadding an image with an edge produces a
 discontinuous PSF in the final coadd, so such images would be discarded.
