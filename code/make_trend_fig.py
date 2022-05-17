@@ -75,12 +75,14 @@ def do_Tratio_bias_plot(ax):
     )
 
     Tratios = [1.2, 1.3, 1.4, 1.5]
+    # run-riz-drcbWP-cells
     mlows = np.array(
         [0.000227885, -0.000161471,  -0.000193378, -0.000423672]
     )/0.001
     mhighs = np.array(
         [0.00148068, 0.00118696, 0.00143503, 0.00158595]
     )/0.001
+    # add run-drcbWP here
 
     ax.fill_between(
         Tratios,
@@ -115,6 +117,7 @@ def do_s2n_bias_plot(ax):
     mhighs = np.array(
         [0.0020267, 0.00131326, 0.00148068, 0.00113388]
     )/0.001
+    # add run-drcbWP here
 
     ax.fill_between(
         s2ns,
