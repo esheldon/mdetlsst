@@ -31,7 +31,7 @@ LINESTYLES = (
     EXTRA_LINESTYLES['very loose dashed'],
     EXTRA_LINESTYLES['dense dashed'],
 )
-LCOLOR = 'seagreen'
+LCOLOR = 'brown'
 # FCOLOR = '#8c564b'
 FCOLOR = 'black'
 
@@ -117,7 +117,6 @@ def do_s2n_bias_plot(ax):
     mhighs = np.array(
         [0.0020267, 0.00131326, 0.00148068, 0.00113388]
     )/0.001
-    # add run-drcbWP here
 
     ax.fill_between(
         s2ns,
@@ -125,7 +124,27 @@ def do_s2n_bias_plot(ax):
         mhighs,
         color=FCOLOR,
         alpha=ALPHA,
+        hatch=HATCHES[0],
+        label='cells',
     )
+
+    # add run-drcbWP here
+    mlows = np.array(
+        [-0.00052429, -0.000516172, -0.000374928, -0.000414037],
+    )/0.001
+    mhighs = np.array(
+        [0.000572595, 0.000440756, 0.0005201, 0.000372421],
+    )/0.001
+    ax.fill_between(
+        s2ns,
+        mlows,
+        mhighs,
+        color=FCOLOR,
+        alpha=ALPHA,
+        hatch=HATCHES[1],
+        label='no cells',
+    )
+
 
     add_lines(ax)
 
@@ -134,6 +153,7 @@ def do_s2n_bias_plot(ax):
         -2,
         r'99.7\% confidence errors',
     )
+    ax.legend()
 
 
 def main():
