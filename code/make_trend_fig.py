@@ -208,7 +208,9 @@ def do_s2n_bias_plot(ax):
         -2,
         r'99.7\% confidence range',
     )
-    ax.legend()
+    ax.legend(
+        loc='lower right'
+    )
 
 
 def main():
