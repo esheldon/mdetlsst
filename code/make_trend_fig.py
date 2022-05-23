@@ -111,6 +111,23 @@ def do_Tratio_bias_plot(ax):
         hatch=HATCHES[1],
         label='no cells',
     )
+    # run-WM-nowarp
+    mlows = np.array(
+        [7.72879e-05, -5.22843e-05, -0.000206465, -0.000491704]
+    )/0.001
+    mhighs = np.array(
+        [0.000969947, 0.000988128, 0.000984751, 0.00109213]
+    )/0.001
+
+    ax.fill_between(
+        Tratios,
+        mlows,
+        mhighs,
+        color=FCOLOR,
+        alpha=ALPHA,
+        hatch=HATCHES[2],
+        label='constant PSF',
+    )
 
     add_lines(ax)
 
@@ -164,6 +181,24 @@ def do_s2n_bias_plot(ax):
         hatch=HATCHES[1],
         label='no cells',
     )
+
+    # run-WM-nowarp
+    mlows = np.array(
+        [-3.62373e-05, -5.44245e-05, 6.22972e-05, -8.07847e-05]
+    )/0.001
+    mhighs = np.array(
+        [0.00113546, 0.000944382, 0.000980299, 0.000745055]
+    )/0.001
+    ax.fill_between(
+        s2ns,
+        mlows,
+        mhighs,
+        color=FCOLOR,
+        alpha=ALPHA,
+        hatch=HATCHES[2],
+        label='constant PSF',
+    )
+
 
 
     add_lines(ax)
