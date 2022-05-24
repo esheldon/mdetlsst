@@ -275,15 +275,26 @@ The general logic is to set $h$ large enough that the variation across the egde 
 than the variation given by the PSF profile, but not so large that area in the image is
 wasted. We set $h$ to \esstodo{pixels} and set $m$ to the radius of the star mask hole.
 
-\subsection{Cosmic Rays} \label{sec:sim:cosmics}
+\subsection{Cosmic Rays \& Bad Columns} \label{sec:sim:cosmics_badcols}
 
-\mrbtodo{Briefly describe and link to DES paper, note affect on image and
-bitmask/variance plane}
+\esstodo{double check how this was all handled after the code rewrite you did}
 
-\subsection{Bad Columns} \label{sec:sim:badcols}
-
-\mrbtodo{Briefly describe and link to DES paper, note affect on image and
-bitmask/variance plane}
+We follow \citet{BeckerMdetCoadd} in generating our bad column and cosmic ray artifacts
+For cosmic rays, We select a random location on the image, a random angle, and a random
+length between 10 and 30 pixels. We then flag pixels along this line as having been hit
+by a cosmic ray, making sure that pixels that touch only along corners have the pixels
+directly adjacent to them flagged as well. We set a cosmic ray bit in the bitmask for
+interpolation later and set the image value to \texttt{NaN} to ensure that no flagged
+pixels are inadvertently used in the final shear estimates. We generate bad column masks
+using a slightly modified Monte Carlo generator from \citet{BeckerMdetCoadd}. Each bad
+column is a single pixel wide, positioned randomly on the image. We also add gaps at
+random to the bad columns to simulate bad columns which do not span the full CCD.
+Finally, the rates of our bad column and cosmic ray artifacts have not been tuned to
+match real images beyond cursory checks that they look typical for ground based data. We of
+course do not know precisely the rates of column defects in the final Rubin system. Further,
+Rubin \mdet\ analyses will be done on coadds of hundreds of images, where the effects of
+defects in any one image will be small in a marginal sense. More detailed testing,
+ideally based on real Rubin observations, will be an avenue for future investigation.
 
 \subsection{Galaxies} \label{sec:sim:galaxies}
 
@@ -1069,8 +1080,8 @@ may be improvied with optimized weights.
 
 \section*{Acknowledgments}
 
-ES is supported by DOE grant DE-AC02-98CH10886, and MB is supported by DOE
-grant DE-AC02-06CH11357.  RA is supported by the US Department of Energy Cosmic
+ES is supported by DOE grant DE-AC02-98CH10886, and MRB is supported by DOE
+grant DE-AC02-06CH11357. RA is supported by the US Department of Energy Cosmic
 Frontier program, grant DE-SC0010118.  (TODO Mike's funding)
 
 We thank Javier Sanchez for providing the star and stellar density map for DC2,
@@ -1078,7 +1089,8 @@ and Jim Chiang for providing example images containing simulated stars
 with bleed trails.
 
 We thank the excellent computing staffs of the RHIC Atlas Computing Facility at
-Brookhaven National Laboratory and \mrbtodo{how to acknowledge SLAC resources?}
+Brookhaven National Laboratory and the Scientific Computing Services team at
+the SLAC National Accelerator Laboratory for their support.
 
 \esstodo{}
 
