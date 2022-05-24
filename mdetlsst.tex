@@ -145,8 +145,9 @@
 \section{Simulation Features} \label{sec:sim}
 
 The basic simulation was similar to that created for the \mdet\ \citep{mdet20}
-and DES \mdet\ papers (TODO cite DES mdet test paper). We added additional
-features such as defects and stars which we will describe in the following
+and by \citet{BeckerMdetCoadd} when testing the coadding algorithms for \mdet\ used
+in this work. We added additional
+features related to saturated stars which we will describe in the following
 sections.  All images were rendered using the \galsim\ python package (TODO
 cite galsim).
 
@@ -204,7 +205,7 @@ discontinuous PSF in the final coadd, so such images would be discarded.
 
 We generate spatially variable PSF models using the methods described in Appendix~A
 of \citet{SheldonMdet2020} based on work by \citet{heymans2012}. \citet{heymans2012}
-use images with high stellar density to fit a von K{´a}rm{´a}n model of atmospheric
+use images with high stellar density to fit a \vonkarman\ model of atmospheric
 turbulence to the PSF variation. \citet{SheldonMdet2020} use this model, with a
 modification to reduce power below 1'', to generate realizations of spatially variable
 PSFs using Gaussian random fields. The final PSF model is a Moffat profile with shape
@@ -251,7 +252,28 @@ trail was interpolated (see \S \ref{sec:coadding}).  We find that these
 unmasked trails do not cause a shear bias, which we attribute to the
 camera rotations, which randomize the direction of the trail on the sky.
 
-\mrbtodo{describe apodization here}
+Large, saturated stars can cause artifacts in images when they are manipulated
+with \mcal- or \mdet-like algorithms. To avoid these artifacts, we use the apodization
+procedure described in \citet{BeckerMdetCoadd}. For each bright star, we build a
+mask that is zero in the bulk of the star and smoothly goes from zero at one near the
+edge. The transition region is parameterized using the cumulative
+integral of a triweight kernel. This kernel is a function of two parameters, $m$ and $h$,
+and is defined for a point $x$ with quantity $y = (x-m)/h$ as
+\begin{equation}
+K(x, m, h) = \begin{cases}
+0 & y < -3 \\
+(-5y^7 / 69984 \\
++ 7y^5 / 2592 \\
+- 35y^3 / 864 & -3 \le y \le 3 \\
++ 35y / 96 \\
++ 1 / 2) \\
+1 & y > 3
+\end{cases}
+\end{equation}
+The kernel goes from zero to one over a span of $6h$, centered on $m$.
+The general logic is to set $h$ large enough that the variation across the egde is slower
+than the variation given by the PSF profile, but not so large that area in the image is
+wasted. We set $h$ to \esstodo{pixels} and set $m$ to the radius of the star mask hole.
 
 \subsection{Cosmic Rays} \label{sec:sim:cosmics}
 
