@@ -38,7 +38,7 @@
 \newcommand\notewrite[1]{\todo[color=orange, inline, size=\small]{To write: #1}}
 \newcommand\noteask[1]{\todo[color=cyan, inline, size=\small]{To ask: #1}}
 \newcommand\notecontrib[1]{\todo[color=green, inline, size=\small]{Contributors: #1}}
-\newcommand{\mattodo}[1]{\textcolor{red}{[MRB TODO: \bf #1]}}
+\newcommand{\mrbtodo}[1]{\textcolor{red}{[MRB TODO: \bf #1]}}
 \newcommand{\esstodo}[1]{\textcolor{orange}{[ESS TODO: \bf #1]}}
 \newcommand{\ess}[1]{\textcolor{blue}{[ESS: \bf #1]}}
 \newcommand{\mrb}[1]{\textcolor{purple}{[MRB: \bf #1]}}
@@ -145,8 +145,9 @@
 \section{Simulation Features} \label{sec:sim}
 
 The basic simulation was similar to that created for the \mdet\ \citep{mdet20}
-and DES \mdet\ papers (TODO cite DES mdet test paper). We added additional
-features such as defects and stars which we will describe in the following
+and by \citet{BeckerMdetCoadd} when testing the coadding algorithms for \mdet\ used
+in this work. We added additional
+features related to saturated stars which we will describe in the following
 sections.  All images were rendered using the \galsim\ python package (TODO
 cite galsim).
 
@@ -199,8 +200,20 @@ discontinuous PSF in the final coadd, so such images would be discarded.
 
 \subsection{Point Spread Function} \label{sec:sim:psfs}
 
-\mattodo{Briefly describe PS PSF and link to original mdet paper and possibly
-DES paper.}
+\esstodo{check parameters (variation factor) this was run with}
+\esstodo{fill in median seeing below}
+
+We generate spatially variable PSF models using the methods described in Appendix~A
+of \citet{SheldonMdet2020} based on work by \citet{heymans2012}. \citet{heymans2012}
+use images with high stellar density to fit a \vonkarman\ model of atmospheric
+turbulence to the PSF variation. \citet{SheldonMdet2020} use this model, with a
+modification to reduce power below 1'', to generate realizations of spatially variable
+PSFs using Gaussian random fields. The final PSF model is a Moffat profile with shape
+parameter $\beta=2.5$. In \citet{SheldonMdet2020} this approximate variable
+PSF model was compared to detailed atmospheric and optics simulations. It's parameters
+were set to generate more spatial PSF variance than one expects in a typical
+Rubin exposure. The final median seeing of the generated PSFs was
+\esstodo{put number here}.
 
 \subsection{Stars} \label{sec:sim:stars}
 
@@ -239,17 +252,49 @@ trail was interpolated (see \S \ref{sec:coadding}).  We find that these
 unmasked trails do not cause a shear bias, which we attribute to the
 camera rotations, which randomize the direction of the trail on the sky.
 
-\mattodo{describe apodization here}
+Large, saturated stars can cause artifacts in images when they are manipulated
+with \mcal- or \mdet-like algorithms. To avoid these artifacts, we use the apodization
+procedure described in \citet{BeckerMdetCoadd}. For each bright star, we build a
+mask that is zero in the bulk of the star and smoothly goes from zero at one near the
+edge. The transition region is parameterized using the cumulative
+integral of a triweight kernel. This kernel is a function of two parameters, $m$ and $h$,
+and is defined for a point $x$ with quantity $y = (x-m)/h$ as
+\begin{equation}
+K(x, m, h) = \begin{cases}
+0 & y < -3 \\
+(-5y^7 / 69984 \\
++ 7y^5 / 2592 \\
+- 35y^3 / 864 & -3 \le y \le 3 \\
++ 35y / 96 \\
++ 1 / 2) \\
+1 & y > 3
+\end{cases}
+\end{equation}
+The kernel goes from zero to one over a span of $6h$, centered on $m$.
+The general logic is to set $h$ large enough that the variation across the egde is slower
+than the variation given by the PSF profile, but not so large that area in the image is
+wasted. We set $h$ to \esstodo{pixels} and set $m$ to the radius of the star mask hole.
 
-\subsection{Cosmic Rays} \label{sec:sim:cosmics}
+\subsection{Cosmic Rays \& Bad Columns} \label{sec:sim:cosmics_badcols}
 
-\mattodo{Briefly describe and link to DES paper, note affect on image and
-bitmask/variance plane}
+\esstodo{double check how this was all handled after the code rewrite you did}
 
-\subsection{Bad Columns} \label{sec:sim:badcols}
-
-\mattodo{Briefly describe and link to DES paper, note affect on image and
-bitmask/variance plane}
+We follow \citet{BeckerMdetCoadd} in generating our bad column and cosmic ray artifacts
+For cosmic rays, We select a random location on the image, a random angle, and a random
+length between 10 and 30 pixels. We then flag pixels along this line as having been hit
+by a cosmic ray, making sure that pixels that touch only along corners have the pixels
+directly adjacent to them flagged as well. We set a cosmic ray bit in the bitmask for
+interpolation later and set the image value to \texttt{NaN} to ensure that no flagged
+pixels are inadvertently used in the final shear estimates. We generate bad column masks
+using a slightly modified Monte Carlo generator from \citet{BeckerMdetCoadd}. Each bad
+column is a single pixel wide, positioned randomly on the image. We also add gaps at
+random to the bad columns to simulate bad columns which do not span the full CCD.
+Finally, the rates of our bad column and cosmic ray artifacts have not been tuned to
+match real images beyond cursory checks that they look typical for ground based data. We of
+course do not know precisely the rates of column defects in the final Rubin system. Further,
+Rubin \mdet\ analyses will be done on coadds of hundreds of images, where the effects of
+defects in any one image will be small in a marginal sense. More detailed testing,
+ideally based on real Rubin observations, will be an avenue for future investigation.
 
 \subsection{Galaxies} \label{sec:sim:galaxies}
 
@@ -465,7 +510,7 @@ perform more precise tests.
 
 As we will show in \S \ref{sec:results}, measuring shapes without deblending
 the light of neighbors caused no detectable bias.  However, deblending will
-presumably improve the performance of other critical algorithms such as 
+presumably improve the performance of other critical algorithms such as
 redshift determination.  We will explore deblending more in future work.
 
 \subsection{Object Measurement} \label{sec:mdet:meas}
@@ -557,7 +602,7 @@ full expected LSST 10 year depth in the combined $r, i, z$ bands.  We used a
 fixed Moffat PSF\citep{Moffat1969} with FWHM=0.8.  We expect a bias $m$ of a
 few parts in ten thousand for this sim \citep{SheldonMcal2017}.  We found a
 bias of $4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\% confidence),
-consistent with our expectations. 
+consistent with our expectations.
 
 We reran this simulation after all major code updates as a kind of extended
 unit test to look for bugs and regressions.
@@ -833,7 +878,7 @@ may be improvied with optimized weights.
 %     ]
 %
 % 	\addplot+[
-%         brown!60!black,mark=otimes*, solid, mark options={fill=brown!40} 
+%         brown!60!black,mark=otimes*, solid, mark options={fill=brown!40}
 %         ] table[x index=0, y index=2,
 %     ] {code/m-vs-star-density-s2n10.txt};
 %     \addlegendentry{$S/N > 10$}
@@ -1036,8 +1081,8 @@ may be improvied with optimized weights.
 
 \section*{Acknowledgments}
 
-ES is supported by DOE grant DE-AC02-98CH10886, and MB is supported by DOE
-grant DE-AC02-06CH11357.  RA is supported by the US Department of Energy Cosmic
+ES is supported by DOE grant DE-AC02-98CH10886, and MRB is supported by DOE
+grant DE-AC02-06CH11357. RA is supported by the US Department of Energy Cosmic
 Frontier program, grant DE-SC0010118.  (TODO Mike's funding)
 
 We thank Javier Sanchez for providing the star and stellar density map for DC2,
@@ -1045,7 +1090,8 @@ and Jim Chiang for providing example images containing simulated stars
 with bleed trails.
 
 We thank the excellent computing staffs of the RHIC Atlas Computing Facility at
-Brookhaven National Laboratory and \mattodo{how to acknowledge SLAC resources?}
+Brookhaven National Laboratory and the Scientific Computing Services team at
+the SLAC National Accelerator Laboratory for their support.
 
 \esstodo{}
 
