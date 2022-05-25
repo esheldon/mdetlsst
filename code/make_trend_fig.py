@@ -35,6 +35,11 @@ LCOLOR = 'brown'
 # FCOLOR = '#8c564b'
 FCOLOR = 'black'
 
+COLORS = [
+    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
+    '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
+]
+
 HATCHES = [
     None,
     '//',
@@ -88,7 +93,7 @@ def do_Tratio_bias_plot(ax):
         Tratios,
         mlows,
         mhighs,
-        color=FCOLOR,
+        color=COLORS[0],
         alpha=ALPHA,
         hatch=HATCHES[0],
         label='cells',
@@ -106,7 +111,7 @@ def do_Tratio_bias_plot(ax):
         Tratios,
         mlows,
         mhighs,
-        color=FCOLOR,
+        color=COLORS[1],
         alpha=ALPHA,
         hatch=HATCHES[1],
         label='no cells',
@@ -123,7 +128,7 @@ def do_Tratio_bias_plot(ax):
         Tratios,
         mlows,
         mhighs,
-        color=FCOLOR,
+        color=COLORS[3],
         alpha=ALPHA,
         hatch=HATCHES[2],
         label='constant PSF',
@@ -159,7 +164,7 @@ def do_s2n_bias_plot(ax):
         s2ns,
         mlows,
         mhighs,
-        color=FCOLOR,
+        color=COLORS[0],
         alpha=ALPHA,
         hatch=HATCHES[0],
         label='cells',
@@ -176,7 +181,8 @@ def do_s2n_bias_plot(ax):
         s2ns,
         mlows,
         mhighs,
-        color=FCOLOR,
+        # color=FCOLOR,
+        color=COLORS[1],
         alpha=ALPHA,
         hatch=HATCHES[1],
         label='no cells',
@@ -193,7 +199,8 @@ def do_s2n_bias_plot(ax):
         s2ns,
         mlows,
         mhighs,
-        color=FCOLOR,
+        # color=FCOLOR,
+        color=COLORS[3],
         alpha=ALPHA,
         hatch=HATCHES[2],
         label='constant PSF',
