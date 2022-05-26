@@ -532,14 +532,14 @@ each detected object. The weight function was a fixed, circular, Gaussian $G(x,
 y)$ with FWHM=1.2 arcseconds.  We recorded the flux,
 S/N, second moments, and ellipticity derived from the second moments:
 \begin{eqnarray} \label{eq:moments}
-    F &=& \sum G(x, y) I(x, y) \\
-    \sigma^2(F) &=& \sum \sigma^2(I(x, y)) \\
-    T &=& \sum G(x, y) I(x, y) ~ (x^2 + y^2) \\
+    F &=& \sum G(x, y) I(x, y) \nonumber \\
+    \sigma^2(F) &=& \sum \sigma^2(I(x, y)) \nonumber \\
+    T &=& \sum G(x, y) I(x, y) ~ (x^2 + y^2) \nonumber \\
     M_1 &=& \sum G(x, y) I(x, y) ~ (x^2 - y^2) \\
-    M_2 &=& \sum G(x, y) I(x, y) ~ 2 x y \\
-    e_1 &=& M_1 / T \\
-    e_2 &=& M_2 / T \\
-    S/N &=& F / \sigma(F)
+    M_2 &=& \sum G(x, y) I(x, y) ~ 2 x y \nonumber \\
+    e_1 &=& M_1 / T \nonumber \\
+    e_2 &=& M_2 / T \nonumber \\
+    S/N &=& F / \sigma(F) \nonumber
 \end{eqnarray}
 where $I(x, y)$ is the intensity of the image, and $\sigma^2(I(x, y))$ is the
 noise variance. The sums run over all pixels in a 48x48 postage stamp image
