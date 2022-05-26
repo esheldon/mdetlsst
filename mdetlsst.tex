@@ -200,9 +200,6 @@ discontinuous PSF in the final coadd, so such images would be discarded.
 
 \subsection{Point Spread Function} \label{sec:sim:psfs}
 
-\esstodo{check parameters (variation factor) this was run with}
-\esstodo{fill in median seeing below}
-
 For our basic PSF model we used a Moffat profile \citep{Moffat1969} with
 shape parameter $\beta=2.5$ and full width at half maximum (FWHM) of 0.8 arcseconds.
 
@@ -217,7 +214,8 @@ and variable size and shape. In \citet{SheldonMdet2020} this approximate
 variable PSF model was compared to detailed atmospheric and optics simulations.
 It's parameters were set to generate the typical spatial PSF variance than one
 expects for Rubin exposures. The median FWHM of the generated PSFs was 0.8
-arcseconds.
+arcseconds.  We also ran simulations with larger than expected variations in
+order to test the accuracy of the PSF coadd under extreme conditions.
 
 \subsection{Stars} \label{sec:sim:stars}
 
@@ -283,8 +281,6 @@ than the variation given by the PSF profile, but not so large that area in the i
 wasted. We set $h$ to 1.5 pixels and set $m$ to the radius of the star mask hole.
 
 \subsection{Cosmic Rays \& Bad Columns} \label{sec:sim:cosmics_badcols}
-
-\esstodo{double check how this was all handled after the code rewrite you did}
 
 We followed \citet{BeckerMdetCoadd} in generating bad column and cosmic ray artifacts.
 For cosmic rays, we selected a random location on the image, a random angle, and a random
@@ -601,10 +597,6 @@ where \vecg\ is the inferred shear, measured using equation \ref{eq:shearmeas},
 \vecgam\ is the true shear, \vecc\ is the additive bias, and \vecm\ is the
 multiplicative bias. We found \vecc\ was consistent with zero in all tests, so
 in what follows we only report \vecm.
-
-\esstodo{Establish higher order shear effects with grid/simple.  Demonstrate PS
-PSF fine for expected variation, more epochs needed for higher variation (10).
-Show full stars sim with cells.  Define m and c}
 
 \subsection{Baseline Results for Fixed Galaxies on a Grid} \label{sec:results:base}
 
