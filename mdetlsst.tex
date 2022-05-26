@@ -148,10 +148,10 @@ The basic simulation was similar to that created for the \mdet\ \citep{mdet20}
 and by \citet{BeckerMdetCoadd} when testing the coadding algorithms for \mdet\ used
 in this work. We added additional
 features related to saturated stars which we will describe in the following
-sections.  All images were rendered using the \galsim\ python package (TODO
-cite galsim).
+sections.  All images were rendered using the \galsim\ python package \esstodo{
+cite galsim}.
 
-We simulated what are known in the LSST data management system (\dm, TODO cite)
+We simulated what are known in the LSST data management system (\dm, \esstodo{cite}
 as calibrated exposure images.  This data is stored in a \calexp\ data
 structure, which carries a calibrated, background subtracted image, along with
 an estimated noise variance image plane, world coordinate system transformation
@@ -171,12 +171,12 @@ For this work, we used the newly written simulation package
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 
-We used the \descwl\ package (TODO cite) to determine the
+We used the \descwl\ package \esstodo{cite} to determine the
 noise for images in each filter.  In all simulation runs we used predicted
 noise $n$ for the final 10 year coadd.  For individual simulated epochs we
 re-scaled the noise appropriately, such that the noise in each epoch was $n *
 \sqrt{N}$.  We used a Guassian random field to simulate the noise, which is a
-good approximation at the expected noise levels (TODO cite).
+good approximation at the expected noise levels \esstodo{cite}.
 
 We did not add the expected amount of background to each image (but see \S
 \ref{sec:sim:bgerr}).  After drawing all image features and adding
@@ -185,11 +185,11 @@ noise, we re-scaled the images to a common zero point of 30.
 \subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:sim:rotdith}
 
 Each image was simulated as a tangent plane projection of the sky onto the
-image frame with the LSST camera pixel scale of 0.2 arcseconds (TODO reference).
+image frame with the LSST camera pixel scale of 0.2 arcseconds \esstodo{reference}.
 The world coordinate system (WCS) transformation between sky and pixel
 coordinates was represented as a \galsim\ \texttt{TanWCS} object.  Each
 simulated WCS transformation had a random rotation applied, in order to mock up
-the camera rotations used by LSST cam (TODO cite proper paper).  The center of
+the camera rotations used by LSST cam \esstodo{cite proper paper}.  The center of
 each image was shifted, or ``dithered'', randomly in two dimensions relative to
 the center of the desired coadded image.  We choose the dithers to be a
 unrealistically small, within two pixels, to minimize portions of the image
@@ -220,7 +220,7 @@ order to test the accuracy of the PSF coadd under extreme conditions.
 \subsection{Stars} \label{sec:sim:stars}
 
 We simulated stars using fluxes and densities sampled from the LSST DESC DC2
-simulation (TODO cite).  For each simulated field we sampled randomly, with
+simulation \esstodo{cite}.  For each simulated field we sampled randomly, with
 replacement, from the map of stellar density used to generate DC2, with a
 maximum allowed density of 100 per square arcminute.  This density represents
 the total number of stars drawn, not the number detected.  To determine each
@@ -310,7 +310,7 @@ small.
 
 \subsection{Galaxies} \label{sec:sim:galaxies}
 
-We used the \descwl\ package to generate galaxy models (TODO cite).  These
+We used the \descwl\ package to generate galaxy models \esstodo{cite}.  These
 elliptical, color models have bulge, disk and AGN components. We performed the
 drawing of these models in our code in order to enable the use of our on PSF
 models (see \S \ref{sec:sim:psfs}, and to allow for more efficient drawing.
@@ -340,7 +340,7 @@ See \S \ref{sec:sim:galaxies} for descriptions of each galaxy model type.
 We add a negative constant to the images to approximate errors in the
 background determination.  The motivation is to test if errors for individual
 epochs can be corrected in the final coadd image by running a second background
-determination (TODO reference a section where the result is mentioned).
+determination \esstodo{reference a section where the result is mentioned}.
 
 \subsection{Shear Patterns} \label{sec:sim:shears}
 
@@ -354,13 +354,13 @@ introduced for random shears when when trimming to cells.
 
 \subsection{Overlapping Coadd Cells} \label{sec:sim:cells}
 
-Coadds can be used for shear measurement (TODO cite bob's paper), but we
+Coadds can be used for shear measurement \esstodo{cite bob's paper}, but we
 require that the coadded images have a continuous PSF in order to faciliate
 accurate PSF modeling.  Images that have an edge in the coadd region must be
 rejected.  Smaller coadds result in fewer images being rejected, but very small
 coadds would complicate object identification deblending.  For LSST, we plan to
 use relatively small (250x250 pixels) overlapping (50 pixels) coadded regions
-for shear measurement, which we call ``cells'' (TODO cite).
+for shear measurement, which we call ``cells'' \esstodo{cite}.
 
 We ran simulations with and without cells in order control for issues specific
 to the cell processing and trimming of objects to non overlapping regions.  We
@@ -420,7 +420,7 @@ generally not centered.  We then warped on these images using the same weights
 as the image data.  This off-centering and warping is important so that the PSF
 includes the same small amount of smearing present in the image interpolation.
 Not including this offset results in percent level multiplicative shear biases
-(TODO cite bob's paper).  Note \dm\ provides a PSF coadding code, but at the
+\esstodo{cite bob's paper}.  Note \dm\ provides a PSF coadding code, but at the
 time of writing it did not perform sub-pixel offsets, so was unsuitable for
 our purposes.
 
@@ -504,7 +504,7 @@ structures.  The new code is part of the \texttt{metadetect} software package.
 
 \subsection{Detection and Deblending} \label{sec:mdet:detect}
 
-We used the \dm\ algorithm for detection (TODO cite Jims paper).  We ran with
+We used the \dm\ algorithm for detection \esstodo{cite Jims paper}.  We ran with
 the default settings at the time of writing, which retains sources with a
 $S/N \gtrsim 5$ calculated from a PSF template flux measurement.
 
@@ -514,7 +514,7 @@ light of neighboring objects when measuring object properties (see \S
 \ref{sec:mdet:meas}).  We found that using the models to remove neighbor light
 resulted in shear biases of order ten percent.
 
-We did limited testing with the Scarlet (TODO cite) deblender, which has
+We did limited testing with the Scarlet \esstodo{cite} deblender, which has
 recently received support in the \dm\ software stack. Scarlet performed better
 in the tests we performed, showing a bias of $< 1$\%, but due to the high
 computational cost of the deblender, we did not gather enough statistics to
@@ -1096,7 +1096,7 @@ may be improvied with optimized weights.
 
 ES is supported by DOE grant DE-AC02-98CH10886, and MRB is supported by DOE
 grant DE-AC02-06CH11357. RA is supported by the US Department of Energy Cosmic
-Frontier program, grant DE-SC0010118.  (TODO Mike's funding)
+Frontier program, grant DE-SC0010118.  \esstodo{Mike's funding}
 
 We thank Javier Sanchez for providing the star and stellar density map for DC2,
 and Jim Chiang for providing example images containing simulated stars
