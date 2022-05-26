@@ -203,17 +203,21 @@ discontinuous PSF in the final coadd, so such images would be discarded.
 \esstodo{check parameters (variation factor) this was run with}
 \esstodo{fill in median seeing below}
 
-We generate spatially variable PSF models using the methods described in Appendix~A
-of \citet{SheldonMdet2020} based on work by \citet{heymans2012}. \citet{heymans2012}
-use images with high stellar density to fit a \vonkarman\ model of atmospheric
-turbulence to the PSF variation. \citet{SheldonMdet2020} use this model, with a
-modification to reduce power below 1'', to generate realizations of spatially variable
-PSFs using Gaussian random fields. The final PSF model is a Moffat profile with shape
-parameter $\beta=2.5$. In \citet{SheldonMdet2020} this approximate variable
-PSF model was compared to detailed atmospheric and optics simulations. It's parameters
-were set to generate more spatial PSF variance than one expects in a typical
-Rubin exposure. The final median seeing of the generated PSFs was
-\esstodo{put number here}.
+For our basic PSF model we used a Moffat profile \citep{Moffat1969} with
+shape parameter $\beta=2.5$ and full width at half maximum (FWHM) of 0.8 arcseconds.
+
+We also generated spatially variable PSF models using the methods described in
+Appendix~A of \citet{SheldonMdet2020} based on work by \citet{heymans2012}.
+\citet{heymans2012} used images with high stellar density to fit a \vonkarman\
+model of atmospheric turbulence to the PSF variation. \citet{SheldonMdet2020}
+used this model, with a modification to reduce power below 1'', to generate
+realizations of spatially variable PSFs using Gaussian random fields. The PSF
+model is a Moffat \citep{Moffat1969} profile with shape parameter $\beta=2.5$
+and variable size and shape. In \citet{SheldonMdet2020} this approximate
+variable PSF model was compared to detailed atmospheric and optics simulations.
+It's parameters were set to generate the typical spatial PSF variance than one
+expects for Rubin exposures. The median FWHM of the generated PSFs was 0.8
+arcseconds.
 
 \subsection{Stars} \label{sec:sim:stars}
 
@@ -250,13 +254,16 @@ Note in real data such a mask would need to be determined algorithmically.
 This mask does not necessarily cover the bleed trail completely, although the
 trail was interpolated (see \S \ref{sec:coadding}).  We find that these
 unmasked trails do not cause a shear bias, which we attribute to the
-camera rotations, which randomize the direction of the trail on the sky.
+camera rotations that randomize the direction of the trail on the sky.
 
-Large, saturated stars can cause artifacts in images when they are manipulated
-with \mcal- or \mdet-like algorithms. To avoid these artifacts, we use the apodization
-procedure described in \citet{BeckerMdetCoadd}. For each bright star, we build a
-mask that is zero in the bulk of the star and smoothly goes from zero at one near the
-edge. The transition region is parameterized using the cumulative
+Masks with sharp features can cause ringing in the FFTs used
+by the \mdet\ algorithm.   Each star mask is like a circular ``tophat'',
+which will have a sharp feature where it intersects an object in the image.  We
+mitigated this effect using the apodization
+procedure described in \citet{BeckerMdetCoadd}. We extended the star
+mask by 16 pixels and forced the mask
+to smoothly transition from zero in the interior of the circle
+to unity at the expanded edge. The transition region was parameterized using the cumulative
 integral of a triweight kernel. This kernel is a function of two parameters, $m$ and $h$,
 and is defined for a point $x$ with quantity $y = (x-m)/h$ as
 \begin{equation}
@@ -270,31 +277,40 @@ K(x, m, h) = \begin{cases}
 1 & y > 3
 \end{cases}
 \end{equation}
-The kernel goes from zero to one over a span of $6h$, centered on $m$.
-The general logic is to set $h$ large enough that the variation across the egde is slower
+The kernel goes from zero to unity over a span of $6h$, centered on $m$.
+The general logic is to set $h$ large enough that the variation across the edge is slower
 than the variation given by the PSF profile, but not so large that area in the image is
-wasted. We set $h$ to \esstodo{pixels} and set $m$ to the radius of the star mask hole.
+wasted. We set $h$ to 1.5 pixels and set $m$ to the radius of the star mask hole.
 
 \subsection{Cosmic Rays \& Bad Columns} \label{sec:sim:cosmics_badcols}
 
 \esstodo{double check how this was all handled after the code rewrite you did}
 
-We follow \citet{BeckerMdetCoadd} in generating our bad column and cosmic ray artifacts
-For cosmic rays, We select a random location on the image, a random angle, and a random
-length between 10 and 30 pixels. We then flag pixels along this line as having been hit
+We followed \citet{BeckerMdetCoadd} in generating bad column and cosmic ray artifacts.
+For cosmic rays, we selected a random location on the image, a random angle, and a random
+length between 10 and 30 pixels. We then flagged pixels along this line as having been hit
 by a cosmic ray, making sure that pixels that touch only along corners have the pixels
 directly adjacent to them flagged as well. We set a cosmic ray bit in the bitmask for
 interpolation later and set the image value to \texttt{NaN} to ensure that no flagged
-pixels are inadvertently used in the final shear estimates. We generate bad column masks
-using a slightly modified Monte Carlo generator from \citet{BeckerMdetCoadd}. Each bad
-column is a single pixel wide, positioned randomly on the image. We also add gaps at
-random to the bad columns to simulate bad columns which do not span the full CCD.
-Finally, the rates of our bad column and cosmic ray artifacts have not been tuned to
-match real images beyond cursory checks that they look typical for ground based data. We of
-course do not know precisely the rates of column defects in the final Rubin system. Further,
-Rubin \mdet\ analyses will be done on coadds of hundreds of images, where the effects of
-defects in any one image will be small in a marginal sense. More detailed testing,
-ideally based on real Rubin observations, will be an avenue for future investigation.
+pixels are inadvertently used in the final shear estimates.
+
+We generated bad column masks using a slightly modified Monte Carlo generator
+from \citet{BeckerMdetCoadd}. Each bad column was a single pixel wide,
+positioned randomly on the image. We also added gaps at random to the bad
+columns to simulate bad columns which do not span the full CCD.  We generated
+a single bad column for each image.
+
+The LSST lensing analysis will be carried out on coadd images of hundreds of
+exposures, with artifacts interpolated on the original data before being warped
+and added.  The aggregate number of artifacts will be large, but the impact of
+each artifact will be relatively small.  It was not computationally feasible to
+simulate such a large number of epochs in order to test the effect of artifacts
+in a realistic way.  Rather we simulated a smaller number of epochs per
+band, typically
+1 but up to 10, with the noise scaled so that the final coadd noise matched
+LSST 10 year data.  Thus, relative to expected LSST data the impact of each
+artifact on the coadd was large but the aggregate number of artifacts was
+small.
 
 \subsection{Galaxies} \label{sec:sim:galaxies}
 
@@ -517,7 +533,7 @@ redshift determination.  We will explore deblending more in future work.
 
 We used version v2.0.6 of the \ngmix\ package to measure weighted moments for
 each detected object. The weight function was a fixed, circular, Gaussian $G(x,
-y)$ with full width at half maximum of 1.2 arcseconds.  We recorded the flux,
+y)$ with FWHM=1.2 arcseconds.  We recorded the flux,
 S/N, second moments, and ellipticity derived from the second moments:
 \begin{eqnarray} \label{eq:moments}
     F &=& \sum G(x, y) I(x, y) \\
