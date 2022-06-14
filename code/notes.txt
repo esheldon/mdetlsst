@@ -2246,13 +2246,13 @@ run-drWsb-cells
     - dithers/rotations/bleed trails (argh forgot cosmics and bad columns)
     - looks fine
 
-run-drcbWsBP-cells.yaml
+run-drcbWsBP-cells
     dithers, rotations, cosmics, badcols, Weaklensingdeblending,
     stars, Bleeds, PS PSF
 
     Seems fine, but we were a bit surprised that imfrac made a difference
 
-run-riz-drcbWsBP-cells.yaml
+run-riz-drcbWsBP-cells
     same as run-drcbWsBP-cells.yaml but with r+i+z
     dithers, rotations, cosmics, badcols, Weaklensingdeblending,
     stars, Bleeds, PS PSF
@@ -2315,3 +2315,25 @@ run-riz-drcbWsBP-cells.yaml
     -4.23545e-06 < c1 < 2.585e-06 (99.7%)
     2.53502e-06 < c2 < 9.52341e-06 (99.7%)
 
+run-riz-drcbWP-cells
+    - see code/make_trend_fit.py
+run-drcbWP
+    - see code/make_trend_fit.py
+
+
+
+# summary of psf variation / stars so far
+
+- by comparing
+    run-riz-drcbWP-cells 
+  to either
+    run-WM-nowarp
+    run-WPv0.1-nowarp-s2n
+  we see there is dependence on s/n cut for the riz and variation but not in
+  the one without variation
+
+  Also seeing a reduction of negative bias for run-riz-drcbWsBP-cells-mfrac2
+  which put in mask_frac cut at 0.02 and mfrac 0.02.
+
+  figured out that did not have mfrac 0.02 on run-riz-drcbWsBP-cells run, so
+  doing that
