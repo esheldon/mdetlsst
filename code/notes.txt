@@ -2337,3 +2337,12 @@ run-drcbWP
 
   figured out that did not have mfrac 0.02 on run-riz-drcbWsBP-cells run, so
   doing that
+
+
+# testing out noise for wmom, am, pgauss with variable psf
+# found point with lowest noise for each in s/n T/Tpsf cut space
+
+    type   noise s2n_min Tratio_min
+    pgauss 0.289 12.5    0.6
+    am     0.270 10.0    0.9
+    wmom   0.144 10.0    1.0
