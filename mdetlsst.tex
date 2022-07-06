@@ -644,11 +644,6 @@ of bias.
 For the remaining tests in this paper we use the spatially variable PSF with
 expected variation level.
 
-\begin{figure}
-	\includegraphics[width=\columnwidth]{{trends}.pdf}
-	\caption{\esstodo{caption}} \label{fig:trends}
-\end{figure}
-
 \subsection{Results with Additional Simulation Features} \label{sec:results:more}
 
 We ran the simulation with realistic galaxies, random layout, and image
@@ -666,8 +661,23 @@ on $T/T_{PSF}$ represents a typical attempt to remove stars from the sample.
 
 We turned on each feature separately in order to isolate possible biases.  In
 no case did we find additional bias in the shear recovery beyond that expected
-from higher order shear effects (see \S \ref{sec:results:base}).  Nor did we
-find any bias with alternative cuts on S/N and size ratio $T/T_{PSF}$.
+from higher order shear effects (see \S \ref{sec:results:base}).
+
+\subsubsection{Results with Varied Selections on Object Properties} \label{sec:results:cells}
+
+We varied the selections on object size ratio $T/T_{PSF}$ and \snr\ and
+repeated the shear recovery analysis.  The results are shown in figure
+\ref{fig:trends}, for both constant and spatially varying PSFs (see \S
+\ref{sec:sim:psfs}).  We did not detect any additional bias.  Note that
+stricter cuts on \snr\ resulted in lower noise for this plot due to the noise
+cancellation procedure which works better for bright objects.  We will explore
+the shear sensitivity without noise cancellation in \S
+\ref{sec:results:sdensnoise}.
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{{trends}.pdf}
+	\caption{\esstodo{caption}} \label{fig:trends}
+\end{figure}
 
 \subsection{Results with Overlapping Coadd Cells} \label{sec:results:cells}
 
@@ -679,15 +689,15 @@ locations of objects, so this trimming introduces a shear dependent selection
 effect.
 
 In the case where the true simulated shear aligns with the artificially applied
-shear used to create the \mcal\ images, we found that \mdet\ correctly
-calibrated this effect.  However, when using randomized shear orientations (see
-\S \ref{sec:sim:shears}), we found the multiplicative bias $m$ was reduced
-below the expected bias due to higher order shear effects by about $-0.0004$.
-Our inerpretation is that the artificial shearing slightly over-predicts the
-selection effect when it is not perfectly aligned with the true shear.  This
-bias is smaller than LSST requirements $|m| \lesssim 0.001$.  However, we
-speculate that using artificial shears with random orientations could mitigate
-this effect.  We may explore this more in a future work.
+shear used to create the \mcal\ images, we found that \mdet\ provided
+an accurate calibration.  However, when using randomized shear
+orientations (see \S \ref{sec:sim:shears}), we found the multiplicative bias
+$m$ was reduced below the expected bias due to higher order shear effects by
+about $-0.0004$.  Our inerpretation is that the artificial shearing slightly
+over-predicts the selection effect when it is not perfectly aligned with the
+true shear.  This bias is smaller than LSST requirements $|m| \lesssim 0.001$.
+However, we speculate that using artificial shears with random orientations
+could mitigate this effect.  We may explore this more in a future work.
 
 \subsection{Results with Stars and Bleed Trails} \label{sec:results:full}
 
@@ -696,8 +706,9 @@ this effect.  We may explore this more in a future work.
 Our ``full'' simulation configuration included stars and bleed trails as
 described in \S \ref{sec:sim:stars} and \ref{sec:sim:satbleeds}, in addition to
 the features tested in the previous sections.  In figure \ref{fig:stardens} we
-show the multiplicative bias as a function of maximum stellar density and various
-cuts on the measured signal to noise ratio. \esstodo{describe results}
+show the multiplicative bias as a function of maximum stellar density and
+various cuts on the measured signal to noise ratio in addition to a cut on size
+ratio $T/T_{PSF} > 1.2$. \esstodo{describe results and also show with weights}
 
 \begin{figure}
 	% \includegraphics[width=\columnwidth]{{run-riz-drcbWsBP-cells-s2n}.pdf}
@@ -705,8 +716,10 @@ cuts on the measured signal to noise ratio. \esstodo{describe results}
 	\caption{\esstodo{caption}} \label{fig:stardens}
 \end{figure}
 
-\subsubsection{Dependence of Shear Sensitivity on Cuts}
+\subsubsection{Dependence of Shear Sensitivity on Object Selections}
 \label{sec:results:sdensnoise}
+
+\esstodo{add result with weights}
 
 We explored what set of cuts on stellar density and \snr\ result in the lowest
 noise in the recovered shear.  For our measure of uncertainty we used only one
@@ -750,6 +763,8 @@ example the specific weight function used or the model that is fitted,
 each of which will provide a different estimate of the \snr.
 
 \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
+
+\esstodo{add with weights}
 
 The uncertainties presented thus far are artificially reduced due to the noise
 canceling effect (see \S \ref{sec:running}).  In order to estimate the noise
