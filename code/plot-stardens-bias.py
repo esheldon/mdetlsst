@@ -5,7 +5,9 @@ import argparse
 import fitsio
 import proplot as pplt
 
-WIDTH = 6
+# WIDTH = 3
+WIDTH = 2.8
+ASPECT = (1.618, 1)
 
 MARKERS = ('o', 'd', '^', 's', 'v', 'h', 'p', 'P', 'H', 'X')
 
@@ -124,56 +126,52 @@ def key2label(key):
     return ' '.join(ks)
 
 
-def do_error_plot(fname, data):
+def do_error_plot(fname, data, wdata):
 
     alpha = 0.5
-    figsize = (WIDTH, WIDTH/1.618)
-
-    fig, ax = mplt.subplots(figsize=figsize)
-    ax.set(
-        xlabel='maximum stellar density [per sq. arcmin]',
+    fig = pplt.figure(refwidth=WIDTH, refaspect=ASPECT, spany=True)
+    axs = fig.subplots(nrows=2, ncols=1, space=0)
+    axs.format(
+        abc=True, abcloc='ul',
+        # abcbbox=True,
+        xlabel='Maximum stellar density [per sq. arcmin]',
         ylabel=r'$\sigma(\gamma) / \sigma_{min}(\gamma)$',
-        ylim=(0.95, 1.6),
-
+        xlim=(-5, 110),
+        ylim=(0.95, 1.55),
     )
 
-    ax.axhline(1, color='black')
+    axs[0].axhline(1, color='black', lw=0.5)
+    axs[1].axhline(1, color='black', lw=0.5)
 
-    errvals = []
-    for key in data:
-        mdata = data[key]
-        errvals += list(data[key]['m1err'])
+    lw = 1
+    for tdata, ax in zip((data, wdata), axs):
+        errvals = []
+        for key in tdata:
+            mdata = tdata[key]
+            errvals += list(mdata['m1err'])
 
-    # colors = ['-', '.', '-.', '--']
-    minval = min(errvals)
-    for i, key in enumerate(sorted(data)):
-        mdata = data[key]
+        minval = min(errvals)
+        for i, key in enumerate(sorted(tdata)):
+            mdata = tdata[key]
 
-        label = key2label(key)
-        # label = r'mfrac $ < %.2f$' % mfrac
-        # label = key
+            label = key2label(key)
 
-        ax.plot(
-            mdata['sdens'],
-            mdata['m1err']/minval,
-            linestyle=LINESTYLES[i],
-            color=COLORS[i],
-            marker=MARKERS[i],
-            markeredgecolor='black',
-            label=label,
-            alpha=alpha,
-        )
-        # ax.scatter(
-        #     mdata['sdens'],
-        #     mdata['m1err']/minval,
-        #     linestyle='cycle',
-        #     label=label,
-        #     alpha=alpha,
-        # )
+            ax.plot(
+                mdata['sdens'],
+                mdata['m1err']/minval,
+                linestyle=LINESTYLES[i],
+                lw=lw,
+                color=COLORS[i],
+                marker=MARKERS[i],
+                markeredgecolor='black',
+                markersize=4,
+                label=label,
+                alpha=alpha,
+            )
 
-    ax.legend()
+    axs[0].legend(ncol=1, pad=1)
     print('writing:', fname)
-    mplt.savefig(fname)
+    fig.savefig(fname)
 
 
 def do_bias_plot(fname, data, wdata):
@@ -183,7 +181,7 @@ def do_bias_plot(fname, data, wdata):
     # figsize = (WIDTH, WIDTH/1.618)
 
     # fig, ax = mplt.subplots(nrows=2, figsize=figsize)
-    fig = pplt.figure(refwidth=3, refaspect=(1.618, 1))
+    fig = pplt.figure(refwidth=WIDTH, refaspect=ASPECT, spany=True)
     axs = fig.subplots(nrows=2, ncols=1, space=0)
     axs.format(
         abc=True, abcloc='ul',
@@ -241,7 +239,7 @@ def do_bias_plot(fname, data, wdata):
                 hatch=hatches[i],
             )
 
-    axs[0].legend(pad=1, ncol=2)
+    axs[0].legend(ncol=2, pad=1)
 
     axs[0].text(
         # 5, 3,
@@ -274,7 +272,7 @@ def main():
     )
 
     do_bias_plot('stardens-bias.pdf', data, wdata)
-    # do_error_plot('stardens-nocancel-error.pdf', nc_data, nc_wdata)
+    do_error_plot('stardens-nocancel-error.pdf', nc_data, nc_wdata)
 
 
 main()

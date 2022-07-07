@@ -2,7 +2,7 @@ import numpy as np
 import proplot as pplt
 
 ALPHA = 0.3
-WIDTH = 6
+WIDTH = 2.8
 
 MARKERS = ('o', 'd', '^', 's', 'v', 'h', 'p', 'P', 'H', 'X')
 
@@ -234,16 +234,16 @@ def do_s2n_bias_plot(ax):
     )
     ax.legend(
         loc='lower right',
+        ncol=1,
         pad=1,
     )
 
 
 def main():
 
-    # fig = pplt.figure(refwidth=3, refaspect=(1.618, 1))
-    # axs = fig.subplots(nrows=2, ncols=1, sharex=False)
     fig, axs = pplt.subplots(
-        nrows=2, ncols=1, refwidth=3,
+        nrows=2, ncols=1, refwidth=WIDTH,
+        # spany=True,
         refaspect=(1.618, 1),
         share=False,
     )
