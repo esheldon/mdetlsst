@@ -247,6 +247,10 @@ def main():
         refaspect=(1.618, 1),
         share=False,
     )
+    # axs.format(
+        # abc='a)', abcloc='ul',
+        # abc_kw={'color': 'dark red'},
+    # )
 
     do_s2n_bias_plot(axs[0])
     do_Tratio_bias_plot(axs[1])

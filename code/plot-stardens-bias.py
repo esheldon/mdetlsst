@@ -132,7 +132,8 @@ def do_error_plot(fname, data, wdata):
     fig = pplt.figure(refwidth=WIDTH, refaspect=ASPECT, spany=True)
     axs = fig.subplots(nrows=2, ncols=1, space=0)
     axs.format(
-        abc=True, abcloc='ul',
+        # abc='a)', abcloc='ul',
+        # abc_kw={'color': 'dark red'},
         # abcbbox=True,
         xlabel='Maximum stellar density [per sq. arcmin]',
         ylabel=r'$\sigma(\gamma) / \sigma_{min}(\gamma)$',
@@ -184,7 +185,8 @@ def do_bias_plot(fname, data, wdata):
     fig = pplt.figure(refwidth=WIDTH, refaspect=ASPECT, spany=True)
     axs = fig.subplots(nrows=2, ncols=1, space=0)
     axs.format(
-        abc=True, abcloc='ul',
+        # abc='a)', abcloc='ul',
+        # abc_kw={'color': 'dark red'},
         # abcbbox=True,
         xlabel='Maximum stellar density [per sq. arcmin]',
         ylabel='m / 0.001',
