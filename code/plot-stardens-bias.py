@@ -1,11 +1,9 @@
 import os
 from glob import glob
 import numpy as np
-import argparse
 import fitsio
 import proplot as pplt
 
-# WIDTH = 3
 WIDTH = 2.8
 ASPECT = (1.618, 1)
 
@@ -39,16 +37,6 @@ COLORS = [
     '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
     '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
 ]
-
-
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('flist', nargs='+')
-    parser.add_argument('--pdf', required=True)
-    parser.add_argument(
-        '--add-nostars', action='store_true', help='add nostar point'
-    )
-    return parser.parse_args()
 
 
 def read_data(path, weighted, nocancel):
@@ -111,18 +99,10 @@ def read_data(path, weighted, nocancel):
 
 def key2label(key):
     ks = key.split('-')
-    # import IPython; IPython.embed()
     ks = [
         r'S/N $>$',
         ks[1],
-        # '$T/T_{PSF} > $',
-        # ks[3],
     ]
-    # if ks[0] == 'imfrac':
-    #     ks = ks[2:]
-    # if ks[0] == 's2n':
-    #     ks[0] = r'S/N $>$'
-    #     ks = ks[:2]
     return ' '.join(ks)
 
 
@@ -179,9 +159,6 @@ def do_bias_plot(fname, data, wdata):
 
     alpha = 0.3
 
-    # figsize = (WIDTH, WIDTH/1.618)
-
-    # fig, ax = mplt.subplots(nrows=2, figsize=figsize)
     fig = pplt.figure(refwidth=WIDTH, refaspect=ASPECT, spany=True)
     axs = fig.subplots(nrows=2, ncols=1, space=0)
     axs.format(
@@ -193,11 +170,6 @@ def do_bias_plot(fname, data, wdata):
         xlim=(-5, 110),
         ylim=(-2.9, 3.9),
     )
-    # ax.set(
-    #     xlabel='maximum stellar density [per sq. arcmin]',
-    #     ylabel='m / 0.001',
-    #     ylim=(-2, 4),
-    # )
     hatches = [
         None,
         '//',
@@ -216,7 +188,6 @@ def do_bias_plot(fname, data, wdata):
     for tdata, ax in zip((data, wdata), axs):
 
         lim = 1
-        # lcolor = 'seagreen'
         lcolor = 'sienna'
         ax.axhline(0, color='black', lw=0.5)
         ax.axhline(-lim, color=lcolor, linestyle='dashed', lw=lw)
@@ -244,7 +215,6 @@ def do_bias_plot(fname, data, wdata):
     axs[0].legend(ncol=2, pad=1)
 
     axs[0].text(
-        # 5, 3,
         50, -2,
         r'99.7\% confidence range',
     )
@@ -254,7 +224,6 @@ def do_bias_plot(fname, data, wdata):
 
 
 def main():
-    # args = get_args()
 
     data = read_data(
         path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02',

@@ -4,42 +4,14 @@ import proplot as pplt
 ALPHA = 0.3
 WIDTH = 2.8
 
-MARKERS = ('o', 'd', '^', 's', 'v', 'h', 'p', 'P', 'H', 'X')
-
-EXTRA_LINESTYLES = {
-    'loose dotted': (0, (1, 10)),
-    'dense dotted': (0, (1, 1)),
-
-    'loose dashed': (0, (5, 5)),
-    'very loose dashed': (0, (5, 10)),
-    'dense dashed': (0, (5, 1)),
-
-    'dashdotdot': (0, (3, 5, 1, 5, 1, 5)),
-
-    'dense dashdot': (0, (3, 1, 1, 1)),
-    'dense dashdotdot': (0, (3, 1, 1, 1, 1, 1)),
-}
-
-LINESTYLES = (
-    'solid', 'dashed', 'dotted',
-    EXTRA_LINESTYLES['dense dashdot'],
-    EXTRA_LINESTYLES['loose dashed'],
-    EXTRA_LINESTYLES['dense dashdotdot'],
-    EXTRA_LINESTYLES['dense dotted'],
-    'dashdot',
-    EXTRA_LINESTYLES['very loose dashed'],
-    EXTRA_LINESTYLES['dense dashed'],
-)
 LCOLOR = 'sienna'
-# SECCOLOR = 'orange5'
 SECCOLOR = 'sand'
-# FCOLOR = '#8c564b'
 FCOLOR = 'black'
 
-COLORS = [
-    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
-    '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
-]
+# COLORS = [
+#     '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
+#     '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
+# ]
 COLORS = ['black']*4
 
 HATCHES = [
@@ -248,8 +220,8 @@ def main():
         share=False,
     )
     # axs.format(
-        # abc='a)', abcloc='ul',
-        # abc_kw={'color': 'dark red'},
+    #     abc='a)', abcloc='ul',
+    #     abc_kw={'color': 'dark red'},
     # )
 
     do_s2n_bias_plot(axs[0])
