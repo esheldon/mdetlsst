@@ -1,73 +1,280 @@
-import numpy as np
+import os
 from glob import glob
-import biggles
+import numpy as np
+import argparse
+import fitsio
+import proplot as pplt
 
-biggles.configure('default', 'fontsize_min', 2)
+WIDTH = 6
 
-def get_m(fname):
+MARKERS = ('o', 'd', '^', 's', 'v', 'h', 'p', 'P', 'H', 'X')
 
-    density_cut = float(fname.split('-')[-1].replace('cut', ''))
-    with open(fname) as fobj:
-        for line in fobj:
-            if 'm1:' in line:
-                ls = line.split()
-                m = float(ls[1])
-                merr = float(ls[3])/3
+EXTRA_LINESTYLES = {
+    'loose dotted': (0, (1, 10)),
+    'dense dotted': (0, (1, 1)),
 
-    return density_cut, m, merr
+    'loose dashed': (0, (5, 5)),
+    'very loose dashed': (0, (5, 10)),
+    'dense dashed': (0, (5, 1)),
 
+    'dashdotdot': (0, (3, 5, 1, 5, 1, 5)),
 
-flist = glob('mc-*')
-flist.sort()
+    'dense dashdot': (0, (3, 1, 1, 1)),
+    'dense dashdotdot': (0, (3, 1, 1, 1, 1, 1)),
+}
 
-density_cut = []
-m = []
-merr = []
-for f in flist:
-    tdcut, tm, tmerr = get_m(f)
-
-    density_cut.append(tdcut)
-    m.append(tm)
-    merr.append(tmerr)
-
-m = np.array(m)
-merr = np.array(merr)
-merr_rat = merr/merr[-1]
-
-xmin = 0
-xmax = 110
-arr = biggles.FramedArray(
-    2, 1,
-    xlabel='Stellar Density Cut [#/sq arcmin]',
-    cellspacing=3,
-    aspect_ratio=1.2,
-    xrange=[xmin, xmax],
+LINESTYLES = (
+    'solid', 'dashed', 'dotted',
+    EXTRA_LINESTYLES['dense dashdot'],
+    EXTRA_LINESTYLES['loose dashed'],
+    EXTRA_LINESTYLES['dense dashdotdot'],
+    EXTRA_LINESTYLES['dense dotted'],
+    'dashdot',
+    EXTRA_LINESTYLES['very loose dashed'],
+    EXTRA_LINESTYLES['dense dashed'],
 )
-
-sx = [xmin, xmax]
-high = [0.001]*2
-low = [-0.001]*2
-
-shaded = biggles.FillBetween(sx, low, sx, high)
-zl = biggles.LineY(0)
-pts = biggles.Points(density_cut, m, type='filled circle', color='blue')
-pts2 = biggles.Points(density_cut, m, type='circle', color='black')
-perr = biggles.SymmetricErrorBarsY(density_cut, m, merr, color='blue')
-curve = biggles.Curve(density_cut, m, type='filled circle', color='blue')
-
-arr[0, 0].ylabel = 'm'
-arr[0, 0].yrange = [-0.002, 0.007]
-arr[0, 0] += shaded, zl, pts, pts2, perr, curve
+COLORS = [
+    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
+    '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
+]
 
 
-onel = biggles.LineY(1)
-pts = biggles.Points(density_cut, merr_rat, type='filled circle', color='blue')
-pts2 = biggles.Points(density_cut, merr_rat, type='circle', color='black')
-curve = biggles.Curve(density_cut, merr_rat,
-                      type='filled circle', color='blue')
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('flist', nargs='+')
+    parser.add_argument('--pdf', required=True)
+    parser.add_argument(
+        '--add-nostars', action='store_true', help='add nostar point'
+    )
+    return parser.parse_args()
 
-arr[1, 0].ylabel = r'$\sigma_m/\sigma_m^{100}$'
-arr[1, 0].yrange = [0.9, 1.5]
-arr[1, 0] += onel, pts, pts2, curve
 
-arr.write('stardens-bias.pdf')
+def read_data(path, weighted, nocancel):
+
+    if weighted:
+        pattern = 'gweight-mc-weighted-s2n-*'
+    else:
+        pattern = 'mc-s2n-*'
+
+    if nocancel:
+        pattern = 'nocancel-' + pattern
+
+    pattern = os.path.join(path, 'mc-results', pattern)
+
+    flist = glob(pattern)
+    flist.sort()
+    data = {}
+    for f in flist:
+        tdata = fitsio.read(f)[0]
+
+        s2n_min = tdata['s2n_min']
+        sdens = tdata['max_star_density']
+        Tratio_min = tdata['Tratio_min']
+
+        key = f's2n-{s2n_min:.1f}-Tratio-{Tratio_min:.1f}'
+
+        m1err = tdata['m1err'] * 3
+        m1high = tdata['m1'] + m1err
+        m1low = tdata['m1'] - m1err
+        m1 = tdata['m1']
+
+        if key in data:
+            data[key]['sdens'].append(sdens)
+            data[key]['m1high'].append(m1high)
+            data[key]['m1low'].append(m1low)
+            data[key]['m1'].append(m1)
+            data[key]['m1err'].append(m1err)
+        else:
+            data[key] = {}
+            data[key]['sdens'] = [sdens]
+            data[key]['m1high'] = [m1high]
+            data[key]['m1low'] = [m1low]
+            data[key]['m1'] = [m1]
+            data[key]['m1err'] = [m1err]
+
+    fields = ['sdens', 'm1low', 'm1high', 'm1', 'm1err']
+    offeach = 0.0
+    for i, key in enumerate(data):
+        for field in fields:
+            data[key][field] = np.array(data[key][field])
+
+        s = data[key]['sdens'].argsort()
+        for field in fields:
+            data[key][field] = data[key][field][s]
+
+        data[key]['sdens'] += i * offeach
+
+    return data
+
+
+def key2label(key):
+    ks = key.split('-')
+    # import IPython; IPython.embed()
+    ks = [
+        r'S/N $>$',
+        ks[1],
+        # '$T/T_{PSF} > $',
+        # ks[3],
+    ]
+    # if ks[0] == 'imfrac':
+    #     ks = ks[2:]
+    # if ks[0] == 's2n':
+    #     ks[0] = r'S/N $>$'
+    #     ks = ks[:2]
+    return ' '.join(ks)
+
+
+def do_error_plot(fname, data):
+
+    alpha = 0.5
+    figsize = (WIDTH, WIDTH/1.618)
+
+    fig, ax = mplt.subplots(figsize=figsize)
+    ax.set(
+        xlabel='maximum stellar density [per sq. arcmin]',
+        ylabel=r'$\sigma(\gamma) / \sigma_{min}(\gamma)$',
+        ylim=(0.95, 1.6),
+
+    )
+
+    ax.axhline(1, color='black')
+
+    errvals = []
+    for key in data:
+        mdata = data[key]
+        errvals += list(data[key]['m1err'])
+
+    # colors = ['-', '.', '-.', '--']
+    minval = min(errvals)
+    for i, key in enumerate(sorted(data)):
+        mdata = data[key]
+
+        label = key2label(key)
+        # label = r'mfrac $ < %.2f$' % mfrac
+        # label = key
+
+        ax.plot(
+            mdata['sdens'],
+            mdata['m1err']/minval,
+            linestyle=LINESTYLES[i],
+            color=COLORS[i],
+            marker=MARKERS[i],
+            markeredgecolor='black',
+            label=label,
+            alpha=alpha,
+        )
+        # ax.scatter(
+        #     mdata['sdens'],
+        #     mdata['m1err']/minval,
+        #     linestyle='cycle',
+        #     label=label,
+        #     alpha=alpha,
+        # )
+
+    ax.legend()
+    print('writing:', fname)
+    mplt.savefig(fname)
+
+
+def do_bias_plot(fname, data, wdata):
+
+    alpha = 0.3
+
+    # figsize = (WIDTH, WIDTH/1.618)
+
+    # fig, ax = mplt.subplots(nrows=2, figsize=figsize)
+    fig = pplt.figure(refwidth=3, refaspect=(1.618, 1))
+    axs = fig.subplots(nrows=2, ncols=1, space=0)
+    axs.format(
+        abc=True, abcloc='ul',
+        # abcbbox=True,
+        xlabel='Maximum stellar density [per sq. arcmin]',
+        ylabel='m / 0.001',
+        xlim=(-5, 110),
+        ylim=(-2.9, 3.9),
+    )
+    # ax.set(
+    #     xlabel='maximum stellar density [per sq. arcmin]',
+    #     ylabel='m / 0.001',
+    #     ylim=(-2, 4),
+    # )
+    hatches = [
+        None,
+        '//',
+        '\\\\',
+        '||',
+        # '-',
+        # '+',
+        # 'x',
+        # 'o',
+        # 'O',
+        # '.',
+        # '*',
+        None,
+    ]
+    lw = 1
+    for tdata, ax in zip((data, wdata), axs):
+
+        lim = 1
+        # lcolor = 'seagreen'
+        lcolor = 'sienna'
+        ax.axhline(0, color='black', lw=0.5)
+        ax.axhline(-lim, color=lcolor, linestyle='dashed', lw=lw)
+        ax.axhline(+lim, color=lcolor, linestyle='dashed', lw=lw)
+
+        ax.axhline(
+            0.4, color='sand', lw=lw, alpha=0.5, linestyle='dashdot',
+        )
+
+        for i, key in enumerate(sorted(tdata)):
+            mdata = tdata[key]
+
+            label = key2label(key)
+
+            ax.fill_between(
+                mdata['sdens'],
+                mdata['m1high'] / 0.001,
+                mdata['m1low'] / 0.001,
+                label=label,
+                alpha=alpha,
+                color='black',
+                hatch=hatches[i],
+            )
+
+    axs[0].legend(pad=1, ncol=2)
+
+    axs[0].text(
+        # 5, 3,
+        50, -2,
+        r'99.7\% confidence range',
+    )
+
+    print('writing:', fname)
+    fig.savefig(fname)
+
+
+def main():
+    # args = get_args()
+
+    data = read_data(
+        path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02',
+        weighted=False, nocancel=False,
+    )
+    nc_data = read_data(
+        path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02',
+        weighted=False, nocancel=True,
+    )
+    wdata = read_data(
+        path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02-weight',
+        weighted=True, nocancel=False,
+    )
+    nc_wdata = read_data(
+        path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02-weight',
+        weighted=True, nocancel=True,
+    )
+
+    do_bias_plot('stardens-bias.pdf', data, wdata)
+    # do_error_plot('stardens-nocancel-error.pdf', nc_data, nc_wdata)
+
+
+main()

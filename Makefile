@@ -3,7 +3,8 @@ texfile := mdetlsst
 default: pdf
 
 figures:
-	python code/make_trend_fig.py --pdf trends.pdf
+	python code/make_trend_fig.py
+	python code/plot-stardens-bias.py
 
 # just run it
 bib:

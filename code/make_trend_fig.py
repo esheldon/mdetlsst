@@ -1,6 +1,5 @@
 import numpy as np
-import argparse
-from matplotlib import pyplot as mplt
+import proplot as pplt
 
 ALPHA = 0.3
 WIDTH = 6
@@ -31,7 +30,9 @@ LINESTYLES = (
     EXTRA_LINESTYLES['very loose dashed'],
     EXTRA_LINESTYLES['dense dashed'],
 )
-LCOLOR = 'brown'
+LCOLOR = 'sienna'
+# SECCOLOR = 'orange5'
+SECCOLOR = 'sand'
 # FCOLOR = '#8c564b'
 FCOLOR = 'black'
 
@@ -39,6 +40,7 @@ COLORS = [
     '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
     '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
 ]
+COLORS = ['black']*4
 
 HATCHES = [
     None,
@@ -58,24 +60,20 @@ HATCHES = [
 
 def add_lines(ax):
     lim = 1
-    ax.axhline(0, color='black')  # , zorder=zorder)
-    ax.axhline(-lim, color=LCOLOR, linestyle='dashed')  # , zorder=zorder)
-    ax.axhline(+lim, color=LCOLOR, linestyle='dashed')  # , zorder=zorder)
+    lw = 1
+    ax.axhline(0, color='black', lw=0.5*lw)
+    ax.axhline(-lim, color=LCOLOR, linestyle='dashed', lw=lw)
+    ax.axhline(+lim, color=LCOLOR, linestyle='dashed', lw=lw)
 
-    ax.axhline(0.4, color='blue', lw=2, alpha=0.5)
-
-
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--pdf', required=True)
-    return parser.parse_args()
+    ax.axhline(0.4, color=SECCOLOR, lw=lw, alpha=0.5, linestyle='dashdot')
 
 
 def do_Tratio_bias_plot(ax):
 
     ax.set(
-        xlabel='minimum $T/T_{PSF}$',
+        xlabel='Minimum $T/T_{PSF}$',
         ylabel='m / 0.001',
+        xlim=(1.15, 1.55),
         ylim=(-3, 3),
     )
 
@@ -157,8 +155,9 @@ def do_Tratio_bias_plot(ax):
 def do_s2n_bias_plot(ax):
 
     ax.set(
-        xlabel='minimum S/N',
+        xlabel='Minimum S/N',
         ylabel='m / 0.001',
+        xlim=(9, 21),
         ylim=(-3, 3),
     )
 
@@ -229,27 +228,32 @@ def do_s2n_bias_plot(ax):
     add_lines(ax)
 
     ax.text(
-        10,
-        -2,
+        15,
+        2,
         r'99.7\% confidence range',
     )
     ax.legend(
-        loc='lower right'
+        loc='lower right',
+        pad=1,
     )
 
 
 def main():
-    args = get_args()
 
-    figsize = (WIDTH, 1.8 * WIDTH/1.618)
-
-    fig, axs = mplt.subplots(nrows=2, figsize=figsize)
+    # fig = pplt.figure(refwidth=3, refaspect=(1.618, 1))
+    # axs = fig.subplots(nrows=2, ncols=1, sharex=False)
+    fig, axs = pplt.subplots(
+        nrows=2, ncols=1, refwidth=3,
+        refaspect=(1.618, 1),
+        share=False,
+    )
 
     do_s2n_bias_plot(axs[0])
     do_Tratio_bias_plot(axs[1])
 
-    print('writing:', args.pdf)
-    mplt.savefig(args.pdf)
+    fname = 'trends.pdf'
+    print('writing:', fname)
+    fig.savefig(fname)
 
 
 main()
