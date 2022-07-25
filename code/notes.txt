@@ -2346,3 +2346,14 @@ run-drcbWP
     pgauss 0.289 12.5    0.6
     am     0.270 10.0    0.9
     wmom   0.144 10.0    1.0
+
+
+# after fixing to rescale psf moms by object flux
+---------------------------------------------------
+run-riz-drcbWsBPv0.1-cells2
+ngmix 2.1.0
+descwl-shear-sims 0.4.2
+descwl_coadd 0.3.0
+metadetect 0.8.0
+mdet-lsst-sim 0.3.2
+
