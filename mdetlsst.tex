@@ -151,7 +151,7 @@ features related to saturated stars which we will describe in the following
 sections.  All images were rendered using the \galsim\ python package \esstodo{
 cite galsim}.
 
-We simulated what are known in the LSST data management system (\dm, \esstodo{cite}
+We simulated what are known in the LSST data management system (\dm, version 0.2021.32, \esstodo{cite}
 as calibrated exposure images.  This data is stored in a \calexp\ data
 structure, which carries a calibrated, background subtracted image, along with
 an estimated noise variance image plane, world coordinate system transformation
@@ -167,7 +167,7 @@ using well understood data.
 
 For this work, we used the newly written simulation package
 \texttt{descwl-shear-sims} version
-0.4.0\footnote{\url{https://github.com/LSSTDESC/descwl-shear-sims}}.
+0.4.2\footnote{\url{https://github.com/LSSTDESC/descwl-shear-sims}}.
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 
@@ -490,7 +490,7 @@ where now the averages for $e_i^{+/-}$ are for object catalogs found on the
 respective ${+/-}$ sheared image.
 
 For \mdet, we used the package \texttt{metadetect} version
-0.6.1b\footnote{\url{https://github.com/esheldon/mdetadetect}}.  In the following subsections
+0.8.2\footnote{\url{https://github.com/esheldon/mdetadetect}}.  In the following subsections
 we will describe parts of this process in more detail.
 
 \subsection{Creation of Sheared Images} \label{sec:mdet:sheared}
@@ -527,7 +527,7 @@ redshift determination.  We will explore deblending more in future work.
 
 \subsection{Object Measurement} \label{sec:mdet:meas}
 
-We used version v2.0.6 of the \ngmix\ package to measure weighted moments for
+We used version v2.1.0 of the \ngmix\ package to measure weighted moments for
 each detected object. The weight function was a fixed, circular, Gaussian $G(x,
 y)$ with FWHM=1.2 arcseconds.  We recorded the flux,
 S/N, second moments, and ellipticity derived from the second moments:
@@ -557,7 +557,7 @@ We also record the moments of the coadded PSF for use in object selection (see
 \section{Running the Simulation and Metadetection} \label{sec:running}
 
 We used the ``wrapper'' package \texttt{mdet-lsst-sim} version
-0.3.0\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to run the
+0.3.4\footnote{\url{https://github.com/esheldon/mdet-lsst-sim}} to run the
 simulation, coaddition and \mdet, and to organize, submit and collate large
 runs on computing clusters.
 
