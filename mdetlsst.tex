@@ -696,14 +696,36 @@ could mitigate this effect.  We may explore this more in a future work.
 
 \subsection{Results with Stars and Bleed Trails} \label{sec:results:full}
 
-\subsubsection{Dependence of Shear Bias on Stellar Density Cut} \label{sec:results:sdens}
-
 Our ``full'' simulation configuration included stars and bleed trails as
 described in \S \ref{sec:sim:stars} and \ref{sec:sim:satbleeds}, in addition to
-the features tested in the previous sections.  In figure \ref{fig:stardens} we
-show the multiplicative bias as a function of maximum stellar density and
-various cuts on the measured signal to noise ratio in addition to a cut on size
-ratio $T/T_{PSF} > 1.2$. \esstodo{describe results and also show with weights}
+the features tested in the previous sections.
+
+In the presence of stars we found a population of high ellipticity objects.
+These objects were usually spurious detections or blends with bright stars,
+found just outside our star masking radius (\footnote{Masa Yamamoto, private
+communication}.  We did not keep enough information to exclude these objects
+from our catalogs after the fact, and rerunning was prohibitive due to limited
+computing resources.  As a temporary solution we used a simple ellipticity
+dependent weight function \citep{ba14}
+\begin{equation}
+    W(|g|) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -e^2/2 \sigma^2\right]
+\end{equation}
+with $\sigma = 0.3$.  We found that using this weight function reduced the
+uncertainty of the shear recovery by 13\% and removed a small ($m ~ 0.001$)
+bias at low S/N.  In future work it will be important to use sufficient
+star masking and identify any problematic unmasked objects.
+
+
+\subsubsection{Dependence of Shear Bias on Stellar Density Cut} \label{sec:results:sdens}
+
+Including these spurious or badly measured objects increased
+the noise in the 
+
+
+In figure \ref{fig:stardens} we show the multiplicative bias as a function of
+maximum stellar density and various cuts on the measured signal to noise ratio
+in addition to a cut on size ratio $T/T_{PSF} > 1.2$. \esstodo{describe results
+and also show with weights}
 
 \begin{figure}
     % \includegraphics[width=\columnwidth]{{run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02}.pdf}
