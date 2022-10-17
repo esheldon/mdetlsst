@@ -700,32 +700,48 @@ Our ``full'' simulation configuration included stars and bleed trails as
 described in \S \ref{sec:sim:stars} and \ref{sec:sim:satbleeds}, in addition to
 the features tested in the previous sections.
 
-In the presence of stars we found a population of high ellipticity objects.
-These objects were usually spurious detections or blends with bright stars,
-found just outside our star masking radius (\footnote{Masa Yamamoto, private
-communication}.  We did not keep enough information to exclude these objects
-from our catalogs after the fact, and rerunning was prohibitive due to limited
-computing resources.  As a temporary solution we used a simple ellipticity
-dependent weight function \citep{ba14}
-\begin{equation}
-    W(|g|) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -e^2/2 \sigma^2\right]
-\end{equation}
-with $\sigma = 0.3$.  We found that using this weight function reduced the
-uncertainty of the shear recovery by 13\% and removed a small ($m ~ 0.001$)
-bias at low S/N.  In future work it will be important to use sufficient
-star masking and identify any problematic unmasked objects.
+\subsubsection{Weighting}
 
+We used a two part weight function, one part based on the shape noise
+and a second part to downweight a particular set of spurious objects.
+
+The primary weight was based on the intrinsice shape noise and shape
+measurement uncertainty
+\begin{equation}
+    W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_{\epsilon}^2}
+\end{equation}
+\esstodo{cite}
+where $\sigma_{SN}$ is the intrinsic ellipticity noise of the object
+and $\sigma_{epsilon}$ is the estimated uncertainty.  We find $\sigma_{SN}$
+before response correction is about 0.07.  The average response is about
+0.26 for this sample, implying the true shape noise is about 0.27.
+
+In the presence of stars we found a population of high ellipticity objects.
+These objects were usually spurious detections or blends of faint objects with
+bright stars, found just outside our star masking radius\footnote{Masaya
+Yamamoto, private communication}.  We did not keep enough information to
+exclude these objects from our catalogs after the fact, and rerunning was
+prohibitive due to limited computing resources.  As a temporary solution we
+included an additional ellipticity dependent weight function \citep{ba14}
+\begin{equation}
+    W_g(|g|) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -e^2/2 \sigma^2\right]
+\end{equation}
+with $\sigma = 0.3$, which downweights very high ellipticity objects.  We found
+that using this weight function reduced the uncertainty of the shear recovery
+by 13\% and removed a small ($m ~ 0.001$) bias at low S/N.  In future work it
+will be important to use sufficient star masking and identify any problematic
+unmasked objects.
+
+The total weight function was
+\begin{equation}
+    W = W_\sigma \times W_g
+\end{equation}
 
 \subsubsection{Dependence of Shear Bias on Stellar Density Cut} \label{sec:results:sdens}
 
-Including these spurious or badly measured objects increased
-the noise in the 
-
-
 In figure \ref{fig:stardens} we show the multiplicative bias as a function of
 maximum stellar density and various cuts on the measured signal to noise ratio
-in addition to a cut on size ratio $T/T_{PSF} > 1.2$. \esstodo{describe results
-and also show with weights}
+in addition to a cut on size ratio $T/T_{PSF} > 1.2$. \esstodo{describe results}
 
 \begin{figure}
     % \includegraphics[width=\columnwidth]{{run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02}.pdf}
@@ -738,8 +754,6 @@ and also show with weights}
 \subsubsection{Dependence of Shear Sensitivity on Object Selections}
 \label{sec:results:sdensnoise}
 
-\esstodo{add result with weights}
-
 We explored what set of cuts on stellar density and \snr\ resulted in the
 lowest relative noise in the recovered shear.  In order to get an accurate
 measure of the relative uncertainty, we did not cancel noise using the results
@@ -750,41 +764,41 @@ cuts.
 
 In figure \ref{fig:stardenserror} we show the uncertainty in the recovered
 shear as a function of maximum allowed stellar density and \snr\ cut, relative
-to the cuts that provide the lowest noise.  We find the lowest uncertainty for
-the case of maximum stellar density less than 60 per square arcminute and a
-minimum \snr\ of 12.5.  The dependence is fairly flat for \snr\ cuts above 12.5
-and stellar density above 40 per square arcminute.  We find that including
-higher stellar density areas reduces the noise, but with limited benefit beyond
-a density of about 40 stars per square arcminute.
+to the cuts that provide the lowest noise.
+
+We find the uncertainty decreases with the maximum allowed stellar density. The
+dependence on stellar density is fairly flat for \snr\ cuts above 12.5 and
+stellar density above 40 per square arcminute.  Including higher stellar
+density areas reduces the noise, but with limited benefit beyond a density of
+about 40 stars per square arcminute.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
 	\caption{\esstodo{caption}} \label{fig:stardenserror}
 \end{figure}
 
-
-Although we find no significant increase in shear bias when including images
-with higher stellar density, it may be beneficial to exclude them for other reasons,
-such as to reduce the impact of interstellar extinction or other sources of
-error that correlate with stellar density.  Such cuts could be tuned
-to provide a beneficial trade off between accuracy and shear sensitivity.
-
-We find that including detections with \snr\ as low 10 does not reduce the
+We found that including detections with \snr\ as low 10 does not reduce the
 shear uncertainty compared to cutting at 12.5 or 15.  It may seem surprising
-that including more resulted in a noisier measurement.  This can
-occur with \mcal\ because the shear estimator involves dividing by the mean
-response, which is typically smaller and noisier for lower \snr\ objects.
-However, we have two notes on this.  First, we did not use any explicit
-weighting of the ellipticities when calculating the mean shear.   It may be
-that a smooth weight that is a function of \snr, $T$, and other relevant
-parameters will provide a better sensitivity \esstodo{cite Y3 paper weighting}.
-Second, these results will vary significantly with the measurement type, for
-example the specific weight function used or the model that is fitted,
-each of which will provide a different estimate of the \snr.
+that including more objects resulted in a noisier measurement.  This can occur
+with \mcal\ because the shear estimator involves dividing by the mean response,
+which is typically smaller and noisier for lower \snr\ objects.  However, we
+have two notes on this.  First, it may be that an optimized weight that is a
+function of \snr, $T$, and other relevant parameters will provide a better
+sensitivity \esstodo{cite Y3 paper weighting}.  Second, these results will vary
+significantly with the measurement type, for example the specific weight
+function used to measure moments, or the model that is fitted, each of which
+will provide a different estimate of the \snr.
+
+\subsubsection{Discussion of Practical Stellar Density Cuts}
+
+Although we found no significant increase in shear bias when including images
+with higher stellar density, nor did we see degradation in the statistical
+uncertainty, it may be beneficial to exclude them for other reasons, such as to
+reduce the impact of interstellar extinction or other sources of error that
+correlate with stellar density.  Such cuts could be tuned to provide a
+beneficial trade off between accuracy and shear sensitivity.
 
 \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
-
-\esstodo{add with weights}
 
 The absolute uncertainties presented above were artificially reduced due to
 the noise canceling effect (see \S \ref{sec:running}).  In order to estimate
@@ -792,23 +806,22 @@ the noise we expect for LSST, we used measurements from just one of the two
 paired images.
 
 For the results shown in \S \ref{sec:results:full}, we simulated approximately
-22,000 square degrees of images, with about 6\% of that area masked due to
-bright stars and defects.  We converted the measured variance to an
-effective density using a simple formula \esstodo{citation for equation?}
+41,600 square degrees of images, with about 6\% of that area masked due to
+bright stars and defects.  We cut to a maximum stellar density of 60 per square
+arcminute, and remove fields with overall masking greater than 10\%, which
+leaves a final area of $A \sim 32,100$ square degrees.  We converted the measured
+variance to an effective density using a simple formula
 \begin{equation} \label{eq:neff}
-    n_{\mathrm{eff}} = \frac{\sigma^2_{SN}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
+    n_{\mathrm{eff}} = \frac{\sigma^2_{e}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
 \end{equation}
-In equation \ref{eq:neff}, $R \sim 0.264$ is the scalar response from averaging
-the diagonal components of the response matrix, $\sigma_{SN} \sim 0.120$ is the
-shape noise for our catalog after cuts, $\sigma_{\gamma} \sim 8.05 \times
-10^{-6}$ is the $1-\sigma$ uncertainty in the recovered shear without noise cancellation,
-and $A \sim 22,000 \times 0.94 = 20680$ is the effective simulated area after
-masking.  We find $n_\mathrm{eff} \sim 43$
-per square arcminute for basic cuts (see \S \ref{sec:results:more}), and a cut
-on stellar density of 60 per square arcminute, and no explicit weighting
-scheme.  The effective density will vary with the choice of ellipticity
-estimate, and may be improved with optimized weights.
-
+In equation \ref{eq:neff}, $R \sim 0.242$ is the scalar response from averaging
+the diagonal components of the response matrix, $\sigma_{SN} \sim 0.098$ is the
+total, weighted ellipticity standard deviation for our catalog after cuts and
+$\sigma_{\gamma} \sim 5.88 \times 10^{-6}$ is the $1-\sigma$ uncertainty in the
+recovered shear without noise cancellation.  We find $n_\mathrm{eff} \sim 41$
+per square arcminute for the basic cuts (see \S \ref{sec:results:more}).
+The effective density will vary with the choice of ellipticity estimate, and
+may be improved with optimized weights.
 
 \section{Summary} \label{sec:summary}
 
