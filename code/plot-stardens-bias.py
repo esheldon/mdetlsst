@@ -105,6 +105,7 @@ def key2label(key):
     ]
     return ' '.join(ks)
 
+
 def do_error_plot_both(fname, data, wdata):
 
     alpha = 0.5
@@ -166,7 +167,7 @@ def do_error_plot(fname, wdata):
         xlabel='Maximum stellar density [per sq. arcmin]',
         ylabel=r'$\sigma(\gamma) / \sigma_{min}(\gamma)$',
         xlim=(-5, 110),
-        ylim=(0.95, 1.55),
+        ylim=(0.95, 1.65),
     )
 
     ax.axhline(1, color='black', lw=0.5)
@@ -338,20 +339,20 @@ def do_bias_plot(fname, wdata):
 
 def main():
 
-    data = read_data(
-        path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02',
-        weighted=False, nocancel=False,
-    )
-    nc_data = read_data(
-        path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02',
-        weighted=False, nocancel=True,
-    )
+    # data = read_data(
+    #     path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02',
+    #     weighted=False, nocancel=False,
+    # )
+    # nc_data = read_data(
+    #     path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02',
+    #     weighted=False, nocancel=True,
+    # )
     wdata = read_data(
-        path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02-weight',
+        path='data/run-riz-drcbWsBPv0.1-cells2-s2n-imfrac0.10-mfrac0.02-weight-sn0.07',  #  noqa
         weighted=True, nocancel=False,
     )
     nc_wdata = read_data(
-        path='data/run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02-weight',
+        path='data/run-riz-drcbWsBPv0.1-cells2-s2n-imfrac0.10-mfrac0.02-weight-sn0.07',  # noqa
         weighted=True, nocancel=True,
     )
 
