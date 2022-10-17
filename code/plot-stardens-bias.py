@@ -105,8 +105,7 @@ def key2label(key):
     ]
     return ' '.join(ks)
 
-
-def do_error_plot(fname, data, wdata):
+def do_error_plot_both(fname, data, wdata):
 
     alpha = 0.5
     fig = pplt.figure(refwidth=WIDTH, refaspect=ASPECT, spany=True)
@@ -155,7 +154,54 @@ def do_error_plot(fname, data, wdata):
     fig.savefig(fname)
 
 
-def do_bias_plot(fname, data, wdata):
+def do_error_plot(fname, wdata):
+
+    alpha = 0.5
+    fig = pplt.figure(refwidth=WIDTH, refaspect=ASPECT, spany=True)
+    ax = fig.subplots()
+    ax.format(
+        # abc='a)', abcloc='ul',
+        # abc_kw={'color': 'dark red'},
+        # abcbbox=True,
+        xlabel='Maximum stellar density [per sq. arcmin]',
+        ylabel=r'$\sigma(\gamma) / \sigma_{min}(\gamma)$',
+        xlim=(-5, 110),
+        ylim=(0.95, 1.55),
+    )
+
+    ax.axhline(1, color='black', lw=0.5)
+
+    lw = 1
+    errvals = []
+    for key in wdata:
+        mdata = wdata[key]
+        errvals += list(mdata['m1err'])
+
+    minval = min(errvals)
+    for i, key in enumerate(sorted(wdata)):
+        mdata = wdata[key]
+
+        label = key2label(key)
+
+        ax.plot(
+            mdata['sdens'],
+            mdata['m1err']/minval,
+            linestyle=LINESTYLES[i],
+            lw=lw,
+            color=COLORS[i],
+            marker=MARKERS[i],
+            markeredgecolor='black',
+            markersize=4,
+            label=label,
+            alpha=alpha,
+        )
+
+    ax.legend(ncol=1, pad=1)
+    print('writing:', fname)
+    fig.savefig(fname)
+
+
+def do_bias_plot_both(fname, data, wdata):
 
     alpha = 0.3
 
@@ -223,6 +269,73 @@ def do_bias_plot(fname, data, wdata):
     fig.savefig(fname)
 
 
+def do_bias_plot(fname, wdata):
+
+    alpha = 0.3
+
+    fig = pplt.figure(refwidth=WIDTH, refaspect=ASPECT, spany=True)
+    ax = fig.subplots()
+    ax.format(
+        # abc='a)', abcloc='ul',
+        # abc_kw={'color': 'dark red'},
+        # abcbbox=True,
+        xlabel='Maximum stellar density [per sq. arcmin]',
+        ylabel='m / 0.001',
+        xlim=(-5, 110),
+        ylim=(-2.9, 3.9),
+    )
+    hatches = [
+        None,
+        '//',
+        '\\\\',
+        '||',
+        # '-',
+        # '+',
+        # 'x',
+        # 'o',
+        # 'O',
+        # '.',
+        # '*',
+        None,
+    ]
+    lw = 1
+
+    lim = 1
+    lcolor = 'sienna'
+    ax.axhline(0, color='black', lw=0.5)
+    ax.axhline(-lim, color=lcolor, linestyle='dashed', lw=lw)
+    ax.axhline(+lim, color=lcolor, linestyle='dashed', lw=lw)
+
+    ax.axhline(
+        0.4, color='sand', lw=lw, alpha=0.5, linestyle='dashdot',
+    )
+
+    for i, key in enumerate(sorted(wdata)):
+        mdata = wdata[key]
+
+        label = key2label(key)
+
+        ax.fill_between(
+            mdata['sdens'],
+            mdata['m1high'] / 0.001,
+            mdata['m1low'] / 0.001,
+            label=label,
+            alpha=alpha,
+            color='black',
+            hatch=hatches[i],
+        )
+
+    ax.legend(ncol=2, pad=1)
+
+    ax.text(
+        50, -2,
+        r'99.7\% confidence range',
+    )
+
+    print('writing:', fname)
+    fig.savefig(fname)
+
+
 def main():
 
     data = read_data(
@@ -242,8 +355,10 @@ def main():
         weighted=True, nocancel=True,
     )
 
-    do_bias_plot('stardens-bias.pdf', data, wdata)
-    do_error_plot('stardens-nocancel-error.pdf', nc_data, nc_wdata)
+    # do_bias_plot('stardens-bias-both.pdf', data, wdata)
+    do_bias_plot('stardens-bias.pdf', wdata)
+    do_error_plot('stardens-nocancel-error.pdf', nc_wdata)
+    # do_error_plot_both('stardens-nocancel-error-both.pdf', nc_data, nc_wdata)
 
 
 main()

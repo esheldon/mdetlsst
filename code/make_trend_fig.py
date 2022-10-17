@@ -46,7 +46,7 @@ def do_Tratio_bias_plot(ax):
         xlabel='Minimum $T/T_{PSF}$',
         ylabel='m / 0.001',
         xlim=(1.15, 1.55),
-        ylim=(-3, 3),
+        ylim=(-2.5, 2.5),
     )
 
     Tratios = [1.2, 1.3, 1.4, 1.5]
@@ -130,7 +130,7 @@ def do_s2n_bias_plot(ax):
         xlabel='Minimum S/N',
         ylabel='m / 0.001',
         xlim=(9, 21),
-        ylim=(-3, 3),
+        ylim=(-2.5, 2.5),
     )
 
     s2ns = [10, 12.5, 15, 20]
@@ -201,13 +201,13 @@ def do_s2n_bias_plot(ax):
 
     ax.text(
         15,
-        2,
+        1.6,
         r'99.7\% confidence range',
     )
     ax.legend(
         loc='lower right',
         ncol=1,
-        pad=1,
+        pad=.5,
     )
 
 

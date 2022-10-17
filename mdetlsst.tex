@@ -3,14 +3,16 @@
 
 % apj
 %\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{emulateapj}
-\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{hackemulateapj}
+%\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{hackemulateapj}
 %\documentclass{emulateapj}
+\documentclass[twocolumn,twocolappendix,astrosym]{openjournal}
 
 %=====================================================================
 % CUSTOM: PACKAGES, MACROS & SETTINGS
 %=====================================================================
 % packages for figures
-\usepackage{graphicx,todonotes}
+%\usepackage{graphicx,todonotes}
+\usepackage{graphicx}
 
 % packages for symbols
 \usepackage{latexsym,amssymb}
@@ -19,9 +21,10 @@
 \usepackage{amsmath,morefloats}
 \usepackage[backref,breaklinks,colorlinks,citecolor=blue]{hyperref}
 \usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor}
-%\usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor,hyperref}
 \usepackage{verbatim}
 \usepackage{threeparttable}
+
+%\usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor,hyperref}
 
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
@@ -34,14 +37,8 @@
 
 \topmargin-1cm
 
-\newcommand\notedo[1]{\todo[color=yellow, inline, size=\small]{To do:#1}}
-\newcommand\notewrite[1]{\todo[color=orange, inline, size=\small]{To write: #1}}
-\newcommand\noteask[1]{\todo[color=cyan, inline, size=\small]{To ask: #1}}
-\newcommand\notecontrib[1]{\todo[color=green, inline, size=\small]{Contributors: #1}}
 \newcommand{\mrbtodo}[1]{\textcolor{red}{[MRB TODO: \bf #1]}}
 \newcommand{\esstodo}[1]{\textcolor{orange}{[ESS TODO: \bf #1]}}
-\newcommand{\ess}[1]{\textcolor{blue}{[ESS: \bf #1]}}
-\newcommand{\mrb}[1]{\textcolor{purple}{[MRB: \bf #1]}}
 
 \newcommand{\descwl}{\texttt{WeakLensingDeblending}}
 
@@ -144,26 +141,24 @@
 
 \section{Simulation Features} \label{sec:sim}
 
-The basic simulation was similar to that created for the \mdet\ \citep{mdet20}
-and by \citet{BeckerMdetCoadd} when testing the coadding algorithms for \mdet\ used
-in this work. We added additional
-features related to saturated stars which we will describe in the following
-sections.  All images were rendered using the \galsim\ python package \esstodo{
-cite galsim}.
+The basic simulation was similar to that created for \citep{mdet20} and
+\citet{BeckerMdetCoadd}. We added additional features related to saturated
+stars which we will describe in the following sections.  All images were
+rendered using the \galsim\ python package \esstodo{ cite galsim}.
 
-We simulated what are known in the LSST data management system (\dm, version 0.2021.32, \esstodo{cite}
-as calibrated exposure images.  This data is stored in a \calexp\ data
-structure, which carries a calibrated, background subtracted image, along with
-an estimated noise variance image plane, world coordinate system transformation
-(WCS) and position dependent PSF model.  Problem areas associated with
-saturation, cosmic rays, and bad columns are marked as separate bits in an
-integer big mask image plane.
+We simulated what are known in the LSST data management system (\dm, version
+0.2021.32, \esstodo{cite}) as calibrated exposure images.  This data is stored
+in a \calexp\ data structure, which carries a calibrated, background subtracted
+image, along with an estimated noise variance image plane, world coordinate
+system transformation (WCS) and position dependent PSF model.  Problem areas
+associated with saturation, cosmic rays, and bad columns are marked as separate
+bits in an integer bit mask image plane.
 
 Other than background esimation errors (see \S \ref{sec:sim:bgerr}), we did not
 test scenarios where the input data were mis-calibrated.  For example we did
-not test the bias due to an incorrect PSF model, mis-estimated noise or bad
+not test the consequences of an inaccurate PSF models, noise estimates or
 photometric calibration.  Our motivation was to test the performance of \mdet\
-using well understood data.
+using well characterized data.
 
 For this work, we used the newly written simulation package
 \texttt{descwl-shear-sims} version
@@ -358,7 +353,7 @@ Coadds can be used for shear measurement \esstodo{cite bob's paper}, but we
 require that the coadded images have a continuous PSF in order to faciliate
 accurate PSF modeling.  Images that have an edge in the coadd region must be
 rejected.  Smaller coadds result in fewer images being rejected, but very small
-coadds would complicate object identification deblending.  For LSST, we plan to
+coadds would complicate object identification and deblending.  For LSST, we plan to
 use relatively small (250x250 pixels) overlapping (50 pixels) coadded regions
 for shear measurement, which we call ``cells'' \esstodo{cite}.
 
@@ -723,11 +718,13 @@ ratio $T/T_{PSF} > 1.2$. \esstodo{describe results and also show with weights}
 
 \esstodo{add result with weights}
 
-We explored what set of cuts on stellar density and \snr\ result in the lowest
-noise in the recovered shear.  For our measure of uncertainty we used only one
-of the paired images used for noise cancellation.  This is because the noise
-cancellation is more effective for higher \snr\ objects, resulting in smaller
-uncertainties for higher minimum \snr\ cuts, which is not true for real data.
+We explored what set of cuts on stellar density and \snr\ resulted in the
+lowest relative noise in the recovered shear.  In order to get an accurate
+measure of the relative uncertainty, we did not cancel noise using the results
+from paired images.  The noise cancellation is most effective for higher \snr\
+objects that are more likely to be detected in both of the paired images, which
+would results in artificially smaller uncertainties for higher minimum \snr\
+cuts.
 
 In figure \ref{fig:stardenserror} we show the uncertainty in the recovered
 shear as a function of maximum allowed stellar density and \snr\ cut, relative
@@ -767,9 +764,10 @@ each of which will provide a different estimate of the \snr.
 
 \esstodo{add with weights}
 
-The uncertainties presented thus far are artificially reduced due to the noise
-canceling effect (see \S \ref{sec:running}).  In order to estimate the noise
-we expect for LSST, we used measurements from just one of the two paired images.
+The absolute uncertainties presented above were artificially reduced due to
+the noise canceling effect (see \S \ref{sec:running}).  In order to estimate
+the noise we expect for LSST, we used measurements from just one of the two
+paired images.
 
 For the results shown in \S \ref{sec:results:full}, we simulated approximately
 22,000 square degrees of images, with about 6\% of that area masked due to
