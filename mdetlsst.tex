@@ -702,40 +702,43 @@ the features tested in the previous sections.
 
 \subsubsection{Weighting}
 
-We used a two part weight function, one part based on the shape noise
-and a second part to downweight a particular set of spurious objects.
+We used a two part weight function
+\begin{equation}
+    W(\sigma_g, |g|) = W_\sigma (\sigma_g) \times W_g(|g|)
+\end{equation}
+with $W_\sigma$ based on the shape noise and $W_g$ designed to downweight a
+particular set of spurious objects.
 
 The primary weight was based on the intrinsice shape noise and shape
-measurement uncertainty
+measurement uncertainty, and is designed to be an optimal weight in the
+scenario that the only source of uncertainty is the intrinsic shape noise 
+and measurement error
 \begin{equation}
-    W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_{\epsilon}^2}
+    W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_g^2},
 \end{equation}
 \esstodo{cite}
-where $\sigma_{SN}$ is the intrinsic ellipticity noise of the object
-and $\sigma_{epsilon}$ is the estimated uncertainty.  We find $\sigma_{SN}$
+where $\sigma_{SN}$ is the intrinsic ellipticity noise of the population
+and $\sigma_g$ is the estimated uncertainty.  We find $\sigma_{SN}$
 before response correction is about 0.07.  The average response is about
-0.26 for this sample, implying the true shape noise is about 0.27.
+0.242 for this sample, implying the true shape noise is about 0.29.
 
-In the presence of stars we found a population of high ellipticity objects.
-These objects were usually spurious detections or blends of faint objects with
-bright stars, found just outside our star masking radius\footnote{Masaya
-Yamamoto, private communication}.  We did not keep enough information to
-exclude these objects from our catalogs after the fact, and rerunning was
-prohibitive due to limited computing resources.  As a temporary solution we
-included an additional ellipticity dependent weight function \citep{ba14}
+In the presence of stars we found an unexpected population of high ellipticity
+objects.  These objects were usually spurious detections or blends of faint
+objects with bright stars, found just outside our star masking
+radius\footnote{Masaya Yamamoto, private communication}.  We did not keep
+enough information in the output files to exclude these objects from our
+catalogs after the fact, and rerunning was prohibitive due to limited computing
+resources.  As a temporary solution we included an additional ellipticity
+dependent weight function \citep{ba14}
 \begin{equation}
-    W_g(|g|) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -e^2/2 \sigma^2\right]
+    W_g(|g|) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -g^2/2 \sigma_w^2\right]
 \end{equation}
-with $\sigma = 0.3$, which downweights very high ellipticity objects.  We found
-that using this weight function reduced the uncertainty of the shear recovery
-by 13\% and removed a small ($m ~ 0.001$) bias at low S/N.  In future work it
-will be important to use sufficient star masking and identify any problematic
-unmasked objects.
-
-The total weight function was
-\begin{equation}
-    W = W_\sigma \times W_g
-\end{equation}
+where $g$ is the total scalar shape $g = \sqrt{g_1^2 + g_2^2}$.  We
+took $\sigma_w = 0.3$, which downweights very high ellipticity objects.  We
+found that using this weight function reduced the uncertainty of the shear
+recovery by 13\% and removed a small ($m ~ 0.001$) bias at low S/N.  In future
+work it will be important to use sufficient star masking and identify any
+problematic unmasked objects.
 
 \subsubsection{Dependence of Shear Bias on Stellar Density Cut} \label{sec:results:sdens}
 
