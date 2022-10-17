@@ -199,13 +199,13 @@ For our basic PSF model we used a Moffat profile \citep{Moffat1969} with
 shape parameter $\beta=2.5$ and full width at half maximum (FWHM) of 0.8 arcseconds.
 
 We also generated spatially variable PSF models using the methods described in
-Appendix~A of \citet{SheldonMdet2020} based on work by \citet{heymans2012}.
+Appendix~A of \citet{mdet20} based on work by \citet{heymans2012}.
 \citet{heymans2012} used images with high stellar density to fit a \vonkarman\
-model of atmospheric turbulence to the PSF variation. \citet{SheldonMdet2020}
+model of atmospheric turbulence to the PSF variation. \citet{mdet20}
 used this model, with a modification to reduce power below 1'', to generate
 realizations of spatially variable PSFs using Gaussian random fields. The PSF
 model is a Moffat \citep{Moffat1969} profile with shape parameter $\beta=2.5$
-and variable size and shape. In \citet{SheldonMdet2020} this approximate
+and variable size and shape. In \citet{mdet20} this approximate
 variable PSF model was compared to detailed atmospheric and optics simulations.
 It's parameters were set to generate the typical spatial PSF variance than one
 expects for Rubin exposures. The median FWHM of the generated PSFs was 0.8
@@ -528,7 +528,7 @@ y)$ with FWHM=1.2 arcseconds.  We recorded the flux,
 S/N, second moments, and ellipticity derived from the second moments:
 \begin{eqnarray} \label{eq:moments}
     F &=& \sum G(x, y) I(x, y) \nonumber \\
-    \sigma^2(F) &=& \sum \sigma^2(I(x, y)) \nonumber \\
+    \sigma^2(F) &=& \sum G(x, y)^2 \sigma^2(I(x, y)) \nonumber \\
     T &=& \sum G(x, y) I(x, y) ~ (x^2 + y^2) \nonumber \\
     M_1 &=& \sum G(x, y) I(x, y) ~ (x^2 - y^2) \\
     M_2 &=& \sum G(x, y) I(x, y) ~ 2 x y \nonumber \\
@@ -543,7 +543,7 @@ relative to the center found during detection.  Note in practice we weight each
 pixel in the sum by the inverse noise variance. However, the noise variance is
 nearly constant across the coadd so this is only relevant for masked, zero
 weight pixels.  Note $T$ is an estimate of the observed square size of
-the, not the pre-PSF size.
+the object, not the pre-PSF size.
 
 We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
@@ -559,7 +559,7 @@ runs on computing clusters.
 In all cases we used a constant shear, with possible random orientations for
 each simulated scene (see \S \ref{sec:sim:shears}).  We simulated each scene
 with equal but opposite shears in order to implement the noise canceling method
-of \citep{pujol2019}.  For randomized shear directions, the shape measurements
+of \cite{pujol2019}.  For randomized shear directions, the shape measurements
 from different scenes where placed in a common reference frame before averaging
 to get a mean shear.
 
