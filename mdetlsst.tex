@@ -306,25 +306,25 @@ small.
 \subsection{Galaxies} \label{sec:sim:galaxies}
 
 We used the \descwl\ package to generate galaxy models \esstodo{cite}.  These
-elliptical, color models have bulge, disk and AGN components. We performed the
-drawing of these models in our code in order to enable the use of our on PSF
-models (see \S \ref{sec:sim:psfs}, and to allow for more efficient drawing.
+elliptical, color models have bulge, disk and AGN components.  Rather than use
+the \descwl\ package to draw the models in the image, we drew the models in our
+code in order to enable the use of our own PSF models (see \S
+\ref{sec:sim:psfs}, and to allow for more efficient drawing.
 
-We also performed simulation runs with one component, round exponential
+We also performed simulation runs with single component, round exponential
 galaxies with fixed flux and size.  These models are useful for shear recovery
 tests that do not require a realistic galaxy population, but benefit from using
-low shape noise shear tracers.  These models were most often used as moderately
-fast, full shear recovery tests, to further test code changes
-that have already passed the fast unit tests.
+low shape noise shear tracers.  These models were often used for moderately
+fast, full shear recovery tests, to further verify code changes that had
+already passed the faster unit tests.
 
 \subsection{Layouts} \label{sec:sim:layouts}
 
 We ran tests with both random and gridded galaxy layouts.  The random layout
-was used with the realistic galaxy population, and the density of objects
+was used with the realistic galaxy population, with a density of objects that
 reflected the expected density of galaxies as defined in the \descwl\ package.
-
 The grid was used with the simple, round exponential galaxies to facilitate
-moderately fast shear recovery tests.  The grid is square, with spacing
+moderately fast shear recovery tests.  The grid was square, with spacing
 designed to avoid overlap between adjacent galaxies, and thus avoid blending
 effects.
 
@@ -355,7 +355,9 @@ accurate PSF modeling.  Images that have an edge in the coadd region must be
 rejected.  Smaller coadds result in fewer images being rejected, but very small
 coadds would complicate object identification and deblending.  For LSST, we plan to
 use relatively small (250x250 pixels) overlapping (50 pixels) coadded regions
-for shear measurement, which we call ``cells'' \esstodo{cite}.
+for shear measurement, which we call ``cells'' \esstodo{cite} because the
+are small subregions of the larger ``tract'' regions defined within the
+\dm\ framework.
 
 We ran simulations with and without cells in order control for issues specific
 to the cell processing and trimming of objects to non overlapping regions.  We
@@ -396,13 +398,13 @@ For coaddition, we used the package \texttt{descwl\_coadd} version
 \texttt{AccumulatorMeanStack} from \texttt{lsst.meas.algorithms} sub package.
 We used an inverse variance weighting, based on the noise in the image.
 
-Before warping, we interpolated artifacts such as cosmic rays, bad columns, and
-saturated pixels.  The interpolation and warping modifies the noise properties
-of the image.  Thus, for accurate \mcal\ noise corrections (see \S
-\ref{sec:sim:noiseimages}) we must also run the noise image through the same
-procedures.  Rather than use the \dm\ codes, we performed all interpolation of
-artifacts and saturated regions using the \texttt{CloughTocher2DInterpolator}
-from the scipy software
+Before warping, we interpolated the simulated artifacts in each image such as
+cosmic rays, bad columns, and saturated pixels.  The interpolation and warping
+modifies the noise properties of the image.  Thus, for accurate \mcal\ noise
+corrections (see \S \ref{sec:sim:noiseimages}) we must also run the noise image
+through the same procedures.  Rather than use the \dm\ codes, we performed all
+interpolation of artifacts and saturated regions using the
+\texttt{CloughTocher2DInterpolator} from the scipy software
 package\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CloughTocher2DInterpolator.html}}.
 We used this interpolation because the \dm\ cosmic ray interpolation available
 at the time of writing is intertwined with the detection of cosmic rays, so
