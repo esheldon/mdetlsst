@@ -568,6 +568,9 @@ to get a mean shear.
 
 We estimated the uncertainty in the averaged shear measurements using a
 jackknife technique, with chunks defined as a few tens to hundreds of scenes.
+The jackknife technique gives a significantly larger uncertainty than a
+straight error propagation using the shape noise due to extra sources of error
+associated with masking, deblending and variable response.
 
 \section{Results} \label{sec:results}
 
@@ -650,7 +653,7 @@ We ran the simulation with realistic galaxies, random layout, image
 artifacts, and background subtraction errors, as listed in \S \ref{sec:sim}.
 
 For the realistic galaxy configuration, we adopted a basic set of cuts
-\begin{eqnarray}
+\begin{eqnarray} \label{eq:basiccuts}
     \mathrm{S/N} & > & 12.5 \\
     T/T_{PSF} & > & 1.2
 \end{eqnarray}
@@ -806,9 +809,9 @@ We find the uncertainty decreases with the maximum allowed stellar density. The
 dependence on stellar density is fairly flat for stellar density above 40 per
 square arcminute.  Including higher stellar density areas reduces the noise,
 but with limited benefit beyond a density of about 40 stars per square
-arcminute.  This is partly due to the relatively large amount of area masked in
-the images, as well as the fact that  arelatively small fraction of the
-simulated area that had high stellar density.
+arcminute.  A relatively small fraction of the simulated area has high stellar
+density, and fields with high stellar density tend to have a relatively large
+area masked due to stars.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
@@ -844,28 +847,34 @@ beneficial trade off between accuracy and shear sensitivity.
 
 \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
 
-The absolute uncertainties presented above were artificially reduced due to
-the noise canceling effect (see \S \ref{sec:running}).  In order to estimate
-the noise we expect for LSST, we used measurements from just one of the two
-paired images.
+% The absolute uncertainties presented above were artificially reduced due to
+% the noise canceling effect (see \S \ref{sec:running}).  In order to estimate
+% the noise we expect for LSST, we used measurements from just one of the two
+% paired images.
 
-For the results shown in \S \ref{sec:results:full}, we simulated approximately
-41,600 square degrees of images, with about 6\% of that area masked due to
-bright stars and defects.  We cut to a maximum stellar density of 60 per square
-arcminute, and remove fields with overall masking greater than 10\%, which
-leaves a final area of $A \sim 32,100$ square degrees.  We converted the measured
-variance to an effective density using a simple formula
+We can convert the shear sensitivity to an effective number density if we know the
+area imaging used and weighted shape noise.  In our case we inferred the
+sensitivity using a jackknife technique to account for all sources of
+uncertainty, including deblending, masking, and variations in the response.
+Thus a formula based on naive error propagation will not suffice.  Instead we
+define the effective number density explicitly as a quantity relating
+the measured jackknifed uncertainty to the weighted shape noise
 \begin{equation} \label{eq:neff}
     n_{\mathrm{eff}} = \frac{\sigma^2_{e}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
 \end{equation}
-In equation \ref{eq:neff}, $R \sim 0.242$ is the scalar response from averaging
-the diagonal components of the response matrix, $\sigma_{SN} \sim 0.098$ is the
-total, weighted ellipticity standard deviation for our catalog after cuts and
-$\sigma_{\gamma} \sim 5.88 \times 10^{-6}$ is the $1-\sigma$ uncertainty in the
-recovered shear without noise cancellation.  We find $n_\mathrm{eff} \sim 41$
-per square arcminute for the basic cuts (see \S \ref{sec:results:more}).
-The effective density will vary with the choice of ellipticity estimate, and
-may be improved with optimized weights.
+In equation \ref{eq:neff}, $\sigma_e \sim 0.098$ is the weighted standard
+deviation of the ellipticity for our catalog after applying the basic cuts in
+equation \ref{eq:basiccuts} and the cuts below, $\sigma_\gamma \sim 5.88
+\times 10^{-6}$ is the jackknifed shear uncertainty without noise cancellation,
+$R \sim 0.242$ is the mean shear response, and $A$ is the simulated area after masking
+and removing high density regions.    The raw area was about 41,600 square
+degrees to 10 year LSST depth. About 6\% of that area was masked due to bright
+stars and defects.  We cut to a maximum stellar density of 60 per square
+arcminute, and removed fields with overall masking greater than 10\%, which
+leaves a final area of $A \sim 32,100$ square degrees.  
+We find $n_\mathrm{eff} \sim 41$ per square arcminute for the basic cuts (see
+\S \ref{sec:results:more}).  The effective density will vary with the choice of
+ellipticity estimate, and may be improved with optimized weights.
 
 \section{Summary} \label{sec:summary}
 
