@@ -584,17 +584,17 @@ response.
 In this section we present the results for various simulation and analysis
 configurations.
 
-We consider our ``base'' simulation to be one with fixed size, high S/N, round
+We identify our ``base'' simulation as one with fixed size, high S/N, round
 galaxies on a grid layout, which provides the highest signal-to-noise ratio for
 the shear recovery. From the results in \citet{mdet20}, we expect a small bias
 in this configuration due to higher order shear effects (see \S
 \ref{sec:results:base}).
 
-We performed shear recovery with each additional feature separately in order to
+We performed shear recovery turning on each feature successively in order to
 isolate the cause of potential biases.  We found a bias only in the case of
 extreme spatial PSF variation with few simulated epochs (see \S
-\ref{sec:results:psfvar}).  We present results with all simulated features in
-\S \ref{sec:results:cells}.
+\ref{sec:results:psfvar}).  We present results including all simulation
+features in \S \ref{sec:results:cells}.
 
 To characterize the bias, we assume a simple linear model \citep[see,
 e.g.,][]{heymans2006} for estimating a bias in the recovered shear
@@ -613,15 +613,14 @@ effects, we ran a simulation with fixed, round exponential, S/N $= 10,000$,
 half light radius 0.5 arcsecond galaxies placed in the grid layout (see
 sections \ref{sec:sim:galaxies} and \ref{sec:sim:layouts}) with image dithers
 and rotations.  In order to make the test as efficient as possible, we used
-only the $i$ band with a single image ``epoch'', but with noise approximating
-the full expected LSST 10 years of combined $r, i, z$ band data.  We used a
-fixed Moffat PSF\citep{Moffat1969} with FWHM=0.8.  We expect a bias $m$ of a
-few parts in ten thousand for this sim \citep{SheldonMcal2017}.  We found a
-bias of $4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\%~confidence),
-consistent with our expectations.
+only the $i$ band with a single image ``epoch''.  We used a fixed Moffat
+PSF\citep{Moffat1969} with FWHM=0.8.  We expect a bias $m$ of a few parts in
+ten thousand for this sim \citep{SheldonMcal2017}.  We found a bias of
+$4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\%~confidence), consistent
+with our expectations.
 
 We reran this simulation after all major code updates as a kind of extended
-unit test to look for bugs and regressions.
+unit test to expose bugs and regressions.
 
 \subsection{PSF Variation} \label{sec:results:psfvar}
 
