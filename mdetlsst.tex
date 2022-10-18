@@ -565,18 +565,19 @@ We used the ``wrapper'' package \texttt{mdet-lsst-sim} version
 simulation, coaddition and \mdet, and to organize, submit and collate large
 runs on computing clusters.
 
-In all cases we used a constant shear, with possible random orientations for
-each simulated scene (see \S \ref{sec:sim:shears}).  We simulated each scene
-with equal but opposite shears in order to implement the noise canceling method
-of \cite{pujol2019}.  For randomized shear directions, the shape measurements
-from different scenes where placed in a common reference frame before averaging
-to get a mean shear.
+In all cases we used a constant shear, with possible random shear orientations
+for each simulated scene (see \S \ref{sec:sim:shears}).  We simulated each
+scene twice, with equal but opposite shears, in order to implement the noise
+canceling method of \cite{pujol2019}.  For randomized shear directions, the
+shape measurements from different scenes where placed in a common reference
+frame before averaging to get a mean shear.
 
 We estimated the uncertainty in the averaged shear measurements using a
-jackknife technique, with chunks defined as a few tens to hundreds of scenes.
+jackknife technique (\esstodo{cite}), with chunks defined as a few tens to hundreds of scenes.
 The jackknife technique gives a significantly larger uncertainty than a
 straight error propagation using the shape noise due to extra sources of error
-associated with masking, deblending and variable response.
+associated with masking, deblending, stellar contamination and variable
+response.
 
 \section{Results} \label{sec:results}
 
