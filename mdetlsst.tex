@@ -548,11 +548,11 @@ S/N, second moments, and ellipticity derived from the second moments:
 where $I(x, y)$ is the intensity of the image, and $\sigma^2(I(x, y))$ is the
 noise variance. The sums run over all pixels in a 48x48 postage stamp image
 extracted around the object of interest.  The $x$ and $y$ coordinates are
-relative to the center found during detection.  Note in practice we weight each
-pixel in the sum by the inverse noise variance. However, the noise variance is
-nearly constant across the coadd so this is only relevant for masked, zero
-weight pixels.  Note $T$ is an estimate of the observed square size of
-the object, not the pre-PSF size.
+relative to the center found during detection.  Not shown in the sums is the
+weight for each pixel in the sum, which is the inverse of the pixel noise
+variance. However, the noise variance is nearly constant across the coadd so
+this is only relevant for masked, zero weight pixels.  Note $T$ is an estimate
+of the observed square size of the object, not the pre-PSF size.
 
 We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
