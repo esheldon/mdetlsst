@@ -553,6 +553,7 @@ weight for each pixel in the sum, which is the inverse of the pixel noise
 variance. However, the noise variance is nearly constant across the coadd so
 this is only relevant for masked, zero weight pixels.  Note $T$ is an estimate
 of the observed square size of the object, not the pre-PSF size.
+We also calculated variances for the moments and ellipticities.
 
 We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
@@ -624,31 +625,30 @@ unit test to expose bugs and regressions.
 
 \subsection{PSF Variation} \label{sec:results:psfvar}
 
-In order to measure the shear response, \mdet\ algorithm creates artificially
-sheared versions of each coadd image (see \S \ref{sec:mdet}).  This process
-involves deconvolving the image by the PSF (see \S \ref{sec:mdet}).  This would
-require a spatially dependent convolution kernel when the PSF has spatial
-variations.  However, due to the camera rotations, and large number of images
-used to make the coadd, we expect most of this PSF variation to be averaged
-down.  Thus the single coadded PSF that we generate at the coadd center (see \S
-\ref{sec:sim:psfs}) may be sufficient.
+In order to measure the shear response, the \mdet\ algorithm creates
+artificially sheared versions of each coadd image (see \S \ref{sec:mdet}).
+This process involves deconvolving the image by the PSF (see \S
+\ref{sec:mdet}).  This deconvolution would require a spatially dependent kernel
+for spatially varying PSFs.  However, due to the camera rotations, and large
+number of images used to make the coadd, we expect the variation in the final
+image to be significantly reduced.  Thus the single coadded PSF that we
+generate at the coadd center (see \S \ref{sec:sim:psfs}) may be sufficient.
 
 We ran the same grid simulation from \S \ref{sec:results:base} with the
 spatially varying PSF presented in \S \ref{sec:sim:psfs}. We used the $r, i, z$
-bands but with a single image epoch per band, with rotations and dithers, and
-again with noise corresponding to the full LSST 10 year coadded data.  We
+bands but with a single image epoch per band, with rotations and dithers.  We
 did not see any increase in the bias.   We interpret this result to indicate
 that the PSF variation is small enough that our single coadded PSF is
 sufficient, even with a single image per band.
 
 We also ran with the same simulation configuration, but with ten times the
-expected PSF variation. In this case, for a single, full depth image per band,
-we found a small increase in the bias $m \sim 0.0016$.  However, after
-increasing the number of simulated epochs per band to ten, we no longer found
-this extra bias.  We interpret this to mean that more epochs are required to
-cancel out very large PSF variations.  LSST will take hundreds of images in
-each band (\esstodo{cite}), so we do no expect PSF variation to be a
-significant source of bias.
+expected PSF variation. In this case, for a single image per band, we found a
+small increase in the bias $m \sim 0.0016$.  However, after increasing the
+number of simulated epochs per band to ten but with the same final coadd noise
+level, we no longer found this extra bias.  We interpret this to mean that more
+epochs are required to cancel out very large PSF variations.  LSST will take
+hundreds of images in each band (\esstodo{cite}), so we do no expect PSF
+variation to be a significant source of bias.
 
 For the remaining tests in this paper we use a spatially variable PSF with
 expected level of variation.
@@ -666,7 +666,7 @@ For the realistic galaxy configuration, we adopted a basic set of cuts
 where $T$ is the Gaussian weighted square size of the observed, PSF convolved
 image, as defined in equation \ref{eq:moments}, and $T_{PSF}$ is the
 corresponding value for the PSF.  The lower \snr\ cut is motivated by the noise
-study in \S \ref{sec:results:sdensnoise} in which a cut at 10 and 12.5 resulted
+study in \S \ref{sec:results:sdensnoise} in which a cut at 10 or 12.5 resulted
 in similar shear uncertainties.  In all the following tests, using a lower
 bound of $S/N > 10$ gave consistent results.
 
@@ -674,15 +674,16 @@ The lower cut on $T/T_{PSF}$ represents a simple attempt to remove stars from
 the sample.  For \mcal, including stars in the sample does not result in a
 biased shear when the PSF is accurately modeled \citep{SheldonMcal2017}.  With
 \mdet\ the stars may result in a small bias because their positions are not
-moved by the true shear, but {\it are} moved by the artificial shear. However, the bias
-caused by this counterfactual movement is small \citep{mdet20}.  Nevertheless,
-we expect we will want to remove stars for other reasons, such as determining
-the redshift distribution, so we include star removal in our tests.
+moved by the true shear, but {\it are} moved by the artificial shear. However,
+the bias caused by this counterfactual movement is small \citep{mdet20}.
+Nevertheless, it may be desirable to remove stars for other reasons, such as to
+avoid confusion when determining the redshift distribution, so we include a
+crude star removal in our tests.
 
-We turned on each feature separately in order to isolate possible biases.  In
-no case did we find additional bias in the shear recovery beyond that expected
-from higher order shear effects (see \S \ref{sec:results:base}).  More details
-are given in the following sub-sections.
+We again turned on each feature successively in order to isolate possible
+biases.  In no case did we find additional bias in the shear recovery beyond
+that expected from higher order shear effects (see \S \ref{sec:results:base}).
+More details are given in the following sub-sections.
 
 \subsubsection{Results with Varied Selections on Object Properties} \label{sec:results:select}
 
@@ -690,7 +691,7 @@ We varied the selections on object size ratio $T/T_{PSF}$ and \snr\ and
 repeated the shear recovery analysis.  The results are shown in figure
 \ref{fig:trends}, for both constant and spatially varying PSFs (see \S
 \ref{sec:sim:psfs}).  We did not detect any additional bias.  Note that
-stricter cuts on \snr\ resulted in lower noise for this plot due to the noise
+stricter cuts on \snr\ resulted in lower noise for this test because the noise
 cancellation procedure which works better for bright objects.  We will explore
 the shear sensitivity without noise cancellation in \S
 \ref{sec:results:sdensnoise}.
@@ -720,28 +721,29 @@ locations of objects, so this trimming introduces a shear dependent selection
 effect.
 
 In the case where the true simulated shear aligns with the artificially applied
-shear used to create the \mcal\ images, we found that \mdet\ provided
-an accurate calibration.  However, when using randomized shear
-orientations (see \S \ref{sec:sim:shears}), we found the multiplicative bias
-$m$ was reduced below the expected bias due to higher order shear effects by
-about $-0.0004$.  Our inerpretation is that the artificial shearing slightly
-over-predicts the selection effect when it is not perfectly aligned with the
-true shear.  This bias is smaller than LSST requirements $|m| \lesssim 0.001$.
-However, we speculate that using artificial shears with random orientations
-could mitigate this effect.  We may explore this more in a future work.
+shear used to create the \mcal\ images, we found that \mdet\ provided an
+accurate calibration.  However, when using randomized shear orientations (see
+\S \ref{sec:sim:shears}), we found the multiplicative bias $m$ was below the
+expected bias due to higher order shear effects by about $-0.0004$.  Our
+inerpretation is that the artificial shearing slightly over-predicts the
+selection effect when it is not perfectly aligned with the true shear.  This
+bias is smaller than LSST requirements $|m| \lesssim 0.001$.  Nevertheless, we
+speculate that using artificial shears with random orientations could mitigate
+this effect.  We may explore this more in a future work.
 
 \subsection{Results with Stars and Bleed Trails} \label{sec:results:full}
 
 Our ``full'' simulation configuration included stars and bleed trails as
 described in \S \ref{sec:sim:stars} and \ref{sec:sim:satbleeds}, in addition to
-the features tested in the previous sections.
+the features tested in the previous sections.  We discuss aspects of the
+measurements and results below.
 
 \subsubsection{Weighting}
 
-For the full simulation configuration we found it necessary to apply weights in
-the shear average.  We used a two part weight function
+For the full simulation configuration we found it beneficial to apply weights
+in the shear average.  We used a two part weight function
 \begin{equation}
-    W(\sigma_g, |g|) = W_\sigma (\sigma_g) \times W_g(|g|)
+    W(\sigma_g, g) = W_\sigma (\sigma_g) \times W_g(g)
 \end{equation}
 with $W_\sigma$ based on the object's shape noise and $W_g$ designed to
 down-weight a particular set of spurious objects.
@@ -749,39 +751,40 @@ down-weight a particular set of spurious objects.
 The primary weight was based on the intrinsic shape noise and shape
 measurement uncertainty, and is designed to be an optimal weight in the
 scenario that the only sources of uncertainty are the intrinsic shape noise 
-and measurement error
+and shot noise in the images
 \begin{equation}
     W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_g^2},
 \end{equation}
 \esstodo{cite}
-where $\sigma_{SN}$ is the intrinsic ellipticity noise of the population
-and $\sigma_g$ is the estimated uncertainty.  We find $\sigma_{SN}$
-before response correction is about 0.07.  The average response is about
-0.24 for this sample, implying the true shape noise is about 0.29.
+where $\sigma_{SN}$ is the intrinsic ellipticity noise of the population and
+$\sigma_g$ is the estimated uncertainty from shot noise.  We find $\sigma_{SN}$
+before response correction is about 0.07.  The average response is about 0.24
+for this sample, implying the true shape noise is about 0.29.
 
 In the presence of stars we found an unexpected population of high ellipticity
 objects.  These objects were usually spurious detections or blends of faint
 objects with bright stars, found just outside the star masking radius
 discuessed in \S \ref{sec:sim:satbleeds}\footnote{Masaya Yamamoto, private
 communication}.  We did not keep enough information in the output files to
-exclude these objects from our catalogs after the fact, and rerunning was
-prohibitive due to limited computing resources.  As a temporary solution we
-included an additional ellipticity dependent weight function \citep{ba14}
+exclude these objects from our catalogs in post processing, and rerunning was
+would have taken prohibitively long due to limited computing resources.  As a
+temporary solution we included an additional ellipticity dependent weight
+function \citep{ba14}
 \begin{equation}
-    W_g(|g|) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -g^2/2 \sigma_w^2\right]
+    W_g(g) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -g^2/2 \sigma_w^2\right]
 \end{equation}
 where $g$ is the total scalar shape $g = \sqrt{g_1^2 + g_2^2}$.  We took
 $\sigma_w = 0.3$, which downweights very high ellipticity objects.  We found
 that using this weight function reduced the uncertainty of the shear recovery
-by 13\%.  In future work it will be important to use sufficient star masking or
-star subtraction, and identify problematic objects.
+by 13\%.  In future work it will be important to use sufficient star masking,
+and identify problematic objects.
 
 \subsubsection{Dependence of Shear Bias on Stellar Density Cut} \label{sec:results:sdens}
 
 In figure \ref{fig:stardens} we show the multiplicative bias as a function of
-maximum stellar density and various cuts on the measured signal to noise ratio
-in addition to a cut on size ratio $T/T_{PSF} > 1.2$.  In no case did we
-bias beyond that expected from higher order shear effects.
+maximum stellar density and various cuts on the measured signal to noise ratio,
+in addition to a common cut on size ratio $T/T_{PSF} > 1.2$.  In no case did we
+detect a bias beyond that expected from higher order shear effects.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{{stardens-bias}.pdf}
@@ -799,25 +802,23 @@ bias beyond that expected from higher order shear effects.
 \subsubsection{Dependence of Shear Sensitivity on Object Selections}
 \label{sec:results:sdensnoise}
 
-We explored what set of cuts on stellar density and \snr\ resulted in the
-lowest relative noise in the recovered shear.  In order to get an accurate
-measure of the relative uncertainty, we did not cancel noise using the results
-from paired images.  The noise cancellation is most effective for higher \snr\
-objects that are more likely to be detected in both of the paired images, so
-using it would result in artificially smaller uncertainties for higher minimum
-\snr\ cuts.
+We explored the dependence of the shear sensitivity on stellar density and
+\snr.  In order to get an accurate measure of the relative uncertainty, we did
+not cancel noise using the results from paired images.  The noise cancellation
+is most effective for higher \snr\ objects that are more likely to be detected
+in both of the paired images, so using it would result in artificially smaller
+uncertainties for higher minimum \snr\ cuts.
 
 In figure \ref{fig:stardenserror} we show the uncertainty in the recovered
 shear as a function of maximum allowed stellar density and \snr\ cut, relative
 to the cuts that provide the lowest noise.
 
 We find the uncertainty decreases with the maximum allowed stellar density. The
-dependence on stellar density is fairly flat for stellar density above 40 per
-square arcminute.  Including higher stellar density areas reduces the noise,
-but with limited benefit beyond a density of about 40 stars per square
-arcminute.  A relatively small fraction of the simulated area has high stellar
-density, and fields with high stellar density tend to have a relatively large
-area masked due to stars.
+dependence on stellar density is fairly flat at high stellar density.
+Including higher stellar density areas reduces the noise, but with limited
+benefit beyond a density of about 40 stars per square arcminute.  A relatively
+small fraction of the simulated area has high stellar density, and fields with
+high stellar density tend to have a relatively large area masked due to stars.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
@@ -846,10 +847,10 @@ moments, or the model that is fitted.
 
 Although we found no significant increase in shear bias when including images
 with higher stellar density, nor did we see degradation in the statistical
-uncertainty, it may be beneficial to exclude them for other reasons, such as to
-reduce the impact of interstellar extinction or other sources of error that
-correlate with stellar density.  Such cuts could be tuned to provide a
-beneficial trade off between accuracy and shear sensitivity.
+uncertainty, it may be beneficial to exclude them to reduce the impact of
+sources of error that correlate with stellar density such as interstellar
+extinction.  The cuts could be tuned to provide a beneficial trade off
+between accuracy and shear sensitivity.
 
 \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
 
@@ -858,29 +859,30 @@ beneficial trade off between accuracy and shear sensitivity.
 % the noise we expect for LSST, we used measurements from just one of the two
 % paired images.
 
-We can convert the shear sensitivity to an effective number density if we know the
-area imaging used and weighted shape noise.  In our case we inferred the
+We can convert the shear sensitivity to an effective number density if we know
+the imaging area used and weighted shape noise.  In our case we inferred the
 sensitivity using a jackknife technique to account for all sources of
-uncertainty, including deblending, masking, and variations in the response.
-Thus a formula based on naive error propagation will not suffice.  Instead we
-define the effective number density explicitly as a quantity relating
-the measured jackknifed uncertainty to the weighted shape noise
+uncertainty, including deblending, masking, stellar contamination, and
+variations in the response.  Thus a formula based on naive error propagation
+will not suffice.  Instead we define the effective number density explicitly as
+a quantity relating the measured jackknifed uncertainty to the weighted shape
+noise
 \begin{equation} \label{eq:neff}
     n_{\mathrm{eff}} = \frac{\sigma^2_{e}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
 \end{equation}
 In equation \ref{eq:neff}, $\sigma_e \sim 0.098$ is the weighted standard
 deviation of the ellipticity for our catalog after applying the basic cuts in
-equation \ref{eq:basiccuts} and the cuts below, $\sigma_\gamma \sim 5.88
-\times 10^{-6}$ is the jackknifed shear uncertainty without noise cancellation,
-$R \sim 0.242$ is the mean shear response, and $A$ is the simulated area after masking
-and removing high density regions.    The raw area was about 41,600 square
-degrees to 10 year LSST depth. About 6\% of that area was masked due to bright
-stars and defects.  We cut to a maximum stellar density of 60 per square
-arcminute, and removed fields with overall masking greater than 10\%, which
-leaves a final area of $A \sim 32,100$ square degrees.  
-We find $n_\mathrm{eff} \sim 41$ per square arcminute for the basic cuts (see
-\S \ref{sec:results:more}).  The effective density will vary with the choice of
-ellipticity estimate, and may be improved with optimized weights.
+equation \ref{eq:basiccuts} and the cuts below, $\sigma_\gamma \sim 5.88 \times
+10^{-6}$ is the jackknifed shear uncertainty without noise cancellation, $R
+\sim 0.242$ is the mean shear response, and $A$ is the simulated area after
+masking and removing high density regions.    The raw area was about 41,600
+square degrees, with about 6\% of that area was masked due to bright stars and
+defects.  We cut to a maximum stellar density of 60 per square arcminute, and
+removed fields with overall masking greater than 10\%, which leaves a final
+area of $A \sim 32,100$ square degrees.  We find $n_\mathrm{eff} \sim 41$ per
+square arcminute for the basic cuts (see \S \ref{sec:results:more}).  This
+estimate should be considered rough, as the effective density will vary with
+the choice of ellipticity estimate, and may be improved with optimized weights.
 
 \section{Summary} \label{sec:summary}
 
