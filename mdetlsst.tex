@@ -380,13 +380,26 @@ background noise, processed in a similar manner but with orthogonal shear
 \begin{figure}
     \includegraphics[width=\columnwidth]{example-image.jpg}
     \caption{
-        Example simulated image. \esstodo{caption}
-    }
+        Example simulated image using one ``epoch'' for each of the $r$, $i$,
+        and $z$ bands, with noise corresponding to the 10 LSST coadd data.
+        The images have been warped and coadded, although in this case there
+        is but a single warped image.
+        Note the interpolated bleed trails around a bright star in the upper
+        part of the image, appearing at different orientations due to the
+        simulated camera rotations.
+    } \label{fig:colorimage}
 \end{figure}
 \begin{figure}
     \includegraphics[width=\columnwidth]{example-masked-image.pdf}
     \caption{
-        Example masked images. \esstodo{caption}
+        Example masked images, corresponding to the images in figure
+        \ref{fig:colorimage}.  The rows correspond to $r, i$, and $z$ bands
+        respectively.  The left column shows the masked image, the middle the
+        noise variance, and the right the bitmask plane.  The circles show the
+        star masks applied to each type of image, which are retained in the
+        coadd bitmask to facilitate processing near stars.  In the original
+        images, there are also pixels marked for cosmic rays and bad
+        columns, but these are not retained in the coadd bitmask.
     }
 \end{figure}
 
