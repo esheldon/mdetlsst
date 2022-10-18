@@ -787,8 +787,6 @@ bias beyond that expected from higher order shear effects.
 
 \end{figure}
 
-
-
 \subsubsection{Dependence of Shear Sensitivity on Object Selections}
 \label{sec:results:sdensnoise}
 
@@ -796,9 +794,9 @@ We explored what set of cuts on stellar density and \snr\ resulted in the
 lowest relative noise in the recovered shear.  In order to get an accurate
 measure of the relative uncertainty, we did not cancel noise using the results
 from paired images.  The noise cancellation is most effective for higher \snr\
-objects that are more likely to be detected in both of the paired images, which
-would results in artificially smaller uncertainties for higher minimum \snr\
-cuts.
+objects that are more likely to be detected in both of the paired images, so
+using it would result in artificially smaller uncertainties for higher minimum
+\snr\ cuts.
 
 In figure \ref{fig:stardenserror} we show the uncertainty in the recovered
 shear as a function of maximum allowed stellar density and \snr\ cut, relative
@@ -808,24 +806,32 @@ We find the uncertainty decreases with the maximum allowed stellar density. The
 dependence on stellar density is fairly flat for stellar density above 40 per
 square arcminute.  Including higher stellar density areas reduces the noise,
 but with limited benefit beyond a density of about 40 stars per square
-arcminute.
+arcminute.  This is partly due to the relatively large amount of area masked in
+the images, as well as the fact that  arelatively small fraction of the
+simulated area that had high stellar density.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
-	\caption{\esstodo{caption}} \label{fig:stardenserror}
+
+    \caption{Shear measurement sensitivity as a function of maximum stellar
+    density and cuts on various measured object properties, relative to the
+    cuts that give the best sensitivity.  We find that less restrictive cuts on
+    stellar density result in lower sensitivity, but with marginal improvement
+    beyond a density of about 40 per square arcminute.  Keeping objects with
+    \snr\ as low as 10 did not give an improved sensitivity compared to a cut
+    at 12.5.  Note that these results may differ for alternative shape
+    measurements or weighting schemes.  } \label{fig:stardenserror}
+
 \end{figure}
 
 We found that including detections with \snr\ as low 10 does not reduce the
-shear uncertainty compared to cutting at 12.5.  It may seem surprising that
-including more objects resulted in a noisier measurement.  This can occur with
-\mcal\ because the shear estimator involves dividing by the mean response,
-which is typically smaller and noisier for lower \snr\ objects.  However, we
-have two notes on this.  First, it may be that an optimized weight that is a
-function of \snr, $T$, and other relevant parameters will provide a better
-sensitivity \esstodo{cite Y3 paper weighting}.  Second, these results will vary
-significantly with the measurement type, for example the specific weight
-function used to measure moments, or the model that is fitted, each of which
-will provide a different estimate of the \snr.
+shear uncertainty compared to cutting at 12.5.    This may be because lower
+\snr\ objects having relatively small response, which is not accounted for in
+the weighting.  An optimized weight that is a function of \snr, $T$, and other
+relevant parameters may provide a better sensitivity \esstodo{cite Y3 paper
+weighting}.  Note also that these results will vary significantly with the
+measurement type, for example the specific weight function used to measure
+moments, or the model that is fitted.
 
 \subsubsection{Discussion of Practical Stellar Density Cuts}
 
