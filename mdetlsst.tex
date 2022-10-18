@@ -729,16 +729,17 @@ the features tested in the previous sections.
 
 \subsubsection{Weighting}
 
-We used a two part weight function
+For the full simulation configuration we found it necessary to apply weights in
+the shear average.  We used a two part weight function
 \begin{equation}
     W(\sigma_g, |g|) = W_\sigma (\sigma_g) \times W_g(|g|)
 \end{equation}
-with $W_\sigma$ based on the shape noise and $W_g$ designed to downweight a
-particular set of spurious objects.
+with $W_\sigma$ based on the object's shape noise and $W_g$ designed to
+down-weight a particular set of spurious objects.
 
-The primary weight was based on the intrinsice shape noise and shape
+The primary weight was based on the intrinsic shape noise and shape
 measurement uncertainty, and is designed to be an optimal weight in the
-scenario that the only source of uncertainty is the intrinsic shape noise 
+scenario that the only sources of uncertainty are the intrinsic shape noise 
 and measurement error
 \begin{equation}
     W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_g^2},
@@ -747,36 +748,43 @@ and measurement error
 where $\sigma_{SN}$ is the intrinsic ellipticity noise of the population
 and $\sigma_g$ is the estimated uncertainty.  We find $\sigma_{SN}$
 before response correction is about 0.07.  The average response is about
-0.242 for this sample, implying the true shape noise is about 0.29.
+0.24 for this sample, implying the true shape noise is about 0.29.
 
 In the presence of stars we found an unexpected population of high ellipticity
 objects.  These objects were usually spurious detections or blends of faint
-objects with bright stars, found just outside our star masking
-radius\footnote{Masaya Yamamoto, private communication}.  We did not keep
-enough information in the output files to exclude these objects from our
-catalogs after the fact, and rerunning was prohibitive due to limited computing
-resources.  As a temporary solution we included an additional ellipticity
-dependent weight function \citep{ba14}
+objects with bright stars, found just outside the star masking radius
+discuessed in \S \ref{sec:sim:satbleeds}\footnote{Masaya Yamamoto, private
+communication}.  We did not keep enough information in the output files to
+exclude these objects from our catalogs after the fact, and rerunning was
+prohibitive due to limited computing resources.  As a temporary solution we
+included an additional ellipticity dependent weight function \citep{ba14}
 \begin{equation}
     W_g(|g|) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -g^2/2 \sigma_w^2\right]
 \end{equation}
-where $g$ is the total scalar shape $g = \sqrt{g_1^2 + g_2^2}$.  We
-took $\sigma_w = 0.3$, which downweights very high ellipticity objects.  We
-found that using this weight function reduced the uncertainty of the shear
-recovery by 13\% and removed a small ($m ~ 0.001$) bias at low S/N.  In future
-work it will be important to use sufficient star masking and identify any
-problematic unmasked objects.
+where $g$ is the total scalar shape $g = \sqrt{g_1^2 + g_2^2}$.  We took
+$\sigma_w = 0.3$, which downweights very high ellipticity objects.  We found
+that using this weight function reduced the uncertainty of the shear recovery
+by 13\%.  In future work it will be important to use sufficient star masking or
+star subtraction, and identify problematic objects.
 
 \subsubsection{Dependence of Shear Bias on Stellar Density Cut} \label{sec:results:sdens}
 
 In figure \ref{fig:stardens} we show the multiplicative bias as a function of
 maximum stellar density and various cuts on the measured signal to noise ratio
-in addition to a cut on size ratio $T/T_{PSF} > 1.2$. \esstodo{describe results}
+in addition to a cut on size ratio $T/T_{PSF} > 1.2$.  In no case did we
+bias beyond that expected from higher order shear effects.
 
 \begin{figure}
-    % \includegraphics[width=\columnwidth]{{run-riz-drcbWsBPv0.1-cells-s2n-imfrac0.10-mfrac0.02}.pdf}
 	\includegraphics[width=\columnwidth]{{stardens-bias}.pdf}
-	\caption{\esstodo{caption}} \label{fig:stardens}
+
+	\caption{
+        Multiplicative bias $m$ as a function of maximum stellar density cut
+        for various cuts on \snr.  The dot-dashed line represents the
+        approximate expected bias due to higher order shear effects, and the
+        dashed lines bracket our nominal accuracy goal.  In no case did we
+        detect any bias beyond expectations.
+    } \label{fig:stardens}
+
 \end{figure}
 
 
