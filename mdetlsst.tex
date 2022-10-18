@@ -142,24 +142,25 @@
 
 \section{Simulation Features} \label{sec:sim}
 
-The basic simulation was similar to that created for \citep{mdet20} and
-\citet{BeckerMdetCoadd}. We added additional features related to saturated
+The basic simulation was similar to that created for \citep{mdet20}.  We added
+additional features such as image artifacts, cosmic rays, stars, and saturated
 stars which we will describe in the following sections.  All images were
 rendered using the \galsim\ python package \esstodo{ cite galsim}.
 
 We simulated what are known in the LSST data management system (\dm, version
 0.2021.32, \esstodo{cite}) as calibrated exposure images.  This data is stored
-in a \calexp\ data structure, which carries a calibrated, background subtracted
+in an \calexp\ data structure, which carries a calibrated, background subtracted
 image, along with an estimated noise variance image plane, world coordinate
 system transformation (WCS) and position dependent PSF model.  Problem areas
 associated with saturation, cosmic rays, and bad columns are marked as separate
 bits in an integer bit mask image plane.
 
-Other than background esimation errors (see \S \ref{sec:sim:bgerr}), we did not
+Other than background estimation errors (see \S \ref{sec:sim:bgerr}), we did not
 test scenarios where the input data were mis-calibrated.  For example we did
-not test the consequences of an inaccurate PSF models, noise estimates or
-photometric calibration.  Our motivation was to test the performance of \mdet\
-using well characterized data.
+not test the consequences of inaccurate PSF models, noise estimates or
+photometric calibrations.  Our motivation was to test the performance of \mdet\
+using well characterized data, or problems that could be addressed within
+the shear code such as background errors.
 
 For this work, we used the newly written simulation package
 \texttt{descwl-shear-sims} version
@@ -167,12 +168,12 @@ For this work, we used the newly written simulation package
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 
-We used the \descwl\ package \esstodo{cite} to determine the
-noise for images in each filter.  In all simulation runs we used predicted
-noise $n$ for the final 10 year coadd.  For individual simulated epochs we
-re-scaled the noise appropriately, such that the noise in each epoch was $n *
-\sqrt{N}$.  We used a Guassian random field to simulate the noise, which is a
-good approximation at the expected noise levels \esstodo{cite}.
+We used the \descwl\ package \esstodo{cite} to determine the noise for images
+in each filter.  In all simulation runs we used predicted noise $n$ for the
+final 10 year coadd.  If $N$ simulated epochs were used, we re-scaled the noise
+appropriately, such that the noise in each epoch was $n * \sqrt{N}$.  We used a
+Guassian random field to simulate the noise, which is a good approximation at
+the expected noise levels \esstodo{cite}.
 
 We did not add the expected amount of background to each image (but see \S
 \ref{sec:sim:bgerr}).  After drawing all image features and adding
@@ -185,7 +186,7 @@ image frame with the LSST camera pixel scale of 0.2 arcseconds \esstodo{referenc
 The world coordinate system (WCS) transformation between sky and pixel
 coordinates was represented as a \galsim\ \texttt{TanWCS} object.  Each
 simulated WCS transformation had a random rotation applied, in order to mock up
-the camera rotations used by LSST cam \esstodo{cite proper paper}.  The center of
+the camera rotations used by LSSTCam \esstodo{cite proper paper}.  The center of
 each image was shifted, or ``dithered'', randomly in two dimensions relative to
 the center of the desired coadded image.  We choose the dithers to be a
 unrealistically small, within two pixels, to minimize portions of the image
@@ -208,7 +209,7 @@ realizations of spatially variable PSFs using Gaussian random fields. The PSF
 model is a Moffat \citep{Moffat1969} profile with shape parameter $\beta=2.5$
 and variable size and shape. In \citet{mdet20} this approximate
 variable PSF model was compared to detailed atmospheric and optics simulations.
-It's parameters were set to generate the typical spatial PSF variance than one
+It's parameters were set to generate the typical spatial PSF variance expected
 expects for Rubin exposures. The median FWHM of the generated PSFs was 0.8
 arcseconds.  We also ran simulations with larger than expected variations in
 order to test the accuracy of the PSF coadd under extreme conditions.
@@ -217,10 +218,10 @@ order to test the accuracy of the PSF coadd under extreme conditions.
 
 We simulated stars using fluxes and densities sampled from the LSST DESC DC2
 simulation \esstodo{cite}.  For each simulated field we sampled randomly, with
-replacement, from the map of stellar density used to generate DC2, with a
-maximum allowed density of 100 per square arcminute.  This density represents
-the total number of stars drawn, not the number detected.  To determine each
-stars multiband flux, we sampled stars from the DC2 star catalog.  We modeled
+replacement, from the map of stellar density used to generate DC2, rejecting
+densities higher than 100 per square arcminute.  This density represents
+the total number of stars drawn, not the number detected.  We
+sampled the multiband flux the DC2 star catalog.  We modeled
 each star as a small Gaussian (FWHM $= 10^{-4}$ arcsec) convolved with the
 point spread function.  We drew stars at random locations, even when galaxies
 were drawn on a grid layout (see \S \ref{sec:sim:layouts}).  Stars were allowed
@@ -230,9 +231,9 @@ to saturate and have an associated bleed trail (see
 \subsection{Image Saturation, Star Masking and Star Bleed Trails} \label{sec:sim:satbleeds}
 
 The value in each pixel was artificially limited in order to simulate
-saturation, and saturated pixels were marked with the appropriate flag an
-integer bitmask image, and set the variance is set to infinity.  Non linear
-detector response was not simulated.
+saturation, and saturated pixels were marked with an appropriate flag in the
+integer bitmask image of the \calexp, and the variance for those
+pixels was set to infinity.  Non linear detector response was not simulated.
 
 Saturated stars were over-drawn with a simulated bleed trail image, taken from
 a set of previously generated templates.  The bleed templates were identified
@@ -242,24 +243,24 @@ and drew the associated bleed image directly over the star image with a value
 set to the saturation level. The bleed pixels were marked with the appropriate
 flag in the bitmask.
 
-We marked saturated stars in the bitmask image with a circular mask that
-covered the star out to the radius where the profile reached the noise level.
-Note in real data such a mask would need to be determined algorithmically.
-This mask does not necessarily cover the bleed trail completely, although the
-trail was interpolated (see \S \ref{sec:coadding}).  We find that these
-unmasked trails do not cause a shear bias, which we attribute to the
-camera rotations that randomize the direction of the trail on the sky.
+We further masked saturated stars a circular mask that covered the star out to
+the radius where the profile reached the noise level.  Note in real data such a
+mask would need to be determined algorithmically.   This region was set to zero
+in the image and marked appropriately in the bitmask.   This mask does not
+necessarily cover the bleed trail completely, although the trail was
+interpolated (see \S \ref{sec:coadding}).  We find that these unmasked trails
+do not cause a shear bias, which we attribute to the camera rotations that
+randomize the direction of the trail on the sky.
 
-Masks with sharp features can cause ringing in the FFTs used
-by the \mdet\ algorithm.   Each star mask is like a circular ``tophat'',
-which will have a sharp feature where it intersects an object in the image.  We
-mitigated this effect using the apodization
-procedure described in \citet{BeckerMdetCoadd}. We extended the star
-mask by 16 pixels and forced the mask
-to smoothly transition from zero in the interior of the circle
-to unity at the expanded edge. The transition region was parameterized using the cumulative
-integral of a triweight kernel. This kernel is a function of two parameters, $m$ and $h$,
-and is defined for a point $x$ with quantity $y = (x-m)/h$ as
+Masks with sharp features can cause ringing in the FFTs used by the \mdet\
+algorithm.   Each star mask is like a circular ``tophat'', which will have a
+sharp feature where it intersects an object in the image.  We mitigated this
+effect using the apodization procedure described in \citet{BeckerMdetCoadd}. We
+extended the star mask by 16 pixels and forced the mask to smoothly transition
+from zero in the interior of the circle to unity at the expanded edge. The
+transition region was parameterized using the cumulative integral of a
+triweight kernel. This kernel is a function of two parameters, $m$ and $h$, and
+is defined for a point $x$ with quantity $y = (x-m)/h$ as
 \begin{equation}
 K(x, m, h) = \begin{cases}
 0 & y < -3 \\
