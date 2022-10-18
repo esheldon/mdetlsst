@@ -311,12 +311,12 @@ We used the \descwl\ package to generate galaxy models \esstodo{cite}.  These
 elliptical, color models have bulge, disk and AGN components.  Rather than use
 the \descwl\ package to draw the models in the image, we drew the models in our
 code in order to enable the use of our own PSF models (see \S
-\ref{sec:sim:psfs}, and to allow for more efficient drawing.
+\ref{sec:sim:psfs}), and to allow for more efficient drawing.
 
 We also performed simulation runs with single component, round exponential
 galaxies with fixed flux and size.  These models are useful for shear recovery
 tests that do not require a realistic galaxy population, but benefit from using
-low shape noise shear tracers.  These models were often used for moderately
+low shape noise shear tracers.  These models were also used for moderately
 fast, full shear recovery tests, to further verify code changes that had
 already passed the faster unit tests.
 
@@ -337,7 +337,7 @@ See \S \ref{sec:sim:galaxies} for descriptions of each galaxy model type.
 We add a negative constant to the images to approximate errors in the
 background determination.  The motivation is to test if errors for individual
 epochs can be corrected in the final coadd image by running a second background
-determination \esstodo{reference a section where the result is mentioned}.
+determination.
 
 \subsection{Shear Patterns} \label{sec:sim:shears}
 
@@ -351,13 +351,13 @@ introduced for random shears when when trimming to cells.
 
 \subsection{Overlapping Coadd Cells} \label{sec:sim:cells}
 
-Coadds can be used for shear measurement \esstodo{cite bob's paper}, but we
+Coadds can be used for shear measurement\citep{ArmstrongCoadd}, but we
 require that the coadded images have a continuous PSF in order to faciliate
 accurate PSF modeling.  Images that have an edge in the coadd region must be
 rejected.  Smaller coadds result in fewer images being rejected, but very small
 coadds would complicate object identification and deblending.  For LSST, we plan to
 use relatively small (250x250 pixels) overlapping (50 pixels) coadded regions
-for shear measurement, which we call ``cells'' \esstodo{cite} because the
+for shear measurement, which we call ``cells'' \esstodo{cite} because they
 are small subregions of the larger ``tract'' regions defined within the
 \dm\ framework.
 
@@ -371,11 +371,11 @@ processing.
 
 The \mcal\ procedure involves deconvolution by the PSF, shearing of the image,
 and reconvolution by a round kernel.  This process alters the noise and
-produces a spurious shear response.  We can cancel this bias by adding a noise
-image, with properties that statistically match the real background noise,
-processed in a similar manner but with orthogonal shear.  We stored this
-noise image in a copy of the image \calexp\ structure, but replacing the
-real image data with the noise image.
+produces a spurious shear response \citep{SheldonMcal2017}.  We can cancel this
+bias by adding a noise image, with properties that statistically match the real
+background noise, processed in a similar manner but with orthogonal shear
+\citep{SheldonMcal2017,mdet20}.  We stored this noise image in a copy of the image
+\calexp\ structure, but replacing the real image data with the noise image.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{example-image.jpg}
@@ -404,7 +404,9 @@ Before warping, we interpolated the simulated artifacts in each image such as
 cosmic rays, bad columns, and saturated pixels.  The interpolation and warping
 modifies the noise properties of the image.  Thus, for accurate \mcal\ noise
 corrections (see \S \ref{sec:sim:noiseimages}) we must also run the noise image
-through the same procedures.  Rather than use the \dm\ codes, we performed all
+through the same procedures.
+
+Rather than use the \dm\ interpolation codes, we performed all
 interpolation of artifacts and saturated regions using the
 \texttt{CloughTocher2DInterpolator} from the scipy software
 package\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CloughTocher2DInterpolator.html}}.
@@ -415,13 +417,13 @@ cannot be run on the noise image.
 Using the same code, we also created PSF coadded images.  For each input image,
 we generated an image of the PSF at the location of the coadd center, including
 any sub-pixel offsets between the pixel grids, so the PSF images where
-generally not centered.  We then warped on these images using the same weights
-as the image data.  This off-centering and warping is important so that the PSF
-includes the same small amount of smearing present in the image interpolation.
-Not including this offset results in percent level multiplicative shear biases
-\esstodo{cite bob's paper}.  Note \dm\ provides a PSF coadding code, but at the
-time of writing it did not perform sub-pixel offsets, so was unsuitable for
-our purposes.
+generally not centered.  We then warped these and coadded these images using
+the same weights as the image data.  The off-centering and warping is important
+so that the PSF includes the same small amount of smearing present in the image
+interpolation.  Not including this offset results in percent level
+multiplicative shear biases \citep{ArmstrongCoadd}.  Note \dm\ provides a
+PSF coadding code, but at the time of writing it did not perform sub-pixel
+offsets, so was unsuitable for our purposes.
 
 The resulting coadd and PSF coadd data were stored in a new \calexp\ data
 structure for use in \mdet.
@@ -434,10 +436,10 @@ For shear inference we used the \mdet\ method presented in \cite{mdet20}.
 stage. We call this ``detection'', meaning specifically object identification
 rather than detection of pixels with significant signal.  \Mdet\ mitigates
 biases due to the shear-dependent nature of the detection processing in finite
-resolution images, which are expected to be a few percent for LSST
+resolution images, biases which are expected to be a few percent for LSST
 \citep{mdet20}.
 
-Briefly, with \mdet\ we assume that the true applied, two-component shear
+Briefly, with \cal\ we assume that the true applied, two-component shear
 $\boldsymbol{\gamma}$ is small, so that a measured ellipticity $\boldsymbol{e}$
 of a galaxy is linear in the shear:
 \begin{eqnarray} \label{eq:response}
@@ -468,7 +470,7 @@ As mentioned in \S \ref{sec:sim:noiseimages}, the deconvolve, shear, reconvolve
 process produces a spurious shear response that we correct by adding a noise
 image run through the same process but with orthogonal shear.
 
-The responses too noisy to be applied to individual ellipticity measurements.
+The responses are too noisy to be applied to individual ellipticity measurements.
 We instead average the shapes and responses in equation \ref{eq:response} to
 recover a mean shear \vecg
 \begin{eqnarray} \label{eq:shearmeas}
@@ -505,7 +507,9 @@ structures.  The new code is part of the \texttt{metadetect} software package.
 
 We used the \dm\ algorithm for detection \esstodo{cite Jims paper}.  We ran with
 the default settings at the time of writing, which retains sources with a
-$S/N \gtrsim 5$ calculated from a PSF template flux measurement.
+$S/N \gtrsim 5$ calculated from a PSF template flux measurement.  Before detection
+we re-determined the background to remove the background estimation errors that were
+put into the simulation (see \S \ref{sec:sim:bgerr}).
 
 Deblending was performed during the object detection phase as part of the
 process of finding sub-peaks, but we did not use the deblender to remove the
@@ -515,14 +519,15 @@ resulted in shear biases of order ten percent.
 
 We did limited testing with the Scarlet \esstodo{cite} deblender, which has
 recently received support in the \dm\ software stack. Scarlet performed better
-in the tests we performed, showing a bias of $< 1$\%, but due to the high
-computational cost of the deblender, we did not gather enough statistics to
-perform more precise tests.
+in the limited tests we performed, but due to the high computational cost of
+the deblender, we did not gather enough statistics to perform comprehensive
+tests.
 
 As we will show in \S \ref{sec:results}, measuring shapes without deblending
-the light of neighbors caused no detectable bias.  However, deblending will
-presumably improve the performance of other critical algorithms such as
-redshift determination.  We will explore deblending more in future work.
+the light of neighbors caused no detectable bias.  However, deblending may
+improve the accuracy of other critical tasks such as inferring the redshift
+distribution of the lensing source galaxies.  We will explore deblending more
+in future work.
 
 \subsection{Object Measurement} \label{sec:mdet:meas}
 
