@@ -58,6 +58,7 @@
 \newcommand{\ngmix}{\texttt{ngmix}}
 \newcommand{\nnsim}{\texttt{nsim}}
 \newcommand{\snr}{$S/N$}
+\newcommand{\Tratio}{$T/T_{PSF}$}
 \newcommand{\sn}{$S/N$}
 \newcommand{\coadd}{{\rm coadd}}
 \newcommand{\desreq}{$4\times 10^{-3}$}
@@ -602,11 +603,11 @@ effects, we ran a simulation with fixed, round exponential, S/N $= 10,000$,
 half light radius 0.5 arcsecond galaxies placed in the grid layout (see
 sections \ref{sec:sim:galaxies} and \ref{sec:sim:layouts}) with image dithers
 and rotations.  In order to make the test as efficient as possible, we used
-only the $i$ band with a single image ``epoch'', but with approximately the
-full expected LSST 10 year depth for the combined $r, i, z$ bands.  We used a
+only the $i$ band with a single image ``epoch'', but with noise approximating
+the full expected LSST 10 years of combined $r, i, z$ band data.  We used a
 fixed Moffat PSF\citep{Moffat1969} with FWHM=0.8.  We expect a bias $m$ of a
 few parts in ten thousand for this sim \citep{SheldonMcal2017}.  We found a
-bias of $4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\% confidence),
+bias of $4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\%~confidence),
 consistent with our expectations.
 
 We reran this simulation after all major code updates as a kind of extended
@@ -614,17 +615,19 @@ unit test to look for bugs and regressions.
 
 \subsection{PSF Variation} \label{sec:results:psfvar}
 
-\mdet\ requires artificially sheared versions of each coadd image (see \S
-\ref{sec:mdet}).  This process involves deconvolving the image by the PSF (see
-\S \ref{sec:mdet}).  This would require a spatially dependent convolution
-kernel when the PSF has spatial variations.  However, due to the camera
-rotations, and large number of images used to make the coadd, we expect most of
-this PSF variation to be averaged down.  Thus the single coadded PSF that we
-generate at the coadd center (see \S \ref{sec:sim:psfs}) may be sufficient.
+In order to measure the shear response, \mdet\ algorithm creates artificially
+sheared versions of each coadd image (see \S \ref{sec:mdet}).  This process
+involves deconvolving the image by the PSF (see \S \ref{sec:mdet}).  This would
+require a spatially dependent convolution kernel when the PSF has spatial
+variations.  However, due to the camera rotations, and large number of images
+used to make the coadd, we expect most of this PSF variation to be averaged
+down.  Thus the single coadded PSF that we generate at the coadd center (see \S
+\ref{sec:sim:psfs}) may be sufficient.
 
 We ran the same grid simulation from \S \ref{sec:results:base} with the
 spatially varying PSF presented in \S \ref{sec:sim:psfs}. We used the $r, i, z$
-bands but with a single image epoch per band, with rotations and dithers. We
+bands but with a single image epoch per band, with rotations and dithers, and
+again with noise corresponding to the full LSST 10 year coadded data.  We
 did not see any increase in the bias.   We interpret this result to indicate
 that the PSF variation is small enough that our single coadded PSF is
 sufficient, even with a single image per band.
@@ -632,19 +635,20 @@ sufficient, even with a single image per band.
 We also ran with the same simulation configuration, but with ten times the
 expected PSF variation. In this case, for a single, full depth image per band,
 we found a small increase in the bias $m \sim 0.0016$.  However, after
-increasing the number of simulated epochs per band to ten, we found this extra
-bias was removed.  We interpret this to mean that more epochs are required to
-cancel out very large PSFs.  LSST will take hundreds of images in each band
-(\esstodo{cite}), so we do no expect PSF variation to be a significant source
-of bias.
+increasing the number of simulated epochs per band to ten, we no longer found
+this extra bias.  We interpret this to mean that more epochs are required to
+cancel out very large PSF variations.  LSST will take hundreds of images in
+each band (\esstodo{cite}), so we do no expect PSF variation to be a
+significant source of bias.
 
-For the remaining tests in this paper we use the spatially variable PSF with
-expected variation level.
+For the remaining tests in this paper we use a spatially variable PSF with
+expected level of variation.
 
 \subsection{Results with Additional Simulation Features} \label{sec:results:more}
 
-We ran the simulation with realistic galaxies, random layout, and image
+We ran the simulation with realistic galaxies, random layout, image
 artifacts, and background subtraction errors, as listed in \S \ref{sec:sim}.
+
 For the realistic galaxy configuration, we adopted a basic set of cuts
 \begin{eqnarray}
     \mathrm{S/N} & > & 12.5 \\
@@ -652,13 +656,24 @@ For the realistic galaxy configuration, we adopted a basic set of cuts
 \end{eqnarray}
 where $T$ is the Gaussian weighted square size of the observed, PSF convolved
 image, as defined in equation \ref{eq:moments}, and $T_{PSF}$ is the
-corresponding value for the PSF.  The lower \snr\ cut is motivated by
-the noise study in \S \ref{sec:results:sdensnoise}, and the lower cut
-on $T/T_{PSF}$ represents a typical attempt to remove stars from the sample.
+corresponding value for the PSF.  The lower \snr\ cut is motivated by the noise
+study in \S \ref{sec:results:sdensnoise} in which a cut at 10 and 12.5 resulted
+in similar shear uncertainties.  In all the following tests, using a lower
+bound of $S/N > 10$ gave consistent results.
+
+The lower cut on $T/T_{PSF}$ represents a simple attempt to remove stars from
+the sample.  For \mcal, including stars in the sample does not result in a
+biased shear when the PSF is accurately modeled \citep{SheldonMcal2017}.  With
+\mdet\ the stars may result in a small bias because their positions are not
+moved by the true shear, but {\it are} moved by the artificial shear. However, the bias
+caused by this counterfactual movement is small \citep{mdet20}.  Nevertheless,
+we expect we will want to remove stars for other reasons, such as determining
+the redshift distribution, so we include star removal in our tests.
 
 We turned on each feature separately in order to isolate possible biases.  In
 no case did we find additional bias in the shear recovery beyond that expected
-from higher order shear effects (see \S \ref{sec:results:base}).
+from higher order shear effects (see \S \ref{sec:results:base}).  More details
+are given in the following sub-sections.
 
 \subsubsection{Results with Varied Selections on Object Properties} \label{sec:results:select}
 
@@ -673,7 +688,17 @@ the shear sensitivity without noise cancellation in \S
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{{trends}.pdf}
-	\caption{\esstodo{caption}} \label{fig:trends}
+
+    \caption{Multiplicative shear bias $m$ for a simulation with a realistic
+    galaxy sample, random galaxy layout, image artifacts and background
+    subtraction errors.  The top panel shows the bias as a function of \snr\
+    and the bottom panel shows the bias as a function of the size ratio
+    \Tratio.  The dot-dashed line represents the approximate expected bias due to
+    higher order shear effects, and the dashed lines bracket our nominal accuracy
+    goal.  The shaded areas show the 99.7\%~confidence bands for the constant
+    PSF (hatched) and spatially variable PSF (solid).  In all cases the results
+    are consistent with the expected bias.} \label{fig:trends}
+
 \end{figure}
 
 \subsection{Results with Overlapping Coadd Cells} \label{sec:results:cells}
