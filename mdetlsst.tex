@@ -129,7 +129,32 @@
 
 \begin{abstract}
 
-    \Mcal\ for LSST
+        We present an implementation of the \mdet\ weak lensing shear
+        measurement algorithm for use with the Rubin Observatory Legacy Survey
+        of Space and Time (LSST).  This new code works with the data products
+        produced by the LSST data management system (DM), and uses DM
+        algorithms when possible.  We tested the code using a new set of
+        simulations designed to mimic LSST imaging data.  The simulated images
+        contain noise appropriate for LSST 10 year data, semi-realistic
+        galaxies, and stars with realistic magnitude and spatial density
+        distributions.  Bright objects were allowed to saturated and could
+        include simulated bleed trails.  We also included bad columns and
+        cosmic rays.  We interpolated all saturated features, bad columns and
+        cosmic rays.  Each image was rotated randomly to mimic Rubin camera
+        rotations.  The images had point spread functions (PSF) with spatial
+        variation expected for LSST.  The images were to a common frame and
+        coadded, excluding images with edges in the coadd region to retain a
+        continuous point spread function.  We did not simulate the effects of
+        inaccurate image calibration, PSF characterization, or artifact
+        identification, but we did include simple background determination
+        errors.  We turned on individual simulation features cumulatively in
+        consecutive tests in order to isolate software bugs and possible
+        biases.  In no case did we find a significant bias in the measured
+        shear beyond that expected from higher order shear effects.
+
+        % We identified inadequate star masking as a significant source of
+        % potential additional noise in the shear measurements due to spurious
+        % detections near bright stars.
 
 \end{abstract}
 
@@ -731,14 +756,17 @@ We ran a modification of the base simulation as described in \S
 as described in \S \ref{sec:sim:cells}.  Because the cells overlap, the catalog
 created for each coadd must be trimmed to a unique region.  Shear changes the
 locations of objects, so this trimming introduces a shear dependent selection
-effect.
+effect.  For \mdet\ to correct for this selection, it is important that the
+full scene be sheared, so that the object positions change after application of
+the counterfactual shear.  Using unsheared positions can result multiplicative
+biases of a few tenths of a percent.
 
 In the case where the true simulated shear aligns with the artificially applied
 shear used to create the \mcal\ images, we found that \mdet\ provided an
 accurate calibration.  However, when using randomized shear orientations (see
 \S \ref{sec:sim:shears}), we found the multiplicative bias $m$ was below the
 expected bias due to higher order shear effects by about $-0.0004$.  Our
-inerpretation is that the artificial shearing slightly over-predicts the
+interpretation is that the artificial shearing slightly over-predicts the
 selection effect when it is not perfectly aligned with the true shear.  This
 bias is smaller than LSST requirements $|m| \lesssim 0.001$.  Nevertheless, we
 speculate that using artificial shears with random orientations could mitigate
