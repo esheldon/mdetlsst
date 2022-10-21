@@ -7,7 +7,9 @@ WIDTH = 2.8
 YLIM = (-3.5, 3.5)
 REQUIREMENT = 0.002
 
-LCOLOR = 'sienna'
+# LCOLOR = 'sienna'
+LCOLOR = 'bisque'
+LALPHA = 0.3
 SECCOLOR = 'sand'
 FCOLOR = 'black'
 
@@ -59,8 +61,9 @@ def do_Tratio_bias_plot(ax):
         xlim,
         [REQUIREMENT/0.001]*2,
         [-REQUIREMENT/0.001]*2,
-        alpha=0.1,
+        alpha=LALPHA,
         color=LCOLOR,
+        edgecolor='darkorange',
         hatch=None,
         label='Requirement',
     )
@@ -166,8 +169,9 @@ def do_s2n_bias_plot(ax):
         xlim,
         [REQUIREMENT/0.001]*2,
         [-REQUIREMENT/0.001]*2,
-        alpha=0.1,
+        alpha=LALPHA,
         color=LCOLOR,
+        edgecolor='darkorange',
         label='Requirement',
     )
 

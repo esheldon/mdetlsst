@@ -6,6 +6,9 @@ import proplot as pplt
 
 WIDTH = 2.8
 ASPECT = (1.618, 1)
+# LCOLOR = 'sienna'
+LCOLOR = 'bisque'
+LALPHA = 0.3
 
 REQUIREMENT = 0.002
 
@@ -241,10 +244,9 @@ def do_bias_plot_both(fname, data, wdata):
     for tdata, ax in zip((data, wdata), axs):
 
         lim = 1
-        lcolor = 'sienna'
         ax.axhline(0, color='black', lw=0.5)
-        ax.axhline(-lim, color=lcolor, linestyle='dashed', lw=lw)
-        ax.axhline(+lim, color=lcolor, linestyle='dashed', lw=lw)
+        ax.axhline(-lim, color=LCOLOR, linestyle='dashed', lw=lw)
+        ax.axhline(+lim, color=LCOLOR, linestyle='dashed', lw=lw)
 
         ax.axhline(
             0.4, color='sand', lw=lw, alpha=0.5, linestyle='dashdot',
@@ -294,17 +296,17 @@ def do_bias_plot(fname, wdata):
     )
     lw = 1
 
-    lcolor = 'sienna'
     ax.axhline(0, color='black', lw=0.5)
-    # ax.axhline(-REQUIREMENT, color=lcolor, linestyle='dashed', lw=lw)
-    # ax.axhline(+REQUIREMENT, color=lcolor, linestyle='dashed', lw=lw)
+    # ax.axhline(-REQUIREMENT, color=LCOLOR, linestyle='dashed', lw=lw)
+    # ax.axhline(+REQUIREMENT, color=LCOLOR, linestyle='dashed', lw=lw)
 
     ax.fill_between(
         xlim,
         [REQUIREMENT/0.001]*2,
         [-REQUIREMENT/0.001]*2,
-        alpha=0.1,
-        color=lcolor,
+        alpha=LALPHA,
+        color=LCOLOR,
+        edgecolor='darkorange',
         hatch=None,
         label='Requirement',
     )
