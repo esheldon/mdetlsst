@@ -3,6 +3,9 @@ import proplot as pplt
 
 ALPHA = 0.3
 WIDTH = 2.8
+# YLIM = (-2.5, 2.5)
+YLIM = (-3.5, 3.5)
+REQUIREMENT = 0.002
 
 LCOLOR = 'sienna'
 SECCOLOR = 'sand'
@@ -15,11 +18,11 @@ FCOLOR = 'black'
 COLORS = ['black']*4
 
 HATCHES = [
-    None,
+    # None,
     '//',
     '\\\\',
     '||',
-    # '-',
+    '-',
     # '+',
     # 'x',
     # 'o',
@@ -31,23 +34,37 @@ HATCHES = [
 
 
 def add_lines(ax):
-    lim = 1
     lw = 1
     ax.axhline(0, color='black', lw=0.5*lw)
-    ax.axhline(-lim, color=LCOLOR, linestyle='dashed', lw=lw)
-    ax.axhline(+lim, color=LCOLOR, linestyle='dashed', lw=lw)
+    # ax.axhline(-REQUIREMENT/0.001, color=LCOLOR, linestyle='dashed', lw=lw)
+    # ax.axhline(+REQUIREMENT/0.001, color=LCOLOR, linestyle='dashed', lw=lw)
 
-    ax.axhline(0.4, color=SECCOLOR, lw=lw, alpha=0.5, linestyle='dashdot')
+    ax.axhline(
+        0.4, color=SECCOLOR, lw=lw, alpha=0.5, linestyle='dashdot',
+        # label='Higher Order Shear',
+        label='Nonlinear Shear',
+    )
 
 
 def do_Tratio_bias_plot(ax):
 
+    xlim = (1.15, 1.55)
     ax.set(
         xlabel='Minimum $T/T_{PSF}$',
         ylabel='m / 0.001',
-        xlim=(1.15, 1.55),
-        ylim=(-2.5, 2.5),
+        xlim=xlim,
+        ylim=YLIM,
     )
+    ax.fill_between(
+        xlim,
+        [REQUIREMENT/0.001]*2,
+        [-REQUIREMENT/0.001]*2,
+        alpha=0.1,
+        color=LCOLOR,
+        hatch=None,
+        label='Requirement',
+    )
+
 
     Tratios = [1.2, 1.3, 1.4, 1.5]
 
@@ -66,7 +83,6 @@ def do_Tratio_bias_plot(ax):
     mhighs = np.array(
         [0.000967327, 0.00104341, 0.000960636, 0.000968678]
     )/0.001
-
 
     ax.fill_between(
         Tratios,
@@ -117,20 +133,16 @@ def do_Tratio_bias_plot(ax):
 
     add_lines(ax)
 
-    # ax.text(
-    #     1.2,
-    #     -2,
-    #     r'99.7\% confidence errors',
-    # )
-
 
 def do_s2n_bias_plot(ax):
+
+    xlim = (9, 21)
 
     ax.set(
         xlabel='Minimum S/N',
         ylabel='m / 0.001',
-        xlim=(9, 21),
-        ylim=(-2.5, 2.5),
+        xlim=xlim,
+        ylim=YLIM,
     )
 
     s2ns = [10, 12.5, 15, 20]
@@ -149,6 +161,15 @@ def do_s2n_bias_plot(ax):
     mhighs = np.array(
         [0.00121502, 0.000868853, 0.000972641, 0.000891671]
     )/0.001
+
+    ax.fill_between(
+        xlim,
+        [REQUIREMENT/0.001]*2,
+        [-REQUIREMENT/0.001]*2,
+        alpha=0.1,
+        color=LCOLOR,
+        label='Requirement',
+    )
 
     ax.fill_between(
         s2ns,
@@ -200,14 +221,15 @@ def do_s2n_bias_plot(ax):
     add_lines(ax)
 
     ax.text(
-        15,
-        1.6,
+        0.50,
+        0.87,
         r'99.7\% confidence range',
+        transform=ax.transAxes,
     )
     ax.legend(
         loc='lower right',
-        ncol=1,
-        pad=.5,
+        ncol=2,
+        # pad=.5,
     )
 
 

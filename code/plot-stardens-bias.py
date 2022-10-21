@@ -7,7 +7,24 @@ import proplot as pplt
 WIDTH = 2.8
 ASPECT = (1.618, 1)
 
+REQUIREMENT = 0.002
+
 MARKERS = ('o', 'd', '^', 's', 'v', 'h', 'p', 'P', 'H', 'X')
+
+HATCHES = [
+    # None,
+    '//',
+    '\\\\',
+    '||',
+    '--',
+    # '+',
+    # 'x',
+    # 'o',
+    # 'O',
+    # '.',
+    # '*',
+    None,
+]
 
 EXTRA_LINESTYLES = {
     'loose dotted': (0, (1, 10)),
@@ -197,7 +214,10 @@ def do_error_plot(fname, wdata):
             alpha=alpha,
         )
 
-    ax.legend(ncol=1, pad=1)
+    ax.legend(
+        ncol=1,
+        pad=1,
+    )
     print('writing:', fname)
     fig.savefig(fname)
 
@@ -217,20 +237,6 @@ def do_bias_plot_both(fname, data, wdata):
         xlim=(-5, 110),
         ylim=(-2.9, 3.9),
     )
-    hatches = [
-        None,
-        '//',
-        '\\\\',
-        '||',
-        # '-',
-        # '+',
-        # 'x',
-        # 'o',
-        # 'O',
-        # '.',
-        # '*',
-        None,
-    ]
     lw = 1
     for tdata, ax in zip((data, wdata), axs):
 
@@ -256,7 +262,7 @@ def do_bias_plot_both(fname, data, wdata):
                 label=label,
                 alpha=alpha,
                 color='black',
-                hatch=hatches[i],
+                hatch=HATCHES[i],
             )
 
     axs[0].legend(ncol=2, pad=1)
@@ -276,39 +282,37 @@ def do_bias_plot(fname, wdata):
 
     fig = pplt.figure(refwidth=WIDTH, refaspect=ASPECT, spany=True)
     ax = fig.subplots()
+    xlim = (-5, 110)
     ax.format(
         # abc='a)', abcloc='ul',
         # abc_kw={'color': 'dark red'},
         # abcbbox=True,
         xlabel='Maximum stellar density [per sq. arcmin]',
         ylabel='m / 0.001',
-        xlim=(-5, 110),
-        ylim=(-2.9, 3.9),
+        xlim=xlim,
+        ylim=(-2.5, 4.5),
     )
-    hatches = [
-        None,
-        '//',
-        '\\\\',
-        '||',
-        # '-',
-        # '+',
-        # 'x',
-        # 'o',
-        # 'O',
-        # '.',
-        # '*',
-        None,
-    ]
     lw = 1
 
-    lim = 1
     lcolor = 'sienna'
     ax.axhline(0, color='black', lw=0.5)
-    ax.axhline(-lim, color=lcolor, linestyle='dashed', lw=lw)
-    ax.axhline(+lim, color=lcolor, linestyle='dashed', lw=lw)
+    # ax.axhline(-REQUIREMENT, color=lcolor, linestyle='dashed', lw=lw)
+    # ax.axhline(+REQUIREMENT, color=lcolor, linestyle='dashed', lw=lw)
+
+    ax.fill_between(
+        xlim,
+        [REQUIREMENT/0.001]*2,
+        [-REQUIREMENT/0.001]*2,
+        alpha=0.1,
+        color=lcolor,
+        hatch=None,
+        label='Requirement',
+    )
 
     ax.axhline(
         0.4, color='sand', lw=lw, alpha=0.5, linestyle='dashdot',
+        # label='Higher Order Shear',
+        label='Nonlinear Shear',
     )
 
     for i, key in enumerate(sorted(wdata)):
@@ -323,14 +327,18 @@ def do_bias_plot(fname, wdata):
             label=label,
             alpha=alpha,
             color='black',
-            hatch=hatches[i],
+            hatch=HATCHES[i],
         )
 
-    ax.legend(ncol=2, pad=1)
+    ax.legend(
+        ncol=2,
+        # pad=1,
+    )
 
     ax.text(
-        50, -2,
+        0.5, 0.2,
         r'99.7\% confidence range',
+        transform=ax.transAxes,
     )
 
     print('writing:', fname)
@@ -348,7 +356,7 @@ def main():
     #     weighted=False, nocancel=True,
     # )
     wdata = read_data(
-        path='data/run-riz-drcbWsBPv0.1-cells2-s2n-imfrac0.10-mfrac0.02-weight-sn0.07',  #  noqa
+        path='data/run-riz-drcbWsBPv0.1-cells2-s2n-imfrac0.10-mfrac0.02-weight-sn0.07',  # noqa
         weighted=True, nocancel=False,
     )
     nc_wdata = read_data(
