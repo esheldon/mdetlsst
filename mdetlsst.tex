@@ -136,29 +136,30 @@
         algorithms when possible.  We tested the code using a new set of
         simulations designed to mimic LSST imaging data.  The simulated images
         contain noise appropriate for LSST 10 year data, semi-realistic
-        galaxies, and stars with realistic magnitude and spatial density
-        distributions.  Bright objects were allowed to saturated and could
-        include simulated bleed trails.  We also included bad columns and
-        cosmic rays.  We interpolated all saturated features, bad columns and
-        cosmic rays.  Each image was rotated randomly to mimic Rubin camera
-        rotations.  The images had point spread functions (PSF) with spatial
-        variation expected for LSST.  The images were to a common frame and
-        coadded, excluding images with edges in the coadd region to retain a
-        continuous point spread function.  We did not simulate the effects of
-        inaccurate image calibration, PSF characterization, or artifact
-        identification, but we did include simple background determination
-        errors.  We turned on individual simulation features cumulatively in
-        consecutive tests in order to isolate software bugs and possible
-        biases.  In no case did we find a significant bias in the measured
-        shear beyond that expected from higher order shear effects.  For our
-        analysis choices, we found an effective galaxy density of
-        $n_{\mathrm{eff}} \sim 41$ per square arcminute using the $r, i$ and
-        $z$ band images for shear measurement.  We identified spurious object
-        detections and problematic measurements near bright stars, due to
-        inadequate masking, as an important potential source of additional
-        noise that can reduce $n_{\mathrm{eff}}$ significantly.  In this study
-        we have demonstrated that \mdet\ can provide accurate, high precision
-        shear measurements given well characterized input data.
+        galaxies, and stars with representative distributions of magnitudes and
+        spatial density.  Bright objects were allowed to saturated and could
+        included simulated bleed trails when appropriate.  We also included bad
+        columns and cosmic rays.  We interpolated all saturated features.  Each
+        image coordinate system was rotated randomly to mimic Rubin camera
+        rotations.  The images had point spread functions (PSFs) with spatial
+        variations expected for LSST.  The images were warped to a common frame
+        and combined into overlapping coadd cells, excluding images with edges
+        in the coadd region to retain a continuous point spread function.  We
+        did not simulate the effects of inaccurate image calibration, PSF
+        characterization, or artifact identification, but we did include simple
+        background determination errors.  We turned on individual simulation
+        features cumulatively in consecutive tests in order to isolate software
+        bugs and possible biases.  In no case did we find a significant bias in
+        the measured shear beyond that expected from higher order shear
+        effects.  For our analysis choices, we found an effective galaxy
+        density of $n_{\mathrm{eff}} \sim 41$ per square arcminute using the
+        $r, i$ and $z$ band images for shear measurement.  We found that even
+        moderately inadequate star masking can lead to spurious object
+        detections and problematic measurements that would lead to significant
+        additional noise, reducing the shear sensitivity and $n_{\mathrm{eff}}$
+        significantly.  In this study we have demonstrated that, given well
+        characterized input data, \mdet\ can provide accurate, high precision
+        shear measurements for LSST.
 
 \end{abstract}
 
