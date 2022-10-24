@@ -153,12 +153,14 @@
         expected LSST tolerances in all cases.  For our analysis choices, we
         found an effective galaxy density of $n_{\mathrm{eff}} \sim 41$ per
         square arcminute using the $r, i$ and $z$ band images for shear
-        measurement.  We found that even moderately inadequate star masking can
-        lead to spurious object detections and problematic measurements that
-        would lead to significant additional noise, reducing the shear
-        sensitivity and $n_{\mathrm{eff}}$ significantly.  Given well
-        characterized input data, \mdet\ can provide accurate, high precision
-        shear measurements for LSST.
+        measurement.
+
+        % Inadequate star masking can
+        % lead to spurious object detections and problematic measurements that
+        % would lead to significant additional noise, reducing the shear
+        % sensitivity and $n_{\mathrm{eff}}$ significantly.  Given well
+        % characterized input data, \mdet\ can provide accurate, high precision
+        % shear measurements for LSST.
 
         % In this study we have demonstrated that, given well
         % characterized input data, \mdet\ can provide accurate, high precision
@@ -178,15 +180,15 @@
 The basic simulation was similar to that created for \citep{mdet20}.  We added
 additional features such as image artifacts, cosmic rays, stars, and saturated
 stars which we will describe in the following sections.  All images were
-rendered using the \galsim\ python package \esstodo{ cite galsim}.
+rendered using the \galsim\ python package \citep{galsim2015}.
 
-We simulated what are known in the LSST data management system (\dm, version
-0.2021.32, \esstodo{cite}) as calibrated exposure images.  This data is stored
-in an \calexp\ data structure, which carries a calibrated, background subtracted
-image, along with an estimated noise variance image plane, world coordinate
-system transformation (WCS) and position dependent PSF model.  Problem areas
-associated with saturation, cosmic rays, and bad columns are marked as separate
-bits in an integer bit mask image plane.
+We simulated the calibrated exposure images produced by the LSST data
+management system \citep[][\dm, version 0.2021.32]{JuricLSST2015,BoschHSC2017}.
+This data is stored in an \calexp\ data structure, which carries a calibrated,
+background subtracted image, along with an estimated noise variance image
+plane, world coordinate system transformation (WCS) and position dependent PSF
+model.  Problem areas associated with saturation, cosmic rays, and bad columns
+are marked as separate bits in an integer bit mask image plane.
 
 Other than background estimation errors (see \S \ref{sec:sim:bgerr}), we did not
 test scenarios where the input data were mis-calibrated.  For example we did
@@ -201,12 +203,14 @@ For this work, we used the newly written simulation package
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 
-We used the \descwl\ package \esstodo{cite} to determine the noise for images
-in each filter.  In all simulation runs we used predicted noise $n$ for the
-final 10 year coadd.  If $N$ simulated epochs were used, we re-scaled the noise
-appropriately, such that the noise in each epoch was $n * \sqrt{N}$.  We used a
-Guassian random field to simulate the noise, which is a good approximation at
-the expected noise levels \esstodo{cite}.
+We used the \descwl\ package
+\citep{DESCWLSanchez2021}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}}
+to determine the noise for images in each filter.  In all simulation runs we
+used predicted noise $n$ for the final 10 year coadd.  If $N$ simulated epochs
+were used, we re-scaled the noise appropriately, such that the noise in each
+epoch was $n * \sqrt{N}$.  We used a Guassian random field to simulate the
+noise, which is a good approximation at the expected noise levels
+\esstodo{cite}.
 
 We did not add the expected amount of background to each image (but see \S
 \ref{sec:sim:bgerr}).  After drawing all image features and adding
