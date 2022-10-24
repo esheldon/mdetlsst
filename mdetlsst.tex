@@ -344,26 +344,26 @@ small.
 
 \subsection{Galaxies} \label{sec:sim:galaxies}
 
-We used the \descwl\ package to generate galaxy models \esstodo{cite}.  These
-elliptical, color models have bulge, disk and AGN components.  Rather than use
-the \descwl\ package to draw the models in the image, we drew the models in our
-code in order to enable the use of our own PSF models (see \S
-\ref{sec:sim:psfs}), and to allow for more efficient drawing.
+We used the \descwl\ package to generate galaxy models
+\citep{DESCWLSanchez2021}.  These elliptical, color models have bulge, disk and
+AGN components.  Rather than use the \descwl\ package to draw the models in the
+image, we drew the models using Galsim in our code in order to use our own PSF
+models (see \S \ref{sec:sim:psfs}), and to allow for more efficient drawing.
 
 We also performed simulation runs with single component, round exponential
 galaxies with fixed flux and size.  These models are useful for shear recovery
 tests that do not require a realistic galaxy population, but benefit from using
-low shape noise shear tracers.  These models were also used for moderately
-fast, full shear recovery tests, to further verify code changes that had
-already passed the faster unit tests.
+low shape noise shear tracers.  We also used these models for relatively fast
+shear tests after major code changes, as further verification after the faster
+unit tests had passed.
 
 \subsection{Layouts} \label{sec:sim:layouts}
 
 We ran tests with both random and gridded galaxy layouts.  The random layout
-was used with the realistic galaxy population, with a density of objects that
+was used for the realistic galaxy population, with a density of objects that
 reflected the expected density of galaxies as defined in the \descwl\ package.
 The grid was used with the simple, round exponential galaxies to facilitate
-moderately fast shear recovery tests.  The grid was square, with spacing
+relatively fast shear recovery tests.  The grid was square, with spacing
 designed to avoid overlap between adjacent galaxies, and thus avoid blending
 effects.
 
