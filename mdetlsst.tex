@@ -388,15 +388,14 @@ introduced for random shears when when trimming to cells.
 
 \subsection{Overlapping Coadd Cells} \label{sec:sim:cells}
 
-Coadds can be used for shear measurement\citep{ArmstrongCoadd}, but we
-require that the coadded images have a continuous PSF in order to faciliate
-accurate PSF modeling.  Images that have an edge in the coadd region must be
-rejected.  Smaller coadds result in fewer images being rejected, but very small
-coadds would complicate object identification and deblending.  For LSST, we plan to
+Coadds can be used for shear measurement\citep{ArmstrongCoadd}, but we require
+that the coadded images have a continuous PSF in order to faciliate accurate
+PSF modeling.  Images that have an edge in the coadd region must be rejected.
+Smaller coadds result in fewer images being rejected, but very small coadds
+would complicate object identification and deblending.  For LSST, we plan to
 use relatively small (250x250 pixels) overlapping (50 pixels) coadded regions
-for shear measurement, which we call ``cells'' \esstodo{cite} because they
-are small subregions of the larger ``tract'' regions defined within the
-\dm\ framework.
+for shear measurement, which we call ``cells'' because they are small
+subregions of the larger ``tract'' regions defined within the \dm\ framework.
 
 We ran simulations with and without cells in order control for issues specific
 to the cell processing and trimming of objects to non overlapping regions.  We
@@ -410,9 +409,10 @@ The \mcal\ procedure involves deconvolution by the PSF, shearing of the image,
 and reconvolution by a round kernel.  This process alters the noise and
 produces a spurious shear response \citep{SheldonMcal2017}.  We can cancel this
 bias by adding a noise image, with properties that statistically match the real
-background noise, processed in a similar manner but with orthogonal shear
-\citep{SheldonMcal2017,mdet20}.  We stored this noise image in a copy of the image
-\calexp\ structure, but replacing the real image data with the noise image.
+background noise, processed with the orthogonal shear
+\citep{SheldonMcal2017,mdet20}.  We stored this noise image in a copy of the
+image \calexp\ structure, but replacing the real image data with the noise
+image.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{example-image.jpg}
@@ -555,11 +555,11 @@ structures.  The new code is part of the \texttt{metadetect} software package.
 
 \subsection{Detection and Deblending} \label{sec:mdet:detect}
 
-We used the \dm\ algorithm for detection \esstodo{cite Jims paper}.  We ran with
-the default settings at the time of writing, which retains sources with a
-$S/N \gtrsim 5$ calculated from a PSF template flux measurement.  Before detection
-we re-determined the background to remove the background estimation errors that were
-put into the simulation (see \S \ref{sec:sim:bgerr}).
+We used the \dm\ algorithm for detection \citep{BoschHSC2017}.  We ran with the
+default settings at the time of writing, which retains sources with a $S/N
+\gtrsim 5$ calculated from a PSF template flux measurement.  Before detection
+we determined the background in the coadd to correct for simulated background
+estimation errors (see \S \ref{sec:sim:bgerr}).
 
 Deblending was performed during the object detection phase as part of the
 process of finding sub-peaks, but we did not use the deblender to remove the
@@ -567,17 +567,17 @@ light of neighboring objects when measuring object properties (see \S
 \ref{sec:mdet:meas}).  We found that using the models to remove neighbor light
 resulted in shear biases of order ten percent.
 
-We did limited testing with the Scarlet \esstodo{cite} deblender, which has
-recently received support in the \dm\ software stack. Scarlet performed better
-in the limited tests we performed, but due to the high computational cost of
-the deblender, we did not gather enough statistics to perform comprehensive
-tests.
+We did limited testing with the Scarlet deblender \citep{MelchiorScarlet2018},
+which is available to use with the \dm\ software stack. Scarlet performed
+better in the limited tests we performed, but due to the high computational
+cost of the deblender, we did not gather enough statistics to perform
+comprehensive tests.
 
 As we will show in \S \ref{sec:results}, measuring shapes without deblending
 the light of neighbors caused no detectable bias.  However, deblending may
 improve the accuracy of other critical tasks such as inferring the redshift
-distribution of the lensing source galaxies.  We will explore deblending more
-in future work.
+distribution of the lensing source galaxies.  We will further explore
+deblending in future work.
 
 \subsection{Object Measurement} \label{sec:mdet:meas}
 
@@ -624,9 +624,9 @@ shape measurements from different scenes where placed in a common reference
 frame before averaging to get a mean shear.
 
 We estimated the uncertainty in the averaged shear measurements using a
-jackknife technique (\esstodo{cite}), with chunks defined as a few tens to hundreds of scenes.
-The jackknife technique gives a significantly larger uncertainty than a
-straight error propagation using the shape noise due to extra sources of error
+jackknife technique \citep{LuptonStats1993}, with chunks defined as a few tens
+to hundreds of scenes.  The jackknife technique gives a significantly larger
+uncertainty than a naive error propagation due to extra sources of error
 associated with masking, deblending, stellar contamination and variable
 response.
 
