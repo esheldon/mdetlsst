@@ -208,29 +208,28 @@ We used the \descwl\ package
 to determine the noise for images in each filter.  In all simulation runs we
 used predicted noise $n$ for the final 10 year coadd.  If $N$ simulated epochs
 were used, we re-scaled the noise appropriately, such that the noise in each
-epoch was $n * \sqrt{N}$.  We used a Guassian random field to simulate the
-noise, which is a good approximation at the expected noise levels
-\esstodo{cite}.
-
-We did not add the expected amount of background to each image (but see \S
-\ref{sec:sim:bgerr}).  After drawing all image features and adding
-noise, we re-scaled the images to a common zero point of 30.
+epoch was $n * \sqrt{N}$.  We did not add the expected amount of background to
+each image (see \S \ref{sec:sim:bgerr}), but used a Guassian random field to
+approximate the Poisson noise after background subtraction.  After drawing all
+image features and adding noise, we re-scaled the images to a common zero point
+of 30.
 
 \subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:sim:rotdith}
 
 Each image was simulated as a tangent plane projection of the sky onto the
-image frame with the LSST camera pixel scale of 0.2 arcseconds \esstodo{reference}.
-The world coordinate system (WCS) transformation between sky and pixel
-coordinates was represented as a \galsim\ \texttt{TanWCS} object.  Each
-simulated WCS transformation had a random rotation applied, in order to mock up
-the camera rotations used by LSSTCam \esstodo{cite proper paper}.  The center of
-each image was shifted, or ``dithered'', randomly in two dimensions relative to
-the center of the desired coadded image.  We choose the dithers to be a
-unrealistically small, within two pixels, to minimize portions of the image
-that would not overlap the final coadd.  We created images with size just large enough
-so that the rotated image, after dithers, would have no edge crossing the coadd
-region, again to avoid waste:  coadding an image with an edge produces a
-discontinuous PSF in the final coadd, so such images would be discarded.
+image frame with the expected LSST camera pixel scale of 0.2 arcseconds
+\citep{IvezicLSST2008}.  The world coordinate system (WCS) transformation between
+sky and pixel coordinates was represented as a \galsim\ \texttt{TanWCS} object.
+Each simulated WCS transformation had a random rotation applied, in order to
+mock up the camera rotations used by LSSTCam \citep{IvezicLSST2008}.  The
+center of each image was shifted, or ``dithered'', randomly in two dimensions
+relative to the center of the desired coadded image.  We choose the dithers to
+be a unrealistically small, within two pixels, to minimize portions of the
+image that would not overlap the final coadd.  We created images with size just
+large enough so that the rotated image, after dithers, would have no edge
+crossing the coadd region, again to avoid waste:  coadding an image with an
+edge produces a discontinuous PSF in the final coadd, so such images would be
+discarded.
 
 \subsection{Point Spread Function} \label{sec:sim:psfs}
 
@@ -253,17 +252,18 @@ order to test the accuracy of the PSF coadd under extreme conditions.
 
 \subsection{Stars} \label{sec:sim:stars}
 
-We simulated stars using fluxes and densities sampled from the LSST DESC DC2
-simulation \esstodo{cite}.  For each simulated field we sampled randomly, with
-replacement, from the map of stellar density used to generate DC2, rejecting
-densities higher than 100 per square arcminute.  This density represents
-the total number of stars drawn, not the number detected.  We
-sampled the multiband flux the DC2 star catalog.  We modeled
-each star as a small Gaussian (FWHM $= 10^{-4}$ arcsec) convolved with the
-point spread function.  We drew stars at random locations, even when galaxies
-were drawn on a grid layout (see \S \ref{sec:sim:layouts}).  Stars were allowed
-to saturate and have an associated bleed trail (see
-\S \ref{sec:sim:satbleeds}).
+We simulated stars using fluxes and densities sampled from the LSST DESC Data
+Challenge Two (DC2) simulation catalogs \citep{DC2Abolfathi2021}.  For each
+simulated field we sampled randomly, with replacement, from the map of stellar
+density used to generate DC2, rejecting densities higher than 100 per square
+arcminute.  This density represents the total number of stars drawn, not the
+number detected.  The multi-band flux for each star was sampled with
+replacement from the DC2 star catalog.  We modeled each star as a small
+Gaussian (FWHM $= 10^{-4}$ arcsec) convolved with the point spread function
+(see \S \ref{sec:sim:psfs}).  Stars were always drawn at random locations, even
+when galaxies were drawn on a grid layout (see \S \ref{sec:sim:layouts}).
+Stars were allowed to saturate and have an associated bleed trail (see \S
+\ref{sec:sim:satbleeds}).
 
 \subsection{Image Saturation, Star Masking and Star Bleed Trails} \label{sec:sim:satbleeds}
 
