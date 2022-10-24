@@ -696,9 +696,9 @@ expected PSF variation. In this case, for a single image per band, we found a
 small increase in the bias $m \sim 0.0016$.  However, after increasing the
 number of simulated epochs per band to ten but with the same final coadd noise
 level, we no longer found this extra bias.  We interpret this to mean that more
-epochs are required to cancel out very large PSF variations.  LSST will take
-hundreds of images in each band (\esstodo{cite}), so we do no expect PSF
-variation to be a significant source of bias.
+epochs are required to cancel out very large PSF variations.  Since LSST will
+take hundreds of images in each band \citep{IvezicLSST2008}, we do not
+expect PSF variation to be a significant source of bias.
 
 For the remaining tests in this paper we use a spatially variable PSF with
 expected level of variation.
@@ -802,14 +802,10 @@ in the shear average.  We used a two part weight function
 with $W_\sigma$ based on the object's shape noise and $W_g$ designed to
 down-weight a particular set of spurious objects.
 
-The primary weight was based on the intrinsic shape noise and shape
-measurement uncertainty, and is designed to be an optimal weight in the
-scenario that the only sources of uncertainty are the intrinsic shape noise 
-and shot noise in the images
+The $W(\sigma_g)$ is an approximate inverse variance weighting
 \begin{equation}
     W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_g^2},
 \end{equation}
-\esstodo{cite}
 where $\sigma_{SN}$ is the intrinsic ellipticity noise of the population and
 $\sigma_g$ is the estimated uncertainty from shot noise.  We find $\sigma_{SN}$
 before response correction is about 0.07.  The average response is about 0.24
@@ -892,11 +888,11 @@ high stellar density tend to have a relatively large area masked due to stars.
 We found that including detections with \snr\ as low 10 does not reduce the
 shear uncertainty compared to cutting at 12.5.    This may be because lower
 \snr\ objects having relatively small response, which is not accounted for in
-the weighting.  An optimized weight that is a function of \snr, $T$, and other
-relevant parameters may provide a better sensitivity \esstodo{cite Y3 paper
-weighting}.  Note also that these results will vary significantly with the
-measurement type, for example the specific weight function used to measure
-moments, or the model that is fitted.
+the weighting.  An optimized weight based on the expected response for each
+object may provide a better sensitivity \citep{GattiY3Shear2021}.  Note also
+that these results will vary significantly with the measurement type, for
+example the specific weight function used to measure moments, or the model that
+is fitted.
 
 \subsubsection{Discussion of Practical Stellar Density Cuts}
 
