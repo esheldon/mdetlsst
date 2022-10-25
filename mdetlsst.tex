@@ -173,15 +173,47 @@
 
 \section{Introduction} \label{sec:intro}
 
-\begin{itemize}
+Weak gravitational lensing shear signals \esstodo{cite} can be measured
+accurately from the lensed images of galaxies, up to non-linear shear effects,
+in the presence of noise, a finite point spread function (PSF) and overlapping
+galaxy images using the \mdet\ technique \citep{mdet20}.  The shear measurement
+problem is solved, in principle.
 
-    \item Brief Motivation
-    \item \Mdet
-    \item Specific LSST information
-    \item LSST Requirements and our choice
+However, real astronomical images contain additional features that must be
+understood and addressed in order to obtain accurate shear measurements.  A
+typical image may be expected to contain cosmic rays, bad CCD columns,
+saturation, stars (which are not sheared) and star bleed trails.  Furthermore,
+the images may be combined into ``coadded'' aggregates, which typically have
+correlated pixel noise.  
 
-\end{itemize}
+We think it is reasonable to expect the shear measurement implementation to
+deal with the above features.  In other words, once the data are characterized
+in terms of flux and astrometric calibration, background determination, and
+PSF, and problematic features are identified, the shear algorithm should be
+able to process the input data and produce accurate shear estimates.
 
+We also expect the images we work with may be coadded. The imminent Rubin
+Observatory Legacy Survey of Space and Time \citep[LSST,][]{IvezicLSST2008}
+will typically image each part of the survey area hundreds of times, producing
+a large data volume, the processing of which requires coaddition for all but
+the most efficient measurements.  Again, we think the shear code should
+accurately recover the shear in the presence of correlated noise.
+
+At the time of writing, we consider the flux and astrometric calibration, PSF
+characterization, background determination and finding of artifacts to be
+outside the purview of the shear measurement code.  We expect these tasks
+to be performed by the ``upstream'' pipeline.
+
+In this work we test the \mdet\ technique using simulated images, containing
+proxies for the above effects, which we warp and aggregate into coadds.  We use
+simulated data that mimic the expected data products from LSST, and use a new
+\mdet\ code designed specifically to work with these data products.
+ 
+% In this work we test the \mdet\ technique using simulated images that contain
+% proxies for all the above effects.  We use simulated data that mocks up the
+% expected data products from LSST, and use a new \mdet\ code designed
+% specifically to work with these data products.
+ 
 \section{Simulation Features} \label{sec:sim}
 
 The basic simulation was similar to that created for \citep{mdet20}.  We added
