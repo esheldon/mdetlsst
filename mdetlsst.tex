@@ -173,7 +173,14 @@
 
 \section{Introduction} \label{sec:intro}
 
-\esstodo{}
+\begin{itemize}
+
+    \item Brief Motivation
+    \item \Mdet
+    \item Specific LSST information
+    \item LSST Requirements and our choice
+
+\end{itemize}
 
 \section{Simulation Features} \label{sec:sim}
 
@@ -806,24 +813,24 @@ The $W(\sigma_g)$ is an approximate inverse variance weighting
 \begin{equation}
     W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_g^2},
 \end{equation}
-where $\sigma_{SN}$ is the intrinsic ellipticity noise of the population and
-$\sigma_g$ is the estimated uncertainty from shot noise.  We find $\sigma_{SN}$
-before response correction is about 0.07.  The average response is about 0.24
-for this sample, implying the true shape noise is about 0.29.
+where $\sigma^2_{SN}$ is the intrinsic ellipticity variance of the population
+and $\sigma_g$ is the estimated uncertainty from shot noise.  We find
+$\sigma_{SN}$ before response correction is about 0.07.  The average response
+is about 0.24 for this sample, implying the true shape noise is about 0.29.
 
 In the presence of stars we found an unexpected population of high ellipticity
 objects.  These objects were usually spurious detections or blends of faint
-objects with bright stars, found just outside the star masking radius
-discuessed in \S \ref{sec:sim:satbleeds}\footnote{Masaya Yamamoto, private
-communication}.  We did not keep enough information in the output files to
-exclude these objects from our catalogs in post processing, and rerunning was
-would have taken prohibitively long due to limited computing resources.  As a
-temporary solution we included an additional ellipticity dependent weight
-function \citep{ba14}
+objects with bright stars, found just outside the star masking
+radius\footnote{Masaya Yamamoto, private communication} (see \S
+\ref{sec:sim:satbleeds}).  We did not keep enough information in the output
+files to exclude these objects from our catalogs in post processing, and
+rerunning would have taken prohibitively long due to limited computing
+resources.  As a temporary solution we included an additional ellipticity
+dependent weight function \citep{ba14}
 \begin{equation}
     W_g(g) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -g^2/2 \sigma_w^2\right]
 \end{equation}
-where $g$ is the total scalar shape $g = \sqrt{g_1^2 + g_2^2}$.  We took
+where $g$ is the ellipticity magnitude $g = \sqrt{g_1^2 + g_2^2}$.  We took
 $\sigma_w = 0.3$, which downweights very high ellipticity objects.  We found
 that using this weight function reduced the uncertainty of the shear recovery
 by 13\%.  In future work it will be important to use sufficient star masking,
