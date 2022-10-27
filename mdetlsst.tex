@@ -174,6 +174,23 @@
 
 \section{Introduction} \label{sec:intro}
 
+\begin{itemize}
+
+    \item Short version:  We are excited to use the new data from Stage IV
+        experiments such as Rubin LSST to study dark energy.  Lensing is one of
+        the phenomena we will use to study dark energy.  We need to make sure
+        we have codes ready, and that these codes can give accurate results
+        with well characterized data.  The joint m(z)/N(z) calibration may
+        require simulations even if the mean $m(z)$ is small, but the smaller
+        the mean $m(z)$ the easier it is to constrain N(z).  \Mdet\ has been
+        proven accurate enough, even with blending, in an idealistic scenario.
+        Here we test \mdet\ with more realistic simulations, using an
+        implementation that works with Rubin data.
+
+\end{itemize}
+
+\esstodo{More intro before this}
+
 Weak gravitational lensing shear signals \esstodo{cite} can be measured
 accurately from the lensed images of galaxies, up to non-linear shear effects,
 in the presence of noise, a finite point spread function (PSF) and overlapping
@@ -647,12 +664,14 @@ S/N, second moments, and ellipticity derived from the second moments:
 where $I(x, y)$ is the intensity of the image, and $\sigma^2(I(x, y))$ is the
 noise variance. The sums run over all pixels in a 48x48 postage stamp image
 extracted around the object of interest.  The $x$ and $y$ coordinates are
-relative to the center found during detection.  Not shown in the sums is the
-weight for each pixel in the sum, which is the inverse of the pixel noise
-variance. However, the noise variance is nearly constant across the coadd so
-this is only relevant for masked, zero weight pixels.  Note $T$ is an estimate
-of the observed square size of the object, not the pre-PSF size.
-We also calculated variances for the moments and ellipticities.
+relative to the center found during detection.  For brevity, we have shown only
+the error on the flux $\sigma(F)$ but in practice the full covariance matrix
+was measured for the moments.  Not shown in the sums is the weight for each
+pixel in the sum, which is the inverse of the pixel noise variance. However,
+the noise variance is nearly constant across the coadd so this is only relevant
+for masked, zero weight pixels.  Note $T$ is an estimate of the observed square
+size of the object, not the pre-PSF size.  We also calculated variances for the
+moments and ellipticities.
 
 We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
@@ -848,7 +867,7 @@ in the shear average.  We used a two part weight function
 \begin{equation}
     W(\sigma_g, g) = W_\sigma (\sigma_g) \times W_g(g)
 \end{equation}
-with $W_\sigma$ based on the object's shape noise and $W_g$ designed to
+with $W_\sigma$ based on the object's ellipticity noise and $W_g$ designed to
 down-weight a particular set of spurious objects.
 
 The $W(\sigma_g)$ is an approximate inverse variance weighting
@@ -864,19 +883,22 @@ In the presence of stars we found an unexpected population of high ellipticity
 objects.  These objects were usually spurious detections or blends of faint
 objects with bright stars, found just outside the star masking
 radius\footnote{Masaya Yamamoto, private communication} (see \S
-\ref{sec:sim:satbleeds}).  We did not keep enough information in the output
-files to exclude these objects from our catalogs in post processing, and
-rerunning would have taken prohibitively long due to limited computing
-resources.  As a temporary solution we included an additional ellipticity
-dependent weight function \citep{ba14}
+\ref{sec:sim:satbleeds}).  Due to lack of foresight, we did not keep enough
+information in the output files to exclude these objects from our catalogs in
+post processing, and rerunning would have taken prohibitively long due to
+limited computing resources.   Including these objects did not produce a bias
+in the inferred shear, but did increase the noise.  As a temporary solution we
+included an additional ellipticity dependent weight function \citep{ba14}
 \begin{equation}
     W_g(g) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -g^2/2 \sigma_w^2\right]
 \end{equation}
 where $g$ is the ellipticity magnitude $g = \sqrt{g_1^2 + g_2^2}$.  We took
 $\sigma_w = 0.3$, which downweights very high ellipticity objects.  We found
 that using this weight function reduced the uncertainty of the shear recovery
-by 13\%.  In future work it will be important to use sufficient star masking,
-and identify problematic objects.
+by 13\%.  Note, in this case, the improvement in the uncertainty in the mean
+shear is not due primarily to a reduction in shape noise for real objects, but
+due to downweighting spurious detections.  In future work it will be important
+to use sufficient star masking, and identify problematic objects.
 
 \subsubsection{Dependence of Shear Bias on Stellar Density Cut} \label{sec:results:sdens}
 
@@ -976,7 +998,7 @@ equation \ref{eq:basiccuts} and the cuts below, $\sigma_\gamma \sim 5.88 \times
 10^{-6}$ is the jackknifed shear uncertainty without noise cancellation, $R
 \sim 0.242$ is the mean shear response, and $A$ is the simulated area after
 masking and removing high density regions.    The raw area was about 41,600
-square degrees, with about 6\% of that area was masked due to bright stars and
+square degrees, and about 6\% of that area was masked due to bright stars and
 defects.  We cut to a maximum stellar density of 60 per square arcminute, and
 removed fields with overall masking greater than 10\%, which leaves a final
 area of $A \sim 32,100$ square degrees.  We find $n_\mathrm{eff} \sim 41$ per
