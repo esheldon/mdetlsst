@@ -997,28 +997,37 @@ the choice of ellipticity estimate, and may be improved with optimized weights.
 
 We have shown that \mdet\ is robust to the types of image features we expect
 the shear code to handle, namely those that do not require further
-characterization or calibration of the data.  We need to interpolate problem
-areas, and coadd the images, but find that the shear can be accurately
-recovered if example noise images are passed through all the same processes for
-use in the \mcal\ image corrections.
+characterization or calibration of the data.
+
+Two issues in particular require careful handling.  Problematic features, such
+as saturation and bright stars, must be masked and interpolated, and the images
+must be coadded for efficiency. Both of these steps significantly modify the
+noise, introducing correlations that can bias the shear recovery.  We find that
+the shear can be accurately recovered if representative noise images are passed
+through all the same procedures and used to to restore symmetry to the
+noise following the procedures in \cite{SheldonMcal2017}.
 
 We expect further simulation work will be critical moving forward.  We plan to
 proceed on two separate tracks.  The first track is to generate simulations to
 jointly calibrate the redshift dependent shear bias and redshift distribution
 $N(z)$ of the sources, following the pioneering work of \cite{MacCrann2022} and
-\cite{LiNofz2022}.  Unlike the simulations used in this work, these simulations
-may need to reproduce specific features of the real data, such as to simulate
-the properties of a representative sample of coadd cells, including the
-correlated noise, masking, PSF etc.  We expect this joint calibration to be
-necessary even if the shear measurement method itself is unbiased.
+\cite{LiNofz2022}.  Unlike the simulations used here, the calibration
+simulations may need to reproduce specific features of a representative sample
+of coadd cells, including the correlated noise, masking, PSF etc.  We expect
+this joint calibration to be necessary even if the shear measurement method
+itself is unbiased.  An alternative to a pure simulation approach may to inject
+fake sources directly into the images
+\citep{SuchytaBalrog2016,EverettBalrog2022}, which more easily captures details
+of the original images, but could be more computationally intensive.
 
 The second simulation track is to test the effect of specific errors in the
 data characterization.  For example, if the PSF determination is biased we
 expect a bias in the recovered shear.  We also expect biases if the background
 determination is incorrect (in a way more complex than we tested in this work),
-the noise properties are misestimated, or the data are miscalibrated in some
-other way.  It may be that relatively small, targeted simulations are
-sufficient to limit these effects.
+the noise properties of each image are misestimated, or the data are
+miscalibrated in some other way.  It may be that relatively small, targeted
+simulations are sufficient to estimate the impact of these errors on
+shear measurement.
 
 \section*{Acknowledgments}
 
