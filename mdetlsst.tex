@@ -189,56 +189,66 @@
 
 \end{itemize}
 
-\esstodo{More intro before this}
+New astronomical imaging surveys coming online in the next few years will use
+weak gravitational lensing as a primary probe to study dark energy
+\citep{IvezicLSST2008,Euclid2011,Roman2015}.  In order to make full use of
+these data sets, we need algorithms that produce nearly unbiased shear
+estimates, and implementations of those algorithms that work with the data
+products of each survey.
 
-Weak gravitational lensing shear signals \esstodo{cite} can be measured
-accurately from the lensed images of galaxies, up to non-linear shear effects,
-in the presence of noise, a finite point spread function (PSF) and overlapping
-galaxy images using the \mdet\ technique
+The \mdet\ shear measurement has been shown to accurately recover weak
+gravitational shear signals from the lensed images of galaxies, up to
+non-linear shear effects, in the presence of noise, a point spread function
+(PSF) and overlapping, or blended, galaxy images
 \citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b}.
 
-% The shear measurement
-% problem is solved, in principle.
+Other recently developed methods provide similar accuracy for non-overlapping
+galaxy images \citep{BernBFD2016, LiFPFSBlending2022} but are expected to
+require further percent level corrections for blending
+\citep{mdet20,LiFPFSBlending2022} using simulations.  Note such simulations
+will most likely be required in any case to jointly calibrate the shear bias
+and the redshift distribution of the lensed galaxies
+\citep{MacCrann2022,LiNofz2022}.
 
 Real astronomical images contain additional features that must be understood
 and addressed in order to obtain accurate shear measurements.  A typical image
 may be expected to contain, among other features, cosmic rays, bad CCD columns,
 saturation, stars (which are not sheared) and star bleed trails.
 
-We think it is reasonable that the shear measurement implementation will
-provide accurate measurements in the presence of these types of features.  In
-other words, once the data are characterized in terms of flux and astrometric
-calibration, background determination, and PSF, and problematic features are
-identified and potentially masked, the shear code should be able to process the
-data and to provide an accurate shear calibration.
+The shear measurement implementation should provide accurate measurements in
+the presence of these types of features.  In other words, if the data are well
+characterized in terms of flux and astrometric calibration, background
+determination, and PSF, and problematic features are identified and potentially
+masked, the shear code should be able to further process the images to provide
+an accurate shear measurement.
 
-We also expect the images may be combined into ``coadded'' aggregates
-\esstodo{cite euclid, Roman, as well as LSST}, which typically have correlated
-pixel noise due to the remapping, or ``warping'' to a common frame.  The
-imminent Rubin Observatory Legacy Survey of Space and Time
+The shear measurement should also be accurate when images are combined into
+``coadded'' summed images, which typically have correlated pixel noise due to the
+remapping, or ``warping'' of each image to a common frame before combination.
+The imminent Rubin Observatory Legacy Survey of Space and Time
 \citep[LSST,][]{IvezicLSST2008} will typically image each part of the survey
 area hundreds of times, producing a large data volume, the processing of which
-requires coaddition for all but the most efficient measurements.  Again, we
-think the shear code should perform accurately in the presence of correlated
-noise, provided it is well characterized.
+requires coaddition for all but the most efficient measurements.
+\cite{ArmstrongCoadd} showed that shear measurements are possible with
+coadded images in the case that object detection is perfect.
 
-At the time of writing, we consider characterization of the data, such as
-determining the flux and astrometric calibration, PSF characterization,
+At the time of writing, we consider lower level characterizations of the data,
+such as determining the flux and astrometric calibration, PSF characterization,
 background determination and finding of artifacts, to be outside the purview of
 the shear measurement code.  We expect these tasks to be performed by the
 ``upstream'' software pipeline.
 
 In this work we demonstrate that the \mdet\ technique can perform accurately
 using such featureful, but well characterized data.  We simulate images
-containing galaxies, stars with a realistic galactic density distribution, and
-proxies for the above image artifacts, which we warp and aggregate into
-overlapping coadds.  We simulate the expected data products produced by the
+containing galaxies, stars with a realistic galactic density distribution,
+spatially variable PSF, and proxies for the above image artifacts (see \S
+\ref{sec:sim}), which we warp and sum into overlapping coadds (see \S
+\ref{sec:coadding}).  We simulate the expected data products produced by the
 LSST data management system \citep[\dm,][]{JuricLSST2015,BoschHSC2017}, and use
 a new \mdet\ code designed specifically to work with \dmshort\ data structures
-and algorithms\footnote{The software used in this work is freely available on the
-internet.  URLs are provided as footnotes to the text.}.
- 
-\esstodo{Section break down?}
+and algorithms\footnote{The software used in this work is freely available on
+the internet.  URLs are provided as footnotes to the text.}.  We describe
+\mdet\ in \S \ref{sec:mdet}, and the results in \S ref{sec:results}.
  
 \section{Simulation Features} \label{sec:sim}
 
