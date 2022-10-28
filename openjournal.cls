@@ -870,11 +870,11 @@
 % End-of-document text
 %%%%%%%%%%%%
 
-\AtEndDocument{
-\begin{bottompar}
-This paper was built using the Open Journal of Astrophysics \LaTeX\ template. The OJA is a journal which provides fast and easy peer review for new papers in the \texttt{astro-ph} section of the arXiv, making the reviewing process simpler for authors and referees alike. Learn more at \url{http://astro.theoj.org}.
-\end{bottompar}
-}
+% \AtEndDocument{
+% \begin{bottompar}
+% This paper was built using the Open Journal of Astrophysics \LaTeX\ template. The OJA is a journal which provides fast and easy peer review for new papers in the \texttt{astro-ph} section of the arXiv, making the reviewing process simpler for authors and referees alike. Learn more at \url{http://astro.theoj.org}.
+% \end{bottompar}
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Equations                                             %
