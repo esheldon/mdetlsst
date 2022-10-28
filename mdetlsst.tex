@@ -23,6 +23,9 @@
 \usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor}
 \usepackage{verbatim}
 \usepackage{threeparttable}
+\usepackage{draftwatermark}
+\SetWatermarkScale{5}
+\SetWatermarkColor[gray]{0.9}
 
 %\usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor,hyperref}
 
@@ -997,19 +1000,22 @@ the choice of ellipticity estimate, and may be improved with optimized weights.
 
 \section{Discussion} \label{sec:summary}
 
-We have shown \mdet\ to be robust to the types of image features we expect the
-shear code to handle, namely those that do not require further characterization
-or calibration of the data.  We need to interpolate problem areas, and coadd
-the images, but find that the shear can be accurately recovered if example
-noise images are passed through all the same processes for use in the \mcal\
-image corrections.
+We have shown that \mdet\ is robust to the types of image features we expect
+the shear code to handle, namely those that do not require further
+characterization or calibration of the data.  We need to interpolate problem
+areas, and coadd the images, but find that the shear can be accurately
+recovered if example noise images are passed through all the same processes for
+use in the \mcal\ image corrections.
 
 We expect further simulation work will be critical moving forward.  We plan to
-proceed on two separate tracks.  The first track is to generate realistic
-simulations to jointly calibrate the redshift dependent shear bias and redshift
-distribution $N(z)$ of the sources, following the pioneering work of
-\cite{MacCrann2022} and \cite{LiNofz2022}.  We expect this joint calibration to
-be necessary even if the shear measurement method itself is unbiased.
+proceed on two separate tracks.  The first track is to generate simulations to
+jointly calibrate the redshift dependent shear bias and redshift distribution
+$N(z)$ of the sources, following the pioneering work of \cite{MacCrann2022} and
+\cite{LiNofz2022}.  Unlike the simulations used in this work, these simulations
+may need to reproduce specific features of the real data, such as to simulate
+the properties of a representative sample of coadd cells, including the
+correlated noise, masking, PSF etc.  We expect this joint calibration to be
+necessary even if the shear measurement method itself is unbiased.
 
 The second simulation track is to test the effect of specific errors in the
 data characterization.  For example, if the PSF determination is biased we
@@ -1023,7 +1029,8 @@ sufficient to limit these effects.
 
 ES is supported by DOE grant DE-AC02-98CH10886, and MRB is supported by DOE
 grant DE-AC02-06CH11357. RA is supported by the US Department of Energy Cosmic
-Frontier program, grant DE-SC0010118.  \esstodo{Mike's funding}
+Frontier program, grant DE-SC0010118.  MJ acknowledges support from the LSST
+Dark Energy Science Collaboration.
 
 We thank Javier Sanchez for providing the star and stellar density map for DC2,
 and Jim Chiang for providing example images containing simulated stars
