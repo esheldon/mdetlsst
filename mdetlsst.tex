@@ -156,21 +156,7 @@
         41$ per square arcminute using the $r, i$ and $z$ band images for shear
         measurement.
 
-        % Inadequate star masking can
-        % lead to spurious object detections and problematic measurements that
-        % would lead to significant additional noise, reducing the shear
-        % sensitivity and $n_{\mathrm{eff}}$ significantly.  Given well
-        % characterized input data, \mdet\ can provide accurate, high precision
-        % shear measurements for LSST.
-
-        % In this study we have demonstrated that, given well
-        % characterized input data, \mdet\ can provide accurate, high precision
-        % shear measurements for LSST.
-
 \end{abstract}
-
-% \newpage
-% \tableofcontents
 
 \section{Introduction} \label{sec:intro}
 
@@ -471,9 +457,17 @@ and reconvolution by a round kernel.  This process alters the noise and
 produces a spurious shear response \citep{SheldonMcal2017}.  We can cancel this
 bias by adding a noise image, with properties that statistically match the real
 background noise, processed with the orthogonal shear
-\citep{SheldonMcal2017,mdet20}.  We stored this noise image in a copy of the
-image \calexp\ structure, but replacing the real image data with the noise
-image.
+\citep{SheldonMcal2017,mdet20}.
+
+It is important that these noise images also contain the same correlated noise
+as the real data.  Because the images are manipulated before coaddition, for
+example interpolating saturated regions, bad columns, etc., we must pass the
+noise images through these manipulations as well.  Furthermore,  coaddition
+will produce correlated noise, and thus we coadd the noise fields in the same
+way as the real images.
+
+We stored this noise image in a copy of the image \calexp\ structure, but
+replacing the real image data with the noise image.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{example-image.jpg}
@@ -1001,9 +995,29 @@ square arcminute for the basic cuts (see \S \ref{sec:results:more}).  This
 estimate should be considered rough, as the effective density will vary with
 the choice of ellipticity estimate, and may be improved with optimized weights.
 
-\section{Summary} \label{sec:summary}
+\section{Discussion} \label{sec:summary}
 
-\esstodo{}
+We have shown \mdet\ to be robust to the types of image features we expect the
+shear code to handle, namely those that do not require further characterization
+or calibration of the data.  We need to interpolate problem areas, and coadd
+the images, but find that the shear can be accurately recovered if example
+noise images are passed through all the same processes for use in the \mcal\
+image corrections.
+
+We expect further simulation work will be critical moving forward.  We plan to
+proceed on two separate tracks.  The first track is to generate realistic
+simulations to jointly calibrate the redshift dependent shear bias and redshift
+distribution $N(z)$ of the sources, following the pioneering work of
+\cite{MacCrann2022} and \cite{LiNofz2022}.  We expect this joint calibration to
+be necessary even if the shear measurement method itself is unbiased.
+
+The second simulation track is to test the effect of specific errors in the
+data characterization.  For example, if the PSF determination is biased we
+expect a bias in the recovered shear.  We also expect biases if the background
+determination is incorrect (in a way more complex than we tested in this work),
+the noise properties are misestimated, or the data are miscalibrated in some
+other way.  It may be that relatively small, targeted simulations are
+sufficient to limit these effects.
 
 \section*{Acknowledgments}
 
@@ -1018,8 +1032,6 @@ with bleed trails.
 We thank the excellent computing staffs of the RHIC Atlas Computing Facility at
 Brookhaven National Laboratory and the Scientific Computing Services team at
 the SLAC National Accelerator Laboratory for their support.
-
-\esstodo{}
 
 
 %\bibliographystyle{mnras}
