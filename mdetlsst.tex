@@ -143,25 +143,20 @@
         produced by the LSST data management system (DM), and uses DM
         algorithms when possible.  We tested the code using a new set of
         simulations designed to mimic LSST imaging data.  The simulated images
-        contain noise appropriate for LSST 10 year data, semi-realistic
-        galaxies, and stars with representative distributions of magnitudes and
-        spatial density.  Bright pixels were saturated and simulated bleed
-        trails for bright stars were drawn when appropriate.  We also included
-        bad columns and cosmic rays.  We interpolated all saturated features.
-        Each image coordinate system was rotated randomly to mimic Rubin camera
-        rotations.  The images had point spread functions (PSFs) with spatial
-        variations expected for LSST.  The images were warped to a common frame
-        and combined into overlapping coadd cells, excluding images with edges
-        in the coadd region to retain a continuous point spread function.  We
-        did not simulate the effects of inaccurate image calibration, PSF
-        characterization, or artifact identification, but we did include
-        simulated background determination errors.  We turned on individual
-        simulation features cumulatively in consecutive tests in order to
-        isolate software bugs and possible biases.  In all cases, the measured
-        shear was accurate within the LSST tolerances.  For our analysis
-        choices, we found an effective galaxy density of $n_{\mathrm{eff}} \sim
-        41$ per square arcminute using the $r, i$ and $z$ band images for shear
-        measurement.
+        contained noise appropriate for LSST 10 year data, semi-realistic
+        galaxies, stars with representative distributions of magnitudes and
+        spatial density, cosmic rays, bad CCD columns and spatially variable
+        point spread functions.  Bright pixels were saturated and simulated
+        bleed trails for bright stars were drawn when appropriate.  Each image
+        coordinate system had dithers and a random orientation to mimic Rubin
+        camera rotations.  The images were warped to a common frame and
+        combined into overlapping coadd cells, excluding images with edges in
+        the coadd region to retain a continuous point spread function.  The
+        measured shear was accurate within the LSST tolerances, even when
+        including images with stellar density as high as 100 arcmin$^{-2}$.
+        For our analysis choices, we found an effective galaxy density of
+        $n_{\mathrm{eff}} \sim 41$ per square arcminute using the $r, i$ and
+        $z$ band images for shear measurement.
 
 \end{abstract}
 
