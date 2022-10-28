@@ -163,11 +163,13 @@
 \section{Introduction} \label{sec:intro}
 
 New astronomical imaging surveys coming online in the next few years will use
-weak gravitational lensing as a primary probe to study dark energy
-\citep{IvezicLSST2008,Euclid2011,Roman2015}.  In order to make full use of
-these data sets, we need algorithms that produce nearly unbiased shear
-estimates, and implementations of those algorithms that work with the data
-products of each survey.
+weak gravitational lensing as a primary probe to study dark energy.  These
+``stage IV'' dark energy experiments, the Rubin Observatory and the associated
+Legacy Survey of Space and Time \citep[LSST,][]{IvezicLSST2008}, the
+Euclid mission \citep{Euclid2011} and surveys with the Nancy Grace Roman Space
+Telescope \citep{Roman2015} will require shear measurement algorithms that
+produce nearly unbiased estimates, and implementations of those algorithms that
+work with the data products of each survey.
 
 The \mdet\ shear measurement has been shown to accurately recover weak
 gravitational shear signals from the lensed images of galaxies, up to
@@ -178,7 +180,7 @@ non-linear shear effects, in the presence of noise, a point spread function
 Other recently developed methods provide similar accuracy for non-overlapping
 galaxy images \citep{BernBFD2016, LiFPFSBlending2022} but are expected to
 require further percent level corrections for blending, most likely using
-simulations \citep{mdet20,LiFPFSBlending2022} .  Note such simulations will
+simulations \citep{mdet20,LiFPFSBlending2022}.  Note such simulations will
 most likely be required in any case to jointly calibrate the shear bias and the
 redshift distribution of the lensed galaxies \citep{MacCrann2022,LiNofz2022}.
 
@@ -197,12 +199,9 @@ shear measurement.
 The shear measurement should also be accurate when images are combined into
 ``coadded'' summed images, which typically have correlated pixel noise due to
 the remapping, or ``warping'' of each image to a common frame before
-combination.  For example, the imminent Rubin Observatory Legacy Survey of
-Space and Time \citep[LSST,][]{IvezicLSST2008} will image each part of the
-survey area hundreds of times, producing a large data volume, the processing of
-which requires coaddition for all but the most efficient measurements.
-\cite{ArmstrongCoadd} showed that shear measurements are possible with coadded
-images in the case that object detection is perfect.
+combination.  For example, LSST will image the survey area hundreds of times,
+producing a large data volume, the processing of which requires coaddition for
+all but the most efficient measurements.
 
 At the time of writing, we consider lower level characterizations of the data,
 such as determining the flux and astrometric calibration, PSF characterization,
