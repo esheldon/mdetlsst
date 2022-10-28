@@ -709,6 +709,18 @@ where \vecg\ is the inferred shear, measured using equation \ref{eq:shearmeas},
 multiplicative bias. We found \vecc\ was consistent with zero in all tests, so
 in what follows we only report \vecm.
 
+\subsection{LSST Requirements} \label{sec:lsstreq}
+
+We adopt the requirements from \cite{SRD}, who derived a limit on the
+redshift-dependent multiplicative bias, for each of $N_{\mathrm{tomo}}$
+tomographic bins, as $|m_{\mathrm{tomo}}| < 0.003$.  Because our simulation
+does not contain redshifts, we will essentially constrain an overall bias
+across all redshifts.  The bias will be partly correlated across bins, so we
+expect the overall requirement to be lower than $m_{\mathrm{tomo}}$, but higher
+than $m_{\mathrm{tomo}}/\sqrt{N_{\mathrm{tomo}}}$.  In what follows, we adopt
+$m < 0.002$ as an intermediate value, but we want to emphasize that this value
+is somewhat arbitrary.
+
 \subsection{Baseline Results for Fixed Galaxies on a Grid} \label{sec:results:base}
 
 In order to establish a baseline for the bias due to higher order shear
@@ -783,9 +795,9 @@ avoid confusion when determining the redshift distribution, so we include a
 crude star removal in our tests.
 
 We again turned on each feature successively in order to isolate possible
-biases.  In no case did we find additional bias in the shear recovery beyond
-that expected from higher order shear effects (see \S \ref{sec:results:base}).
-More details are given in the following sub-sections.
+biases.  In no case did we find bias in the shear recovery beyond larger than
+our accuracy goals (see \S \ref{sec:lsstreq}).  More details are given in the
+following sub-sections.
 
 \subsubsection{Results with Varied Selections on Object Properties} \label{sec:results:select}
 
@@ -889,7 +901,7 @@ to use sufficient star masking, and identify problematic objects.
 In figure \ref{fig:stardens} we show the multiplicative bias as a function of
 maximum stellar density and various cuts on the measured signal to noise ratio,
 in addition to a common cut on size ratio $T/T_{PSF} > 1.2$.  In no case did we
-detect a bias beyond that expected from higher order shear effects.
+detect a bias beyond that our accuracy goals (see \S \ref{sec:lsstreq}).
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{{stardens-bias}.pdf}
