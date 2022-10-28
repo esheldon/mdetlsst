@@ -182,11 +182,10 @@ non-linear shear effects, in the presence of noise, a point spread function
 
 Other recently developed methods provide similar accuracy for non-overlapping
 galaxy images \citep{BernBFD2016, LiFPFSBlending2022} but are expected to
-require further percent level corrections for blending
-\citep{mdet20,LiFPFSBlending2022} using simulations.  Note such simulations
-will most likely be required in any case to jointly calibrate the shear bias
-and the redshift distribution of the lensed galaxies
-\citep{MacCrann2022,LiNofz2022}.
+require further percent level corrections for blending, most likely using
+simulations \citep{mdet20,LiFPFSBlending2022} .  Note such simulations will
+most likely be required in any case to jointly calibrate the shear bias and the
+redshift distribution of the lensed galaxies \citep{MacCrann2022,LiNofz2022}.
 
 Real astronomical images contain additional features that must be understood
 and addressed in order to obtain accurate shear measurements.  A typical image
@@ -196,19 +195,19 @@ saturation, stars (which are not sheared) and star bleed trails.
 The shear measurement implementation should provide accurate measurements in
 the presence of these types of features.  In other words, if the data are well
 characterized in terms of flux and astrometric calibration, background
-determination, and PSF, and problematic features are identified and potentially
-masked, the shear code should be able to further process the images to provide
-an accurate shear measurement.
+determination, and PSF, and problematic features are identified and masked, the
+shear code should be able to further process the images to provide an accurate
+shear measurement.
 
 The shear measurement should also be accurate when images are combined into
-``coadded'' summed images, which typically have correlated pixel noise due to the
-remapping, or ``warping'' of each image to a common frame before combination.
-The imminent Rubin Observatory Legacy Survey of Space and Time
-\citep[LSST,][]{IvezicLSST2008} will typically image each part of the survey
-area hundreds of times, producing a large data volume, the processing of which
-requires coaddition for all but the most efficient measurements.
-\cite{ArmstrongCoadd} showed that shear measurements are possible with
-coadded images in the case that object detection is perfect.
+``coadded'' summed images, which typically have correlated pixel noise due to
+the remapping, or ``warping'' of each image to a common frame before
+combination.  For example, the imminent Rubin Observatory Legacy Survey of
+Space and Time \citep[LSST,][]{IvezicLSST2008} will image each part of the
+survey area hundreds of times, producing a large data volume, the processing of
+which requires coaddition for all but the most efficient measurements.
+\cite{ArmstrongCoadd} showed that shear measurements are possible with coadded
+images in the case that object detection is perfect.
 
 At the time of writing, we consider lower level characterizations of the data,
 such as determining the flux and astrometric calibration, PSF characterization,
