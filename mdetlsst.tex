@@ -164,20 +164,20 @@ These ``stage IV'' dark energy experiments, the Rubin Observatory Legacy Survey
 of Space and Time \citep[LSST,][]{IvezicLSST2008}, the Euclid mission
 \citep{Euclid2011} and surveys with the Nancy Grace Roman Space Telescope
 \citep{Roman2015} require shear measurement methods that are accurate to the
-few tenths of a percent level, and implementations of those algorithms that
-work with the data products of each survey.
+few tenths of a percent level \citep{Massey2013,SRD}, and implementations of
+those algorithms that work with the data products of each survey.
 
-The \mdet\ shear measurement method \citep{mdet20} has been shown to be
-accurate up to non-linear shear effects for noisy data with a finite point
-spread function (PSF) and overlapping, or blended, galaxy images
+The \mdet\ shear measurement method \citep{mdet20} has been shown to have
+better than 0.1\% accuracy for noisy data with a finite point spread function
+(PSF) and overlapping, or blended, galaxy images
 \citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b}.  Other recently developed
 methods provide similar accuracy for isolated galaxy images \citep{BernBFD2016,
-LiFPFSBlending2022} but are expected to require further percent level
-corrections for blending \citep{mdet20,LiFPFSBlending2022}\footnote{The
-simulations used for blending corrections will most likely be required in any
-case to jointly calibrate the shear and redshift distribution of the source
-galaxies, but smaller biases can be corrected more reliably
-\citep{MacCrann2022,LiNofz2022}}.
+LiFPFSBlending2022} but may require further percent level corrections from
+simulations to account for blending effects
+\citep{mdet20,LiFPFSBlending2022}\footnote{Such simulations may be required in
+any case to jointly calibrate the shear and redshift distribution of the source
+galaxies \citep{MacCrann2022,LiNofz2022}, but smaller biases can be corrected
+more reliably}.
 
 Real astronomical images contain additional features that must be understood
 and addressed in order to obtain accurate shear measurements.  A typical image
@@ -205,8 +205,8 @@ frame before combination.  LSST will image the survey area hundreds of times,
 producing a large data volume, the processing of which requires coaddition for
 all but the most efficient measurements.
 
-In this work we demonstrate that the \mdet\ technique can perform accurately
-using such featureful, but well characterized data.  We simulate images
+In this work we demonstrate that the \mdet\ technique can accurately calibrate
+the shear in such featureful, but well characterized data.  We simulate images
 containing galaxies, stars with a realistic galactic density distribution,
 spatially variable PSF, and proxies for the above image artifacts (see \S
 \ref{sec:sim}), which we warp and sum into overlapping coadds (see \S
