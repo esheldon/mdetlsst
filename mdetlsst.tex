@@ -473,7 +473,7 @@ replacing the real image data with the noise image.
         Example simulated image using one ``epoch'' for each of the $r$, $i$,
         and $z$ bands, with noise corresponding to the 10 LSST coadd data.
         The images have been warped and coadded, although in this case there
-        is but a single warped image.
+        is but a single warped image per band.
         Note the interpolated bleed trails around a bright star in the upper
         part of the image, appearing at different orientations due to the
         simulated camera rotations.
@@ -820,7 +820,7 @@ following sub-sections.
 
 \subsubsection{Results with Varied Selections on Object Properties} \label{sec:results:select}
 
-We varied the selections on object size ratio $T/T_{PSF}$ and \snr\ and
+We varied the selections on object square size ratio $T/T_{PSF}$ and \snr\ and
 repeated the shear recovery analysis.  The results are shown in figure
 \ref{fig:trends}, for both constant and spatially varying PSFs (see \S
 \ref{sec:sim:psfs}).  We did not detect any additional bias.
@@ -835,7 +835,7 @@ objects.  We will explore the shear sensitivity without noise cancellation in
     \caption{Multiplicative shear bias $m$ for a simulation with a realistic
     galaxy sample, random galaxy layout, image artifacts and background
     subtraction errors.  The top panel shows the bias as a function of \snr\
-    and the bottom panel shows the bias as a function of the size ratio
+    and the bottom panel shows the bias as a function of the square size ratio
     \Tratio.  The dot-dashed line represents the approximate expected bias due
     to higher order shear effects, and the solid shaded band represents our
     nominal accuracy goal.  The hatched areas show the 99.7\%~confidence bands
