@@ -87,6 +87,7 @@
 \newcommand{\gest}{\mbox{\boldmath $\hat \gamma$}}
 \newcommand{\vecgam}{\mbox{\boldmath $\gamma$}}
 \newcommand{\mthresh}{0.002}
+\newcommand{\mshear}{0.02}
 
 \newcommand{\sx}{\textsc{Source Extractor}}
 
@@ -321,14 +322,15 @@ drew the associated bleed image directly over the star image with a value set
 to the saturation level.  The bleed pixels were marked with the appropriate
 flag in the bitmask.
 
-We further masked saturated stars a with circular mask that covered the star
-out to the radius where the profile reached the noise level.  Note in real data
-such a mask would need to be determined algorithmically.   This region was set
-to zero in the image and marked appropriately in the bitmask.   This mask does
-not necessarily cover the bleed trail completely, although the trail was
-interpolated (see \S \ref{sec:coadding}).  We find that these unmasked trails
-do not cause a shear bias, which we attribute to the camera rotations that
-randomize the direction of the trail on the sky.
+We further masked saturated stars in the coadd (not in the original images)
+with circular mask that covered the star out to the radius where the profile
+reached the noise level.  Note in real data such a mask would need to be
+determined algorithmically.   This region was set to zero in the image and
+marked appropriately in the bitmask.   This mask does not necessarily cover the
+bleed trail completely, although the trail was interpolated (see \S
+\ref{sec:coadding}).  We find that these unmasked trails do not cause a shear
+bias, which we attribute to the camera rotations that randomize the direction
+of the trail on the sky.
 
 Masks with sharp features can cause ringing in the FFTs used by the \mdet\
 algorithm.   Each star mask is like a circular ``tophat'', which will have a
@@ -412,10 +414,10 @@ See \S \ref{sec:sim:galaxies} for descriptions of each galaxy model type.
 
 \subsection{Image Background} \label{sec:sim:bgerr}
 
-We add a negative constant to the images to approximate errors in the
-background determination.  The motivation is to test if errors for individual
-epochs can be corrected in the final coadd image by running a second background
-determination.
+We added a negative constant to the images to approximate errors in the
+background determination.  The motivation was to test if simple background
+determination errors in individual epochs can be corrected in the final coadd
+image by running a second background determination.
 
 \subsection{Shear Patterns} \label{sec:sim:shears}
 
@@ -425,24 +427,26 @@ was a constant magnitude shear, but with random orientation for each image.
 These two scenarios result in equivalent shear recovery bias when objects are
 not divided into cells on the sky (see \S \ref{sec:sim:cells}) but, as we will
 see in \S \ref{sec:results:cells}, a small additional selection bias is
-introduced for random shears when when trimming to cells.
+introduced for random shears when when trimming to cells.  In all cases
+the simulated shear had magnitude of \mshear.
 
 \subsection{Overlapping Coadd Cells} \label{sec:sim:cells}
 
-Coadds can be used for shear measurement\citep{ArmstrongCoadd}, but we require
-that the coadded images have a continuous PSF in order to faciliate accurate
-PSF modeling.  Images that have an edge in the coadd region must be rejected.
-Smaller coadds result in fewer images being rejected, but very small coadds
-would complicate object identification and deblending.  For LSST, we plan to
-use relatively small (250x250 pixels) overlapping (50 pixels) coadded regions
-for shear measurement, which we call ``cells'' because they are small
-subregions of the larger ``tract'' regions defined within the \dm\ framework.
+Coadds can be used for shear measurement \citep{ArmstrongCoadd}, with the
+requirement that the coadded images have a continuous PSF in order to
+facilitate accurate PSF modeling.  Images that have an edge in the coadd region
+must be rejected.  Smaller coadds result in fewer images being rejected, but
+very small coadds would complicate object identification and deblending.  For
+LSST, we plan to use relatively small (250x250 pixels) overlapping (50 pixels)
+coadded regions for shear measurement, which we call ``cells'' because they are
+small subregions of the larger ``tract'' regions defined within the \dm\
+framework.
 
-We ran simulations with and without cells in order control for issues specific
-to the cell processing and trimming of objects to non overlapping regions.  We
-adopted the cell definitions outlined above: 250x250 pixel cells with 50 pixel
-overlaps. The object list was trimmed to the non-overlapping region in post
-processing.
+We ran simulations with and without cells in order to control for issues
+specific to the cell processing and trimming of objects to non overlapping
+regions.  We adopted the cell definitions outlined above: 250x250 pixel cells
+with 50 pixel overlaps. The object list was trimmed to the non-overlapping
+region in post processing.
 
 \subsection{Noise Images} \label{sec:sim:noiseimages}
 
@@ -503,7 +507,8 @@ Before warping, we interpolated the simulated artifacts in each image such as
 cosmic rays, bad columns, and saturated pixels.  The interpolation and warping
 modifies the noise properties of the image.  Thus, for accurate \mcal\ noise
 corrections (see \S \ref{sec:sim:noiseimages}) we must also run the noise image
-through the same procedures.
+through the same procedures.  Note stars were masked in the coadds, rather than
+the input images (see \S \ref{sec:sim:satbleeds}).
 
 Rather than use the \dm\ interpolation codes, we performed all
 interpolation of artifacts and saturated regions using the
@@ -534,11 +539,11 @@ For shear inference we used the \mdet\ method presented in \cite{mdet20}.
 \citep{HuffMcal2017,SheldonMcal2017} to include the object identification
 stage. We call this ``detection'', meaning specifically object identification
 rather than detection of pixels with significant signal.  \Mdet\ mitigates
-biases due to the shear-dependent nature of the detection processing in finite
+biases due to the shear-dependent nature of the detection process in finite
 resolution images, biases which are expected to be a few percent for LSST
 \citep{mdet20}.
 
-Briefly, with \cal\ we assume that the true applied, two-component shear
+Briefly, for \mcal\ we assume that the true applied, two-component shear
 $\boldsymbol{\gamma}$ is small, so that a measured ellipticity $\boldsymbol{e}$
 of a galaxy is linear in the shear:
 \begin{eqnarray} \label{eq:response}
@@ -553,7 +558,7 @@ Here, the matrix $\boldsymbol{R}$ represents the linear response of the
 measurement to an applied shear. It can be written component wise as
 $R_{ij}=\partial e_i /\partial \gamma_j$, with $i$ and
 $j$ taking all combinations of the two shear components.  For ellipticity
-measurements we use weighted moments (see \S \ref{sec:mdet:meas}).
+measurements we used weighted moments (see \S \ref{sec:mdet:meas}).
 
 We use a finite difference to estimate $\boldsymbol{R}$.  The image is
 deconvolved by the PSF, sheared, and reconvolved with a round kernel.  This
@@ -565,9 +570,9 @@ R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j}\ .
 where $e_i^{+}$ is measured on the positively sheared image and $e_i^{-}$ is
 measured on the negatively sheared image.
 
-As mentioned in \S \ref{sec:sim:noiseimages}, the deconvolve, shear, reconvolve
-process produces a spurious shear response that we correct by adding a noise
-image run through the same process but with orthogonal shear.
+As mentioned in \S \ref{sec:sim:noiseimages}, the deconvolution, shear,
+reconvolution process produces a spurious shear response that we correct by
+adding a noise image run through the same process but with orthogonal shear.
 
 The responses are too noisy to be applied to individual ellipticity measurements.
 We instead average the shapes and responses in equation \ref{eq:response} to
@@ -686,7 +691,7 @@ variable response.
 \section{Results} \label{sec:results}
 
 In this section we present the results for various simulation and analysis
-configurations.  In all simulations we used a shear of 0.02, which we expect
+configurations.  In all simulations we used a shear of \mshear, which we expect
 to result in a bias of a few parts in ten thousand due to higher order
 shear effects \citep{SheldonMcal2017,mdet20}.
 
