@@ -767,7 +767,7 @@ We also ran with the same simulation configuration, but with ten times the
 expected PSF variation. In this case, for a single image per band, we found a
 bias $m \sim 0.0016$.  However, after increasing the number of simulated epochs
 per band to ten (but with the same final coadd noise level), we no longer found
-any bias beyond that expected from higher order shear effects.  We interpret
+any bias larger that expected from higher order shear effects.  We interpret
 this to mean that more epochs are required to cancel out very large PSF
 variations.
 
@@ -919,7 +919,7 @@ to use sufficient star masking, and identify problematic objects.
 In figure \ref{fig:stardens} we show the multiplicative bias as a function of
 maximum stellar density and various cuts on the measured signal to noise ratio,
 in addition to a common cut on size ratio $T/T_{PSF} > 1.2$.  In no case did we
-detect a bias beyond that our accuracy goals (see \S \ref{sec:lsstreq}).
+detect a bias larger our accuracy goals (see \S \ref{sec:lsstreq}).
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{{stardens-bias}.pdf}
@@ -930,7 +930,7 @@ detect a bias beyond that our accuracy goals (see \S \ref{sec:lsstreq}).
         for the various cuts.  The dot-dashed line represents the
         approximate expected bias due to higher order shear effects, the
         solid shaded band represent our nominal accuracy goal.  In no case did we
-        detect any bias beyond expectations.
+        detect any bias larger than expectations.
     } \label{fig:stardens}
 
 \end{figure}
@@ -943,18 +943,19 @@ We explored the dependence of the shear sensitivity on stellar density and
 not cancel noise using the results from paired images.  The noise cancellation
 is most effective for higher \snr\ objects that are more likely to be detected
 in both of the paired images, so using it would result in artificially smaller
-uncertainties for higher minimum \snr\ cuts.
+uncertainties for higher \snr\ thresholds.
 
 In figure \ref{fig:stardenserror} we show the uncertainty in the recovered
 shear as a function of maximum allowed stellar density and \snr\ cut, relative
 to the cuts that provide the lowest noise.
 
 We find the uncertainty decreases with the maximum allowed stellar density. The
-dependence on stellar density is fairly flat at high stellar density.
-Including higher stellar density areas reduces the noise, but with limited
-benefit beyond a density of about 40 stars per square arcminute.  A relatively
-small fraction of the simulated area has high stellar density, and fields with
-high stellar density tend to have a relatively large area masked due to stars.
+dependence on stellar density is fairly flat at high stellar density; including
+higher stellar density areas reduces the noise, but with limited benefit beyond
+a density of about 40 stars per square arcminute.  This is expected because
+relatively small fraction of the simulated area has high stellar density, and
+fields with high stellar density tend to have a relatively large area masked
+due to stars.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
@@ -972,7 +973,7 @@ high stellar density tend to have a relatively large area masked due to stars.
 
 We found that including detections with \snr\ as low 10 does not reduce the
 shear uncertainty compared to cutting at 12.5.    This may be because lower
-\snr\ objects having relatively small response, which is not accounted for in
+\snr\ objects have relatively small response, which is not accounted for in
 the weighting.  An optimized weight based on the expected response for each
 object may provide a better sensitivity \citep{GattiY3Shear2021}.  Note also
 that these results will vary significantly with the measurement type, for
@@ -984,9 +985,11 @@ is fitted.
 Although we found no significant increase in shear bias when including images
 with higher stellar density, nor did we see degradation in the statistical
 uncertainty, it may be beneficial to exclude them to reduce the impact of
-sources of error that correlate with stellar density such as interstellar
-extinction.  The cuts could be tuned to provide a beneficial trade off
-between accuracy and shear sensitivity.
+sources of error that correlate with stellar density.  For example, high
+interstellar extinction and high stellar contamination in the shear sample
+could cause biases in the estimated redshift distribution.  The stellar density
+cut could be tuned to provide a beneficial trade off between accuracy and shear
+sensitivity.
 
 \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
 
@@ -996,7 +999,7 @@ between accuracy and shear sensitivity.
 % paired images.
 
 We can convert the shear sensitivity to an effective number density if we know
-the imaging area used and weighted shape noise.  In our case we inferred the
+the imaging area used and weighted ellipticity noise.  In our case we inferred the
 sensitivity using a jackknife technique to account for all sources of
 uncertainty, including deblending, masking, stellar contamination, and
 variations in the response.  Thus a formula based on naive error propagation
@@ -1011,7 +1014,7 @@ deviation of the ellipticity for our catalog after applying the basic cuts in
 equation \ref{eq:basiccuts} and the cuts below, $\sigma_\gamma \sim 5.88 \times
 10^{-6}$ is the jackknifed shear uncertainty without noise cancellation, $R
 \sim 0.242$ is the mean shear response, and $A$ is the simulated area after
-masking and removing high density regions.    The raw area was about 41,600
+masking and removing regions with high stellar density.    The raw area was about 41,600
 square degrees, and about 6\% of that area was masked due to bright stars and
 defects.  We cut to a maximum stellar density of 60 per square arcminute, and
 removed fields with overall masking greater than 10\%, which leaves a final
@@ -1027,34 +1030,34 @@ the shear code to handle, namely those that do not require further
 characterization or calibration of the data.
 
 Two issues in particular require careful handling.  Problematic features, such
-as saturation and bright stars, must be masked and interpolated, and the images
-must be coadded for efficiency. Both of these steps significantly modify the
-noise, introducing correlations that can bias the shear recovery.  We find that
-the shear can be accurately recovered if representative noise images are passed
-through all the same procedures and used to restore sufficient symmetry to the
-noise following the procedures in \cite{SheldonMcal2017}.
+as saturation and bright stars, must be sufficiently masked and interpolated,
+and the images will most likely be coadded for efficiency. Both of these steps
+significantly modify the noise, introducing correlations that can bias the
+shear recovery.  We find that the shear can be accurately recovered if
+representative noise images are passed through the same image manipulations and
+used to restore sufficient symmetry to the noise following the procedures in
+\cite{SheldonMcal2017}.
 
 We expect further simulation work will be critical moving forward.  We plan to
 proceed on two separate tracks.  The first track is to generate simulations to
 jointly calibrate the redshift dependent shear bias and redshift distribution
 $N(z)$ of the sources, following the pioneering work of \cite{MacCrann2022} and
 \cite{LiNofz2022}.  Unlike the simulations used here, the calibration
-simulations may need to reproduce specific features of a representative sample
-of coadd cells, including the correlated noise, masking, PSF etc.  We expect
-this joint calibration to be necessary even if the shear measurement method
-itself is unbiased.  An alternative to a pure simulation approach may to inject
-fake sources directly into the images
-\citep{SuchytaBalrog2016,EverettBalrog2022}, which more easily captures details
-of the original images, but could be more computationally intensive.
+simulations may need to reproduce specific characteristics of a representative
+sample of coadd cells, including the correlated noise, masking, PSF etc.  We
+expect this joint calibration to be necessary even if the shear measurement
+method itself is unbiased.  An alternative to a pure simulation approach may to
+inject fake sources directly into the images
+\citep{SuchytaBalrog2016,EverettBalrog2022}, which more naturally captures the
+characteristics of the original images, but could be more computationally
+intensive.
 
 The second simulation track is to test the effect of specific errors in the
-data characterization.  For example, if the PSF determination is biased we
-expect a bias in the recovered shear.  We also expect biases if the background
-determination is incorrect (with errors more complex than we tested in this
-work), the noise properties of each image are misestimated, or the data are
-miscalibrated in some other way.  It may be that relatively small, targeted
-simulations are sufficient to estimate the impact of these errors on shear
-measurement.
+data characterization.  For example, PSF determination errors on the shear
+measurement, background determination errors (more complex than we tested in
+this work), incorrect image noise determination, or other kinds of
+miscalibration.  It may be that relatively small, targeted simulations are
+sufficient to estimate the impact of these errors on shear measurement.
 
 \section*{Acknowledgments}
 
