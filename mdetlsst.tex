@@ -233,12 +233,11 @@ plane, world coordinate system transformation (WCS) and position dependent PSF
 model.  Problem areas associated with saturation, cosmic rays, and bad columns
 are marked as separate bits in an integer bit mask image plane.
 
-Other than background estimation errors (see \S \ref{sec:sim:bgerr}), we did not
-test scenarios where the input data were mis-calibrated.  For example we did
-not test the consequences of inaccurate PSF models, noise estimates or
-photometric calibrations.  Our motivation was to test the performance of \mdet\
-using well characterized data, or problems that could be addressed within
-the shear code such as background errors.
+Other than simple background estimation errors (see \S \ref{sec:sim:bgerr}), we
+did not simulate scenarios in which the input data were miscalibrated.  For
+example we did not test the consequences of inaccurate PSF models, noise
+estimates or photometric calibrations.  Our motivation was to test the
+performance of \mdet\ using well characterized data.
 
 For this work, we used the newly written simulation package
 \texttt{descwl-shear-sims} version
@@ -248,7 +247,7 @@ For this work, we used the newly written simulation package
 
 We used the \descwl\ package
 \citep{DESCWLSanchez2021}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}}
-to determine the noise for images in each filter.  In all simulation runs we
+to determine the noise for images in each Rubin filter.  In all simulation runs we
 used predicted noise $n$ for the final 10 year coadd.  If $N$ simulated epochs
 were used, we re-scaled the noise appropriately, such that the noise in each
 epoch was $n * \sqrt{N}$.  We did not add the expected amount of background to
@@ -276,38 +275,36 @@ discarded.
 
 \subsection{Point Spread Function} \label{sec:sim:psfs}
 
-For our basic PSF model we used a Moffat profile \citep{Moffat1969} with
-shape parameter $\beta=2.5$ and full width at half maximum (FWHM) of 0.8 arcseconds.
+For our basic PSF model we used a Moffat profile \citep{Moffat1969} with shape
+parameter $\beta=2.5$ and full width at half maximum (FWHM) of 0.8 arcseconds.
 
-We also generated spatially variable PSF models, varying both the
-ellipticity and size across the image, using the methods described in
-Appendix~A of \citet{mdet20} based on work by \citet{heymans2012}.
-\citet{heymans2012} used images with high stellar density to fit a \vonkarman\
-model of atmospheric turbulence to the PSF variation. \citet{mdet20}
-used this model, with a modification to reduce power below 1'', to generate
-realizations of spatially variable PSFs using Gaussian random fields. The PSF
-model is a Moffat \citep{Moffat1969} profile with shape parameter $\beta=2.5$
-and variable size and shape. In \citet{mdet20} this approximate
-variable PSF model was compared to detailed atmospheric and optics simulations.
-It's parameters were set to generate the typical spatial PSF variance expected
-expects for Rubin exposures. The median FWHM of the generated PSFs was 0.8
-arcseconds.  We also ran simulations with larger than expected variations in
-order to test the accuracy of the PSF coadd under extreme conditions.
+We also generated spatially variable PSF models, varying both the ellipticity
+and size across the image, using the methods described in Appendix~A of
+\citet{mdet20} based on work by \citet{heymans2012}.  \citet{heymans2012} used
+images with high stellar density to fit a \vonkarman\ model of atmospheric
+turbulence to the PSF variation. \citet{mdet20} used this model, with a
+modification to reduce power below 1'', to generate realizations of spatially
+variable PSFs using Gaussian random fields. The PSF model was again a Moffat
+profile with shape parameter $\beta=2.5$ but with variable size and shape. In
+\citet{mdet20} this approximate variable PSF model was compared to detailed
+atmospheric and optics simulations.  It's parameters were set to generate the
+typical spatial PSF variance expected for Rubin exposures.  The median
+FWHM of the generated PSFs was 0.8 arcseconds.  We also ran simulations with
+larger than expected variations in order to test the accuracy of the PSF coadd
+under extreme, unrealistic conditions.
 
 \subsection{Stars} \label{sec:sim:stars}
 
-We simulated stars using fluxes and densities sampled from the LSST DESC Data
-Challenge Two (DC2) simulation catalogs \citep{DC2Abolfathi2021}.  For each
-simulated field we sampled randomly, with replacement, from the map of stellar
-density used to generate DC2, rejecting densities higher than 100 per square
-arcminute.  This density represents the total number of stars drawn, not the
-number detected.  The multi-band flux for each star was sampled with
+We simulated stars using fluxes and milky way densities sampled from the LSST
+DESC Data Challenge Two (DC2) simulation catalogs \citep{DC2Abolfathi2021}.
+For each simulated field we sampled randomly, with replacement, from the map of
+stellar density used to generate DC2, rejecting densities higher than 100 per
+square arcminute.  This density represents the total number of stars drawn, not
+the number detected.  The multi-band flux for each star was sampled with
 replacement from the DC2 star catalog.  We modeled each star as a small
 Gaussian (FWHM $= 10^{-4}$ arcsec) convolved with the point spread function
-(see \S \ref{sec:sim:psfs}).  Stars were always drawn at random locations, even
-when galaxies were drawn on a grid layout (see \S \ref{sec:sim:layouts}).
-Stars were allowed to saturate and have an associated bleed trail (see \S
-\ref{sec:sim:satbleeds}).
+(see \S \ref{sec:sim:psfs}).  Stars were allowed to saturate and have an
+associated bleed trail (see \S \ref{sec:sim:satbleeds}).
 
 \subsection{Image Saturation, Star Masking and Star Bleed Trails} \label{sec:sim:satbleeds}
 
@@ -317,18 +314,18 @@ integer bitmask image of the \calexp, and the variance for those
 pixels was set to infinity.  Non linear detector response was not simulated.
 
 Saturated stars were over-drawn with a simulated bleed trail image, taken from
-a set of previously generated templates.  The bleed templates were identified
-in images of bright stars created using the DC2 code.  For each saturated star
-in our simulation, we found a close template match in the filter of interest
-and drew the associated bleed image directly over the star image with a value
-set to the saturation level. The bleed pixels were marked with the appropriate
+a set of pre-generated templates identified in images of bright stars created
+using the DC2 code.  For each saturated star in our simulation, we found a star
+in the template set with closely matched flux in the filter of interest and
+drew the associated bleed image directly over the star image with a value set
+to the saturation level.  The bleed pixels were marked with the appropriate
 flag in the bitmask.
 
-We further masked saturated stars a circular mask that covered the star out to
-the radius where the profile reached the noise level.  Note in real data such a
-mask would need to be determined algorithmically.   This region was set to zero
-in the image and marked appropriately in the bitmask.   This mask does not
-necessarily cover the bleed trail completely, although the trail was
+We further masked saturated stars a with circular mask that covered the star
+out to the radius where the profile reached the noise level.  Note in real data
+such a mask would need to be determined algorithmically.   This region was set
+to zero in the image and marked appropriately in the bitmask.   This mask does
+not necessarily cover the bleed trail completely, although the trail was
 interpolated (see \S \ref{sec:coadding}).  We find that these unmasked trails
 do not cause a shear bias, which we attribute to the camera rotations that
 randomize the direction of the trail on the sky.
