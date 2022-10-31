@@ -159,30 +159,31 @@ $z$ band images for shear measurement.
 \section{Introduction} \label{sec:intro}
 
 New astronomical imaging surveys coming online in the next few years will use
-weak gravitational lensing as a primary probe to study dark energy.  These
-``stage IV'' dark energy experiments, the Rubin Observatory Legacy Survey of
-Space and Time \citep[LSST,][]{IvezicLSST2008}, the Euclid mission
+weak gravitational lensing shear as a primary probe to study dark energy.
+These ``stage IV'' dark energy experiments, the Rubin Observatory Legacy Survey
+of Space and Time \citep[LSST,][]{IvezicLSST2008}, the Euclid mission
 \citep{Euclid2011} and surveys with the Nancy Grace Roman Space Telescope
-\citep{Roman2015} will require shear measurement algorithms that produce nearly
-unbiased estimates, and implementations of those algorithms that work with the
-data products of each survey.
+\citep{Roman2015} require shear measurement methods that are accurate to the
+few tenths of a percent level, and implementations of those algorithms that
+work with the data products of each survey.
 
-The \mdet\ shear measurement has been shown to be accurate, up to non-linear
-shear effects, in the presence of noise, a point spread function (PSF) and
-overlapping, or blended, galaxy images
+The \mdet\ shear measurement method \citep{mdet20} has been shown to be
+accurate up to non-linear shear effects for noisy data with a finite point
+spread function (PSF) and overlapping, or blended, galaxy images
 \citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b}.  Other recently developed
 methods provide similar accuracy for isolated galaxy images \citep{BernBFD2016,
 LiFPFSBlending2022} but are expected to require further percent level
 corrections for blending \citep{mdet20,LiFPFSBlending2022}\footnote{The
 simulations used for blending corrections will most likely be required in any
-case to jointly calibrate the shear and redshift distribution of the lensed
+case to jointly calibrate the shear and redshift distribution of the source
 galaxies, but smaller biases can be corrected more reliably
 \citep{MacCrann2022,LiNofz2022}}.
 
 Real astronomical images contain additional features that must be understood
 and addressed in order to obtain accurate shear measurements.  A typical image
 may be expected to contain, among other features, cosmic rays, bad CCD columns,
-saturation, stars (which are not sheared) and star bleed trails.
+saturation, milky way stars (which are not lensed significantly) and star bleed
+trails.
 
 The shear measurement implementation should provide accurate measurements in
 the presence of these types of features.  In other words, if the data are well
