@@ -86,6 +86,7 @@
 \newcommand{\mcalRS}{\mbox{\boldmath $R_S$}}
 \newcommand{\gest}{\mbox{\boldmath $\hat \gamma$}}
 \newcommand{\vecgam}{\mbox{\boldmath $\gamma$}}
+\newcommand{\mthresh}{0.002}
 
 \newcommand{\sx}{\textsc{Source Extractor}}
 
@@ -671,7 +672,7 @@ We used the ``wrapper'' package \texttt{mdet-lsst-sim} version
 simulation, coaddition and \mdet, and to organize, submit and collate large
 runs on computing clusters.
 
-In all cases we used a constant shear, with possible random shear orientations
+In all cases we used a constant shear, with optional random shear orientations
 for each simulated scene (see \S \ref{sec:sim:shears}).  We simulated each
 scene twice, with equal but opposite shears, in order to implement the noise
 canceling method of \cite{pujol2019}.  For randomized shear directions, the
@@ -681,26 +682,27 @@ frame before averaging to get a mean shear.
 We estimated the uncertainty in the averaged shear measurements using a
 jackknife technique \citep{LuptonStats1993}, with chunks defined as a few tens
 to hundreds of scenes.  The jackknife technique gives a significantly larger
-uncertainty than a naive error propagation due to extra sources of error
-associated with masking, deblending, stellar contamination and variable
-response.
+uncertainty than a naive error propagation, which we attribute to additional
+sources of error associated with masking, deblending, stellar contamination and
+variable response.
 
 \section{Results} \label{sec:results}
 
 In this section we present the results for various simulation and analysis
-configurations.
+configurations.  In all simulations we used a shear of 0.02, which we expect
+to result in a bias of a few parts in ten thousand due to higher order
+shear effects \citep{SheldonMcal2017,mdet20}.
 
 We identify our ``base'' simulation as one with fixed size, high S/N, round
-galaxies on a grid layout, which provides the highest signal-to-noise ratio for
-the shear recovery. From the results in \citet{mdet20}, we expect a small bias
-in this configuration due to higher order shear effects (see \S
-\ref{sec:results:base}).
+galaxies on a grid layout, which provides a signal-to-noise ratio for the shear
+recovery. 
 
-We performed shear recovery turning on each feature successively in order to
-isolate the cause of potential biases.  We found a bias only in the case of
-extreme spatial PSF variation with few simulated epochs (see \S
-\ref{sec:results:psfvar}).  We present results including all simulation
-features in \S \ref{sec:results:cells}.
+We performed shear recovery tests starting with the base simulation and turning
+on additional features successively in order to isolate the cause of potential
+biases.  We found exceeding LSST requirements only in the case of extreme
+spatial PSF variation, and only a few simulated epochs with which to average
+down the variation (see \S \ref{sec:results:psfvar}).  We present results
+including all simulation features in \S \ref{sec:results:cells}.
 
 To characterize the bias, we assume a simple linear model \citep[see,
 e.g.,][]{heymans2006} for estimating a bias in the recovered shear
@@ -710,7 +712,9 @@ e.g.,][]{heymans2006} for estimating a bias in the recovered shear
 where \vecg\ is the inferred shear, measured using equation \ref{eq:shearmeas},
 \vecgam\ is the true shear, \vecc\ is the additive bias, and \vecm\ is the
 multiplicative bias. We found \vecc\ was consistent with zero in all tests, so
-in what follows we only report \vecm.
+in what follows we only report \vecm.  Furthermore, we only report
+the scalar $m$, even in the case of random shear orientations, since we
+always average ellipticity in a common frame.
 
 \subsection{LSST Requirements} \label{sec:lsstreq}
 
@@ -721,24 +725,24 @@ does not contain redshifts, we will essentially constrain an overall bias
 across all redshifts.  The bias will be partly correlated across bins, so we
 expect the overall requirement to be lower than $m_{\mathrm{tomo}}$, but higher
 than $m_{\mathrm{tomo}}/\sqrt{N_{\mathrm{tomo}}}$.  In what follows, we adopt
-$m < 0.002$ as an intermediate value, but we want to emphasize that this value
-is somewhat arbitrary.
+$|m| < $\mthresh\ as an intermediate value, but we want to emphasize that this
+value is somewhat arbitrary.
 
-\subsection{Baseline Results for Fixed Galaxies on a Grid} \label{sec:results:base}
+\subsection{Baseline Results for Identical Galaxies on a Grid} \label{sec:results:base}
 
 In order to establish a baseline for the bias due to higher order shear
-effects, we ran a simulation with fixed, round exponential, S/N $= 10,000$,
+effects, we ran a simulation with identical, round exponential, S/N $= 10,000$,
 half light radius 0.5 arcsecond galaxies placed in the grid layout (see
 sections \ref{sec:sim:galaxies} and \ref{sec:sim:layouts}) with image dithers
-and rotations.  In order to make the test as efficient as possible, we used
+and rotations.  In order to increase the computationally efficiency, we used
 only the $i$ band with a single image ``epoch''.  We used a fixed Moffat
 PSF\citep{Moffat1969} with FWHM=0.8.  We expect a bias $m$ of a few parts in
 ten thousand for this sim \citep{SheldonMcal2017}.  We found a bias of
 $4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\%~confidence), consistent
 with our expectations.
 
-We reran this simulation after all major code updates as a kind of extended
-unit test to expose bugs and regressions.
+We reran this relatively fast simulation test after all major code updates as a
+kind of extended unit test to expose bugs and regressions.
 
 \subsection{PSF Variation} \label{sec:results:psfvar}
 
@@ -746,26 +750,34 @@ In order to measure the shear response, the \mdet\ algorithm creates
 artificially sheared versions of each coadd image (see \S \ref{sec:mdet}).
 This process involves deconvolving the image by the PSF (see \S
 \ref{sec:mdet}).  This deconvolution would require a spatially dependent kernel
-for spatially varying PSFs.  However, due to the camera rotations, and large
-number of images used to make the coadd, we expect the variation in the final
-image to be significantly reduced.  Thus the single coadded PSF that we
-generate at the coadd center (see \S \ref{sec:sim:psfs}) may be sufficient.
+for spatially varying PSFs.  However, due to the large number of images used to
+make the coadd, and camera rotations and dithers which will partially randomize
+any static PSF patterns, we expect the spatial variation in the final image
+to be significantly reduced.  Thus the single coadded PSF that we generate at
+the coadd center (see \S \ref{sec:sim:psfs}) may be sufficient.
 
 We ran the same grid simulation from \S \ref{sec:results:base} with the
 spatially varying PSF presented in \S \ref{sec:sim:psfs}. We used the $r, i, z$
 bands but with a single image epoch per band, with rotations and dithers.  We
-did not see any increase in the bias.   We interpret this result to indicate
-that the PSF variation is small enough that our single coadded PSF is
-sufficient, even with a single image per band.
+did not see any increase in the multiplicative bias.   Our interpretation is
+that the PSF variation in the coadd is small enough that our single coadded PSF
+image is sufficient, even with a single image per band.
 
 We also ran with the same simulation configuration, but with ten times the
 expected PSF variation. In this case, for a single image per band, we found a
-small increase in the bias $m \sim 0.0016$.  However, after increasing the
-number of simulated epochs per band to ten but with the same final coadd noise
-level, we no longer found this extra bias.  We interpret this to mean that more
-epochs are required to cancel out very large PSF variations.  Since LSST will
-take hundreds of images in each band \citep{IvezicLSST2008}, we do not
-expect PSF variation to be a significant source of bias.
+bias $m \sim 0.0016$.  However, after increasing the number of simulated epochs
+per band to ten (but with the same final coadd noise level), we no longer found
+any bias beyond that expected from higher order shear effects.  We interpret
+this to mean that more epochs are required to cancel out very large PSF
+variations.
+
+Since LSST will take hundreds of images in each band \citep{IvezicLSST2008}, we
+should not expect random PSF variations to be a significant source of bias.
+However, note that our PSFs included only random patterns, not {\em complex
+static} PSF patterns due to the telescope and camera. Such patterns, while
+subdominant for LSST PSFs, would reduce more slowly with additional epochs,
+especially for poorly chosen dither patterns. We will test more complex PSF
+patterns in a future work.
 
 For the remaining tests in this paper we use a spatially variable PSF with
 expected level of variation.
@@ -775,7 +787,8 @@ expected level of variation.
 We ran the simulation with realistic galaxies, random layout, image
 artifacts, and background subtraction errors, as listed in \S \ref{sec:sim}.
 
-For the realistic galaxy configuration, we adopted a basic set of cuts
+For the realistic galaxy configuration, we adopted a basic set of cuts for use
+in quoting the results
 \begin{eqnarray} \label{eq:basiccuts}
     \mathrm{S/N} & > & 12.5 \\
     T/T_{PSF} & > & 1.2
@@ -784,8 +797,9 @@ where $T$ is the Gaussian weighted square size of the observed, PSF convolved
 image, as defined in equation \ref{eq:moments}, and $T_{PSF}$ is the
 corresponding value for the PSF.  The lower \snr\ cut is motivated by the noise
 study in \S \ref{sec:results:sdensnoise} in which a cut at 10 or 12.5 resulted
-in similar shear uncertainties.  In all the following tests, using a lower
-bound of $S/N > 10$ gave consistent results.
+in similar shear measurement uncertainties.  In all the following tests, we performed
+the measurements with a range of cuts, and a lower bound of $S/N > 10$ always
+gave results consistent with the default cut.
 
 The lower cut on $T/T_{PSF}$ represents a simple attempt to remove stars from
 the sample.  For \mcal, including stars in the sample does not result in a
@@ -798,8 +812,8 @@ avoid confusion when determining the redshift distribution, so we include a
 crude star removal in our tests.
 
 We again turned on each feature successively in order to isolate possible
-biases.  In no case did we find bias in the shear recovery beyond larger than
-our accuracy goals (see \S \ref{sec:lsstreq}).  More details are given in the
+biases.  In no case did we find bias in the shear recovery larger than our
+accuracy goals (see \S \ref{sec:lsstreq}).  More details are given in the
 following sub-sections.
 
 \subsubsection{Results with Varied Selections on Object Properties} \label{sec:results:select}
@@ -807,11 +821,11 @@ following sub-sections.
 We varied the selections on object size ratio $T/T_{PSF}$ and \snr\ and
 repeated the shear recovery analysis.  The results are shown in figure
 \ref{fig:trends}, for both constant and spatially varying PSFs (see \S
-\ref{sec:sim:psfs}).  We did not detect any additional bias.  Note that
-stricter cuts on \snr\ resulted in lower noise for this test because the noise
-cancellation procedure which works better for bright objects.  We will explore
-the shear sensitivity without noise cancellation in \S
-\ref{sec:results:sdensnoise}.
+\ref{sec:sim:psfs}).  We did not detect any additional bias.
+Counterintuitively, higher \snr\ thresholds resulted in lower noise for this
+test because the noise cancellation procedure which works better for high \snr\
+objects.  We will explore the shear sensitivity without noise cancellation in
+\S \ref{sec:results:sdensnoise}.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{{trends}.pdf}
@@ -841,14 +855,14 @@ full scene be sheared, so that the object positions change after application of
 the counterfactual shear.  Using unsheared positions can result multiplicative
 biases of a few tenths of a percent.
 
-In the case where the true simulated shear aligns with the artificially applied
-shear used to create the \mcal\ images, we found that \mdet\ provided an
-accurate calibration.  However, when using randomized shear orientations (see
-\S \ref{sec:sim:shears}), we found the multiplicative bias $m$ was below the
+In the case where the true simulated shear aligns with the counterfactual shear
+used to create the \mcal\ images, we found that \mdet\ provided an accurate
+calibration.  However, when using randomized shear orientations (see \S
+\ref{sec:sim:shears}), we found the multiplicative bias $m$ was lower than the
 expected bias due to higher order shear effects by about $-0.0004$.  Our
 interpretation is that the artificial shearing slightly over-predicts the
 selection effect when it is not perfectly aligned with the true shear.  This
-bias is smaller than LSST requirements $|m| \lesssim 0.001$.  Nevertheless, we
+bias is smaller than LSST requirements $|m|\lesssim~$\mthresh.  Nevertheless, we
 speculate that using artificial shears with random orientations could mitigate
 this effect.  We may explore this more in a future work.
 
@@ -874,20 +888,21 @@ The $W(\sigma_g)$ is an approximate inverse variance weighting
     W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_g^2},
 \end{equation}
 where $\sigma^2_{SN}$ is the intrinsic ellipticity variance of the population
-and $\sigma_g$ is the estimated uncertainty from shot noise.  We find
-$\sigma_{SN}$ before response correction is about 0.07.  The average response
-is about 0.24 for this sample, implying the true shape noise is about 0.29.
+and $\sigma_g$ is the estimated uncertainty of the object's ellipticity from
+shot noise (see \S \ref{sec:mdet:meas}).  We find $\sigma_{SN}$ before
+response correction is about 0.07.  The average response is about 0.24 for this
+sample, implying the true shape noise is about 0.29.
 
 In the presence of stars we found an unexpected population of high ellipticity
 objects.  These objects were usually spurious detections or blends of faint
 objects with bright stars, found just outside the star masking
 radius\footnote{Masaya Yamamoto, private communication} (see \S
-\ref{sec:sim:satbleeds}).  Due to lack of foresight, we did not keep enough
-information in the output files to exclude these objects from our catalogs in
-post processing, and rerunning would have taken prohibitively long due to
-limited computing resources.   Including these objects did not produce a bias
-in the inferred shear, but did increase the noise.  As a temporary solution we
-included an additional ellipticity dependent weight function \citep{ba14}
+\ref{sec:sim:satbleeds}).  Including these objects did not produce a bias in
+the inferred shear, but did increase the noise.  Due to lack of foresight, we
+did not keep enough information in the output files to exclude these objects
+from our catalogs in post processing, and rerunning would have taken
+prohibitively long due to limited computing resources.  As a temporary solution
+we included an additional ellipticity dependent weight function \citep{ba14}
 \begin{equation}
     W_g(g) = \left[1 - g^2\right]^2 \mathrm{exp}\left[ -g^2/2 \sigma_w^2\right]
 \end{equation}
