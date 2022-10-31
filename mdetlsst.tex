@@ -163,9 +163,9 @@ weak gravitational lensing shear as a primary probe to study dark energy.
 These ``stage IV'' dark energy experiments, the Rubin Observatory Legacy Survey
 of Space and Time \citep[LSST,][]{IvezicLSST2008}, the Euclid mission
 \citep{Euclid2011} and surveys with the Nancy Grace Roman Space Telescope
-\citep{Roman2015} require shear measurement methods that are accurate to the
-few tenths of a percent level \citep{Massey2013,SRD}, and implementations of
-those algorithms that work with the data products of each survey.
+\citep{Roman2015} require shear measurement methods that are accurate to a few
+tenths of a percent \citep{Massey2013,SRD}, and implementations of those
+algorithms that work with the data products of each survey.
 
 The \mdet\ shear measurement method \citep{mdet20} has been shown to have
 better than 0.1\% accuracy for noisy data with a finite point spread function
@@ -591,9 +591,9 @@ separate catalogs.  Moving the derivative outside of the average, we find
 where now the averages for $e_i^{+/-}$ are for object catalogs found on the
 respective ${+/-}$ sheared image.
 
-For \mdet, we used the package \texttt{metadetect} version
-0.8.2\footnote{\url{https://github.com/esheldon/mdetadetect}}.  In the following subsections
-we will describe parts of this process in more detail.
+For \mdet, we used the python package \texttt{metadetect} version
+0.8.2\footnote{\url{https://github.com/esheldon/mdetadetect}}.  In the
+following subsections we will describe parts of this process in more detail.
 
 \subsection{Creation of Sheared Images} \label{sec:mdet:sheared}
 
@@ -601,16 +601,18 @@ For this work we used \dm\ data structures to represent image data (see \S
 \ref{sec:sim}).  We adapted the \mcal\ implementation for creating sheared
 images from the \texttt{ngmix}
 package\footnote{\url{https://github.com/esheldon/ngmix}} to use these data
-structures.  The new code is part of the \texttt{metadetect} software package.
+structures.  The new code is in the \texttt{lsst} sub-package of
+the \texttt{metadetect} repository.
 
 
 \subsection{Detection and Deblending} \label{sec:mdet:detect}
 
-We used the \dm\ algorithm for detection \citep{BoschHSC2017}.  We ran with the
-default settings at the time of writing, which retains sources with a $S/N
-\gtrsim 5$ calculated from a PSF template flux measurement.  Before detection
-we determined the background in the coadd to correct for simulated background
-estimation errors (see \S \ref{sec:sim:bgerr}).
+We used the \dm\ peak finding algorithm for object detection
+\citep{BoschHSC2017}.  We ran with the default settings at the time of writing,
+which retains sources with signal-to-noise ratio \snr\ $\gtrsim 5$ as calculated
+from a PSF template flux measurement.  Before detection we determined the
+background in the coadd to correct for simulated background estimation errors
+(see \S \ref{sec:sim:bgerr}).
 
 Deblending was performed during the object detection phase as part of the
 process of finding sub-peaks, but we did not use the deblender to remove the
@@ -627,15 +629,16 @@ comprehensive tests.
 As we will show in \S \ref{sec:results}, measuring shapes without deblending
 the light of neighbors caused no detectable bias.  However, deblending may
 improve the accuracy of other critical tasks such as inferring the redshift
-distribution of the lensing source galaxies.  We will further explore
-deblending in future work.
+distribution of the lensing source galaxies.  We will explore deblending more
+in future work.
 
 \subsection{Object Measurement} \label{sec:mdet:meas}
 
 We used version v2.1.0 of the \ngmix\ package to measure weighted moments for
-each detected object. The weight function was a fixed, circular, Gaussian $G(x,
-y)$ with FWHM=1.2 arcseconds.  We recorded the flux,
-S/N, second moments, and ellipticity derived from the second moments:
+each detected object, using the \texttt{Gaussmom} class. The weight function
+was a fixed, circular Gaussian $G(x, y)$ with FWHM=1.2 arcseconds.  We
+recorded the flux, S/N, second moments, and ellipticity derived from the second
+moments:
 \begin{eqnarray} \label{eq:moments}
     F &=& \sum G(x, y) I(x, y) \nonumber \\
     \sigma^2(F) &=& \sum G(x, y)^2 \sigma^2(I(x, y)) \nonumber \\
@@ -650,13 +653,12 @@ where $I(x, y)$ is the intensity of the image, and $\sigma^2(I(x, y))$ is the
 noise variance. The sums run over all pixels in a 48x48 postage stamp image
 extracted around the object of interest.  The $x$ and $y$ coordinates are
 relative to the center found during detection.  For brevity, we have shown only
-the error on the flux $\sigma(F)$ but in practice the full covariance matrix
-was measured for the moments.  Not shown in the sums is the weight for each
-pixel in the sum, which is the inverse of the pixel noise variance. However,
-the noise variance is nearly constant across the coadd so this is only relevant
-for masked, zero weight pixels.  Note $T$ is an estimate of the observed square
-size of the object, not the pre-PSF size.  We also calculated variances for the
-moments and ellipticities.
+the error on the flux $\sigma(F)$, but in the full covariance matrix was
+measured for the moments.  Not shown in the sums is the weight for each pixel
+in the sum, which is the inverse of the pixel noise variance. However, the
+noise variance is nearly constant across the coadd so this is only relevant for
+masked pixels, which were given zero weight.  Note $T$ is an estimate of the observed square
+size of the object, not the pre-PSF size.
 
 We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
