@@ -218,7 +218,7 @@ a new \mdet\ code designed specifically to work with \dmshort\ data structures
 and algorithms\footnote{The software used in this work is freely available on
 the internet.  URLs are provided as footnotes to the text.}.  We describe
 \mdet\ in \S \ref{sec:mdet}, and the results in \S \ref{sec:results}.
- 
+
 \section{Simulation Features} \label{sec:sim}
 
 The basic simulation was similar to that created for \citep{mdet20}.  We added
@@ -497,11 +497,16 @@ replacing the real image data with the noise image.
 
 \section{Image and PSF Coaddition} \label{sec:coadding}
 
-For coaddition, we used the package \texttt{descwl\_coadd} version
-0.3.0\footnote{\url{https://github.com/LSSTDESC/descwl_coadd}}.  This code uses
-\dm\ algorithms for warping images onto the coadd pixel grid, in particular the
-\texttt{AccumulatorMeanStack} from \texttt{lsst.meas.algorithms} sub package.
-We used an inverse variance weighting, based on the noise in the image.
+For coaddition, we used the coadding strategy described in
+\citet{BeckerMdetCoadd}. We reimplemented that strategy using \dm\ algorithms
+for the various steps in the package \texttt{descwl\_coadd}. This work uses
+version 0.3.0\footnote{\url{https://github.com/LSSTDESC/descwl_coadd}} of
+\texttt{descwl\_coadd}.
+
+For warping the images, we used the \texttt{Lanczos3} interpolant. The warped images
+were combined with the \texttt{AccumulatorMeanStack} from \texttt{lsst.meas.algorithms}
+sub package. We used an inverse variance weighting, based on the noise in
+the image.
 
 Before warping, we interpolated the simulated artifacts in each image such as
 cosmic rays, bad columns, and saturated pixels.  The interpolation and warping
@@ -516,9 +521,12 @@ interpolation of artifacts and saturated regions using the
 package\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CloughTocher2DInterpolator.html}}.
 We used this interpolation because the \dm\ cosmic ray interpolation available
 at the time of writing is intertwined with the detection of cosmic rays, so
-cannot be run on the noise image.
+cannot be run on the noise image. This same interpolation routine was used in
+\citet{BeckerMdetCoadd} as well.
 
-Using the same code, we also created PSF coadded images.  For each input image,
+As shown in \citet{ArmstrongCoadd} and \citet{BeckerMdetCoadd}, creating a PSF
+image for the coadd requires detailed tracking of the subpixel offsets of the
+individual images in the coadd. For each input image,
 we generated an image of the PSF at the location of the coadd center, including
 any sub-pixel offsets between the pixel grids, so the PSF images where
 generally not centered.  We then warped these and coadded these images using
@@ -697,7 +705,7 @@ shear effects \citep{SheldonMcal2017,mdet20}.
 
 We identify our ``base'' simulation as one with fixed size, high S/N, round
 galaxies on a grid layout, which provides a signal-to-noise ratio for the shear
-recovery. 
+recovery.
 
 We performed shear recovery tests starting with the base simulation and turning
 on additional features successively in order to isolate the cause of potential
