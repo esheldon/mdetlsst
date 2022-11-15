@@ -72,8 +72,10 @@
 \newcommand{\lsstreq}{$2\times 10^{-3}$}
 
 \newcommand{\calexp}{\texttt{Exposure}}
-\newcommand{\dmshort}{\texttt{DM}}
-\newcommand{\dm}{\texttt{LSST DM}}
+% \newcommand{\dmshort}{\texttt{pipeline}}
+% \newcommand{\dm}{\texttt{LSST Science Pipelines}}
+\newcommand{\dmshort}{pipeline}
+\newcommand{\dm}{LSST Science Pipelines}
 
 \newcommand{\mcal}{\textsc{metacalibration}}
 \newcommand{\mdet}{\textsc{metadetection}}
@@ -213,7 +215,7 @@ containing galaxies, stars with a realistic galactic density distribution,
 spatially variable PSF, and proxies for the above image artifacts (see \S
 \ref{sec:sim}), which we warp and sum into overlapping coadds (see \S
 \ref{sec:coadding}).  We simulate the expected data products produced by the
-LSST data management system \citep[\dm,][]{JuricLSST2015,BoschHSC2017}, and use
+\dm\ \citep{BoschLSST2019,BoschHSC2017}, and use
 a new \mdet\ code designed specifically to work with \dmshort\ data structures
 and algorithms\footnote{The software used in this work is freely available on
 the internet.  URLs are provided as footnotes to the text.}.  We describe
@@ -226,13 +228,12 @@ additional features such as image artifacts, cosmic rays, stars, and saturated
 stars which we will describe in the following sections.  All images were
 rendered using the \galsim\ python package \citep{galsim2015}.
 
-We simulated the calibrated exposure images produced by the LSST data
-management system \citep[][\dm, version 0.2021.32]{JuricLSST2015,BoschHSC2017}.
-This data is stored in an \calexp\ data structure, which carries a calibrated,
-background subtracted image, along with an estimated noise variance image
-plane, world coordinate system transformation (WCS) and position dependent PSF
-model.  Problem areas associated with saturation, cosmic rays, and bad columns
-are marked as separate bits in an integer bit mask image plane.
+We simulated the calibrated exposure images produced by the \dm\ version
+0.2021.32.  This data is stored in an \calexp\ data structure, which carries a
+calibrated, background subtracted image, along with an estimated noise variance
+image plane, world coordinate system transformation (WCS) and position
+dependent PSF model.  Problem areas associated with saturation, cosmic rays,
+and bad columns are marked as separate bits in an integer bit mask image plane.
 
 Other than simple background estimation errors (see \S \ref{sec:sim:bgerr}), we
 did not simulate scenarios in which the input data were miscalibrated.  For
