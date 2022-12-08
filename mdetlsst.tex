@@ -178,10 +178,10 @@ algorithms that work with the data products of each survey.
 The \mdet\ shear measurement method \citep{mdet20} has been shown to have
 better than 0.1\% accuracy for noisy data with a finite point spread function
 (PSF) and overlapping, or blended, galaxy images
-\citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b}.  Other recently developed
-methods provide similar accuracy for isolated galaxy images \citep{BernBFD2016,
-LiFPFSBlending2022} but may require further percent level corrections from
-simulations to account for blending effects
+\citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b} with constant shear.  Other
+recently developed methods provide similar accuracy for isolated galaxy images
+\citep{BernBFD2016, LiFPFSBlending2022} but may require further percent level
+corrections from simulations to account for blending effects
 \citep{mdet20,LiFPFSBlending2022}\footnote{Such simulations may be required in
 any case to jointly calibrate the shear and redshift distribution of the source
 galaxies \citep{MacCrann2022,LiNofz2022}, but smaller biases can be corrected
@@ -195,16 +195,9 @@ trails.
 
 The shear measurement implementation should provide accurate measurements in
 the presence of these types of features.  In other words, if the data are well
-characterized in terms of flux and astrometric calibration, background
-determination, and PSF, and problematic features are identified and masked, the
-shear code should be able to further process the images to provide an accurate
-shear measurement.
-% Lower level characterizations of the data, such as
-% determining the flux and astrometric calibration, PSF characterization,
-% background determination and finding of artifacts, are most likely be outside
-% the purview of the shear measurement code.
-%We expect these tasks to be performed by the ``upstream''
-%software pipeline.
+characterized in terms of flux calibration, astrometry, background
+determination, and PSF, and if problematic features are identified and masked,
+the shear code should be able to provide an accurate shear measurement.
 
 The shear measurement should also be accurate when images are combined into
 ``coadded'' summed images, which, for standard implementations, have correlated
@@ -214,7 +207,7 @@ producing a large data volume, the processing of which requires coaddition for
 all but the most efficient measurements.
 
 In this work we demonstrate that the \mdet\ technique can accurately calibrate
-the shear in such featureful, but well characterized data.  We simulate images
+shear estimates in such featureful, but well characterized data.  We simulate images
 containing galaxies, stars with a realistic galactic density distribution,
 spatially variable PSF, and proxies for the above image artifacts (see \S
 \ref{sec:sim}), which we warp and sum into overlapping coadds (see \S
@@ -233,7 +226,7 @@ stars which we will describe in the following sections.  All images were
 rendered using the \galsim\ python package \citep{galsim2015}.
 
 We simulated the calibrated exposure images produced by the \dm\ version
-0.2021.32.  This data is stored in an \calexp\ data structure, which carries a
+\texttt{w\_2021\_32}.  This data is stored in an \calexp\ data structure, which carries a
 calibrated, background subtracted image, along with an estimated noise variance
 image plane, world coordinate system transformation (WCS) and position
 dependent PSF model.  Problem areas associated with saturation, cosmic rays,
@@ -300,7 +293,7 @@ modification to reduce power below 1'', to generate realizations of spatially
 variable PSFs using Gaussian random fields. The PSF model was again a Moffat
 profile with shape parameter $\beta=2.5$ but with variable size and shape. In
 \citet{mdet20} this approximate variable PSF model was compared to detailed
-atmospheric and optics simulations.  It's parameters were set to generate the
+atmospheric and optics simulations.  Its parameters were set to generate the
 typical spatial PSF variance expected for Rubin exposures.  The median
 FWHM of the generated PSFs was 0.8 arcseconds.  We also ran simulations with
 larger than expected variations in order to test the accuracy of the PSF coadd
@@ -639,22 +632,23 @@ the \texttt{metadetect} repository.
 
 We used the \dm\ peak finding algorithm for object detection
 \citep{BoschHSC2017}.  We ran with the default settings at the time of writing,
-which retains sources with signal-to-noise ratio \snr\ $\gtrsim 5$ as calculated
-from a PSF template flux measurement.  Before detection we determined the
-background in the coadd to correct for simulated background estimation errors
-(see \S \ref{sec:sim:bgerr}).
+which retains sources with signal-to-noise ratio \snr\ $\gtrsim 5$ as
+calculated from a PSF template flux measurement.  Before detection we
+determined the background in the coadd to correct for simulated background
+estimation errors (see \S \ref{sec:sim:bgerr}).
 
-Deblending was performed during the object detection phase as part of the
-process of finding sub-peaks, but we did not use the deblender to remove the
-light of neighboring objects when measuring object properties (see \S
-\ref{sec:mdet:meas}).  We found that using the models to remove neighbor light
-resulted in shear biases of order ten percent.
+We did not use the default deblender to remove the light of neighboring objects
+when measuring object properties (see \S \ref{sec:mdet:meas}).  We found that
+using the models to remove neighbor light resulted in shear biases of order ten
+percent.
 
-We did limited testing with the Scarlet deblender \citep{MelchiorScarlet2018},
-which is available to use with the \dm\ software stack. Scarlet performed
-better in the limited tests we performed, but due to the high computational
-cost of the deblender, we did not gather enough statistics to perform
-comprehensive tests.
+We did limited testing with the alternate Scarlet deblender
+\citep{MelchiorScarlet2018}, which is available to use with the \dm\ software
+stack. Scarlet performed better in the limited tests we performed, with pairs
+of galaxies at fixed separation, but due to the high computational cost of the
+deblender, we did not gather enough statistics to perform comprehensive tests.
+We also did not test Scarlet in more realistic scenes with many randomly places
+galaxies.
 
 As we will show in \S \ref{sec:results}, measuring shapes without deblending
 the light of neighbors caused no detectable bias.  However, deblending may
@@ -683,7 +677,7 @@ where $I(x, y)$ is the intensity of the image, and $\sigma^2(I(x, y))$ is the
 noise variance. The sums run over all pixels in a 48x48 postage stamp image
 extracted around the object of interest.  The $x$ and $y$ coordinates are
 relative to the center found during detection.  For brevity, we have shown only
-the error on the flux $\sigma(F)$, but in the full covariance matrix was
+the error on the flux $\sigma(F)$, but the full covariance matrix was
 measured for the moments.
 
 For the sake of brevity, we have not shown in the sums the weight for each
@@ -768,7 +762,8 @@ half light radius 0.5 arcsecond galaxies placed in the grid layout (see
 sections \ref{sec:sim:galaxies} and \ref{sec:sim:layouts}) with image dithers
 and rotations.  In order to increase the computationally efficiency, we used
 only the $i$ band with a single image ``epoch''.  We used a fixed, circular Moffat
-PSF\citep{Moffat1969} with FWHM=0.8.  We expect a bias $m$ of a few parts in
+PSF\citep{Moffat1969} with FWHM=0.8.  We applied a cut $S/N > 10$ to remove
+spurious detections.  We expect a bias $m$ of a few parts in
 ten thousand for this sim \citep{SheldonMcal2017}.  We found a bias of
 $4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\%~confidence), consistent
 with our expectations.
@@ -799,7 +794,7 @@ We also ran with the same simulation configuration, but with ten times the
 expected PSF variation. In this case, for a single image per band, we found a
 bias $m \sim 0.0016$.  However, after increasing the number of simulated epochs
 per band to ten (but with the same final coadd noise level), we no longer found
-any bias larger that expected from higher order shear effects.  We interpret
+any bias larger than expected from higher order shear effects.  We interpret
 this to mean that more epochs are required to cancel out very large PSF
 variations.
 
@@ -884,8 +879,8 @@ created for each coadd must be trimmed to a unique region.  Shear changes the
 locations of objects, so this trimming introduces a shear dependent selection
 effect.  For \mdet\ to correct for this selection, it is important that the
 full scene be sheared, so that the object positions change after application of
-the counterfactual shear.  Using unsheared positions can result multiplicative
-biases of a few tenths of a percent.
+the counterfactual shear.  Using unsheared positions can result in
+multiplicative biases of a few tenths of a percent.
 
 In the case where the true simulated shear aligns with the counterfactual shear
 used to create the \mcal\ images, we found that \mdet\ provided an accurate
@@ -952,7 +947,7 @@ to use sufficient star masking, and identify problematic objects.
 In figure \ref{fig:stardens} we show the multiplicative bias as a function of
 maximum stellar density and various cuts on the measured signal to noise ratio,
 in addition to a common cut on size ratio $T/T_{PSF} > 1.2$.  In no case did we
-detect a bias larger our accuracy goals (see \S \ref{sec:lsstreq}).
+detect a bias larger than our accuracy goals (see \S \ref{sec:lsstreq}).
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{{stardens-bias}.pdf}
@@ -985,10 +980,8 @@ to the cuts that provide the lowest noise.
 We find the uncertainty decreases with the maximum allowed stellar density. The
 dependence on stellar density is fairly flat at high stellar density; including
 higher stellar density areas reduces the noise, but with limited benefit beyond
-a density of about 40 stars per square arcminute.  This is expected because
-relatively small fraction of the simulated area has high stellar density, and
-fields with high stellar density tend to have a relatively large area masked
-due to stars.
+a density of about 40 stars per square arcminute.  This is expected because a
+relatively small fraction of the simulated area has high stellar density.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
