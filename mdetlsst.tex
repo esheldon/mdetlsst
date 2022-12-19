@@ -515,14 +515,13 @@ corrections (see \S \ref{sec:sim:noiseimages}) we must also run the noise image
 through the same procedures.  Note stars were masked in the coadds, rather than
 the input images (see \S \ref{sec:sim:satbleeds}).
 
-Rather than use the \dm\ interpolation codes, we performed all
-interpolation of artifacts and saturated regions using the
+Rather than use the \dm\ interpolation codes, we followed \citet{BeckerMdetCoadd},
+performing all interpolation of artifacts and saturated regions using the
 \texttt{CloughTocher2DInterpolator} from the scipy software
 package\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CloughTocher2DInterpolator.html}}.
 We used this interpolation because the \dm\ cosmic ray interpolation available
 at the time of writing is intertwined with the detection of cosmic rays, so
-cannot be run on the noise image. This same interpolation routine was used in
-\citet{BeckerMdetCoadd} as well.
+cannot be run on the noise image.
 
 As shown in \citet{ArmstrongCoadd} and \citet{BeckerMdetCoadd}, creating a PSF
 image for the coadd requires detailed tracking of the subpixel offsets of the
