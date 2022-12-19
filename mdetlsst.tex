@@ -72,8 +72,10 @@
 \newcommand{\lsstreq}{$2\times 10^{-3}$}
 
 \newcommand{\calexp}{\texttt{Exposure}}
-\newcommand{\dmshort}{\texttt{DM}}
-\newcommand{\dm}{\texttt{LSST DM}}
+% \newcommand{\dmshort}{\texttt{pipeline}}
+% \newcommand{\dm}{\texttt{LSST Science Pipelines}}
+\newcommand{\dmshort}{pipeline}
+\newcommand{\dm}{LSST Science Pipelines}
 
 \newcommand{\mcal}{\textsc{metacalibration}}
 \newcommand{\mdet}{\textsc{metadetection}}
@@ -139,23 +141,27 @@
 
 \begin{abstract}
 
-		We present an implementation of the \mdet\ weak lensing shear
-measurement algorithm for use with the Rubin Observatory Legacy Survey of Space
-and Time (LSST).  This new code works with the data products produced by the
-LSST data management system (DM), and uses DM algorithms when possible.  We
-tested the code using a new set of simulations designed to mimic LSST imaging
-data.  The simulated images contained semi-realistic galaxies, stars with
-representative distributions of magnitudes and spatial density, cosmic rays,
-bad CCD columns and spatially variable point spread functions.  Bright pixels
-were saturated and simulated bleed trails for bright stars were drawn when
-appropriate.  Each image coordinate system had dithers and a random orientation
-to mimic Rubin camera rotations.  The images were warped to a common frame and
-combined into overlapping coadd cells.  The measured shear was accurate within
-the LSST tolerances, even when including images with stellar density as high as
-100 arcmin$^{-2}$.  For our analysis choices, we found an effective galaxy
-density of $n_{\mathrm{eff}} \sim 41$ per square arcminute using the $r, i$ and
-$z$ band images for shear measurement.
+        We present an implementation of the \mdet\ weak lensing shear
+        measurement algorithm for use with the Rubin Observatory Legacy Survey
+        of Space and Time (LSST).  This new code works with the data products
+        produced by the \dm, and uses the pipeline algorithms when possible.
+        We tested the code using a new set of simulations designed to mimic
+        LSST imaging data.  The simulated images contained semi-realistic
+        galaxies, stars with representative distributions of magnitudes and
+        spatial density, cosmic rays, bad CCD columns and spatially variable
+        point spread functions.  Bright stars were saturated and simulated
+        bleed trails were drawn when appropriate.  Problem areas were
+        interpolated, and the images were coadded into small cells, excluding
+        images not fully covering the cell to guarantee a continuous PSF.  In
+        all cases the measured shear was accurate within the LSST tolerances,
+        even when including images with stellar density as high as 100
+        arcmin$^{-2}$.  For our analysis choices, we found an effective galaxy
+        density of $n_{\mathrm{eff}} \sim 41$ per square arcminute using the
+        $r, i$ and $z$ band images for shear measurement.
 
+  % Each image
+  %       coordinate system had dithers and a random orientation to mimic Rubin
+  %       camera rotations.  
 \end{abstract}
 
 \section{Introduction} \label{sec:intro}
@@ -172,10 +178,10 @@ algorithms that work with the data products of each survey.
 The \mdet\ shear measurement method \citep{mdet20} has been shown to have
 better than 0.1\% accuracy for noisy data with a finite point spread function
 (PSF) and overlapping, or blended, galaxy images
-\citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b}.  Other recently developed
-methods provide similar accuracy for isolated galaxy images \citep{BernBFD2016,
-LiFPFSBlending2022} but may require further percent level corrections from
-simulations to account for blending effects
+\citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b} with constant shear.  Other
+recently developed methods provide similar accuracy for isolated galaxy images
+\citep{BernBFD2016, LiFPFSBlending2022} but may require further percent level
+corrections from simulations to account for blending effects
 \citep{mdet20,LiFPFSBlending2022}\footnote{Such simulations may be required in
 any case to jointly calibrate the shear and redshift distribution of the source
 galaxies \citep{MacCrann2022,LiNofz2022}, but smaller biases can be corrected
@@ -184,21 +190,14 @@ more reliably}.
 Real astronomical images contain additional features that must be understood
 and addressed in order to obtain accurate shear measurements.  A typical image
 may be expected to contain, among other features, cosmic rays, bad CCD columns,
-saturation, milky way stars (which are not lensed significantly) and star bleed
+saturation, Milky Way stars (which are not lensed significantly) and star bleed
 trails.
 
 The shear measurement implementation should provide accurate measurements in
 the presence of these types of features.  In other words, if the data are well
-characterized in terms of flux and astrometric calibration, background
-determination, and PSF, and problematic features are identified and masked, the
-shear code should be able to further process the images to provide an accurate
-shear measurement.
-% Lower level characterizations of the data, such as
-% determining the flux and astrometric calibration, PSF characterization,
-% background determination and finding of artifacts, are most likely be outside
-% the purview of the shear measurement code.
-%We expect these tasks to be performed by the ``upstream''
-%software pipeline.
+characterized in terms of flux calibration, astrometry, background
+determination, and PSF, and if problematic features are identified and masked,
+the shear code should be able to provide an accurate shear measurement.
 
 The shear measurement should also be accurate when images are combined into
 ``coadded'' summed images, which, for standard implementations, have correlated
@@ -208,12 +207,12 @@ producing a large data volume, the processing of which requires coaddition for
 all but the most efficient measurements.
 
 In this work we demonstrate that the \mdet\ technique can accurately calibrate
-the shear in such featureful, but well characterized data.  We simulate images
+shear estimates in such featureful, but well characterized data.  We simulate images
 containing galaxies, stars with a realistic galactic density distribution,
 spatially variable PSF, and proxies for the above image artifacts (see \S
 \ref{sec:sim}), which we warp and sum into overlapping coadds (see \S
 \ref{sec:coadding}).  We simulate the expected data products produced by the
-LSST data management system \citep[\dm,][]{JuricLSST2015,BoschHSC2017}, and use
+\dm\ \citep{BoschLSST2019,BoschHSC2017}, and use
 a new \mdet\ code designed specifically to work with \dmshort\ data structures
 and algorithms\footnote{The software used in this work is freely available on
 the internet.  URLs are provided as footnotes to the text.}.  We describe
@@ -226,13 +225,17 @@ additional features such as image artifacts, cosmic rays, stars, and saturated
 stars which we will describe in the following sections.  All images were
 rendered using the \galsim\ python package \citep{galsim2015}.
 
-We simulated the calibrated exposure images produced by the LSST data
-management system \citep[][\dm, version 0.2021.32]{JuricLSST2015,BoschHSC2017}.
-This data is stored in an \calexp\ data structure, which carries a calibrated,
-background subtracted image, along with an estimated noise variance image
-plane, world coordinate system transformation (WCS) and position dependent PSF
-model.  Problem areas associated with saturation, cosmic rays, and bad columns
-are marked as separate bits in an integer bit mask image plane.
+We simulated the calibrated exposure images produced by the \dm\ version
+\texttt{w\_2021\_32}.  This data is stored in an \calexp\ data structure, which carries a
+calibrated, background subtracted image, along with an estimated noise variance
+image plane, world coordinate system transformation (WCS) and position
+dependent PSF model.  Problem areas associated with saturation, cosmic rays,
+and bad columns are marked as separate bits in an integer bit mask image plane.
+
+We only included background noise in the variance plane, not an estimate of the
+Poisson noise from objects.  This is important for \mdet\ because the Poisson
+noise from objects is lensed and is considered part of the signal (see \S
+\ref{sec:sim:noiseimages}).
 
 Other than simple background estimation errors (see \S \ref{sec:sim:bgerr}), we
 did not simulate scenarios in which the input data were miscalibrated.  For
@@ -248,14 +251,16 @@ For this work, we used the newly written simulation package
 
 We used the \descwl\ package
 \citep{DESCWLSanchez2021}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}}
-to determine the noise for images in each Rubin filter.  In all simulation runs we
-used predicted noise $n$ for the final 10 year coadd.  If $N$ simulated epochs
-were used, we re-scaled the noise appropriately, such that the noise in each
-epoch was $n * \sqrt{N}$.  We did not add the expected amount of background to
-each image (see \S \ref{sec:sim:bgerr}), but used a Guassian random field to
-approximate the Poisson noise after background subtraction.  After drawing all
-image features and adding noise, we re-scaled the images to a common zero point
-of 30.
+to predict the noise for images in each Rubin filter.  In all simulation runs
+we used noise $n$ for the final 10 year coadd.  If $N$ simulated epochs were
+used, we re-scaled the noise appropriately, such that the noise in each epoch
+was $n * \sqrt{N}$.
+
+We did not simulate a background for each image (see \S \ref{sec:sim:bgerr}).
+We instead used Guassian noise to approximate the Poisson noise that would
+remain in each image after background subtraction.  After drawing all image
+features and adding noise, we re-scaled the images to a common zero point of
+30.
 
 \subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:sim:rotdith}
 
@@ -267,9 +272,9 @@ Each simulated WCS transformation had a random rotation applied, in order to
 mock up the camera rotations used by LSSTCam \citep{IvezicLSST2008}.  The
 center of each image was shifted, or ``dithered'', randomly in two dimensions
 relative to the center of the desired coadded image.  We choose the dithers to
-be a unrealistically small, within two pixels, to minimize portions of the
+be unrealistically small, within two pixels, to minimize portions of the
 image that would not overlap the final coadd.  We created images with size just
-large enough so that the rotated image, after dithers, would have no edge
+large enough that the rotated image, after dithers, would have no edge
 crossing the coadd region, again to avoid waste:  coadding an image with an
 edge produces a discontinuous PSF in the final coadd, so such images would be
 discarded.
@@ -288,7 +293,7 @@ modification to reduce power below 1'', to generate realizations of spatially
 variable PSFs using Gaussian random fields. The PSF model was again a Moffat
 profile with shape parameter $\beta=2.5$ but with variable size and shape. In
 \citet{mdet20} this approximate variable PSF model was compared to detailed
-atmospheric and optics simulations.  It's parameters were set to generate the
+atmospheric and optics simulations.  Its parameters were set to generate the
 typical spatial PSF variance expected for Rubin exposures.  The median
 FWHM of the generated PSFs was 0.8 arcseconds.  We also ran simulations with
 larger than expected variations in order to test the accuracy of the PSF coadd
@@ -296,7 +301,7 @@ under extreme, unrealistic conditions.
 
 \subsection{Stars} \label{sec:sim:stars}
 
-We simulated stars using fluxes and milky way densities sampled from the LSST
+We simulated stars using fluxes and Milky Way densities sampled from the LSST
 DESC Data Challenge Two (DC2) simulation catalogs \citep{DC2Abolfathi2021}.
 For each simulated field we sampled randomly, with replacement, from the map of
 stellar density used to generate DC2, rejecting densities higher than 100 per
@@ -415,9 +420,8 @@ See \S \ref{sec:sim:galaxies} for descriptions of each galaxy model type.
 \subsection{Image Background} \label{sec:sim:bgerr}
 
 We added a negative constant to the images to approximate errors in the
-background determination.  The motivation was to test if simple background
-determination errors in individual epochs can be corrected in the final coadd
-image by running a second background determination.
+background determination.  The motivation was to test if background
+estimation errors in individual images can be corrected in the final coadd.
 
 \subsection{Shear Patterns} \label{sec:sim:shears}
 
@@ -464,6 +468,10 @@ noise images through these manipulations as well.  Furthermore,  coaddition
 will produce correlated noise, and thus we coadd the noise fields in the same
 way as the real images.
 
+Note the noise used for this process should include only the background noise
+estimate, not an estimate of the Poisson noise from the objects, which in real
+images would be sheared and is considered part of the lensing signal.
+
 We stored this noise image in a copy of the image \calexp\ structure, but
 replacing the real image data with the noise image.
 
@@ -473,7 +481,7 @@ replacing the real image data with the noise image.
         Example simulated image using one ``epoch'' for each of the $r$, $i$,
         and $z$ bands, with noise corresponding to the 10 LSST coadd data.
         The images have been warped and coadded, although in this case there
-        is but a single warped image.
+        is but a single warped image per band.
         Note the interpolated bleed trails around a bright star in the upper
         part of the image, appearing at different orientations due to the
         simulated camera rotations.
@@ -527,14 +535,14 @@ As shown in \citet{ArmstrongCoadd} and \citet{BeckerMdetCoadd}, creating a PSF
 image for the coadd requires detailed tracking of the subpixel offsets of the
 individual images in the coadd. For each input image,
 we generated an image of the PSF at the location of the coadd center, including
-any sub-pixel offsets between the pixel grids, so the PSF images where
-generally not centered.  We then warped these and coadded these images using
-the same weights as the image data.  The off-centering and warping is important
-so that the PSF includes the same small amount of smearing present in the image
-interpolation.  Not including this offset results in percent level
-multiplicative shear biases \citep{ArmstrongCoadd}.  Note \dm\ provides a
-PSF coadding code, but at the time of writing it did not perform sub-pixel
-offsets, so was unsuitable for our purposes.
+any sub-pixel offsets between the pixel grids, so the PSF images were not
+centered.  We then warped these and coadded these images using the same weights
+as the image data.  The off-centering and warping is important so that the PSF
+includes the same small amount of smearing present in the image interpolation.
+Not including this offset results in percent level multiplicative shear biases
+\citep{ArmstrongCoadd}.  Note \dm\ provides a PSF coadding code, but at the
+time of writing it did not perform sub-pixel offsets, so was unsuitable for our
+purposes.
 
 The resulting coadd and PSF coadd data were stored in a new \calexp\ data
 structure for use in \mdet.
@@ -563,8 +571,10 @@ of a galaxy is linear in the shear:
 \end{eqnarray}
 Here, the matrix $\boldsymbol{R}$ represents the linear response of the
 measurement to an applied shear. It can be written component wise as
-$R_{ij}=\partial e_i /\partial \gamma_j$, with $i$ and
-$j$ taking all combinations of the two shear components.  For ellipticity
+\begin{equation}
+R_{ij}=\partial e_i /\partial \gamma_j,
+\end{equation}
+with $i$ and $j$ taking all combinations of the two shear components.  For ellipticity
 measurements we used weighted moments (see \S \ref{sec:mdet:meas}).
 
 We use a finite difference to estimate $\boldsymbol{R}$.  The image is
@@ -583,21 +593,31 @@ adding a noise image run through the same process but with orthogonal shear.
 
 The responses are too noisy to be applied to individual ellipticity measurements.
 We instead average the shapes and responses in equation \ref{eq:response} to
-recover a mean shear \vecg
-\begin{eqnarray} \label{eq:shearmeas}
-    \left< \boldsymbol{R} \right> &=& \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0} \right>, \nonumber \\
-    \langle R_{ij}\rangle &=& \left< \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j} \right>, \nonumber \\
-    \langle \vecg \rangle & \approx & \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle.
-\end{eqnarray}
+recover a mean shear \vecg.  The mean response is
+%    \left< \boldsymbol{R} \right> = \left< \frac{\partial \boldsymbol{e} }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0} \right>,
+\begin{equation}
+    \left< R_{ij} \right> = \left< \frac{\partial e_i }{\partial \gamma_j } \biggr\rvert_{\gamma=0} \right>,
+\end{equation}
+which for a finite difference estimate is
+\begin{equation}
+    \langle R_{ij}\rangle = \left< \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j} \right>.
+\end{equation}
+A mean shear can then be estimated using
+\begin{equation} \label{eq:shearmeas}
+    \langle \vecg \rangle \approx \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle.
+\end{equation}
 
-However, this process is incomplete:  the detection phase also depends on
-shear.  We can incorporate detection by running object detection on the image
-as well as the sheared images independently and producing the averages from
-separate catalogs.  Moving the derivative outside of the average, we find
-\begin{eqnarray} \label{eq:fullR}
-    \left< \boldsymbol{R} \right> &=& \frac{\partial \left< \boldsymbol{e} \right> }{\partial \boldsymbol{\gamma} } \biggr\rvert_{\gamma=0},  \nonumber \\
-    \langle R_{ij}\rangle &=& \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j} \nonumber \\
-\end{eqnarray}
+However, this process is incomplete:  the detection phase also depends on the
+shear.  We can incorporate detection by finding objects in the unsheared
+and sheared images independently.  Moving the derivative outside of
+the average, we find
+\begin{equation}
+    \left< R_{ij} \right> = \frac{\partial \left< e_i \right> }{\partial \gamma_j } \biggr\rvert_{\gamma=0},
+\end{equation}
+which for finite differences can be written
+\begin{equation} \label{eq:fullR}
+    \langle R_{ij}\rangle = \frac{\langle e_i^{+}\rangle - \langle e_i^{-}\rangle}{\Delta\gamma_j},
+\end{equation}
 where now the averages for $e_i^{+/-}$ are for object catalogs found on the
 respective ${+/-}$ sheared image.
 
@@ -619,22 +639,23 @@ the \texttt{metadetect} repository.
 
 We used the \dm\ peak finding algorithm for object detection
 \citep{BoschHSC2017}.  We ran with the default settings at the time of writing,
-which retains sources with signal-to-noise ratio \snr\ $\gtrsim 5$ as calculated
-from a PSF template flux measurement.  Before detection we determined the
-background in the coadd to correct for simulated background estimation errors
-(see \S \ref{sec:sim:bgerr}).
+which retains sources with signal-to-noise ratio \snr\ $\gtrsim 5$ as
+calculated from a PSF template flux measurement.  Before detection we
+determined the background in the coadd to correct for simulated background
+estimation errors (see \S \ref{sec:sim:bgerr}).
 
-Deblending was performed during the object detection phase as part of the
-process of finding sub-peaks, but we did not use the deblender to remove the
-light of neighboring objects when measuring object properties (see \S
-\ref{sec:mdet:meas}).  We found that using the models to remove neighbor light
-resulted in shear biases of order ten percent.
+We did not use the default deblender to remove the light of neighboring objects
+when measuring object properties (see \S \ref{sec:mdet:meas}).  We found that
+using the models to remove neighbor light resulted in shear biases of order ten
+percent.
 
-We did limited testing with the Scarlet deblender \citep{MelchiorScarlet2018},
-which is available to use with the \dm\ software stack. Scarlet performed
-better in the limited tests we performed, but due to the high computational
-cost of the deblender, we did not gather enough statistics to perform
-comprehensive tests.
+We did limited testing with the alternate Scarlet deblender
+\citep{MelchiorScarlet2018}, which is available to use with the \dm\ software
+stack. Scarlet performed better in the limited tests we performed, with pairs
+of galaxies at fixed separation, but due to the high computational cost of the
+deblender, we did not gather enough statistics to perform comprehensive tests.
+We also did not test Scarlet in more realistic scenes with many randomly places
+galaxies.
 
 As we will show in \S \ref{sec:results}, measuring shapes without deblending
 the light of neighbors caused no detectable bias.  However, deblending may
@@ -663,12 +684,15 @@ where $I(x, y)$ is the intensity of the image, and $\sigma^2(I(x, y))$ is the
 noise variance. The sums run over all pixels in a 48x48 postage stamp image
 extracted around the object of interest.  The $x$ and $y$ coordinates are
 relative to the center found during detection.  For brevity, we have shown only
-the error on the flux $\sigma(F)$, but in the full covariance matrix was
-measured for the moments.  Not shown in the sums is the weight for each pixel
-in the sum, which is the inverse of the pixel noise variance. However, the
-noise variance is nearly constant across the coadd so this is only relevant for
-masked pixels, which were given zero weight.  Note $T$ is an estimate of the observed square
-size of the object, not the pre-PSF size.
+the error on the flux $\sigma(F)$, but the full covariance matrix was
+measured for the moments.
+
+For the sake of brevity, we have not shown in the sums the weight for each
+pixel, which is the inverse of the background pixel noise variance (see \S
+\ref{sec:sim}).  However, the background noise variance is nearly constant
+across the coadd so this is only relevant for masked pixels, which were given
+zero weight.  Note $T$ is an estimate of the observed square size of the
+object, not the pre-PSF size.
 
 We also record the moments of the coadded PSF for use in object selection (see
 \S \ref{sec:results:full}).
@@ -685,7 +709,7 @@ In all cases we used a constant shear, with optional random shear orientations
 for each simulated scene (see \S \ref{sec:sim:shears}).  We simulated each
 scene twice, with equal but opposite shears, in order to implement the noise
 canceling method of \cite{pujol2019}.  For randomized shear directions, the
-shape measurements from different scenes where placed in a common reference
+shape measurements from different scenes were placed in a common reference
 frame before averaging to get a mean shear.
 
 We estimated the uncertainty in the averaged shear measurements using a
@@ -708,10 +732,10 @@ recovery.
 
 We performed shear recovery tests starting with the base simulation and turning
 on additional features successively in order to isolate the cause of potential
-biases.  We found exceeding LSST requirements only in the case of extreme
-spatial PSF variation, and only a few simulated epochs with which to average
-down the variation (see \S \ref{sec:results:psfvar}).  We present results
-including all simulation features in \S \ref{sec:results:cells}.
+biases.  We found biases exceeding LSST requirements only in the case of
+extreme spatial PSF variation, with few simulated epochs to average down the
+variation (see \S \ref{sec:results:psfvar}).  We present results including all
+simulation features in \S \ref{sec:results:cells}.
 
 To characterize the bias, we assume a simple linear model \citep[see,
 e.g.,][]{heymans2006} for estimating a bias in the recovered shear
@@ -744,8 +768,9 @@ effects, we ran a simulation with identical, round exponential, S/N $= 10,000$,
 half light radius 0.5 arcsecond galaxies placed in the grid layout (see
 sections \ref{sec:sim:galaxies} and \ref{sec:sim:layouts}) with image dithers
 and rotations.  In order to increase the computationally efficiency, we used
-only the $i$ band with a single image ``epoch''.  We used a fixed Moffat
-PSF\citep{Moffat1969} with FWHM=0.8.  We expect a bias $m$ of a few parts in
+only the $i$ band with a single image ``epoch''.  We used a fixed, circular Moffat
+PSF\citep{Moffat1969} with FWHM=0.8.  We applied a cut $S/N > 10$ to remove
+spurious detections.  We expect a bias $m$ of a few parts in
 ten thousand for this sim \citep{SheldonMcal2017}.  We found a bias of
 $4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\%~confidence), consistent
 with our expectations.
@@ -776,7 +801,7 @@ We also ran with the same simulation configuration, but with ten times the
 expected PSF variation. In this case, for a single image per band, we found a
 bias $m \sim 0.0016$.  However, after increasing the number of simulated epochs
 per band to ten (but with the same final coadd noise level), we no longer found
-any bias larger that expected from higher order shear effects.  We interpret
+any bias larger than expected from higher order shear effects.  We interpret
 this to mean that more epochs are required to cancel out very large PSF
 variations.
 
@@ -827,12 +852,12 @@ following sub-sections.
 
 \subsubsection{Results with Varied Selections on Object Properties} \label{sec:results:select}
 
-We varied the selections on object size ratio $T/T_{PSF}$ and \snr\ and
+We varied the selections on object square size ratio $T/T_{PSF}$ and \snr\ and
 repeated the shear recovery analysis.  The results are shown in figure
 \ref{fig:trends}, for both constant and spatially varying PSFs (see \S
 \ref{sec:sim:psfs}).  We did not detect any additional bias.
 Counterintuitively, higher \snr\ thresholds resulted in lower noise for this
-test because the noise cancellation procedure which works better for high \snr\
+test because the noise cancellation procedure works better for high \snr\
 objects.  We will explore the shear sensitivity without noise cancellation in
 \S \ref{sec:results:sdensnoise}.
 
@@ -842,7 +867,7 @@ objects.  We will explore the shear sensitivity without noise cancellation in
     \caption{Multiplicative shear bias $m$ for a simulation with a realistic
     galaxy sample, random galaxy layout, image artifacts and background
     subtraction errors.  The top panel shows the bias as a function of \snr\
-    and the bottom panel shows the bias as a function of the size ratio
+    and the bottom panel shows the bias as a function of the square size ratio
     \Tratio.  The dot-dashed line represents the approximate expected bias due
     to higher order shear effects, and the solid shaded band represents our
     nominal accuracy goal.  The hatched areas show the 99.7\%~confidence bands
@@ -861,8 +886,8 @@ created for each coadd must be trimmed to a unique region.  Shear changes the
 locations of objects, so this trimming introduces a shear dependent selection
 effect.  For \mdet\ to correct for this selection, it is important that the
 full scene be sheared, so that the object positions change after application of
-the counterfactual shear.  Using unsheared positions can result multiplicative
-biases of a few tenths of a percent.
+the counterfactual shear.  Using unsheared positions can result in
+multiplicative biases of a few tenths of a percent.
 
 In the case where the true simulated shear aligns with the counterfactual shear
 used to create the \mcal\ images, we found that \mdet\ provided an accurate
@@ -893,14 +918,15 @@ with $W_\sigma$ based on the object's ellipticity noise and $W_g$ designed to
 down-weight a particular set of spurious objects.
 
 The $W(\sigma_g)$ is an approximate inverse variance weighting
-\begin{equation}
+\begin{equation} \label{eq:wsigma}
     W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_g^2},
 \end{equation}
-where $\sigma^2_{SN}$ is the intrinsic ellipticity variance of the population
-and $\sigma_g$ is the estimated uncertainty of the object's ellipticity from
-shot noise (see \S \ref{sec:mdet:meas}).  We find $\sigma_{SN}$ before
-response correction is about 0.07.  The average response is about 0.24 for this
-sample, implying the true shape noise is about 0.29.
+where $\sigma^2_{SN}$ is the intrinsic ellipticity variance of the population,
+before response correction, and $\sigma_g$ is the estimated uncertainty of the
+object's ellipticity from shot noise (see \S \ref{sec:mdet:meas}).  We find
+$\sigma_{SN}/R \sim 0.29$ for high \snr\ objects in our catalog.  The average
+response is about 0.24 for this sample, so the pre-response value used
+in the weight is 0.07.
 
 In the presence of stars we found an unexpected population of high ellipticity
 objects.  These objects were usually spurious detections or blends of faint
@@ -928,7 +954,7 @@ to use sufficient star masking, and identify problematic objects.
 In figure \ref{fig:stardens} we show the multiplicative bias as a function of
 maximum stellar density and various cuts on the measured signal to noise ratio,
 in addition to a common cut on size ratio $T/T_{PSF} > 1.2$.  In no case did we
-detect a bias larger our accuracy goals (see \S \ref{sec:lsstreq}).
+detect a bias larger than our accuracy goals (see \S \ref{sec:lsstreq}).
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{{stardens-bias}.pdf}
@@ -961,10 +987,8 @@ to the cuts that provide the lowest noise.
 We find the uncertainty decreases with the maximum allowed stellar density. The
 dependence on stellar density is fairly flat at high stellar density; including
 higher stellar density areas reduces the noise, but with limited benefit beyond
-a density of about 40 stars per square arcminute.  This is expected because
-relatively small fraction of the simulated area has high stellar density, and
-fields with high stellar density tend to have a relatively large area masked
-due to stars.
+a density of about 40 stars per square arcminute.  This is expected because a
+relatively small fraction of the simulated area has high stellar density.
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
@@ -980,14 +1004,14 @@ due to stars.
 
 \end{figure}
 
-We found that including detections with \snr\ as low 10 does not reduce the
+We found that including detections with \snr\ as low as 10 does not reduce the
 shear uncertainty compared to cutting at 12.5.    This may be because lower
-\snr\ objects have relatively small response, which is not accounted for in
-the weighting.  An optimized weight based on the expected response for each
-object may provide a better sensitivity \citep{GattiY3Shear2021}.  Note also
-that these results will vary significantly with the measurement type, for
-example the specific weight function used to measure moments, or the model that
-is fitted.
+\snr\ objects have relatively small response, which is not accounted for in the
+weighting.  An optimized weight based on the expected response for each object
+may provide a better sensitivity \citep{GattiY3Shear2021}.  Note also that
+these results will vary significantly with the measurement type, for example
+the specific weight function used to measure moments, or the model that is
+fitted.
 
 \subsubsection{Discussion of Practical Stellar Density Cuts}
 
@@ -1018,19 +1042,20 @@ noise
 \begin{equation} \label{eq:neff}
     n_{\mathrm{eff}} = \frac{\sigma^2_{e}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
 \end{equation}
-In equation \ref{eq:neff}, $\sigma_e \sim 0.098$ is the weighted standard
-deviation of the ellipticity for our catalog after applying the basic cuts in
+In equation \ref{eq:neff}, $\sigma_e/R \sim 0.41$ is the weighted standard
+deviation of the ellipticities for our catalog after applying the basic cuts in
 equation \ref{eq:basiccuts} and the cuts below, $\sigma_\gamma \sim 5.88 \times
 10^{-6}$ is the jackknifed shear uncertainty without noise cancellation, $R
 \sim 0.242$ is the mean shear response, and $A$ is the simulated area after
-masking and removing regions with high stellar density.    The raw area was about 41,600
-square degrees, and about 6\% of that area was masked due to bright stars and
-defects.  We cut to a maximum stellar density of 60 per square arcminute, and
-removed fields with overall masking greater than 10\%, which leaves a final
-area of $A \sim 32,100$ square degrees.  We find $n_\mathrm{eff} \sim 41$ per
-square arcminute for the basic cuts (see \S \ref{sec:results:more}).  This
-estimate should be considered rough, as the effective density will vary with
-the choice of ellipticity estimate, and may be improved with optimized weights.
+masking and removing regions with high stellar density.    The raw simulated
+area was equivalent to about 41,600 square degrees, and about 6\% of that area
+was masked due to bright stars and defects.  We cut to a maximum stellar
+density of 60 per square arcminute, and removed fields with overall masking
+greater than 10\%, which leaves a final area of $A \sim 32,100$ square degrees.
+We find $n_\mathrm{eff} \sim 41$ per square arcminute for the basic cuts (see
+\S \ref{sec:results:more}).  This estimate should be considered rough, as the
+effective density will vary with the choice of ellipticity estimate, and may be
+improved with optimized weights.
 
 \section{Discussion} \label{sec:summary}
 
