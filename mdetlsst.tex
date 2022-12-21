@@ -142,7 +142,7 @@
 \begin{abstract}
 
         We present an implementation of the \mdet\ weak lensing shear
-        measurement algorithm for use with the Rubin Observatory Legacy Survey
+        measurement algorithm for use with the Vera C. Rubin Observatory Legacy Survey
         of Space and Time (LSST).  This new code works with the data products
         produced by the \dm, and uses the pipeline algorithms when possible.
         We tested the code using a new set of simulations designed to mimic
@@ -157,11 +157,11 @@
         even when including images with stellar density as high as 100
         arcmin$^{-2}$.  For our analysis choices, we found an effective galaxy
         density of $n_{\mathrm{eff}} \sim 41$ per square arcminute using the
-        $r, i$ and $z$ band images for shear measurement.
+        $r$, $i$, and $z$ band images for shear measurement.
 
   % Each image
   %       coordinate system had dithers and a random orientation to mimic Rubin
-  %       camera rotations.  
+  %       camera rotations.
 \end{abstract}
 
 \section{Introduction} \label{sec:intro}
@@ -185,7 +185,7 @@ corrections from simulations to account for blending effects
 \citep{mdet20,LiFPFSBlending2022}\footnote{Such simulations may be required in
 any case to jointly calibrate the shear and redshift distribution of the source
 galaxies \citep{MacCrann2022,LiNofz2022}, but smaller biases can be corrected
-more reliably}.
+more reliably.}.
 
 Real astronomical images contain additional features that must be understood
 and addressed in order to obtain accurate shear measurements.  A typical image
@@ -194,20 +194,27 @@ saturation, Milky Way stars (which are not lensed significantly) and star bleed
 trails.
 
 The shear measurement implementation should provide accurate measurements in
-the presence of these types of features.  In other words, if the data are well
+the presence of these types of features. In other words, if the data are well
 characterized in terms of flux calibration, astrometry, background
-determination, and PSF, and if problematic features are identified and masked,
-the shear code should be able to provide an accurate shear measurement.
+determination, noise properties, and PSF, and if problematic features are
+identified and masked, the shear code should be able to provide an accurate
+shear measurement. We define an unbiased shear measurement algorithm as one
+that is accurate in the presence of object detection, blending, and noise when
+run on well-characterized data. Importantly, errors in these low-level
+characterizations of the data may in fact contribute to the final shear
+calibration for an actual data analysis. However, in this case for an unbiased
+shear measurement algorithm, the limiting factor is the underlying
+characterization of the data, not the shear measurement algorithm itself.
 
 The shear measurement should also be accurate when images are combined into
 ``coadded'' summed images, which, for standard implementations, have correlated
 pixel noise due to the remapping, or ``warping'', of each image to a common
-frame before combination.  LSST will image the survey area hundreds of times,
+frame before combination. LSST will image the survey area hundreds of times,
 producing a large data volume, the processing of which requires coaddition for
 all but the most efficient measurements.
 
 In this work we demonstrate that the \mdet\ technique can accurately calibrate
-shear estimates in such featureful, but well characterized data.  We simulate images
+shear estimates in such featureful, but well-characterized data.  We simulate images
 containing galaxies, stars with a realistic galactic density distribution,
 spatially variable PSF, and proxies for the above image artifacts (see \S
 \ref{sec:sim}), which we warp and sum into overlapping coadds (see \S
