@@ -488,8 +488,10 @@ part of the lensing signal.
 We stored this noise image in a copy of the image \calexp\ structure, but
 replacing the real image data with the noise image.
 
-\begin{figure}
-    \includegraphics[width=\columnwidth]{example-image.jpg}
+\begin{figure*}
+    % \includegraphics[width=\columnwidth]{example-image.jpg}
+    \begin{center}
+    \includegraphics[width=0.65\textwidth]{example-image.jpg}
     \caption{
         Example simulated image using one ``epoch'' for each of the $r$, $i$,
         and $z$ bands, with noise corresponding to the 10 LSST coadd data.
@@ -499,7 +501,8 @@ replacing the real image data with the noise image.
         part of the image, appearing at different orientations due to the
         simulated camera rotations.
     } \label{fig:colorimage}
-\end{figure}
+    \end{center}
+\end{figure*}
 \begin{figure}
     \includegraphics[width=\columnwidth]{example-masked-image.pdf}
     \caption{
@@ -571,7 +574,7 @@ resolution images, biases which are expected to be a few percent for LSST
 
 Briefly, for \mcal\ we assume that the true applied, two-component shear
 $\boldsymbol{\gamma}$ is small, so that a measured ellipticity $\boldsymbol{e}$
-of a galaxy is linear in the shear:
+of a galaxy is approximately linear in the shear:
 \begin{eqnarray} \label{eq:response}
 \boldsymbol{e} & \approx & \left.\boldsymbol{e}\right|_{\gamma=0} +
                            \left.\frac{\partial \boldsymbol{e}}{\partial\boldsymbol\gamma}\right|_{\gamma=0} \boldsymbol\gamma +
@@ -695,19 +698,13 @@ moments:
 where $I(x, y)$ is the intensity of the image, and $\sigma^2(I(x, y))$ is the
 noise variance. The sums run over all pixels in a 48x48 postage stamp image
 extracted around the object of interest.  The $x$ and $y$ coordinates are
-relative to the center found during detection.  For brevity, we have shown only
-the error on the flux $\sigma(F)$, but the full covariance matrix was
-measured for the moments.
+relative to the center found during detection. For brevity, we have shown only
+the error on the flux $\sigma(F)$, but the full covariance matrix was measured
+for the moments.
 
-For the sake of brevity, we have not shown in the sums the weight for each
-pixel, which is the inverse of the background pixel noise variance (see \S
-\ref{sec:sim}).  However, the background noise variance is nearly constant
-across the coadd so this is only relevant for masked pixels, which were given
-zero weight.  Note $T$ is an estimate of the observed square size of the
-object, not the pre-PSF size.
-
-We also record the moments of the coadd PSF, after reconvolution, for use in
-object selection (see \S \ref{sec:results:full}).
+Note $T$ is an estimate of the observed square size of the object, not the
+pre-PSF size.  We also record the moments of the coadd PSF, after
+reconvolution, for use in object selection (see \S \ref{sec:results:full}).
 
 \section{Running the Simulation and Metadetection} \label{sec:running}
 
