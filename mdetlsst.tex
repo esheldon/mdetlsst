@@ -150,7 +150,7 @@
         galaxies, stars with representative distributions of magnitudes and
         spatial density, cosmic rays, bad CCD columns and spatially variable
         point spread functions.  Bright stars were saturated and simulated
-        bleed trails were drawn when appropriate.  Problem areas were
+        ``bleed trails'' were drawn when appropriate.  Problem areas were
         interpolated, and the images were coadded into small cells, excluding
         images not fully covering the cell to guarantee a continuous PSF.  In
         all cases the measured shear was accurate within the LSST tolerances,
@@ -177,8 +177,8 @@ algorithms that work with the data products of each survey.
 
 The \mdet\ shear measurement method \citep{mdet20} has been shown to have
 better than 0.1\% accuracy for noisy data with a finite point spread function
-(PSF) and overlapping, or blended, galaxy images
-\citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b} with constant shear.  Other
+(PSF) and overlapping, or blended, galaxy images with constant shear
+\citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b}.  Other
 recently developed methods provide similar accuracy for isolated galaxy images
 \citep{BernBFD2016, LiFPFSBlending2022} but may require further percent level
 corrections from simulations to account for blending effects
@@ -746,9 +746,7 @@ on additional features successively in order to isolate the cause of potential
 biases.  We found biases exceeding LSST requirements only in the case of
 extreme spatial PSF variation, with few simulated epochs to average down the
 variation (see \S \ref{sec:results:psfvar}).  We present results including all
-simulation features in \S \ref{sec:results:cells}. \mrb{maybe we should add a table
-collating all of the results so they are easy to read/find? We can pick a single stellar density
-to report at for cases where this matters.}
+simulation features in \S \ref{sec:results:cells}.
 
 To characterize the bias, we assume a simple linear model \citep[see,
 e.g.,][]{heymans2006} for estimating a bias in the recovered shear
