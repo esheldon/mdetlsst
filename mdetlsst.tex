@@ -175,23 +175,23 @@ of Space and Time \citep[LSST,][]{IvezicLSST2008}, the Euclid mission
 tenths of a percent \citep{Massey2013,SRD}, and implementations of those
 algorithms that work with the data products of each survey.
 
-The \mdet\ shear measurement method \citep{mdet20} has been shown to have
-better than 0.1\% accuracy for noisy data with a finite point spread function
-(PSF) and overlapping, or blended, galaxy images with constant shear
-\citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b}.  Other
-recently developed methods provide similar accuracy for isolated galaxy images
-\citep{BernBFD2016, LiFPFSBlending2022} but may require further percent level
-corrections from simulations to account for blending effects
+A number of promising shear measurement techniques have been developed over the
+last few years.  The \mdet\ shear measurement method \citep{mdet20} has better
+than 0.1\% accuracy for noisy data with a finite point spread function (PSF),
+overlapping, or ``blended'', galaxy images and a constant applied shear
+\citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b}.  Other recently developed
+methods provide similar accuracy for isolated galaxy images \citep{BernBFD2016,
+LiFPFSBlending2022} but may require further percent level corrections from
+simulations to account for blending effects
 \citep{mdet20,LiFPFSBlending2022}\footnote{Such simulations may be required in
 any case to jointly calibrate the shear and redshift distribution of the source
 galaxies \citep{MacCrann2022,LiNofz2022}, but smaller biases can be corrected
 more reliably.}.
 
-Real astronomical images contain additional features that must be understood
-and addressed in order to obtain accurate shear measurements.  A typical image
-may be expected to contain, among other features, cosmic rays, bad CCD columns,
-saturation, Milky Way stars (which are not lensed significantly) and star bleed
-trails.
+Real astronomical images contain additional features that must be addressed in
+order to obtain accurate shear measurements.  A typical image may be expected
+to contain, among other features, cosmic rays, bad CCD columns, saturation,
+Milky Way stars (which are not lensed significantly) and star bleed trails.
 
 The shear measurement implementation should provide accurate measurements in
 the presence of these types of features.  We can define an accurate shear
@@ -201,17 +201,17 @@ terms of flux calibration, astrometry, background determination, noise
 properties, and PSF, and if problematic features are identified and masked, the
 shear code should be able to provide an accurate shear measurement.
 
-Errors in the low-level characterization of the data may contribute
-significantly to the systematic error for an actual analysis on real data.  For
-an unbiased shear measurement algorithm, the limiting factor would then be the
+In actual analysis on real data, errors in the low-level characterization of the
+data may contribute significantly to the systematic error.  For an unbiased
+shear measurement algorithm, the limiting factor would then be the
 characterization of the data, not the shear measurement algorithm itself.
 
 The shear measurement should also be accurate when images are combined into
 ``coadded'', or summed images, which, for standard implementations, have
 correlated pixel noise due to the remapping, or ``warping'', of each image to a
-common frame before combination. LSST will image the survey area hundreds of
-times, producing a large data volume, the processing of which requires
-coaddition for all but the most efficient measurements.
+common frame before combination. LSST, for example, will image the survey area
+hundreds of times, producing a large data volume, the processing of which
+requires coaddition for all but the most efficient measurements.
 
 In this work we demonstrate that the \mdet\ technique can accurately calibrate
 shear estimates in such featureful, but well-characterized data.  We simulate images
@@ -232,12 +232,13 @@ additional features such as image artifacts, cosmic rays, stars, and saturated
 stars which we will describe in the following sections.  All images were
 rendered using the \galsim\ python package \citep{galsim2015}.
 
-We simulated the calibrated exposure images produced by the \dm\ version
-\texttt{w\_2021\_32}.  This data is stored in an \calexp\ data structure, which carries a
-calibrated, background subtracted image, along with an estimated noise variance
-image plane, world coordinate system transformation (WCS) and position
-dependent PSF model.  Problem areas associated with saturation, cosmic rays,
-and bad columns are marked as separate bits in an integer bit mask image plane.
+As our basic data product, we simulated the calibrated exposure images produced
+by the \dm\ version \texttt{w\_2021\_32}.  This data is stored in an \calexp\
+data structure, which carries a calibrated, background subtracted image, along
+with an estimated noise variance image plane, world coordinate system
+transformation (WCS) and position dependent PSF model.  Problem areas
+associated with saturation, cosmic rays, and bad columns are marked as separate
+bits in an integer bit mask image plane.
 
 We only included background noise in the variance plane, not an estimate of the
 Poisson noise from objects.  This is important for \mdet\ because the Poisson
@@ -280,8 +281,8 @@ sky and pixel coordinates was represented as a \galsim\ \texttt{TanWCS} object.
 Each simulated WCS transformation had a random rotation applied, in order to
 mock up the camera rotations used by LSSTCam \citep{IvezicLSST2008}.  The
 center of each image was shifted, or ``dithered'', randomly in two dimensions
-relative to the center of the desired coadded image.  We choose the dithers to
-be unrealistically small, within two pixels, to minimize portions of the
+relative to the center of the desired coadded image.  For efficiency, we used
+dithers that were unrealistically small, within two pixels, to minimize portions of the
 image that would not overlap the final coadd.  We created images with size just
 large enough that the rotated image, after dithers, would have no edge
 crossing the coadd region, again to avoid waste:  coadding an image with an
@@ -306,7 +307,7 @@ atmospheric and optics simulations for the Dark Energy Survey (DES), and the
 variation was tuned to exceed the expectations of real data by a factor of 10.
 We used the same models for this work, but with a variation tuned to match
 expectations for DES.  The level of variations for DES at the Cerro Tololo
-site, should be a rough approximation to the variations at the nearby Rubin
+site should be a rough approximation to the variations at the nearby Rubin
 observatory at Cerro Pachón.  The median FWHM of the generated PSFs was 0.8
 arcseconds.  We also ran simulations with larger than expected variations in
 order to test the accuracy of the PSF coadd under extreme, unrealistic
@@ -320,8 +321,8 @@ For each simulated field we sampled randomly, with replacement, from the map of
 stellar density used to generate DC2, rejecting densities higher than 100 per
 square arcminute.  This density represents the total number of stars drawn, not
 the number detected.  The multi-band flux for each star was sampled with
-replacement from the DC2 star catalog.  We modeled each star as a small
-Gaussian (FWHM $= 10^{-4}$ arcsec) convolved with the point spread function
+replacement from the DC2 star catalog.  We modeled each star as a point
+source convolved with the point spread function
 (see \S \ref{sec:sim:psfs}).  Stars were allowed to saturate and have an
 associated bleed trail (see \S \ref{sec:sim:satbleeds}).
 
@@ -345,7 +346,8 @@ with circular mask that covered the star out to the radius where the profile
 reached the noise level.  Note in real data such a mask would need to be
 determined algorithmically. This region was set to zero in the image and
 marked appropriately in the bitmask.   This mask does not necessarily cover the
-bleed trail completely, although the trail was interpolated (see \S
+bleed trail completely, although the trails were interpolated in the
+original images before warping (see \S
 \ref{sec:coadding}).  We find that these unmasked trails do not cause a shear
 bias, which we attribute to the camera rotations that randomize the direction
 of the trail on the sky.
@@ -370,10 +372,11 @@ K(x, m, h) = \begin{cases}
 1 & y > 3
 \end{cases}
 \end{equation}
-The kernel goes from zero to unity over a span of $6h$, centered on $m$.
-The general logic is to set $h$ large enough that the variation across the edge is slower
-than the variation given by the PSF profile, but not so large that area in the image is
-wasted. We set $h$ to 1.5 pixels and set $m$ to the radius of the star mask hole.
+The kernel goes from zero to unity over a span of $6h$, centered on $m$.  The
+general logic is to set $h$ large enough that the variation across the edge is
+slower than the variation given by the PSF profile, but not so large that area
+in the image is wasted unnecessarily. We set $h$ to 1.5 pixels and set $m$ to
+the radius of the star mask hole.
 
 \subsection{Cosmic Rays \& Bad Columns} \label{sec:sim:cosmics_badcols}
 
@@ -735,8 +738,8 @@ to result in a bias of a few parts in ten thousand due to higher order
 shear effects \citep{SheldonMcal2017,mdet20}.
 
 We identify our ``base'' simulation as one with fixed size, high S/N, round
-galaxies on a grid layout, which provides a signal-to-noise ratio for the shear
-recovery.
+galaxies on a grid layout, which provides a high signal-to-noise ratio for the
+shear recovery.
 
 We performed shear recovery tests starting with the base simulation and turning
 on additional features successively in order to isolate the cause of potential
@@ -776,10 +779,10 @@ effects, we ran a simulation with identical, round exponential, S/N $= 10,000$,
 half light radius 0.5 arcsecond galaxies placed in the grid layout (see
 sections \ref{sec:sim:galaxies} and \ref{sec:sim:layouts}) with image dithers
 and rotations.  In order to increase the computationally efficiency, we used
-only the $i$ band with a single image ``epoch''.  We used a fixed, circular Moffat
-PSF\citep{Moffat1969} with FWHM=0.8.  We applied a cut $S/N > 10$ to remove
-spurious detections.  We expect a bias $m$ of a few parts in
-ten thousand for this sim \citep{SheldonMcal2017}.  We found a bias of
+only the $i$ band with a single image ``epoch''.  We used a fixed, circular
+Moffat PSF\citep{Moffat1969} with FWHM=0.8.  We applied a cut $S/N > 10$ to
+remove spurious detections.  We expect a bias $m$ of a few parts in ten
+thousand for this sim \citep{SheldonMcal2017}, and indeed we found a bias of
 $4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\%~confidence), consistent
 with our expectations.
 
@@ -791,8 +794,8 @@ kind of extended unit test to expose bugs and regressions.
 In order to measure the shear response, the \mdet\ algorithm creates
 artificially sheared versions of each coadd image (see \S \ref{sec:mdet}).
 This process involves deconvolving the image by the PSF (see \S
-\ref{sec:mdet}).  This deconvolution would require a spatially dependent kernel
-for spatially varying PSFs.  However, due to the large number of images used to
+\ref{sec:mdet}).  For a spatially varying PSF, this deconvolution would require a
+spatially varying kernel.  However, due to the large number of images used to
 make the coadd, and camera rotations and dithers which will partially randomize
 any static PSF patterns, we expect the spatial variation in the final image
 to be significantly reduced.  Thus the single coadded PSF that we generate at
@@ -808,8 +811,8 @@ image is sufficient, even with a single image per band.
 We also ran with the same simulation configuration, but with ten times the
 expected PSF variation. In this case, for a single image per band, we found a
 bias $m \sim 0.0016$.  However, after increasing the number of simulated epochs
-per band to ten (but with the same final coadd noise level), we no longer found
-any bias larger than expected from higher order shear effects.  We interpret
+per band to ten (but with the same final coadd noise level), the bias
+reduced to that expected from higher order shear effects.  We interpret
 this to mean that more epochs are required to cancel out very large PSF
 variations.
 
@@ -821,8 +824,8 @@ subdominant for LSST PSFs, would reduce more slowly with additional epochs,
 especially for poorly chosen dither patterns. We will test more complex PSF
 patterns in a future work.
 
-For the remaining tests in this paper we use a spatially variable PSF with
-expected level of variation.
+For the remaining tests in this paper that employ a spatially variable PSF, the
+expected level of variation was used.
 
 \subsection{Results with Additional Simulation Features} \label{sec:results:more}
 
@@ -835,11 +838,11 @@ in quoting the results
     \mathrm{S/N} & > & 12.5 \\
     T/T_{PSF} & > & 1.2
 \end{eqnarray}
-where $T$ is the Gaussian weighted square size of the observed, PSF convolved
-image, as defined in equation \ref{eq:moments}, and $T_{PSF}$ is the
-corresponding value for the PSF after reconvolution. The lower \snr\ cut
-is motivated by the noise study in \S \ref{sec:results:sdensnoise} in which a
-cut at 10 or 12.5 resulted in similar shear measurement uncertainties. In all
+where $T$ is the Gaussian weighted square size of the observed image, as
+defined in equation \ref{eq:moments}, and $T_{PSF}$ is the corresponding value
+for the PSF, both measured after the \mcal\ reconvolution step. The lower \snr\
+cut is motivated by the noise study in \S \ref{sec:results:sdensnoise} in which
+a cut at 10 or 12.5 resulted in similar shear measurement uncertainties. In all
 the following tests, we performed the measurements with a range of cuts, and a
 lower bound of $S/N > 10$ always gave results consistent with the default cut.
 
@@ -940,7 +943,7 @@ objects.  These objects were usually spurious detections or blends of faint
 objects with bright stars, found just outside the star masking
 radius\footnote{Masaya Yamamoto, private communication} (see \S
 \ref{sec:sim:satbleeds}).  Including these objects did not produce a bias in
-the inferred shear, but did increase the noise.  Due to lack of foresight, we
+the inferred shear, but did increase the noise.  Due to a lack of foresight, we
 did not keep enough information in the output files to exclude these objects
 from our catalogs in post-processing, and rerunning would have taken
 prohibitively long due to limited computing resources.  As a temporary solution
@@ -1068,13 +1071,13 @@ improved with optimized weights.
 
 We have shown that \mdet\ is robust to the types of image features we expect
 the shear code to handle, namely those that do not require further
-characterization or calibration of the data.
+characterization or calibration of the input data.
 
 Two issues in particular require careful handling.  Problematic features, such
 as saturation and bright stars, must be sufficiently masked and interpolated,
 and the images will most likely be coadded for efficiency. Both of these steps
 significantly modify the noise, introducing correlations that can bias the
-shear recovery.  As show in \citep{BeckerMdetCoadd}, we find that the shear can
+shear recovery.  As shown in \citep{BeckerMdetCoadd}, we find that the shear can
 be accurately recovered if representative noise images are passed through the
 same image manipulations and used to restore sufficient symmetry to the noise
 following the procedures in \cite{SheldonMcal2017}.
@@ -1091,7 +1094,9 @@ method itself is unbiased.  An alternative to a pure simulation approach may to
 inject fake sources directly into the images
 \citep{SuchytaBalrog2016,EverettBalrog2022}, which more naturally captures the
 characteristics of the original images, but could be more computationally
-intensive.
+less efficient, since the injected sources must necessarily be low density 
+in order to avoid perturbing the images excessively and thus biasing the
+calibration.
 
 The second simulation track is to test the effect of specific errors in the
 data characterization.  For example, PSF determination errors, background
@@ -1105,8 +1110,6 @@ the overall precision of the shear measurement. Possible research directions in
 this vein include finding optimal object measurements and galaxy selections,
 and generalizing \mdet\ to use the more precise calibrations
 provided by the newly developed deep-field \mcal\ \citep{dfmcal22}.
-
-\mrb{maybe we put a punchy closing paragraph here?}
 
 \section*{Acknowledgments}
 
