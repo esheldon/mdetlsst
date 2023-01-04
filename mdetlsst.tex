@@ -193,25 +193,26 @@ order to obtain accurate shear measurements.  A typical image may be expected
 to contain, among other features, cosmic rays, bad CCD columns, saturation,
 Milky Way stars (which are not lensed significantly) and star bleed trails.
 
-The shear measurement implementation should provide accurate measurements in
-the presence of these types of features.  We can define an accurate shear
-measurement algorithm as one that is unbiased for noisy, blended, but well
-characterized images.  In other words, if the data are well characterized in
+We can define an accurate shear measurement method as one that is unbiased (up
+to higher second order shear effects) in the presence of these types of
+features, in addition to noise, objects, blending etc. that are a natural part
+of astronomical images.  That is, if the input data are well characterized in
 terms of flux calibration, astrometry, background determination, noise
 properties, and PSF, and if problematic features are identified and masked, the
-shear code should be able to provide an accurate shear measurement.
+technique will provide an accurate shear measurement.
 
-In actual analysis on real data, errors in the low-level characterization of the
-data may contribute significantly to the systematic error.  For an unbiased
+In actual analysis on real data, errors in the low-level characterization of
+the data may contribute significantly to the systematic error.  For an accurate
 shear measurement algorithm, the limiting factor would then be the
 characterization of the data, not the shear measurement algorithm itself.
 
-The shear measurement should also be accurate when images are combined into
-``coadded'', or summed images, which, for standard implementations, have
-correlated pixel noise due to the remapping, or ``warping'', of each image to a
-common frame before combination. LSST, for example, will image the survey area
-hundreds of times, producing a large data volume, the processing of which
-requires coaddition for all but the most efficient measurements.
+Another desirable property of a shear measurement method is that it is accurate
+when images are combined into ``coadded'', or summed images, which, for
+standard implementations, have correlated pixel noise due to the remapping, or
+``warping'', of each image to a common frame before combination. LSST, for
+example, will image the survey area hundreds of times, producing a large data
+volume, the processing of which requires coaddition for all but the most
+efficient measurements.
 
 In this work we demonstrate that the \mdet\ technique can accurately calibrate
 shear estimates in such featureful, but well-characterized data.  We simulate images
