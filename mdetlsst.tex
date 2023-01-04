@@ -505,13 +505,13 @@ replacing the real image data with the noise image.
     \includegraphics[width=\columnwidth]{example-masked-image.pdf}
     \caption{
         Example masked images, corresponding to the images in figure
-        \ref{fig:colorimage}.  The rows correspond to $r, i$, and $z$ bands
-        respectively.  The left column shows the masked image, the middle the
-        noise variance, and the right the bitmask plane.  The circles show the
-        star masks applied to each type of image, which are retained in the
-        coadd bitmask to facilitate processing near stars.  In the original
-        images, there are also pixels marked for cosmic rays and bad
-        columns, but these are not retained in the coadd bitmask.
+        \ref{fig:colorimage}.  The rows from top to bottom correspond to $r,
+        i$, and $z$ bands respectively.  The left column shows the masked
+        image, the middle the noise variance, and the right the bitmask plane.
+        The circles show the star masks applied to each type of image, which
+        are retained in the coadd bitmask to facilitate processing near stars.
+        In the original images, there are also pixels marked for cosmic rays
+        and bad columns, but these are not retained in the coadd bitmask.
     }
 \end{figure}
 
@@ -999,7 +999,7 @@ relatively small fraction of the simulated area has high stellar density.
     \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
 
     \caption{Shear measurement sensitivity as a function of maximum stellar
-    density and cuts on various measured object properties, relative to the
+    density and \snr, relative to the
     cuts that give the best sensitivity.  We find that less restrictive cuts on
     stellar density result in lower sensitivity, but with marginal improvement
     beyond a density of about 40 per square arcminute.  Keeping objects with
