@@ -181,38 +181,32 @@ than 0.1\% accuracy for noisy data with a finite point spread function (PSF),
 overlapping, or ``blended'', galaxy images and a constant applied shear
 \citep{mdet20,HoekstraMdet2021a,HoekstraMdet2021b}.  Other recently developed
 methods provide similar accuracy for isolated galaxy images \citep{BernBFD2016,
-LiFPFSBlending2022} but may require further percent level corrections from
+LiFPFSBlending2022} but require further percent level corrections from
 simulations to account for blending effects
 \citep{mdet20,LiFPFSBlending2022}\footnote{Such simulations may be required in
-any case to jointly calibrate the shear and redshift distribution of the source
-galaxies \citep{MacCrann2022,LiNofz2022}, but smaller biases can be corrected
-more reliably.}.
+any case to jointly calibrate the redshift dependent shear and redshift
+distribution of the source galaxies \citep{MacCrann2022,LiNofz2022}, but
+smaller biases can be corrected more reliably.}.
 
 Real astronomical images contain additional features that must be addressed in
 order to obtain accurate shear measurements.  A typical image may be expected
 to contain, among other features, cosmic rays, bad CCD columns, saturation,
-Milky Way stars (which are not lensed significantly) and star bleed trails.
+Milky Way stars (which are not lensed significantly) and star ``bleed trails''.
+For computational efficiency the images may be remapped and summed into
+aggregates, or ``coadded'', which can result in spatially correlated image
+noise.
 
-We can define an accurate shear measurement method as one that is unbiased (up
-to higher second order shear effects) in the presence of these types of
-features, in addition to noise, objects, blending etc. that are a natural part
-of astronomical images.  That is, if the input data are well characterized in
-terms of flux calibration, astrometry, background determination, noise
-properties, and PSF, and if problematic features are identified and masked, the
-technique will provide an accurate shear measurement.
+An accurate shear measurement method must be unbiased (up to higher second
+order shear effects) in the presence of these image features.  That is, if the
+input data are well characterized in terms of flux calibration, astrometry,
+background determination, noise properties, and PSF, and if problematic
+features are identified and masked, the technique should provide an accurate
+shear measurement.
 
-In actual analysis on real data, errors in the low-level characterization of
-the data may contribute significantly to the systematic error.  For an accurate
-shear measurement algorithm, the limiting factor would then be the
-characterization of the data, not the shear measurement algorithm itself.
-
-Another desirable property of a shear measurement method is that it is accurate
-when images are combined into ``coadded'', or summed images, which, for
-standard implementations, have correlated pixel noise due to the remapping, or
-``warping'', of each image to a common frame before combination. LSST, for
-example, will image the survey area hundreds of times, producing a large data
-volume, the processing of which requires coaddition for all but the most
-efficient measurements.
+In actual analyses on real data, errors in the calibration and characterization
+of the data may contribute significantly to the systematic error in the shear
+measurement.  For an accurate shear measurement, the ultimate limit may be the
+characterization of the data, not the method itself.
 
 In this work we demonstrate that the \mdet\ technique can accurately calibrate
 shear estimates in such featureful, but well-characterized data.  We simulate images
@@ -221,7 +215,7 @@ spatially variable PSF, and proxies for the above image artifacts (see \S
 \ref{sec:sim}), which we warp and sum into overlapping coadds (see \S
 \ref{sec:coadding}).  We simulate the expected data products produced by the
 \dm\ \citep{BoschLSST2019,BoschHSC2017}, and use
-a new \mdet\ code designed specifically to work with \dmshort\ data structures
+a new \mdet\ code designed specifically to work with Science Pipeline data structures
 and algorithms\footnote{The software used in this work is freely available on
 the internet.  URLs are provided as footnotes to the text.}.  We describe
 \mdet\ in \S \ref{sec:mdet}, and the results in \S \ref{sec:results}.
