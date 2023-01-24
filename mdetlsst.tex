@@ -199,12 +199,12 @@ For computational efficiency the images may be remapped and summed into
 aggregates, or ``coadded'', which can result in spatially correlated image
 noise.
 
-An accurate shear measurement method must be unbiased (up to higher second
-order shear effects) in the presence of these image features.  That is, if the
-input data are well characterized in terms of flux calibration, astrometry,
-background determination, noise properties, and PSF, and if problematic
-features are identified and masked, the technique should provide an accurate
-shear measurement.
+An accurate shear measurement method must be unbiased (up to higher order shear
+effects) in the presence of these image features.  That is, if the input data
+are well characterized in terms of flux calibration, astrometry, background
+determination, noise properties, and PSF, and if problematic features are
+identified and masked, the technique should provide an accurate shear
+measurement.
 
 In actual analyses on real data, errors in the calibration and characterization
 of the data may contribute significantly to the systematic error in the shear
@@ -311,6 +311,9 @@ arcseconds.  We also ran simulations with larger than expected variations in
 order to test the accuracy of the PSF coadd under extreme, unrealistic
 conditions.
 
+We did not include other sources of spatial PSF variation such as effects from
+the optical surfaces in the telescope.
+
 \subsection{Stars} \label{sec:sim:stars}
 
 We simulated stars using fluxes and Milky Way densities sampled from the LSST
@@ -407,9 +410,11 @@ was large but the aggregate number of artifacts was small.
 
 We used the \descwl\ package to generate galaxy models
 \citep{DESCWLSanchez2021}.  These elliptical, color models have bulge, disk and
-AGN components.  Rather than use the \descwl\ package to draw the models in the
-image, we drew the models using Galsim in our code in order to use our own PSF
-models (see \S \ref{sec:sim:psfs}), and to allow for more efficient drawing.
+AGN components. This catalog has a raw density of $\sim240$ galaxies per square
+arcminute, and an effective $i$-band ab magnitude limit of $\sim27$. Rather
+than use the \descwl\ package to draw the models in the image, we drew the
+models using Galsim in our code in order to use our own PSF models (see \S
+\ref{sec:sim:psfs}), and to allow for more efficient drawing.
 
 We also performed simulation runs with single component, round exponential
 galaxies with fixed flux and size.  These models are useful for shear recovery
@@ -480,45 +485,16 @@ as the real data. We followed the procedure outlined in \citet{BeckerMdetCoadd}
 to generate the noise images. Namely, because the images are manipulated before
 coaddition, for example interpolating saturated regions, bad columns, etc., we
 must pass the noise images through these manipulations as well. Furthermore,
-coaddition will produce correlated noise, and thus we coadd the noise fields in
-the same way as the real images. Note the noise used for this process should
-include only the background noise estimate, not an estimate of the Poisson
-noise from the objects, which in real images would be sheared and is considered
-part of the lensing signal.
+warping will produce correlated noise, and thus the noise images are generated
+with the same WCS as the real images, and the same warping is applied. Note the
+noise used for this process should include only the background noise estimate,
+not an estimate of the Poisson noise from the objects.  This poison noise from
+objects in real images is sheared and is considered part of the lensing signal,
+so should not be corrected for using the orthogonally sheared noise discussed
+above.
 
 We stored this noise image in a copy of the image \calexp\ structure, but
 replacing the real image data with the noise image.
-
-\begin{figure*}
-    % \includegraphics[width=\columnwidth]{example-image.jpg}
-    \begin{center}
-    \includegraphics[width=0.65\textwidth]{example-image.jpg}
-    \caption{
-        Example simulated image using one ``epoch'' for each of the $r$, $i$,
-        and $z$ bands, with noise corresponding to the 10 LSST coadd data.
-        The images have been warped and coadded, although in this case there
-        is but a single warped image per band.
-        Note the interpolated bleed trails around a bright star in the upper
-        part of the image, appearing at different orientations due to the
-        simulated camera rotations.
-    } \label{fig:colorimage}
-    \end{center}
-\end{figure*}
-\begin{figure}
-    \includegraphics[width=\columnwidth]{example-masked-image.pdf}
-    \caption{
-        Example masked images, corresponding to the images in figure
-        \ref{fig:colorimage}.  The rows from top to bottom correspond to $r,
-        i$, and $z$ bands respectively.  The left column shows the masked
-        image, the middle the noise variance, and the right the bitmask plane.
-        The circles show the star masks applied to each type of image, which
-        are retained in the coadd bitmask to facilitate processing near stars.
-        In the original images, there are also pixels marked for cosmic rays
-        and bad columns, but these are not retained in the coadd bitmask.
-    }
-\end{figure}
-
-
 
 \section{Image and PSF Coaddition} \label{sec:coadding}
 
@@ -561,6 +537,39 @@ percent level multiplicative shear biases \citep{ArmstrongCoadd}. Note \dm\
 provides a PSF coadding code, but at the time of writing it did not perform
 sub-pixel offsets, so was unsuitable for our purposes. The resulting coadd and
 PSF coadd data were stored in a new \calexp\ data structure for use in \mdet.
+
+In figure \ref{fig:colorimage} we show an example color image created from
+warped $r$, $i$, and $z$ simulated images.  Figure \ref{fig:maskimage} shows
+the corresponding masked images, along with the variance and bitmask planes.
+
+\begin{figure*}
+    % \includegraphics[width=\columnwidth]{example-image.jpg}
+    \begin{center}
+    \includegraphics[width=0.65\textwidth]{example-image.jpg}
+    \caption{
+        Example simulated image using one ``epoch'' for each of the $r$, $i$,
+        and $z$ bands, with noise corresponding to the 10 LSST coadd data.
+        The images have been warped and coadded, although in this case there
+        is but a single warped image per band.
+        Note the interpolated bleed trails around a bright star in the upper
+        part of the image, appearing at different orientations due to the
+        simulated camera rotations.
+    } \label{fig:colorimage}
+    \end{center}
+\end{figure*}
+\begin{figure}
+    \includegraphics[width=\columnwidth]{example-masked-image.pdf}
+    \caption{
+        Example masked images, corresponding to the images in figure
+        \ref{fig:colorimage}.  The rows from top to bottom correspond to $r,
+        i$, and $z$ bands respectively.  The left column shows the masked
+        image, the middle the noise variance, and the right the bitmask plane.
+        The circles show the star masks applied to each type of image, which
+        are retained in the coadd bitmask to facilitate processing near stars.
+        In the original images, there are also pixels marked for cosmic rays
+        and bad columns, but these are not retained in the coadd bitmask.
+    } \label{fig:maskimage}
+\end{figure}
 
 \section{Metadetection} \label{sec:mdet}
 
@@ -701,7 +710,9 @@ noise variance. The sums run over all pixels in a 48x48 postage stamp image
 extracted around the object of interest.  The $x$ and $y$ coordinates are
 relative to the center found during detection. For brevity, we have shown only
 the error on the flux $\sigma(F)$, but the full covariance matrix was measured
-for the moments.
+for the moments.  Note the noise in the warped images is spatially correlated
+due to interpolation, but only the zero lag variance is included included the
+above estimators.
 
 Note $T$ is an estimate of the observed square size of the object, not the
 pre-PSF size.  We also record the moments of the coadd PSF, after
@@ -774,15 +785,16 @@ value is somewhat arbitrary.
 
 In order to establish a baseline for the bias due to higher order shear
 effects, we ran a simulation with identical, round exponential, S/N $= 10,000$,
-half light radius 0.5 arcsecond galaxies placed in the grid layout (see
-sections \ref{sec:sim:galaxies} and \ref{sec:sim:layouts}) with image dithers
-and rotations.  In order to increase the computationally efficiency, we used
-only the $i$ band with a single image ``epoch''.  We used a fixed, circular
-Moffat PSF\citep{Moffat1969} with FWHM=0.8.  We applied a cut $S/N > 10$ to
-remove spurious detections.  We expect a bias $m$ of a few parts in ten
-thousand for this sim \citep{SheldonMcal2017}, and indeed we found a bias of
-$4.2\times 10^{-4} < m < 4.3\times 10^{-4}$ (99.7\%~confidence), consistent
-with our expectations.
+half light radius 0.5 arcsecond galaxies placed in the grid layout with a 9.5
+arcsecond spacing, for a density of 40 per square arcminute (see sections
+\ref{sec:sim:galaxies} and \ref{sec:sim:layouts}), with image dithers and
+rotations.  In order to increase the computationally efficiency, we used only
+the $i$ band with a single image ``epoch''.  We used a fixed, circular Moffat
+PSF\citep{Moffat1969} with FWHM=0.8.  We applied a cut $S/N > 10$ to remove
+spurious detections.  We expect a bias $m$ of a few parts in ten thousand for
+this sim \citep{SheldonMcal2017}, and indeed we found a bias of $4.2\times
+10^{-4} < m < 4.3\times 10^{-4}$ (99.7\%~confidence), consistent with our
+expectations.
 
 We reran this relatively fast simulation test after all major code updates as a
 kind of extended unit test to expose bugs and regressions.
