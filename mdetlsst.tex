@@ -238,10 +238,11 @@ transformation (WCS) and position dependent PSF model.  Problem areas
 associated with saturation, cosmic rays, and bad columns are marked as separate
 bits in an integer bit mask image plane.
 
-We only included background noise in the variance plane, not an estimate of the
-Poisson noise from objects.  This is important for \mdet\ because the Poisson
-noise from objects is lensed and is considered part of the signal (see \S
-\ref{sec:sim:noiseimages}).
+% We only included background noise in the variance plane, not an estimate of the
+% Poisson noise from objects.
+% This is important for \mdet\ because the Poisson
+% noise from objects is lensed and is considered part of the signal (see \S
+% \ref{sec:sim:noiseimages}).
 
 Other than simple background estimation errors (see \S \ref{sec:sim:bgerr}), we
 did not simulate scenarios in which the input data were miscalibrated.  For
@@ -486,12 +487,13 @@ to generate the noise images. Namely, because the images are manipulated before
 coaddition, for example interpolating saturated regions, bad columns, etc., we
 must pass the noise images through these manipulations as well. Furthermore,
 warping will produce correlated noise, and thus the noise images are generated
-with the same WCS as the real images, and the same warping is applied. Note the
-noise used for this process should include only the background noise estimate,
-not an estimate of the Poisson noise from the objects.  This poison noise from
-objects in real images is sheared and is considered part of the lensing signal,
-so should not be corrected for using the orthogonally sheared noise discussed
-above.
+with the same WCS as the real images, and the same warping is applied.
+% Note the
+% noise used for this process should include only the background noise estimate,
+% not an estimate of the Poisson noise from the objects.  This poison noise from
+% objects in real images is sheared and is considered part of the lensing signal,
+% so should not be corrected for using the orthogonally sheared noise discussed
+% above.
 
 We stored this noise image in a copy of the image \calexp\ structure, but
 replacing the real image data with the noise image.
@@ -1044,38 +1046,33 @@ could cause biases in the estimated redshift distribution.  The stellar density
 cut could be tuned to provide a beneficial trade off between accuracy and shear
 sensitivity.
 
-\subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
-
-% The absolute uncertainties presented above were artificially reduced due to
-% the noise canceling effect (see \S \ref{sec:running}).  In order to estimate
-% the noise we expect for LSST, we used measurements from just one of the two
-% paired images.
-
-We can convert the shear sensitivity to an effective number density if we know
-the imaging area used and weighted ellipticity noise.  In our case we inferred the
-sensitivity using a jackknife technique to account for all sources of
-uncertainty, including deblending, masking, stellar contamination, and
-variations in the response.  Thus a formula based on naive error propagation
-will not suffice.  Instead we define the effective number density explicitly as
-a quantity relating the measured jackknifed uncertainty to the weighted shape
-noise
-\begin{equation} \label{eq:neff}
-    n_{\mathrm{eff}} = \frac{\sigma^2_{e}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
-\end{equation}
-In equation \ref{eq:neff}, $\sigma_e/R \sim 0.41$ is the weighted standard
-deviation of the ellipticities for our catalog after applying the basic cuts in
-equation \ref{eq:basiccuts} and the cuts below, $\sigma_\gamma \sim 5.88 \times
-10^{-6}$ is the jackknifed shear uncertainty without noise cancellation, $R
-\sim 0.242$ is the mean shear response, and $A$ is the simulated area after
-masking and removing regions with high stellar density.    The raw simulated
-area was equivalent to about 41,600 square degrees, and about 6\% of that area
-was masked due to bright stars and defects.  We cut to a maximum stellar
-density of 60 per square arcminute, and removed fields with overall masking
-greater than 10\%, which leaves a final area of $A \sim 32,100$ square degrees.
-We find $n_\mathrm{eff} \sim 41$ per square arcminute for the basic cuts (see
-\S \ref{sec:results:more}).  This estimate should be considered rough, as the
-effective density will vary with the choice of ellipticity estimate, and may be
-improved with optimized weights.
+% \subsection{Shear Sensitivity and Effective Density} \label{sec:results:effdens}
+%
+% We can convert the shear sensitivity to an effective number density if we know
+% the imaging area used and weighted ellipticity noise.  In our case we inferred the
+% sensitivity using a jackknife technique to account for all sources of
+% uncertainty, including deblending, masking, stellar contamination, and
+% variations in the response.  Thus a formula based on naive error propagation
+% will not suffice.  Instead we define the effective number density explicitly as
+% a quantity relating the measured jackknifed uncertainty to the weighted shape
+% noise
+% \begin{equation} \label{eq:neff}
+%     n_{\mathrm{eff}} = \frac{\sigma^2_{e}}{R^2 \mathrm{A} \sigma^2_{\gamma}}.
+% \end{equation}
+% In equation \ref{eq:neff}, $\sigma_e/R \sim 0.41$ is the weighted standard
+% deviation of the ellipticities for our catalog after applying the basic cuts in
+% equation \ref{eq:basiccuts} and the cuts below, $\sigma_\gamma \sim 5.88 \times
+% 10^{-6}$ is the jackknifed shear uncertainty without noise cancellation, $R
+% \sim 0.242$ is the mean shear response, and $A$ is the simulated area after
+% masking and removing regions with high stellar density.    The raw simulated
+% area was equivalent to about 41,600 square degrees, and about 6\% of that area
+% was masked due to bright stars and defects.  We cut to a maximum stellar
+% density of 60 per square arcminute, and removed fields with overall masking
+% greater than 10\%, which leaves a final area of $A \sim 32,100$ square degrees.
+% We find $n_\mathrm{eff} \sim 41$ per square arcminute for the basic cuts (see
+% \S \ref{sec:results:more}).  This estimate should be considered rough, as the
+% effective density will vary with the choice of ellipticity estimate, and may be
+% improved with optimized weights.
 
 \section{Discussion} \label{sec:summary}
 
