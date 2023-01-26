@@ -267,9 +267,9 @@ was $n * \sqrt{N}$.
 
 We did not simulate a background for each image (see \S \ref{sec:sim:bgerr}).
 We instead used Guassian noise to approximate the Poisson noise that would
-remain in each image after background subtraction.  After drawing all image
-features and adding noise, we re-scaled the images to a common zero point of
-30.
+remain in each image after background subtraction.  We did not include the
+Poisson noise from objects.  After drawing all image features and adding noise,
+we re-scaled the images to a common zero point of 30.
 
 \subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:sim:rotdith}
 
@@ -611,7 +611,9 @@ difference response term is formed
 R_{ij} \approx \frac{e_i^{+} - e_i^{-}}{\Delta\gamma_j}\ .
 \end{equation}
 where $e_i^{+}$ is measured on the positively sheared image and $e_i^{-}$ is
-measured on the negatively sheared image.
+measured on the negatively sheared image.  The applied
+shear can be any value much less than unity. We used $\gamma_j^{\pm} = \pm0.01$,
+which gives $\Delta\gamma_j = 0.02$.
 
 As mentioned in \S \ref{sec:sim:noiseimages}, the deconvolution, shear,
 reconvolution process produces a spurious shear response that we correct by
