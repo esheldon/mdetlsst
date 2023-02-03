@@ -33,6 +33,43 @@
 \pgfplotsset{compat=newest}
 \usepgfplotslibrary{fillbetween}
 \usepgfplotslibrary{groupplots}
+\usetikzlibrary{patterns}
+
+\definecolor{bisque}{HTML}{ffe4c4}
+\definecolor{tan}{HTML}{d2b48c}
+\definecolor{sand}{HTML}{e1bf92}
+
+% \makeatletter %new code
+% \pgfdeclarepatternformonly[\LineSpace,\tikz@pattern@color]{my north east lines}{\pgfqpoint{-1pt}{-1pt}}{\pgfqpoint{\LineSpace}{\LineSpace}}{\pgfqpoint{\LineSpace}{\LineSpace}}%
+% {
+%     \pgfsetcolor{\tikz@pattern@color} %new code
+%     \pgfsetlinewidth{0.4pt}
+%     \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+%     \pgfpathlineto{\pgfqpoint{\LineSpace + 0.1pt}{\LineSpace + 0.1pt}}
+%     \pgfusepath{stroke}
+% }
+% \makeatother %new code
+% \newdimen\LineSpace
+% \tikzset{
+%     line space/.code={\LineSpace=#1},
+%     line space=3pt
+% }
+
+\makeatletter %new code
+\pgfdeclarepatternformonly[\LineSpace,\tikz@pattern@color]{my north west lines}{\pgfqpoint{-1pt}{-1pt}}{\pgfqpoint{\LineSpace}{\LineSpace}}{\pgfqpoint{\LineSpace}{\LineSpace}}%
+{
+    \pgfsetcolor{\tikz@pattern@color} %new code
+    \pgfsetlinewidth{0.4pt}
+    \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+    \pgfpathlineto{\pgfqpoint{\LineSpace + 0.1pt}{\LineSpace + 0.1pt}}
+    \pgfusepath{stroke}
+}
+\makeatother %new code
+\newdimen\LineSpace
+\tikzset{
+    line space/.code={\LineSpace=#1},
+    line space=3pt
+}
 
 
 %\usepackage{lineno}
@@ -212,16 +249,17 @@ measurement.  For an accurate shear measurement, the ultimate limit may be the
 characterization of the data, not the method itself.
 
 In this work we demonstrate that the \mdet\ technique can accurately calibrate
-shear estimates in such featureful, but well-characterized data.  We simulate images
-containing galaxies, stars with a realistic galactic density distribution,
-spatially variable PSF, and proxies for the above image artifacts (see \S
-\ref{sec:sim}), which we warp and sum into overlapping coadds (see \S
-\ref{sec:coadding}).  We simulate the expected data products produced by the
-\dm\ \citep{BoschLSST2019,BoschHSC2017}, and use
-a new \mdet\ code designed specifically to work with Science Pipeline data structures
-and algorithms\footnote{The software used in this work is freely available on
-the internet.  URLs are provided as footnotes to the text.}.  We describe
-\mdet\ in \S \ref{sec:mdet}, and the results in \S \ref{sec:results}.
+shear estimates in such featureful, but well-characterized data.  We simulate
+images containing galaxies, stars with a realistic galactic density
+distribution, spatially variable PSF, and proxies for the above image artifacts
+(see \S \ref{sec:sim}), which we interpolate, or ``warp'', onto a common
+reference frame and sum into overlapping coadds (see \S \ref{sec:coadding}).
+We simulate the expected data products produced by the \dm\
+\citep{BoschLSST2019,BoschHSC2017}, and use a new \mdet\ code designed
+specifically to work with Science Pipeline data structures and
+algorithms\footnote{The software used in this work is freely available on the
+internet.  URLs are provided as footnotes to the text.}.  We describe \mdet\ in
+\S \ref{sec:mdet}, and the results in \S \ref{sec:results}.
 
 \section{Simulation Features} \label{sec:sim}
 
@@ -244,13 +282,14 @@ bits in an integer bit mask image plane.
 % noise from objects is lensed and is considered part of the signal (see \S
 % \ref{sec:sim:noiseimages}).
 
-Other than simple background estimation errors (see \S \ref{sec:sim:bgerr}), we
-did not simulate scenarios in which the input data were miscalibrated.  For
-example we did not test the consequences of inaccurate PSF models, noise
-estimates or photometric calibrations.  Our motivation was to test the
-performance of \mdet\ using well-characterized data. It may be necessary to
-propagate or simulate the effects of miscalibrated data in order to
-characterize the final shear calibration in real data analyses.
+Other than simple, constant background estimation errors, which were easy to
+implement and test (see \S \ref{sec:sim:bgerr}), we did not simulate scenarios
+in which the input data were miscalibrated.  For example we did not test the
+consequences of inaccurate PSF models, noise estimates or photometric
+calibrations.  Our motivation was to test the performance of \mdet\ using
+well-characterized data. It may be necessary to propagate or simulate the
+effects of miscalibrated data in order to characterize the final shear
+calibration in real data analyses.
 
 For this work, we used the newly written simulation package
 \texttt{descwl-shear-sims} version
@@ -261,15 +300,17 @@ For this work, we used the newly written simulation package
 We used the \descwl\ package
 \citep{DESCWLSanchez2021}\footnote{\url{https://github.com/LSSTDESC/WeakLensingDeblending}}
 to predict the noise for images in each Rubin filter.  In all simulation runs
-we used noise $n$ for the final 10 year coadd.  If $N$ simulated epochs were
-used, we re-scaled the noise appropriately, such that the noise in each epoch
-was $n * \sqrt{N}$.
+we used noise $n$ for the final 10 year coadd.  If $N$ simulated images were
+created, representing data from individual exposures to be coadded, we
+re-scaled the noise appropriately, such that the noise in each image was $n *
+\sqrt{N}$.
 
-We did not simulate a background for each image (see \S \ref{sec:sim:bgerr}).
-We instead used Guassian noise to approximate the Poisson noise that would
-remain in each image after background subtraction.  We did not include the
-Poisson noise from objects.  After drawing all image features and adding noise,
-we re-scaled the images to a common zero point of 30.
+We did not simulate a realistic background and background noise for each image
+(see \S \ref{sec:sim:bgerr}).  We instead used Guassian noise to approximate
+the Poisson noise that would remain in each image after background subtraction.
+We did not include the Poisson noise from objects.  After drawing all image
+features and adding noise, we re-scaled the images to a common zero point of
+30 before coadding.
 
 \subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:sim:rotdith}
 
@@ -298,7 +339,8 @@ and size across the image, using the methods described in Appendix~A of
 \citet{mdet20} based on work by \citet{heymans2012}.  \citet{heymans2012} used
 images with high stellar density to fit a \vonkarman\ model of atmospheric
 turbulence to the PSF variation. \citet{mdet20} used this model, with a
-modification to reduce power below 1'', to generate realizations of spatially
+modification to reduce unrealistically large power below 1'', to generate
+realizations of spatially
 variable PSFs using Gaussian random fields. The PSF model was again a Moffat
 profile with shape parameter $\beta=2.5$ but with variable size and shape. In
 \citet{mdet20} this approximate variable PSF model was compared to detailed
@@ -401,16 +443,17 @@ likely that coadded images will be used for \mdet, with artifacts interpolated
 on the original data before being warped and added.  The aggregate number of
 artifacts will be large, but the impact of each artifact will be relatively
 small.  It was not computationally feasible to simulate such a large number of
-epochs in order to test the effect of artifacts in a realistic way.  Rather we
-simulated a smaller number of epochs per band, typically 1 but up to 10, with
-the noise scaled so that the final coadd noise matched LSST 10 year data.
-Thus, relative to expected LSST data the impact of each artifact on the coadd
-was large but the aggregate number of artifacts was small.
+individual images to be coadded in order to test the effect of artifacts in a
+realistic way.  Rather we simulated a smaller number of images per band,
+typically 1 but up to 10, with the noise scaled so that the final coadd noise
+matched LSST 10 year data.  Thus, relative to expected LSST data the impact of
+each artifact on the coadd was large but the aggregate number of artifacts was
+small.
 
 \subsection{Galaxies} \label{sec:sim:galaxies}
 
 We used the \descwl\ package to generate galaxy models
-\citep{DESCWLSanchez2021}.  These elliptical, color models have bulge, disk and
+\citep{DESCWLSanchez2021}.  These elliptical, color galaxy models have bulge, disk and
 AGN components. This catalog has a raw density of $\sim240$ galaxies per square
 arcminute, and an effective $i$-band ab magnitude limit of $\sim27$. Rather
 than use the \descwl\ package to draw the models in the image, we drew the
@@ -438,21 +481,15 @@ See \S \ref{sec:sim:galaxies} for descriptions of each galaxy model type.
 
 \subsection{Image Background} \label{sec:sim:bgerr}
 
-We added a negative constant to the images to approximate errors in the
-background determination.  The motivation was to test if background estimation
-errors in individual images can be corrected in the final coadd (see \S
+We added a constant to the images to approximate errors in the background
+determination.  The motivation was to test if background estimation errors in
+individual images can be corrected in the final coadd (see \S
 \ref{sec:mdet:detect} and \S \ref{sec:results:more}).
 
-\subsection{Shear Patterns} \label{sec:sim:shears}
-
-We implemented two different types of shear pattern.  In one we used a single
-shear for all images, with constant magnitude and orientation.  The second type
-was a constant magnitude shear, but with random orientation for each image.
-These two scenarios result in equivalent shear recovery bias when objects are
-not divided into cells on the sky (see \S \ref{sec:sim:cells}) but, as we will
-see in \S \ref{sec:results:cells}, a small additional selection bias is
-introduced for random shears when trimming to cells.  In all cases
-the simulated shear had magnitude of \mshear.
+We ran tests with both positive and negative backgrounds, and a wide range of
+absolute values, and got consistent results.  For the results presented below,
+we chose a small negative background, with value of order the image noise
+level, to simulate a slight over subtraction.
 
 \subsection{Overlapping Coadd Cells} \label{sec:sim:cells}
 
@@ -471,6 +508,17 @@ specific to the cell processing and trimming of objects to non overlapping
 regions.  We adopted the cell definitions outlined above: 250x250 pixel cells
 with 50 pixel overlaps. The object list was trimmed to the non-overlapping
 region in post-processing.
+
+\subsection{Shear Patterns} \label{sec:sim:shears}
+
+We implemented two different types of shear pattern.  In one we used a single
+shear for all images, with constant magnitude and orientation.  The second type
+was a constant magnitude shear, but with random orientation for each image.
+These two scenarios result in equivalent shear recovery bias when objects are
+not divided into cells on the sky (see \S \ref{sec:sim:cells}) but, as we will
+see in \S \ref{sec:results:cells}, a small additional selection bias is
+introduced for random shears when trimming the detected objects to the unique
+cell regions.  In all cases the simulated shear had magnitude of \mshear.
 
 \subsection{Noise Images} \label{sec:sim:noiseimages}
 
@@ -549,8 +597,8 @@ the corresponding masked images, along with the variance and bitmask planes.
     \begin{center}
     \includegraphics[width=0.65\textwidth]{example-image.jpg}
     \caption{
-        Example simulated image using one ``epoch'' for each of the $r$, $i$,
-        and $z$ bands, with noise corresponding to the 10 LSST coadd data.
+        Example simulated image using a single image for each of the $r$, $i$,
+        and $z$ bands, but with noise corresponding to the 10 LSST coadd data.
         The images have been warped and coadded, although in this case there
         is but a single warped image per band.
         Note the interpolated bleed trails around a bright star in the upper
@@ -634,6 +682,9 @@ A mean shear can then be estimated using
 \begin{equation} \label{eq:shearmeas}
     \langle \vecg \rangle \approx \langle \boldsymbol{R}\rangle^{-1}\langle\boldsymbol{e}\rangle.
 \end{equation}
+These averages may be calculated over the entire set of detected objects or
+subsets of the data as needed, so long as the response can be determined with
+sufficient precision.
 
 However, this process is incomplete:  the detection phase also depends on the
 shear.  We can incorporate detection by finding objects in the unsheared
@@ -670,13 +721,14 @@ We used the \dm\ peak finding algorithm for object detection
 which retains sources with signal-to-noise ratio \snr\ $\gtrsim 5$ as
 calculated from a PSF template flux measurement.  Before detection we
 determined the background in the coadd to correct for simulated background
-estimation errors (see \S \ref{sec:sim:bgerr}).
+estimation errors (see \S \ref{sec:sim:bgerr}).  We did not discard blended
+objects.
 
-We did not use the default deblender to remove the light of neighboring objects
-when measuring object properties (see \S \ref{sec:mdet:meas}).  We found that
-using the models to remove neighbor light resulted in shear biases of order ten
-percent, which we suspect may be due to increased non-linearity associated
-with this deblender.
+For this work we did not use the deblender to remove the light of neighboring,
+blended objects when measuring object properties (see \S \ref{sec:mdet:meas}).
+We found that using the models to remove neighbor light resulted in shear
+biases of order ten percent, which we suspect may be due to increased
+non-linearity associated with this deblender.
 
 We did limited testing with the alternate Scarlet deblender
 \citep{MelchiorScarlet2018}, which is available to use with the \dm\ software
@@ -696,9 +748,10 @@ in future work.
 
 We used version v2.1.0 of the \ngmix\ package to measure weighted moments for
 each detected object, using the \texttt{Gaussmom} class. The weight function
-was a fixed, circular Gaussian $G(x, y)$ with FWHM=1.2 arcseconds.  We
-recorded the flux, S/N, second moments, and ellipticity derived from the second
-moments:
+was a fixed, circular Gaussian $G(x, y)$ with FWHM=1.2 arcseconds. We chose
+this FWHM to provide good precision for typical LSST seeing (FWHM=0.8
+arcseconds), but this was not optimized.  We recorded the flux, S/N, second
+moments, and ellipticity derived from the second moments:
 \begin{eqnarray} \label{eq:moments}
     F &=& \sum G(x, y) I(x, y) \nonumber \\
     \sigma^2(F) &=& \sum G(x, y)^2 \sigma^2(I(x, y)) \nonumber \\
@@ -733,7 +786,7 @@ In all cases we used a constant shear, with optional random shear orientations
 for each simulated scene (see \S \ref{sec:sim:shears}).  We simulated each
 scene twice, with equal but opposite shears, in order to implement the noise
 canceling method of \cite{pujol2019}.  For randomized shear directions, the
-shape measurements from different scenes were placed in a common reference
+shape measurements from different scenes were rotated into in a common reference
 frame before averaging to get a mean shear.
 
 We estimated the uncertainty in the averaged shear measurements using a
@@ -757,9 +810,10 @@ shear recovery.
 We performed shear recovery tests starting with the base simulation and turning
 on additional features successively in order to isolate the cause of potential
 biases.  We found biases exceeding LSST requirements only in the case of
-extreme spatial PSF variation, with few simulated epochs to average down the
-variation (see \S \ref{sec:results:psfvar}).  We present results including all
-simulation features in \S \ref{sec:results:cells}.
+extreme spatial PSF variation combined with few simulated images contributing
+to the coadd, so that the random variations were not sufficiently averaged down
+(see \S \ref{sec:results:psfvar}).  We present results including all simulation
+features in \S \ref{sec:results:cells}.
 
 To characterize the bias, we assume a simple linear model \citep[see,
 e.g.,][]{heymans2006} for estimating a bias in the recovered shear
@@ -770,8 +824,9 @@ where \vecg\ is the inferred shear, measured using equation \ref{eq:shearmeas},
 \vecgam\ is the true shear, \vecc\ is the additive bias, and \vecm\ is the
 multiplicative bias. We found \vecc\ was consistent with zero in all tests, so
 in what follows we only report \vecm.  Furthermore, we only report
-the scalar $m$, even in the case of random shear orientations, since we
-always average ellipticity in a common frame.
+the scalar $m$, even in the case of random shear orientations, because
+the ellipticities are rotated to a common frame before averaging (see \S
+\ref{sec:running}).
 
 \subsection{LSST Requirements} \label{sec:lsstreq}
 
@@ -793,7 +848,8 @@ half light radius 0.5 arcsecond galaxies placed in the grid layout with a 9.5
 arcsecond spacing, for a density of 40 per square arcminute (see sections
 \ref{sec:sim:galaxies} and \ref{sec:sim:layouts}), with image dithers and
 rotations.  In order to increase the computationally efficiency, we used only
-the $i$ band with a single image ``epoch''.  We used a fixed, circular Moffat
+the $i$ band with a single image warped to the coadd frame, rather than many
+images warped and coadded.  We used a fixed, circular Moffat
 PSF\citep{Moffat1969} with FWHM=0.8.  We applied a cut $S/N > 10$ to remove
 spurious detections.  We expect a bias $m$ of a few parts in ten thousand for
 this sim \citep{SheldonMcal2017}, and indeed we found a bias of $4.2\times
@@ -817,26 +873,27 @@ the coadd center (see \S \ref{sec:sim:psfs}) may be sufficient.
 
 We ran the same grid simulation from \S \ref{sec:results:base} with the
 spatially varying PSF presented in \S \ref{sec:sim:psfs}. We used the $r, i, z$
-bands but with a single image epoch per band, with rotations and dithers.  We
-did not see any increase in the multiplicative bias.   Our interpretation is
-that the PSF variation in the coadd is small enough that our single coadded PSF
-image is sufficient, even with a single image per band.
+bands but with a single warped image per band, with rotations and dithers,
+rather than many images warped and coadded.  We did not see any increase in the
+multiplicative bias.   Our interpretation is that the PSF variation in the
+coadd is small enough that our single coadded PSF image is sufficient, even
+with a single image per band.
 
 We also ran with the same simulation configuration, but with ten times the
 expected PSF variation. In this case, for a single image per band, we found a
-bias $m \sim 0.0016$.  However, after increasing the number of simulated epochs
-per band to ten (but with the same final coadd noise level), the bias
-reduced to that expected from higher order shear effects.  We interpret
-this to mean that more epochs are required to cancel out very large PSF
-variations.
+bias $m \sim 0.0016$.  However, after increasing the number of simulated images
+per band to ten, warped and coadded (but with the same final coadd noise
+level), the bias reduced to that expected from higher order shear effects.  We
+interpret this to mean that more coadded images are required to average down
+very large PSF variations.
 
-As argued in \citet{mdet20}, since LSST will take hundreds of images in each band \citep{IvezicLSST2008}, we
-should not expect random PSF variations to be a significant source of bias.
-However, note that our PSFs included only random patterns, not {\em complex
-static} PSF patterns due to the telescope and camera. Such patterns, while
-subdominant for LSST PSFs, would reduce more slowly with additional epochs,
-especially for poorly chosen dither patterns. We will test more complex PSF
-patterns in a future work.
+As argued in \citet{mdet20}, since LSST will take hundreds of images in each
+band \citep{IvezicLSST2008}, we should not expect random PSF variations to be a
+significant source of bias.  However, note that our PSFs included only random
+patterns, not {\em complex static} PSF patterns due to the telescope and
+camera. Such patterns, while subdominant for LSST PSFs, would reduce more
+slowly when combining images, especially for poorly chosen dither
+patterns. We will test more complex PSF patterns in a future work.
 
 For the remaining tests in this paper that employ a spatially variable PSF, the
 expected level of variation was used.
@@ -882,9 +939,10 @@ repeated the shear recovery analysis.  The results are shown in figure
 \ref{fig:trends}, for both constant and spatially varying PSFs (see \S
 \ref{sec:sim:psfs}).  We did not detect any additional bias.
 Counterintuitively, higher \snr\ thresholds resulted in lower noise for this
-test because the noise cancellation procedure works better for high \snr\
-objects.  We will explore the shear sensitivity without noise cancellation in
-\S \ref{sec:results:sdensnoise}.
+test.  Normally removing measurements would result in a more noisy mean, but
+the noise cancellation procedure works better for high \snr\ objects that are
+more often detected in both simulations.  We will explore the shear sensitivity
+without noise cancellation in \S \ref{sec:results:sdensnoise}.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{{trends}.pdf}
@@ -901,6 +959,174 @@ objects.  We will explore the shear sensitivity without noise cancellation in
     \label{fig:trends}
 
 \end{figure}
+
+\begin{figure}
+    \centering
+\begin{tikzpicture}
+    \begin{groupplot}[
+        group style={
+            group size=1 by 2,
+            % vertical sep=1cm,
+        },
+        % xmin=0.0,
+        % xmax=110.0,
+        width=\columnwidth,
+        height=0.7\columnwidth,
+        minor tick num=3,
+        axis on top,
+        legend style={
+            legend columns=2,
+            draw=none,
+        },
+        % legend columns=2,
+        % legend draw=none,
+        % my fill legend
+    ]
+
+    %
+    % bias range as function of S/N
+    %
+    \nextgroupplot[
+        xlabel={Minimum S/N},
+        ylabel={$m/10^{-3}$},
+        xmin=9,xmax=21,
+        % ymin=-3.5,ymax=3.5,
+        ymin=-2.5,ymax=3.4,
+        % xticklabels={,,},
+    ]
+
+    % mark level of nonlinear shear
+	\addplot+[dashdotted,brown,no markers] coordinates {
+        (9.0,0.4)
+        (21.0,0.4)
+    };
+    \addlegendentry{Nonlinear Shear}
+
+
+    % mark requirements
+	\addplot+[name path=A,tan,no markers,forget plot] coordinates {
+        (9.0,-2)
+        (21.0,-2)
+    };
+    \addplot+[name path=B,tan,no markers,forget plot] coordinates {
+        (9.0,2)
+        (21.0,2)
+    };
+
+    \addplot+[bisque,opacity=0.5] fill between[of=A and B];
+    \addlegendentry{Requirement}
+
+    % bias range as function of S/N
+	\addplot+[name path=mlowvar,gray!70,no markers,solid,forget plot] coordinates {
+        (10.0,0.219)
+        (12.5,0.078)
+        (15.0,0.213)
+        (20.0,0.257)
+    };
+    \addplot+[name path=mhighvar,gray!70,no markers,solid,forget plot] coordinates {
+        (10.0,1.215)
+        (12.5,0.869)
+        (15.0,0.973)
+        (20.0,0.892)
+    };
+    % black here turns out to be the boundary for the legend, a bug of some kind
+    \addplot+[color=black,pattern=north east lines,solid] fill between[of=mlowvar and mhighvar];
+    \addlegendentry{LSST 10 year PSF}
+
+	\addplot+[name path=mlowfix,gray!90,no markers,solid,forget plot] coordinates {
+        (10.0,0.176295)
+        (12.5,-0.00826672)
+        (15.0,0.165007)
+        (20.0,0.111993)
+    };
+    \addplot+[name path=mhighfix,gray!90,no markers,solid,forget plot] coordinates {
+        (10.0,1.13744)
+        (12.5,0.789173)
+        (15.0,0.915298)
+        (20.0,0.765478)
+    };
+    \addplot+[color=black,pattern=vertical lines,solid] fill between[of=mlowfix and mhighfix];
+    \addlegendentry{Constant PSF}
+
+	\addplot+[solid,black!80,no markers,forget plot] coordinates {
+        (9.0,0.0)
+        (21.0,0.0)
+    };
+
+    %
+    % bias range as function of T/Tpsf
+    %
+    \nextgroupplot[
+        xlabel={Minimum $T/T_{PSF}$},
+        ylabel={$m/10^{-3}$},
+        xmin=9,xmax=21,
+        % ymin=-3.5,ymax=3.5,
+        ymin=-2.5,ymax=3.4,
+        % xticklabels={,,},
+    ]
+
+    % mark level of nonlinear shear
+	\addplot+[dashdotted,brown,no markers] coordinates {
+        (9.0,0.4)
+        (21.0,0.4)
+    };
+
+
+    % mark requirements
+	\addplot+[name path=A,tan,no markers,forget plot] coordinates {
+        (9.0,-2)
+        (21.0,-2)
+    };
+    \addplot+[name path=B,tan,no markers,forget plot] coordinates {
+        (9.0,2)
+        (21.0,2)
+    };
+
+    \addplot+[bisque,opacity=0.5] fill between[of=A and B];
+
+    % bias range as function of S/N
+	\addplot+[name path=mlowvar,gray!70,no markers,solid,forget plot] coordinates {
+        (10.0,0.219)
+        (12.5,0.078)
+        (15.0,0.213)
+        (20.0,0.257)
+    };
+    \addplot+[name path=mhighvar,gray!70,no markers,solid,forget plot] coordinates {
+        (10.0,1.215)
+        (12.5,0.869)
+        (15.0,0.973)
+        (20.0,0.892)
+    };
+    % black here turns out to be the boundary for the legend, a bug of some kind
+    \addplot+[color=black,pattern=north east lines,solid] fill between[of=mlowvar and mhighvar];
+
+	\addplot+[name path=mlowfix,gray!90,no markers,solid,forget plot] coordinates {
+        (10.0,0.176295)
+        (12.5,-0.00826672)
+        (15.0,0.165007)
+        (20.0,0.111993)
+    };
+    \addplot+[name path=mhighfix,gray!90,no markers,solid,forget plot] coordinates {
+        (10.0,1.13744)
+        (12.5,0.789173)
+        (15.0,0.915298)
+        (20.0,0.765478)
+    };
+    \addplot+[color=black,pattern=vertical lines,solid] fill between[of=mlowfix and mhighfix];
+
+	\addplot+[solid,black!80,no markers,forget plot] coordinates {
+        (9.0,0.0)
+        (21.0,0.0)
+    };
+
+
+    \end{groupplot}
+\end{tikzpicture}
+
+    \caption{test}
+
+\end{figure}
+
 
 \subsection{Results with Overlapping Coadd Cells} \label{sec:results:cells}
 
@@ -938,10 +1164,10 @@ in the shear average.  We used a two part weight function
 \begin{equation}
     W(\sigma_g, g) = W_\sigma (\sigma_g) \times W_g(g)
 \end{equation}
-with $W_\sigma$ based on the object's ellipticity noise and $W_g$ designed to
-down-weight a particular set of spurious objects.
+with $W_\sigma(\sigma_g)$ based on the object's ellipticity noise and $W_g(g)$
+designed to down-weight a particular set of spurious objects.
 
-The $W(\sigma_g)$ is an approximate inverse variance weighting
+The $W_\sigma(\sigma_g)$ is an approximate inverse variance weighting
 \begin{equation} \label{eq:wsigma}
     W_\sigma = \frac{1}{\sigma_{SN}^2 + \sigma_g^2},
 \end{equation}
@@ -1102,8 +1328,8 @@ expect this joint calibration to be necessary even if the shear measurement
 method itself is unbiased.  An alternative to a pure simulation approach may to
 inject fake sources directly into the images
 \citep{SuchytaBalrog2016,EverettBalrog2022}, which more naturally captures the
-characteristics of the original images, but could be more computationally
-less efficient, since the injected sources must necessarily be low density 
+characteristics of the original images, but could be less computationally
+efficient, since the injected sources must necessarily be low density 
 in order to avoid perturbing the images excessively and thus biasing the
 calibration.
 
