@@ -35,9 +35,21 @@
 \usepgfplotslibrary{groupplots}
 \usetikzlibrary{patterns}
 
-\definecolor{bisque}{HTML}{ffe4c4}
+% \definecolor{bisque}{HTML}{ffe4c4}
+\definecolor{bisque}{HTML}{ffe8c4}
 \definecolor{tan}{HTML}{d2b48c}
 \definecolor{sand}{HTML}{e1bf92}
+\definecolor{sand1}{HTML}{f6d7b0}
+\definecolor{sand2}{HTML}{f2d2a9}
+\definecolor{sand3}{HTML}{eccca2}
+\definecolor{sand4}{HTML}{e7c496}
+\definecolor{sand5}{HTML}{e1bf92}
+
+\definecolor{desert1}{HTML}{d9a76c}
+\definecolor{desert2}{HTML}{a48963}
+\definecolor{desert3}{HTML}{674c37}
+\definecolor{desert4}{HTML}{512f26}
+\definecolor{desert5}{HTML}{211813}
 
 % \makeatletter %new code
 % \pgfdeclarepatternformonly[\LineSpace,\tikz@pattern@color]{my north east lines}{\pgfqpoint{-1pt}{-1pt}}{\pgfqpoint{\LineSpace}{\LineSpace}}{\pgfqpoint{\LineSpace}{\LineSpace}}%
@@ -996,7 +1008,7 @@ without noise cancellation in \S \ref{sec:results:sdensnoise}.
     ]
 
     % mark level of nonlinear shear
-	\addplot+[dashdotted,brown,no markers] coordinates {
+	\addplot+[dashdotted,sand5,no markers,thick] coordinates {
         (9.0,0.4)
         (21.0,0.4)
     };
@@ -1004,48 +1016,53 @@ without noise cancellation in \S \ref{sec:results:sdensnoise}.
 
 
     % mark requirements
-	\addplot+[name path=A,tan,no markers,forget plot] coordinates {
+	\addplot+[name path=A,bisque,no markers,forget plot] coordinates {
         (9.0,-2)
         (21.0,-2)
     };
-    \addplot+[name path=B,tan,no markers,forget plot] coordinates {
+    \addplot+[name path=B,bisque,no markers,forget plot] coordinates {
         (9.0,2)
         (21.0,2)
     };
 
+    % \addplot+[gray!30,opacity=0.5] fill between[of=A and B];
     \addplot+[bisque,opacity=0.5] fill between[of=A and B];
     \addlegendentry{Requirement}
 
     % bias range as function of S/N
-	\addplot+[name path=mlowvar,gray!70,no markers,solid,forget plot] coordinates {
+	\addplot+[name path=mlowvar,desert1,no markers,solid,opacity=0.5,forget plot] coordinates {
         (10.0,0.219)
         (12.5,0.078)
         (15.0,0.213)
         (20.0,0.257)
     };
-    \addplot+[name path=mhighvar,gray!70,no markers,solid,forget plot] coordinates {
+    \addplot+[name path=mhighvar,desert1,no markers,solid,opacity=0.5,forget plot] coordinates {
         (10.0,1.215)
         (12.5,0.869)
         (15.0,0.973)
         (20.0,0.892)
     };
     % black here turns out to be the boundary for the legend, a bug of some kind
-    \addplot+[color=black,pattern=north east lines,solid] fill between[of=mlowvar and mhighvar];
+    % \addplot+[color=black,pattern=north east lines,solid] fill between[of=mlowvar and mhighvar];
+    \addplot+[color=desert1,opacity=0.5] fill between[of=mlowvar and mhighvar];
+    % \addplot+[color=gray!50,opacity=0.5] fill between[of=mlowvar and mhighvar];
     \addlegendentry{LSST 10 year PSF}
 
-	\addplot+[name path=mlowfix,gray!90,no markers,solid,forget plot] coordinates {
+	\addplot+[name path=mlowfix,desert4,no markers,solid,opacity=0.5,forget plot] coordinates {
         (10.0,0.176295)
         (12.5,-0.00826672)
         (15.0,0.165007)
         (20.0,0.111993)
     };
-    \addplot+[name path=mhighfix,gray!90,no markers,solid,forget plot] coordinates {
+    \addplot+[name path=mhighfix,desert4,no markers,solid,opacity=0.5,forget plot] coordinates {
         (10.0,1.13744)
         (12.5,0.789173)
         (15.0,0.915298)
         (20.0,0.765478)
     };
-    \addplot+[color=black,pattern=vertical lines,solid] fill between[of=mlowfix and mhighfix];
+    % \addplot+[color=black,pattern=vertical lines,solid] fill between[of=mlowfix and mhighfix];
+    \addplot+[color=desert4,opacity=0.5] fill between[of=mlowfix and mhighfix];
+    % \addplot+[color=gray!75,opacity=0.5] fill between[of=mlowfix and mhighfix];
     \addlegendentry{Constant PSF}
 
 	\addplot+[solid,black!80,no markers,forget plot] coordinates {
@@ -1059,64 +1076,68 @@ without noise cancellation in \S \ref{sec:results:sdensnoise}.
     \nextgroupplot[
         xlabel={Minimum $T/T_{PSF}$},
         ylabel={$m/10^{-3}$},
-        xmin=9,xmax=21,
+        xmin=1.15,xmax=1.55,
         % ymin=-3.5,ymax=3.5,
         ymin=-2.5,ymax=3.4,
         % xticklabels={,,},
     ]
 
     % mark level of nonlinear shear
-	\addplot+[dashdotted,brown,no markers] coordinates {
-        (9.0,0.4)
-        (21.0,0.4)
+	\addplot+[dashdotted,sand5,no markers,thick] coordinates {
+        (1.15,0.4)
+        (1.55,0.4)
     };
 
 
     % mark requirements
-	\addplot+[name path=A,tan,no markers,forget plot] coordinates {
-        (9.0,-2)
-        (21.0,-2)
+	\addplot+[name path=A,bisque,no markers,forget plot] coordinates {
+        (1.15,-2)
+        (1.55,-2)
     };
-    \addplot+[name path=B,tan,no markers,forget plot] coordinates {
-        (9.0,2)
-        (21.0,2)
+    \addplot+[name path=B,bisque,no markers,forget plot] coordinates {
+        (1.15,2)
+        (1.55,2)
     };
 
     \addplot+[bisque,opacity=0.5] fill between[of=A and B];
 
-    % bias range as function of S/N
-	\addplot+[name path=mlowvar,gray!70,no markers,solid,forget plot] coordinates {
-        (10.0,0.219)
-        (12.5,0.078)
-        (15.0,0.213)
-        (20.0,0.257)
+    % bias range as function of T/Tpsf
+	\addplot+[name path=mlowvar,desert1,no markers,solid,opacity=0.5,forget plot] coordinates {
+        (1.2, 0.211992)
+        (1.3, 0.151222)
+        (1.4, -0.0532513)
+        (1.5, -0.346328)
+
     };
-    \addplot+[name path=mhighvar,gray!70,no markers,solid,forget plot] coordinates {
-        (10.0,1.215)
-        (12.5,0.869)
-        (15.0,0.973)
-        (20.0,0.892)
+    \addplot+[name path=mhighvar,desert1,no markers,solid,opacity=0.5,forget plot] coordinates {
+        (1.2, 0.967327)
+        (1.3, 1.04341)
+        (1.4, 0.9606359999999999)
+        (1.5, 0.968678)
+
     };
     % black here turns out to be the boundary for the legend, a bug of some kind
-    \addplot+[color=black,pattern=north east lines,solid] fill between[of=mlowvar and mhighvar];
+    % \addplot+[color=black,pattern=north east lines,solid] fill between[of=mlowvar and mhighvar];
+    \addplot+[color=desert1,opacity=0.5] fill between[of=mlowvar and mhighvar];
 
-	\addplot+[name path=mlowfix,gray!90,no markers,solid,forget plot] coordinates {
-        (10.0,0.176295)
-        (12.5,-0.00826672)
-        (15.0,0.165007)
-        (20.0,0.111993)
+    \addplot+[name path=Tratmlowfix,desert4,no markers,solid,opacity=0.5,forget plot] coordinates {
+        (1.2, 0.165007)
+        (1.3, -0.0856819)
+        (1.4, -0.114263)
+        (1.5, -0.370727)
     };
-    \addplot+[name path=mhighfix,gray!90,no markers,solid,forget plot] coordinates {
-        (10.0,1.13744)
-        (12.5,0.789173)
-        (15.0,0.915298)
-        (20.0,0.765478)
+    \addplot+[name path=Tratmhighfix,desert4,no markers,solid,opacity=0.5,forget plot] coordinates {
+        (1.2, 0.9152980000000001)
+        (1.3, 0.799206)
+        (1.4, 0.858479)
+        (1.5, 0.9879929999999999)
     };
-    \addplot+[color=black,pattern=vertical lines,solid] fill between[of=mlowfix and mhighfix];
+    % \addplot+[color=black,pattern=vertical lines,solid] fill between[of=mlowfix and mhighfix];
+    \addplot+[color=desert4,opacity=0.5] fill between[of=Tratmlowfix and Tratmhighfix];
 
 	\addplot+[solid,black!80,no markers,forget plot] coordinates {
-        (9.0,0.0)
-        (21.0,0.0)
+        (1.15,0.0)
+        (1.55,0.0)
     };
 
 
