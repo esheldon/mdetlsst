@@ -203,6 +203,11 @@ def do_error_plot(fname, wdata):
         mdata = wdata[key]
 
         label = key2label(key)
+        tfname = 'code/' + key + '-err.txt'
+        print(tfname)
+        with open(tfname, 'w') as fobj:
+            for sdens, m1err in zip(mdata['sdens'], mdata['m1err']):
+                fobj.write(f'{sdens:g} {m1err/minval:g}\n')
 
         ax.plot(
             mdata['sdens'],
@@ -321,6 +326,13 @@ def do_bias_plot(fname, wdata):
         mdata = wdata[key]
 
         label = key2label(key)
+        tfname = 'code/' + key + '.txt'
+        print(tfname)
+        with open(tfname, 'w') as fobj:
+            for sdens, mlow, mhigh in zip(
+                mdata['sdens'], mdata['m1low'], mdata['m1high']
+            ):
+                fobj.write(f'{sdens:g} {mlow/0.001:g} {mhigh/0.001:g}\n')
 
         ax.fill_between(
             mdata['sdens'],

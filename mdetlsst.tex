@@ -51,6 +51,13 @@
 \definecolor{desert4}{HTML}{512f26}
 \definecolor{desert5}{HTML}{211813}
 
+\definecolor{bsand1}{HTML}{b18e5d}
+\definecolor{bsand2}{HTML}{97744f}
+\definecolor{bsand3}{HTML}{590d0d}
+\definecolor{bsand4}{HTML}{3b0808}
+\definecolor{bsand5}{HTML}{1d0808}
+
+
 % \makeatletter %new code
 % \pgfdeclarepatternformonly[\LineSpace,\tikz@pattern@color]{my north east lines}{\pgfqpoint{-1pt}{-1pt}}{\pgfqpoint{\LineSpace}{\LineSpace}}{\pgfqpoint{\LineSpace}{\LineSpace}}%
 % {
@@ -956,21 +963,21 @@ the noise cancellation procedure works better for high \snr\ objects that are
 more often detected in both simulations.  We will explore the shear sensitivity
 without noise cancellation in \S \ref{sec:results:sdensnoise}.
 
-\begin{figure}
-	\includegraphics[width=\columnwidth]{{trends}.pdf}
-
-    \caption{Multiplicative shear bias $m$ for a simulation with a realistic
-    galaxy sample, random galaxy layout, image artifacts and background
-    subtraction errors.  The top panel shows the bias as a function of \snr\
-    and the bottom panel shows the bias as a function of the square size ratio
-    \Tratio.  The dot-dashed line represents the approximate expected bias due
-    to higher order shear effects, and the solid shaded band represents our
-    nominal accuracy goal.  The hatched areas show the 99.7\%~confidence bands
-    for the constant PSF (hatched) and spatially variable PSF (solid).  In all
-    cases the results are consistent with the expected bias.}
-    \label{fig:trends}
-
-\end{figure}
+% \begin{figure}
+% 	\includegraphics[width=\columnwidth]{{trends}.pdf}
+%
+%     \caption{Multiplicative shear bias $m$ for a simulation with a realistic
+%     galaxy sample, random galaxy layout, image artifacts and background
+%     subtraction errors.  The top panel shows the bias as a function of \snr\
+%     and the bottom panel shows the bias as a function of the square size ratio
+%     \Tratio.  The dot-dashed line represents the approximate expected bias due
+%     to higher order shear effects, and the solid shaded band represents our
+%     nominal accuracy goal.  The hatched areas show the 99.7\%~confidence bands
+%     for the constant PSF (hatched) and spatially variable PSF (solid).  In all
+%     cases the results are consistent with the expected bias.}
+%     \label{fig:trends}
+%
+% \end{figure}
 
 \begin{figure}
     \centering
@@ -1030,13 +1037,13 @@ without noise cancellation in \S \ref{sec:results:sdensnoise}.
     \addlegendentry{Requirement}
 
     % bias range as function of S/N
-	\addplot+[name path=mlowvar,desert1,no markers,solid,opacity=0.5,forget plot] coordinates {
+	\addplot+[name path=mlowvar,desert3,no markers,solid,opacity=0.5,forget plot] coordinates {
         (10.0,0.219)
         (12.5,0.078)
         (15.0,0.213)
         (20.0,0.257)
     };
-    \addplot+[name path=mhighvar,desert1,no markers,solid,opacity=0.5,forget plot] coordinates {
+    \addplot+[name path=mhighvar,desert3,no markers,solid,opacity=0.5,forget plot] coordinates {
         (10.0,1.215)
         (12.5,0.869)
         (15.0,0.973)
@@ -1044,24 +1051,24 @@ without noise cancellation in \S \ref{sec:results:sdensnoise}.
     };
     % black here turns out to be the boundary for the legend, a bug of some kind
     % \addplot+[color=black,pattern=north east lines,solid] fill between[of=mlowvar and mhighvar];
-    \addplot+[color=desert1,opacity=0.5] fill between[of=mlowvar and mhighvar];
+    \addplot+[color=desert3,opacity=0.5] fill between[of=mlowvar and mhighvar];
     % \addplot+[color=gray!50,opacity=0.5] fill between[of=mlowvar and mhighvar];
     \addlegendentry{LSST 10 year PSF}
 
-	\addplot+[name path=mlowfix,desert4,no markers,solid,opacity=0.5,forget plot] coordinates {
+	\addplot+[name path=mlowfix,bsand4,no markers,solid,opacity=0.5,forget plot] coordinates {
         (10.0,0.176295)
         (12.5,-0.00826672)
         (15.0,0.165007)
         (20.0,0.111993)
     };
-    \addplot+[name path=mhighfix,desert4,no markers,solid,opacity=0.5,forget plot] coordinates {
+    \addplot+[name path=mhighfix,bsand4,no markers,solid,opacity=0.5,forget plot] coordinates {
         (10.0,1.13744)
         (12.5,0.789173)
         (15.0,0.915298)
         (20.0,0.765478)
     };
     % \addplot+[color=black,pattern=vertical lines,solid] fill between[of=mlowfix and mhighfix];
-    \addplot+[color=desert4,opacity=0.5] fill between[of=mlowfix and mhighfix];
+    \addplot+[color=bsand4,opacity=0.5] fill between[of=mlowfix and mhighfix];
     % \addplot+[color=gray!75,opacity=0.5] fill between[of=mlowfix and mhighfix];
     \addlegendentry{Constant PSF}
 
@@ -1102,14 +1109,14 @@ without noise cancellation in \S \ref{sec:results:sdensnoise}.
     \addplot+[bisque,opacity=0.5] fill between[of=A and B];
 
     % bias range as function of T/Tpsf
-	\addplot+[name path=mlowvar,desert1,no markers,solid,opacity=0.5,forget plot] coordinates {
+	\addplot+[name path=mlowvar,desert3,no markers,solid,opacity=0.5,forget plot] coordinates {
         (1.2, 0.211992)
         (1.3, 0.151222)
         (1.4, -0.0532513)
         (1.5, -0.346328)
 
     };
-    \addplot+[name path=mhighvar,desert1,no markers,solid,opacity=0.5,forget plot] coordinates {
+    \addplot+[name path=mhighvar,desert3,no markers,solid,opacity=0.5,forget plot] coordinates {
         (1.2, 0.967327)
         (1.3, 1.04341)
         (1.4, 0.9606359999999999)
@@ -1118,22 +1125,22 @@ without noise cancellation in \S \ref{sec:results:sdensnoise}.
     };
     % black here turns out to be the boundary for the legend, a bug of some kind
     % \addplot+[color=black,pattern=north east lines,solid] fill between[of=mlowvar and mhighvar];
-    \addplot+[color=desert1,opacity=0.5] fill between[of=mlowvar and mhighvar];
+    \addplot+[color=desert3,opacity=0.5] fill between[of=mlowvar and mhighvar];
 
-    \addplot+[name path=Tratmlowfix,desert4,no markers,solid,opacity=0.5,forget plot] coordinates {
+    \addplot+[name path=Tratmlowfix,bsand4,no markers,solid,opacity=0.5,forget plot] coordinates {
         (1.2, 0.165007)
         (1.3, -0.0856819)
         (1.4, -0.114263)
         (1.5, -0.370727)
     };
-    \addplot+[name path=Tratmhighfix,desert4,no markers,solid,opacity=0.5,forget plot] coordinates {
+    \addplot+[name path=Tratmhighfix,bsand4,no markers,solid,opacity=0.5,forget plot] coordinates {
         (1.2, 0.9152980000000001)
         (1.3, 0.799206)
         (1.4, 0.858479)
         (1.5, 0.9879929999999999)
     };
     % \addplot+[color=black,pattern=vertical lines,solid] fill between[of=mlowfix and mhighfix];
-    \addplot+[color=desert4,opacity=0.5] fill between[of=Tratmlowfix and Tratmhighfix];
+    \addplot+[color=bsand4,opacity=0.5] fill between[of=Tratmlowfix and Tratmhighfix];
 
 	\addplot+[solid,black!80,no markers,forget plot] coordinates {
         (1.15,0.0)
@@ -1144,7 +1151,17 @@ without noise cancellation in \S \ref{sec:results:sdensnoise}.
     \end{groupplot}
 \end{tikzpicture}
 
-    \caption{test}
+    \caption{Multiplicative shear bias $m$ for a simulation with a realistic
+    galaxy sample, random galaxy layout, image artifacts and background
+    subtraction errors.  The top panel shows the bias as a function of \snr\
+    and the bottom panel shows the bias as a function of the square size ratio
+    \Tratio.  The dot-dashed line represents the approximate expected bias due
+    to higher order shear effects, and the solid shaded band represents our
+    nominal accuracy goal.  The hatched areas show the 99.7\%~confidence bands
+    for the constant PSF (hatched) and spatially variable PSF (solid).  In all
+    cases the results are consistent with the expected bias.}
+    \label{fig:trends}
+
 
 \end{figure}
 
@@ -1227,8 +1244,105 @@ maximum stellar density and various cuts on the measured signal-to-noise ratio,
 in addition to a common cut on size ratio $T/T_{PSF} > 1.2$.  In no case did we
 detect a bias larger than our accuracy goals (see \S \ref{sec:lsstreq}).
 
+% \begin{figure}
+% 	\includegraphics[width=\columnwidth]{{stardens-bias}.pdf}
+%
+% 	\caption{
+%         Multiplicative bias $m$ as a function of maximum stellar density cut
+%         for various cuts on \snr. The hatched areas show the 99.7\%~confidence bands
+%         for the various cuts.  The dot-dashed line represents the
+%         approximate expected bias due to higher order shear effects, the
+%         solid shaded band represent our nominal accuracy goal.  In no case did we
+%         detect any bias larger than expectations.
+%     } \label{fig:stardens}
+%
+% \end{figure}
+
 \begin{figure}
-	\includegraphics[width=\columnwidth]{{stardens-bias}.pdf}
+    \centering
+\begin{tikzpicture}
+    \begin{axis} [
+        xlabel={Maximum Stellar Density [per sq. arcmin.]},
+        ylabel={$m/10^{-3}$},
+        xmin=-5,xmax=110,
+        ymin=-2.5,ymax=4.5,
+        width=\columnwidth,
+        height=0.7\columnwidth,
+        minor tick num=3,
+        axis on top,
+        legend style={
+            legend columns=2,
+            draw=none,
+        }
+    ]
+
+    % mark level of nonlinear shear
+	\addplot+[dashdotted,sand5,no markers,thick] coordinates {
+        (-5,0.4)
+        (110.0,0.4)
+    };
+    \addlegendentry{Nonlinear Shear}
+
+
+    % mark requirements
+	\addplot+[name path=A,bisque,no markers,forget plot] coordinates {
+        (-5.0,-2)
+        (110,-2)
+    };
+    \addplot+[name path=B,bisque,no markers,forget plot] coordinates {
+        (-5,2)
+        (110,2)
+    };
+
+    % \addplot+[gray!30,opacity=0.5] fill between[of=A and B];
+    \addplot+[bisque,opacity=0.5] fill between[of=A and B];
+    \addlegendentry{Requirement}
+
+
+    \addplot+[
+        name path=mlowten,bsand1,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=1] {code/s2n-10.0-Tratio-1.2.txt};
+    \addplot+[
+        name path=mhighten,bsand1,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=2] {code/s2n-10.0-Tratio-1.2.txt};
+    \addplot+[bsand1,opacity=0.5,solid] fill between[of=mlowten and mhighten];
+    \addlegendentry{$S/N > 10.0$}
+
+    \addplot+[
+        name path=mlowtwel,bsand3,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=1] {code/s2n-12.5-Tratio-1.2.txt};
+    \addplot+[
+        name path=mhightwel,bsand3,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=2] {code/s2n-12.5-Tratio-1.2.txt};
+    \addplot+[bsand3,opacity=0.5,solid] fill between[of=mlowtwel and mhightwel];
+    \addlegendentry{$S/N > 12.5$}
+
+    \addplot+[
+        name path=mlowfif,bsand4,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=1] {code/s2n-15.0-Tratio-1.2.txt};
+    \addplot+[
+        name path=mhighfif,bsand4,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=2] {code/s2n-15.0-Tratio-1.2.txt};
+    \addplot+[bsand4,opacity=0.5,solid] fill between[of=mlowfif and mhighfif];
+    \addlegendentry{$S/N > 15.0$}
+
+    \addplot+[
+        name path=mlowtwen,bsand5,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=1] {code/s2n-20.0-Tratio-1.2.txt};
+    \addplot+[
+        name path=mhightwen,bsand5,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=2] {code/s2n-20.0-Tratio-1.2.txt};
+    \addplot+[bsand5,opacity=0.5,solid] fill between[of=mlowtwen and mhightwen];
+    \addlegendentry{$S/N > 20.0$}
+
+
+	\addplot+[solid,black!80,no markers,forget plot] coordinates {
+        (-5, 0.0)
+        (110, 0.0)
+    };
+
+    \end{axis}
+\end{tikzpicture}
 
 	\caption{
         Multiplicative bias $m$ as a function of maximum stellar density cut
@@ -1239,7 +1353,10 @@ detect a bias larger than our accuracy goals (see \S \ref{sec:lsstreq}).
         detect any bias larger than expectations.
     } \label{fig:stardens}
 
+
+
 \end{figure}
+
 
 \subsubsection{Dependence of Shear Sensitivity on Object Selections}
 \label{sec:results:sdensnoise}
@@ -1261,19 +1378,102 @@ higher stellar density areas reduces the noise, but with limited benefit beyond
 a density of about 40 stars per square arcminute.  This is expected because a
 relatively small fraction of the simulated area has high stellar density.
 
-\begin{figure}
-    \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
+% \begin{figure}
+%     \includegraphics[width=\columnwidth]{{stardens-nocancel-error}.pdf}
+%
+%     \caption{Shear measurement sensitivity as a function of maximum stellar
+%     density and \snr, relative to the
+%     cuts that give the best sensitivity.  We find that less restrictive cuts on
+%     stellar density result in lower sensitivity, but with marginal improvement
+%     beyond a density of about 40 per square arcminute.  Keeping objects with
+%     \snr\ as low as 10 did not give an improved sensitivity compared to a cut
+%     at 12.5.  Note that these results may differ for alternative shape
+%     measurements or weighting schemes.  } \label{fig:stardenserror}
+%
+% \end{figure}
 
-    \caption{Shear measurement sensitivity as a function of maximum stellar
-    density and \snr, relative to the
-    cuts that give the best sensitivity.  We find that less restrictive cuts on
-    stellar density result in lower sensitivity, but with marginal improvement
-    beyond a density of about 40 per square arcminute.  Keeping objects with
-    \snr\ as low as 10 did not give an improved sensitivity compared to a cut
-    at 12.5.  Note that these results may differ for alternative shape
-    measurements or weighting schemes.  } \label{fig:stardenserror}
+\begin{figure}
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={Maximum Stellar Density [per sq. arcmin.]},
+        ylabel={$\sigma(\gamma)/\sigma_{min}(\gamma)$},
+        xmin=-5,xmax=110,
+        ymin=0.95,ymax=1.65,
+        width=\columnwidth,
+        height=0.7\columnwidth,
+        minor tick num=3,
+        axis on top,
+        legend style={
+            % legend columns=2,
+            draw=none,
+        }
+    ]
+
+    \addplot+[
+        blue!60!black,
+        mark=square*,
+        mark options={fill=blue!40},
+        % opacity=0.5,
+        % thick,
+        % dashdotted,
+    ] table[x index=0, y index=1] {code/s2n-20.0-Tratio-1.2-err.txt};
+    \addlegendentry{$S/N > 20.0$}
+
+    \addplot+[
+        red!60!black,
+        mark=triangle*,
+        mark options={fill=red!40},
+        % opacity=0.5,
+        % thick,
+        % dotted,
+        solid,
+    ] table[x index=0, y index=1] {code/s2n-15.0-tratio-1.2-err.txt};
+    \addlegendentry{$S/N > 15.0$}
+
+    \addplot+[
+        teal!60!black,
+        mark=diamond*,
+        mark options={fill=teal!40},
+        % opacity=0.5,
+        % thick,
+        % dashed,
+        solid,
+    ] table[x index=0, y index=1] {code/s2n-12.5-Tratio-1.2-err.txt};
+    \addlegendentry{$S/N > 12.5$}
+
+    \addplot+[
+        brown!60!black,
+        mark=otimes*,
+        mark options={fill=brown!40},
+        % opacity=0.5,
+        % thick,
+        solid,
+    ] table[x index=0, y index=1] {code/s2n-10.0-Tratio-1.2-err.txt};
+    \addlegendentry{$S/N > 10.0$}
+
+	\addplot+[solid,black!80,no markers,forget plot] coordinates {
+        (-5, 1.0)
+        (110, 1.0)
+    };
+
+    \end{axis}
+\end{tikzpicture}
+
+    \caption{
+        Shear measurement sensitivity as a function of maximum stellar density
+        and \snr, relative to the cuts that give the best sensitivity.  We find
+        that less restrictive cuts on stellar density result in lower
+        sensitivity, but with marginal improvement beyond a density of about 40
+        per square arcminute.  Keeping objects with \snr\ as low as 10 did not
+        give an improved sensitivity compared to a cut at 12.5.  Note that
+        these results may differ for alternative shape measurements or
+        weighting schemes.
+    } \label{fig:stardenserror}
+
 
 \end{figure}
+
 
 We found that including detections with \snr\ as low as 10 does not reduce the
 shear uncertainty compared to cutting at 12.5.    This may be because lower
