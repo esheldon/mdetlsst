@@ -20,7 +20,8 @@
 % AMS-LaTeX package for e.g. subequations
 \usepackage{amsmath,morefloats}
 \usepackage[backref,breaklinks,colorlinks,citecolor=blue]{hyperref}
-\usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor}
+\usepackage{natbib,graphicx,amsmath,subfigure,color}
+\usepackage[usenames,dvipsnames]{xcolor} 
 \usepackage{verbatim}
 \usepackage{threeparttable}
 \usepackage{draftwatermark}
@@ -1407,13 +1408,14 @@ relatively small fraction of the simulated area has high stellar density.
         legend style={
             % legend columns=2,
             draw=none,
-        }
+        },
     ]
 
     \addplot+[
-        blue!60!black,
+        % blue!60!black,
+        teal!60!black,
         mark=square*,
-        mark options={fill=blue!40},
+        mark options={fill=teal!40},
         % opacity=0.5,
         % thick,
         % dashdotted,
@@ -1432,9 +1434,9 @@ relatively small fraction of the simulated area has high stellar density.
     \addlegendentry{$S/N > 15.0$}
 
     \addplot+[
-        teal!60!black,
+        PineGreen!60!black,
         mark=diamond*,
-        mark options={fill=teal!40},
+        mark options={fill=PineGreen!40},
         % opacity=0.5,
         % thick,
         % dashed,
