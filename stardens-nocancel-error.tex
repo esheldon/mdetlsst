@@ -1,0 +1,82 @@
+\begin{figure}
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={Maximum Stellar Density [per sq. arcmin.]},
+        ylabel={$\sigma(\gamma)/\sigma_{min}(\gamma)$},
+        xmin=-5,xmax=110,
+        ymin=0.95,ymax=1.65,
+        width=\columnwidth,
+        height=0.7\columnwidth,
+        minor tick num=3,
+        axis on top,
+        legend style={
+            % legend columns=2,
+            draw=none,
+        },
+    ]
+
+    \addplot+[
+        % blue!60!black,
+        teal!60!black,
+        mark=square*,
+        mark options={fill=teal!40},
+        % opacity=0.5,
+        % thick,
+        % dashdotted,
+    ] table[x index=0, y index=1] {code/s2n-20.0-Tratio-1.2-err.txt};
+    \addlegendentry{$S/N > 20.0$}
+
+    \addplot+[
+        red!60!black,
+        mark=triangle*,
+        mark options={fill=red!40},
+        % opacity=0.5,
+        % thick,
+        % dotted,
+        solid,
+    ] table[x index=0, y index=1] {code/s2n-15.0-tratio-1.2-err.txt};
+    \addlegendentry{$S/N > 15.0$}
+
+    \addplot+[
+        PineGreen!60!black,
+        mark=diamond*,
+        mark options={fill=PineGreen!40},
+        % opacity=0.5,
+        % thick,
+        % dashed,
+        solid,
+    ] table[x index=0, y index=1] {code/s2n-12.5-Tratio-1.2-err.txt};
+    \addlegendentry{$S/N > 12.5$}
+
+    \addplot+[
+        brown!60!black,
+        mark=otimes*,
+        mark options={fill=brown!40},
+        % opacity=0.5,
+        % thick,
+        solid,
+    ] table[x index=0, y index=1] {code/s2n-10.0-Tratio-1.2-err.txt};
+    \addlegendentry{$S/N > 10.0$}
+
+	\addplot+[solid,black!80,no markers,forget plot] coordinates {
+        (-5, 1.0)
+        (110, 1.0)
+    };
+
+    \end{axis}
+\end{tikzpicture}
+
+    \caption{
+        Shear measurement sensitivity as a function of maximum stellar density
+        and \snr, relative to the cuts that give the best sensitivity.  We find
+        that less restrictive cuts on stellar density result in better
+        sensitivity, but with marginal improvement beyond a density of about 40
+        per square arcminute.  Keeping objects with \snr\ as low as 10 did not
+        give an improved sensitivity compared to a cut at 12.5.  Note that
+        these results may differ for alternative ellipticity measurements or
+        weighting schemes.
+    } \label{fig:stardenserror}
+
+
+\end{figure}

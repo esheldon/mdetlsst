@@ -68,7 +68,6 @@ def do_Tratio_bias_plot(ax):
         label='Requirement',
     )
 
-
     Tratios = [1.2, 1.3, 1.4, 1.5]
 
     # run-riz-drcbWP-cells

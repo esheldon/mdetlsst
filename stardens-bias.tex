@@ -1,0 +1,100 @@
+\begin{figure}
+    \centering
+\begin{tikzpicture}
+    \begin{axis} [
+        xlabel={Maximum Stellar Density [per sq. arcmin.]},
+        ylabel={$m/10^{-3}$},
+        xmin=-5,xmax=110,
+        ymin=-2.5,ymax=4.5,
+        width=\columnwidth,
+        height=0.7\columnwidth,
+        minor tick num=3,
+        axis on top,
+        legend style={
+            legend columns=2,
+            draw=none,
+        }
+    ]
+
+    % mark level of nonlinear shear
+	\addplot+[dashdotted,sand5,no markers,thick] coordinates {
+        (-5,0.4)
+        (110.0,0.4)
+    };
+    \addlegendentry{Nonlinear Shear}
+
+
+    % mark requirements
+	\addplot+[name path=A,bisque,no markers,forget plot] coordinates {
+        (-5.0,-2)
+        (110,-2)
+    };
+    \addplot+[name path=B,bisque,no markers,forget plot] coordinates {
+        (-5,2)
+        (110,2)
+    };
+
+    % \addplot+[gray!30,opacity=0.5] fill between[of=A and B];
+    \addplot+[bisque,opacity=0.5] fill between[of=A and B];
+    \addlegendentry{Requirement}
+
+
+    \addplot+[
+        name path=mlowten,bsand1,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=1] {code/s2n-10.0-Tratio-1.2.txt};
+    \addplot+[
+        name path=mhighten,bsand1,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=2] {code/s2n-10.0-Tratio-1.2.txt};
+    \addplot+[bsand1,opacity=0.5,solid] fill between[of=mlowten and mhighten];
+    \addlegendentry{$S/N > 10.0$}
+
+    \addplot+[
+        name path=mlowtwel,bsand3,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=1] {code/s2n-12.5-Tratio-1.2.txt};
+    \addplot+[
+        name path=mhightwel,bsand3,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=2] {code/s2n-12.5-Tratio-1.2.txt};
+    \addplot+[bsand3,opacity=0.5,solid] fill between[of=mlowtwel and mhightwel];
+    \addlegendentry{$S/N > 12.5$}
+
+    \addplot+[
+        name path=mlowfif,bsand4,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=1] {code/s2n-15.0-Tratio-1.2.txt};
+    \addplot+[
+        name path=mhighfif,bsand4,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=2] {code/s2n-15.0-Tratio-1.2.txt};
+    \addplot+[bsand4,opacity=0.5,solid] fill between[of=mlowfif and mhighfif];
+    \addlegendentry{$S/N > 15.0$}
+
+    \addplot+[
+        name path=mlowtwen,bsand5,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=1] {code/s2n-20.0-Tratio-1.2.txt};
+    \addplot+[
+        name path=mhightwen,bsand5,no markers,solid,opacity=0.5,forget plot
+    ] table[x index=0, y index=2] {code/s2n-20.0-Tratio-1.2.txt};
+    \addplot+[bsand5,opacity=0.5,solid] fill between[of=mlowtwen and mhightwen];
+    \addlegendentry{$S/N > 20.0$}
+
+
+	\addplot+[solid,black!80,no markers,forget plot] coordinates {
+        (-5, 0.0)
+        (110, 0.0)
+    };
+
+    \end{axis}
+\end{tikzpicture}
+
+	\caption{
+        Multiplicative bias $m$ as a function of maximum stellar density cut
+        for various cuts on \snr. The shaded areas show the 99.7\%~confidence bands
+        for the various cuts.  The dot-dashed line represents the
+        approximate expected bias due to higher order shear effects, and the
+        broader shaded band represent our nominal accuracy goal.  In no case did we
+        detect any bias larger than expectations.
+    } \label{fig:stardens}
+
+
+
+\end{figure}
+
+
