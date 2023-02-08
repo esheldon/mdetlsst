@@ -262,7 +262,7 @@ As our basic data product, we simulated the calibrated exposure images produced
 by the \dm\ version \texttt{w\_2021\_32}.  This data is stored in an \calexp\
 data structure, which carries a calibrated, background subtracted image, along
 with an estimated noise variance image plane, world coordinate system
-transformation (WCS) and position dependent PSF model.  Problem areas
+transformation (WCS) and position-dependent PSF model.  Problem areas
 associated with saturation, cosmic rays, and bad columns are marked as separate
 bits in an integer bit mask image plane.
 
@@ -314,7 +314,7 @@ mock up the camera rotations used by LSSTCam \citep{IvezicLSST2008}.  The
 center of each image was shifted, or ``dithered'', randomly in two dimensions
 relative to the center of the desired coadded image.  For efficiency, we used
 dithers that were unrealistically small, within two pixels, to minimize portions of the
-image that would not overlap the final coadd.  We created images with size just
+image that would not overlap the final coadd.  We created images with sizes just
 large enough that the rotated image, after dithers, would have no edge
 crossing the coadd region, again to avoid waste:  coadding an image with an
 edge produces a discontinuous PSF in the final coadd, so such images would be
@@ -558,7 +558,7 @@ weighting, based on the median of the variance image plane.
 
 Before warping, we interpolated the simulated artifacts in each image such as
 cosmic rays, bad columns, and saturated pixels.  The interpolation and warping
-modifies the noise properties of the image.  Thus, for accurate \mcal\ noise
+modify the noise properties of the image.  Thus, for accurate \mcal\ noise
 corrections (see \S \ref{sec:sim:noiseimages}) we must also run the noise image
 through the same procedures.  Note stars were masked in the coadds, rather than
 the input images (see \S \ref{sec:sim:satbleeds}).
@@ -576,7 +576,7 @@ image for the coadd requires detailed tracking of the sub-pixel offsets of the
 individual images in the coadd. For each input image, we generated an image of
 the PSF at the location of the coadd center in the input image. The coadd image
 center may fall at an arbitrary sub-pixel offset in the input image, and the
-the PSF was drawn with a matching offset.  We then warped these PSF images and
+PSF was drawn with a matching offset.  We then warped these PSF images and
 coadded them using the same weights as the image data. The off-centering and
 warping is important so that the PSF includes the same small amount of smearing
 present in the image interpolation. Not including this offset results in
@@ -596,9 +596,9 @@ the corresponding masked images, along with the variance and bitmask planes.
     \includegraphics[width=0.65\textwidth]{example-image.jpg}
     \caption{
         Example simulated image using a single image for each of the $r$, $i$,
-        and $z$ bands, but with noise corresponding to the 10 LSST coadd data.
-        The images have been warped and coadded, although in this case there
-        is but a single warped image per band.
+        and $z$ bands, but with noise corresponding to the 10 year LSST coadd data.
+        The images have rotations, dithers and image defects which are interpolated.
+        The images were warped to a common coordinate system.
         Note the interpolated bleed trails around a bright star in the upper
         part of the image, appearing at different orientations due to the
         simulated camera rotations.
@@ -610,12 +610,13 @@ the corresponding masked images, along with the variance and bitmask planes.
     \caption{
         Example masked images, corresponding to the images in figure
         \ref{fig:colorimage}.  The rows from top to bottom correspond to $r,
-        i$, and $z$ bands respectively.  The left column shows the masked
-        image, the middle the noise variance, and the right the bitmask plane.
-        The circles show the star masks applied to each type of image, which
-        are retained in the coadd bitmask to facilitate processing near stars.
-        In the original images, there are also pixels marked for cosmic rays
-        and bad columns, but these are not retained in the coadd bitmask.
+        i$, and $z$ bands respectively, labeled as band 0, 1 and 2
+        respectively.  The left column shows the masked image, the middle the
+        noise variance, and the right the bitmask plane.  The circles show the
+        star masks applied to each type of image, which are retained in the
+        coadd bitmask to facilitate processing near stars.  In the original
+        images, there are also pixels marked for cosmic rays and bad columns,
+        but these are not retained in the coadd bitmask.
     } \label{fig:maskimage}
 \end{figure}
 
