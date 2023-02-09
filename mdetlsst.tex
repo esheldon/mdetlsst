@@ -644,8 +644,9 @@ of a galaxy is approximately linear in the shear:
 \end{eqnarray}
 Here, the matrix $\boldsymbol{R}$ represents the linear response of the
 measurement to an applied shear. It can be written component wise as
+%R_{ij}=\partial e_i /\partial \gamma_j,
 \begin{equation}
-R_{ij}=\partial e_i /\partial \gamma_j,
+R_{ij} = \frac{\partial e_i }{\partial \gamma_j } \biggr\rvert_{\gamma=0},
 \end{equation}
 with $i$ and $j$ taking all combinations of the two shear components.  For ellipticity
 measurements we used weighted moments (see \S \ref{sec:mdet:meas}).
@@ -733,7 +734,7 @@ non-linearity associated with this deblender.
 We did limited testing with the alternate \texttt{Scarlet} deblender
 \citep{MelchiorScarlet2018}\footnote{\url{https://github.com/pmelchior/scarlet}},
 which is available to use with the \dm\ software stack. \texttt{Scarlet}
-performed better in the tests we performed, with pairs of galaxies at fixed
+performed better in tests with pairs of galaxies at fixed
 separation, but due to the high computational cost of the deblender, we did not
 gather enough statistics to perform a comprehensive analysis.  We also did not
 test \texttt{Scarlet} in more realistic scenes with many randomly places
@@ -769,8 +770,8 @@ extracted around the object of interest.  The $x$ and $y$ coordinates are
 relative to the center found during detection. For brevity, we have shown only
 the error on the flux $\sigma(F)$, but the full covariance matrix was measured
 for the moments.  Note the noise in the warped images is spatially correlated
-due to interpolation, but only the zero lag variance is included included the
-above estimators.
+due to interpolation, but only the zero lag variance was included in the
+the calculations.
 
 Note $T$ is an estimate of the observed square size of the object, not the
 pre-PSF size.  We also record the moments of the coadd PSF, after
@@ -787,7 +788,7 @@ In all cases we used a constant shear, with optional random shear orientations
 for each simulated scene (see \S \ref{sec:sim:shears}).  We simulated each
 scene twice, with equal but opposite shears, in order to implement the noise
 canceling method of \cite{pujol2019}.  For randomized shear directions, the
-shape measurements from different scenes were rotated into in a common reference
+shape measurements from different scenes were rotated into a common reference
 frame before averaging to get a mean shear.
 
 We estimated the uncertainty in the averaged shear measurements using a
@@ -1124,10 +1125,10 @@ The noise propagation in particular requires careful handling.  Problematic
 features, such as saturation and bright stars, must be sufficiently masked and
 interpolated, and the images will most likely be coadded for efficiency. Both
 of these steps significantly modify the noise, introducing correlations that
-can bias the shear recovery.  As shown in \citep{BeckerMdetCoadd}, we find that
+can bias the shear recovery.  We find that
 the shear can be accurately recovered if representative noise images are passed
 through the same image manipulations and used to restore sufficient symmetry to
-the noise following the procedures in \cite{SheldonMcal2017}.
+the noise following the procedures in \cite{SheldonMcal2017,BeckerMdetCoadd}.
 
 We expect further simulation work will be critical moving forward.  We plan to
 proceed on three separate tracks.  The first track is to generate simulations to
