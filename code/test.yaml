@@ -1,0 +1,34 @@
+mls:
+    shear: 0.02
+    randomize_shear: false
+
+    # cell_size: 250
+    # cell_buff: 50
+
+sim:
+    bands: [r, i, z]
+
+    dither: true
+    rotate: true
+    gal_type: wldeblend
+    psf_type: ps
+
+    cosmic_rays: true
+    bad_columns: true
+
+    stars: true
+    star_bleeds: true
+    star_config:
+        density: 20
+
+    # we will do 5 cells
+    coadd_dim: 850
+    # coadd_dim: 300
+
+    # no objects drawn here
+    # buff: 50
+    buff: 0
+
+mdet:
+    meas_type: wmom
+    trim_pixels: 50
