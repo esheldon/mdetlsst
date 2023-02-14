@@ -24,9 +24,9 @@
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{verbatim}
 \usepackage{threeparttable}
-\usepackage{draftwatermark}
-\SetWatermarkScale{5}
-\SetWatermarkColor[gray]{0.9}
+% \usepackage{draftwatermark}
+% \SetWatermarkScale{5}
+% \SetWatermarkColor[gray]{0.9}
 
 %\usepackage{natbib,graphicx,amsmath,subfigure,color,xcolor,hyperref}
 
@@ -336,16 +336,18 @@ turbulence to the PSF variation. \citet{mdet20} used this model, with a
 modification to reduce unrealistically large power below 1'', to generate
 realizations of spatially variable PSFs using Gaussian random fields. The PSF
 model was again a Moffat profile with shape parameter $\beta=2.5$ but with
-variable size and shape. In \citet{mdet20} this approximate variable PSF model
-was compared to detailed atmospheric and optics simulations for the Dark Energy
-Survey (DES), and the variation was tuned to exceed the expectations of real
-data by a factor of 10.  We used the same models for this work, but with a
-variation tuned to match, rather than exceed, expectations for DES.  The level
-of variations for DES at the Cerro Tololo site should be a rough approximation
-to the variations at the nearby Rubin observatory at Cerro Pachón.  The median
-FWHM of the generated PSFs was 0.8 arcseconds.  We also ran simulations with
-larger than expected variations in order to test the accuracy of the PSF coadd
-under extreme, unrealistic conditions.
+variable size and shape.
+
+In \citet{mdet20} this approximate variable PSF model was compared to detailed
+atmospheric and optics simulations for the Dark Energy Survey (DES), and the
+variation was tuned to exceed the expectations of real data by a factor of 10.
+We used the same models for this work, but with a variation tuned to match,
+rather than exceed, expectations for DES.  The level of variations for DES at
+the Cerro Tololo site should be a rough approximation to the variations at the
+nearby Rubin observatory at Cerro Pachón.  The median FWHM of the generated
+PSFs was 0.8 arcseconds for all bands.  We also ran simulations with larger
+than expected variations in order to test the accuracy of the PSF coadd under
+extreme, unrealistic conditions.
 
 We did not include other sources of spatial PSF variation such as effects from
 the optical surfaces in the telescope.
@@ -392,8 +394,8 @@ of the trail on the sky.
 Masks with sharp features can cause ringing in the FFTs used by the \mdet\
 algorithm.   Each star mask is like a circular ``tophat'', which will have a
 sharp feature where it intersects an object in the image.  We mitigated this
-effect using the apodization procedure described in \citet{BeckerMdetCoadd} (in
-prep.). We extended the star mask by 16 pixels and forced the mask to smoothly
+effect using the apodization procedure described in \citet{BeckerMdetCoadd}.
+We extended the star mask by 16 pixels and forced the mask to smoothly
 transition from zero in the interior of the circle to unity at the expanded
 edge. The transition region was parameterized using the cumulative integral of
 a triweight kernel. This kernel is a function of two parameters, $m$ and $h$,
@@ -987,8 +989,9 @@ this effect.  We may explore this more in a future work.
 
 Our ``full'' simulation configuration included stars and bleed trails as
 described in \S \ref{sec:sim:stars} and \ref{sec:sim:satbleeds}, in addition to
-the features tested in the previous sections.  We discuss aspects of the
-measurements and results below.
+the features tested in the previous sections.   We discuss aspects of the
+measurements and results below. For these tests we simluated a total of 41,600
+square degrees with this configuration.
 
 \subsubsection{Weighting}
 
@@ -1170,6 +1173,16 @@ ES is supported by DOE grant DE-AC02-98CH10886, and MRB is supported by DOE
 grant DE-AC02-06CH11357. RA is supported by the US Department of Energy Cosmic
 Frontier program, grant DE-SC0010118.  MJ acknowledges support from the LSST
 Dark Energy Science Collaboration.
+
+Author contributions to this work are as follows:  E. Sheldon and M. Becker
+co-developed the measurement and simulation codes. E. Sheldon developed new
+warping and coaddition code using existing \dm\ methods based on an initial
+implementation from R. Armstrong. E. Sheldon wrote most of the text and
+performed the shear recovery runs and analysis on compute clusters.  M. Becker
+wrote a significant portion of the text and performed independent validation of
+many of the methods.  M. Jarvis provided detailed contributions for optimizing
+the object drawing with \galsim.
+
 \input{descack}
 
 
