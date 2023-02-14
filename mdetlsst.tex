@@ -21,7 +21,7 @@
 \usepackage{amsmath,morefloats}
 \usepackage[backref,breaklinks,colorlinks,citecolor=blue]{hyperref}
 \usepackage{natbib,graphicx,amsmath,subfigure,color}
-\usepackage[usenames,dvipsnames]{xcolor} 
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{verbatim}
 \usepackage{threeparttable}
 \usepackage{draftwatermark}
@@ -307,7 +307,7 @@ features and adding noise, we re-scaled the images to a common zero point of
 Each image was simulated as a tangent plane projection of the sky onto the
 image frame with the expected LSST camera pixel scale of 0.2 arcseconds
 \citep{IvezicLSST2008}.  The world coordinate system (WCS) transformation between
-sky and pixel coordinates was represented as a \galsim\ tangent plane 
+sky and pixel coordinates was represented as a \galsim\ tangent plane
 WCS object (\texttt{TanWCS}).
 Each simulated WCS transformation had a random rotation applied, in order to
 mock up the camera rotations used by LSSTCam \citep{IvezicLSST2008}.  The
@@ -409,12 +409,11 @@ K(x, m, h) = \begin{cases}
 1 & y > 3
 \end{cases}
 \end{equation}
-The kernel goes from zero to unity over a span of $6h$, centered on $m$, the location
-of the mask edge.  The
-general logic is to set $h$ large enough that the variation across the edge is
+The kernel goes from zero to unity over a span of $6h$, centered on $m$.
+The general logic is to set $h$ large enough that the variation across the edge is
 slower than the variation given by the PSF profile, but not so large that area
-in the image is wasted unnecessarily. We set $h$ to 1.5 pixels and set $m$ to
-the radius of the star mask hole.
+in the image is wasted unnecessarily. We set $h$ to 1.5 pixels and set $m+3h$ to
+the radius of the star mask hole so that the mask reaches unity at its nominal size.
 
 \subsection{Cosmic Rays \& Bad Columns} \label{sec:sim:cosmics_badcols}
 
@@ -1140,7 +1139,7 @@ method itself is unbiased.  An alternative to a pure simulation approach may to
 inject fake sources directly into the images
 \citep{SuchytaBalrog2016,EverettBalrog2022}, which more naturally captures the
 characteristics of the original images, but could be computationally
-less efficient, since the injected sources must necessarily be low density 
+less efficient, since the injected sources must necessarily be low density
 in order to avoid perturbing the images excessively and thus biasing the
 calibration.
 
