@@ -257,7 +257,10 @@ The basic simulation was similar to that created for \citep{mdet20}.  We added
 additional features such as image artifacts, cosmic rays, stars, and saturated
 stars which we will describe in the following sections.  All images were
 rendered using the \galsim\ python
-package\footnote{\url{https://github.com/GalSim-developers/GalSim}}.
+package\footnote{\url{https://github.com/GalSim-developers/GalSim}}. For this work,
+we used the newly written simulation package
+\texttt{descwl-shear-sims} version
+0.4.2\footnote{\url{https://github.com/LSSTDESC/descwl-shear-sims}}.
 
 As our basic data product, we simulated the calibrated exposure images produced
 by the \dm\ version \texttt{w\_2021\_32}.  This data is stored in an \calexp\
@@ -282,21 +285,25 @@ well-characterized data. It may be necessary to propagate or simulate the
 effects of miscalibrated data in order to characterize the final shear
 calibration in real data analyses.
 
-For this work, we used the newly written simulation package
-\texttt{descwl-shear-sims} version
-0.4.2\footnote{\url{https://github.com/LSSTDESC/descwl-shear-sims}}.
-
-We did not use the DC2 simulations \citep{DC2Abolfathi2021} for this study due
-to their small simulated area and lack of detailed control over simulation
-features.  Our goal for this work was to constrain the bias with precision
-better than LSST requirements of \mthresh\ (see \S \ref{sec:lsstreq}).  For the tests
-shown in \S \ref{sec:results:full} we simulated a total of \fullarea\ square
+Importantly, our approach to simulations in this work is not to simulate every
+possible effect in detail. Such simulations, like the DC2 simulations
+\citep{DC2Abolfathi2021} for example, while physically more realistic than
+our approach here, are exceedingly complex to analyze and can be computationally
+much more expensive than the approach we take in this work. Instead, we approach
+our simulation analysis as a series of detailed numerical experiments where
+single features are changed one at a time. This detailed level of control combined
+with reasonably fast codes is needed for us to reach our goal of constraining the
+bias in our algorithms with a precision better than the LSST requirements
+of \mthresh\ (see \S \ref{sec:lsstreq}). for example, for the tests
+shown in \S \ref{sec:results:full}, we simulated a total of \fullarea\ square
 degrees, providing constraints well within our requirements at 99.7\%
-confidence. The simulated area in DC2 is about 300 square degrees, which would
-provide constraints at the percent level.  Furthermore, using the DC2
-simulation does not allow detailed control over the simulation features.  In
-general it would not be possible to isolate the source of shear measurement
-biases.
+confidence. On the other hand, the simulated area in DC2 is about 300 square
+degrees, which would provide constraints only at the percent level. Furthermore,
+using the existing DC2 simulation does not allow detailed control over the simulation
+features, so that in general it would not be possible to isolate the source
+of shear measurement biases. Future work building on our approach here and carefully
+examining one feature at a time will be essential for delivering accurate shear
+measurements for LSST.
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 
