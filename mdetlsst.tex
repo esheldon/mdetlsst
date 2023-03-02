@@ -285,25 +285,25 @@ well-characterized data. It may be necessary to propagate or simulate the
 effects of miscalibrated data in order to characterize the final shear
 calibration in real data analyses.
 
-Importantly, our approach to simulations in this work is not to simulate every
-possible effect in detail. Such simulations, like the DC2 simulations
-\citep{DC2Abolfathi2021} for example, while physically more realistic than
-our approach here, are exceedingly complex to analyze and can be computationally
-much more expensive than the approach we take in this work. Instead, we approach
-our simulation analysis as a series of detailed numerical experiments where
-single features are changed one at a time. This detailed level of control combined
-with reasonably fast codes is needed for us to reach our goal of constraining the
-bias in our algorithms with a precision better than the LSST requirements
-of \mthresh\ (see \S \ref{sec:lsstreq}). for example, for the tests
-shown in \S \ref{sec:results:full}, we simulated a total of \fullarea\ square
-degrees, providing constraints well within our requirements at 99.7\%
-confidence. On the other hand, the simulated area in DC2 is about 300 square
-degrees, which would provide constraints only at the percent level. Furthermore,
-using the existing DC2 simulation does not allow detailed control over the simulation
-features, so that in general it would not be possible to isolate the source
-of shear measurement biases. Future work building on our approach here and carefully
-examining one feature at a time will be essential for delivering accurate shear
-measurements for LSST.
+Importantly, our approach to simulations in this work was not to simulate every
+possible effect in detail. Such simulations, like the Data Challenge 2 (DC2)
+simulations \citep{DC2Abolfathi2021} for example, while physically more
+realistic than our approach here, are exceedingly complex to analyze and can be
+computationally much more expensive than the approach we took in this work.
+Instead, we approached our simulation analysis as a series of detailed
+numerical experiments where single features are changed one at a time. This
+level of control combined with reasonably fast codes was needed for us to reach
+our goal of constraining the bias in our algorithms with a precision better
+than the LSST requirements of \mthresh\ (see \S \ref{sec:lsstreq}). For
+example, for the tests shown in \S \ref{sec:results:full}, we simulated a total
+of \fullarea\ square degrees, providing constraints well within our
+requirements at 99.7\% confidence. On the other hand, the simulated area in DC2
+is about 300 square degrees, which would provide constraints only at the
+percent level. Furthermore, using the existing DC2 simulation does not allow
+control over the simulation features, so that in general it would not be
+possible to isolate the source of shear measurement biases. Future work
+building on our approach here and carefully examining one feature at a time
+will be essential for delivering accurate shear measurements for LSST.
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 
