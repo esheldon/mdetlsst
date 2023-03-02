@@ -114,6 +114,7 @@
 \newcommand{\vecgam}{\mbox{\boldmath $\gamma$}}
 \newcommand{\mthresh}{0.002}
 \newcommand{\mshear}{0.02}
+\newcommand{\fullarea}{41,600}
 
 \newcommand{\sx}{\textsc{Source Extractor}}
 
@@ -161,6 +162,7 @@
 \affil{Department of Physics and Astronomy, University of Pennsylvania, Philadelphia, PA 19104, USA}
 \author{Robert Armstrong}
 \affil{Lawrence Livermore National Laboratory, Livermore, CA 94551, USA}
+\author{The LSST Dark Energy Science Collaboration}
 
 
 \begin{abstract}
@@ -254,9 +256,7 @@ describe \mdet\ in \S \ref{sec:mdet}, and the results in \S \ref{sec:results}.
 The basic simulation was similar to that created for \citep{mdet20}.  We added
 additional features such as image artifacts, cosmic rays, stars, and saturated
 stars which we will describe in the following sections.  All images were
-rendered using the \galsim\ python package \citep{galsim2015}\footnote{We did
-not use the DC2 simulations \citep{DC2Abolfathi2021} for this study due to their
-small simulated area and lack of detailed control over simulation features}.
+rendered using the \galsim\ python package.
 
 As our basic data product, we simulated the calibrated exposure images produced
 by the \dm\ version \texttt{w\_2021\_32}.  This data is stored in an \calexp\
@@ -284,6 +284,18 @@ calibration in real data analyses.
 For this work, we used the newly written simulation package
 \texttt{descwl-shear-sims} version
 0.4.2\footnote{\url{https://github.com/LSSTDESC/descwl-shear-sims}}.
+
+We did not use the DC2 simulations \citep{DC2Abolfathi2021} for this study due
+to their small simulated area and lack of detailed control over simulation
+features.  Our goal for this work was to constrain the bias with precision
+better than LSST requirements of \mthresh\ (see \S \ref{sec:lsstreq}).  For the tests
+shown in \S \ref{sec:results:full} we simulated a total of \fullarea\ square
+degrees, providing constraints well within our requirements at 99.7\%
+confidence. The simulated area in DC2 is about 300 square degrees, which would
+provide constraints at the percent level.  Furthermore, using the DC2
+simulation does not allow detailed control over the simulation features.  In
+general it would not be possible to isolate the source of shear measurement
+biases.
 
 \subsection{Image Filters and Noise} \label{sec:sim:noise}
 
@@ -380,16 +392,15 @@ drew the associated bleed image directly over the star image with a value set
 to the saturation level.  The bleed pixels were marked with the appropriate
 flag in the bitmask.
 
-We further masked saturated stars in the coadd (not in the original images)
-with circular mask that covered the star out to the radius where the profile
-reached the noise level.  Note in real data such a mask would need to be
-determined algorithmically. This region was set to zero in the image and
-marked appropriately in the bitmask.   This mask does not necessarily cover the
-bleed trail completely, although the trails were interpolated in the
-original images before warping (see \S
-\ref{sec:coadding}).  We find that these unmasked trails do not cause a shear
-bias, which we attribute to the camera rotations that randomize the direction
-of the trail on the sky.
+Before performing PSF deconvolution on the coadds, we further masked
+saturated stars with a circle that covered the star out to the radius
+where the profile reached the noise level.  Note in real data such a mask would
+need to be determined algorithmically. This region was set to zero in the image
+and marked appropriately in the bitmask.   This mask does not necessarily cover
+the bleed trail completely, although the trails were interpolated in the
+original images before warping (see \S \ref{sec:coadding}).  We find that these
+unmasked trails do not cause a shear bias, which we attribute to the camera
+rotations that randomize the direction of the trail on the sky.
 
 Masks with sharp features can cause ringing in the FFTs used by the \mdet\
 algorithm.   Each star mask is like a circular ``tophat'', which will have a
@@ -609,13 +620,15 @@ the corresponding masked images, along with the variance and bitmask planes.
 \begin{figure}
     \includegraphics[width=\columnwidth]{example-masked-image.pdf}
     \caption{
-        Example masked image corresponding to the $r$ band image used in
-        figure \ref{fig:colorimage}.  The left panel shows the masked image
-        and the right shows the bitmask.  The circles show the star masks
-        applied to each type of image, which are retained in the coadd bitmask
-        to facilitate processing near stars.  In the original images, there are
-        also pixels marked for cosmic rays and bad columns, but these are not
-        retained in the coadd bitmask.
+        Example masked image corresponding to the $r$ band image used in figure
+        \ref{fig:colorimage}, after star masking.  The left panel shows the
+        masked image and the right shows the bitmask.  The circles represent
+        the star masks applied to each coadd image before PSF deconvolution.
+        The star masks are also marked in the bitmask to facilitate processing
+        near stars.  The inner circle in the bitmask is the original mask size
+        and the outer represents the expanded, apodized mask region.  In the
+        original images, there are also pixels marked for cosmic rays and bad
+        columns, but these are not retained in the coadd bitmask.
     } \label{fig:maskimage}
 \end{figure}
 
@@ -772,7 +785,7 @@ for the moments.  Note the noise in the warped images is spatially correlated
 due to interpolation, but only the zero lag variance was included in the
 the calculations.
 
-Note $T$ is an estimate of the observed square size of the object, not the
+Note $T$ is an estimate of the observed object's size squared, not the
 pre-PSF size.  We also record the moments of the coadd PSF, after
 reconvolution, for use in object selection (see \S \ref{sec:results:full}).
 
@@ -910,13 +923,14 @@ in quoting the results
     \mathrm{S/N} & > & 12.5 \\
     T/T_{PSF} & > & 1.2
 \end{eqnarray}
-where $T$ is the Gaussian weighted square size of the observed image, as
-defined in equation \ref{eq:moments}, and $T_{PSF}$ is the corresponding value
-for the PSF, both measured after the \mcal\ reconvolution step. The lower \snr\
-cut is motivated by the noise study in \S \ref{sec:results:sdensnoise} in which
-a cut at 10 or 12.5 resulted in similar shear measurement uncertainties. In all
-the following tests, we performed the measurements with a range of cuts, and a
-lower bound of $S/N > 10$ always gave results consistent with the default cut.
+where $T$ is the Gaussian weighted size squared (see equation \ref{eq:moments})
+of the object, as defined in equation \ref{eq:moments}, and $T_{PSF}$
+is the corresponding value for the PSF, both measured after the \mcal\
+reconvolution step. The lower \snr\ cut is motivated by the noise study in \S
+\ref{sec:results:sdensnoise} in which a cut at 10 or 12.5 resulted in similar
+shear measurement uncertainties. In all the following tests, we performed the
+measurements with a range of cuts, and a lower bound of $S/N > 10$ always gave
+results consistent with the default cut.
 
 The lower cut on $T/T_{PSF}$ represents a simple attempt to remove stars from
 the sample.  For \mcal, including stars in the sample does not result in a
@@ -935,7 +949,7 @@ following sub-sections.
 
 \subsubsection{Results with Varied Selections on Object Properties} \label{sec:results:select}
 
-We varied the selections on object square size ratio $T/T_{PSF}$ and \snr\ and
+We varied the selections on $T/T_{PSF}$ and \snr\ and
 repeated the shear recovery analysis.  The results are shown in figure
 \ref{fig:trends}, for both constant and spatially varying PSFs (see \S
 \ref{sec:sim:psfs}).  We did not detect any additional bias.
@@ -990,7 +1004,7 @@ this effect.  We may explore this more in a future work.
 Our ``full'' simulation configuration included stars and bleed trails as
 described in \S \ref{sec:sim:stars} and \ref{sec:sim:satbleeds}, in addition to
 the features tested in the previous sections.   We discuss aspects of the
-measurements and results below. For these tests we simluated a total of 41,600
+measurements and results below. For these tests we simluated a total of \fullarea\
 square degrees with this configuration.
 
 \subsubsection{Weighting}
@@ -1131,7 +1145,7 @@ through the same image manipulations and used to restore sufficient symmetry to
 the noise following the procedures in \cite{SheldonMcal2017,BeckerMdetCoadd}.
 
 We expect further simulation work will be critical moving forward.  We plan to
-proceed on three separate tracks.  The first track is to generate simulations to
+proceed on three separate, complimentary tracks.  The first track is to generate simulations to
 jointly calibrate the redshift dependent shear bias and redshift distribution
 $N(z)$ of the sources, following the pioneering work of \cite{MacCrann2022} and
 \cite{LiNofz2022}.  Unlike the simulations used here, the calibration
@@ -1141,10 +1155,10 @@ expect this joint calibration to be necessary even if the shear measurement
 method itself is unbiased.  An alternative to a pure simulation approach may to
 inject fake sources directly into the images
 \citep{SuchytaBalrog2016,EverettBalrog2022}, which more naturally captures the
-characteristics of the original images, but could be computationally
-less efficient, since the injected sources must necessarily be low density
-in order to avoid perturbing the images excessively and thus biasing the
-calibration.
+characteristics of the original images. However, this approach may be computationally
+less efficient. In order to avoid excessive perturbations to the images,
+the sources must be injected with low density, requiring
+more images to be processed to provide the same precision.
 
 The second simulation track is to test the effect of specific errors in the
 data characterization.  For example, PSF determination errors, background
@@ -1162,17 +1176,16 @@ provided by the newly developed deep-field \mcal\ \citep{dfmcal22}.
 \section*{Acknowledgments}
 
 This paper has undergone internal review in the LSST Dark Energy Science
-Collaboration. % REQUIRED
-We thank Javier Sanchez for providing the star and stellar density map for DC2,
-and Jim Chiang for providing example images containing simulated stars
-with bleed trails.
-We thank the excellent computing staffs of the RHIC Atlas Computing Facility at
-Brookhaven National Laboratory and the Scientific Computing Services team at
-the SLAC National Accelerator Laboratory for their support.
-ES is supported by DOE grant DE-AC02-98CH10886, and MRB is supported by DOE
-grant DE-AC02-06CH11357. RA is supported by the US Department of Energy Cosmic
-Frontier program, grant DE-SC0010118.  MJ acknowledges support from the LSST
-Dark Energy Science Collaboration.
+Collaboration.  We thank the internal reviewers, Xiangchong Li, Arun Kannawadi,
+and Tianqing Zhang.  Thanks to Javier Sanchez for providing the star and
+stellar density map for DC2, and Jim Chiang for providing example images
+containing simulated stars with bleed trails.  We thank the excellent computing
+staffs of the RHIC Atlas Computing Facility at Brookhaven National Laboratory
+and the Scientific Computing Services team at the SLAC National Accelerator
+Laboratory for their support.  ES is supported by DOE grant DE-AC02-98CH10886,
+and MRB is supported by DOE grant DE-AC02-06CH11357. RA is supported by the US
+Department of Energy Cosmic Frontier program, grant DE-SC0010118.  MJ
+acknowledges support from the LSST Dark Energy Science Collaboration.
 
 Author contributions to this work are as follows:  E. Sheldon and M. Becker
 co-developed the measurement and simulation codes. E. Sheldon developed new
