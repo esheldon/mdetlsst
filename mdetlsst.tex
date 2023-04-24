@@ -244,7 +244,8 @@ images containing galaxies, stars with a realistic galactic density
 distribution, spatially variable PSF, and proxies for the above image artifacts
 (see \S \ref{sec:sim}), which we interpolate, or ``warp'', onto a common
 reference frame and sum into overlapping coadds (see \S \ref{sec:coadding}).
-We simulate the expected data products produced by the \dm\
+Each feature was switched on or off independently to control potential sources
+of error.  We simulate the expected data products produced by the \dm\
 \citep{BoschLSST2019,BoschHSC2017}\footnote{\url{https://github.com/lsst}}, and
 use a new \mdet\ code designed specifically to work with Science Pipeline data
 structures and algorithms\footnote{The software used in this work is freely
@@ -318,9 +319,14 @@ noise in each image was $n * \sqrt{N}$.
 We did not simulate a realistic background and background noise for each image
 (see \S \ref{sec:sim:bgerr}).  We instead used Gaussian noise to approximate
 the Poisson noise that would remain in each image after background subtraction.
-We did not include the Poisson noise from objects.  After drawing all image
-features and adding noise, we re-scaled the images to a common zero point of
-30 before coadding.
+After drawing all image features and adding noise, we re-scaled the images to a
+common zero point of 30 before coadding.
+
+We did not include the Poisson noise from objects.  This was mainly an
+optimization, as it is inefficient to simulate the large number of photons from
+bright objects.   We have tested \mcal\ with object Poisson noise for faint,
+sky noise dominated objects, but not brighter objects, which we leave to future
+work.
 
 \subsection{Image World Coordinate System, Rotations and Dithers} \label{sec:sim:rotdith}
 
@@ -370,7 +376,9 @@ than expected variations in order to test the accuracy of the PSF coadd under
 extreme, unrealistic conditions.
 
 We did not include other sources of spatial PSF variation such as effects from
-the optical surfaces in the telescope.
+the optical surfaces in the telescope.  We also did not include any
+chromaticity in the PSF \citep{PlazasPSF2012,Kamath2020} and leave such
+considerations to future work.
 
 \subsection{Stars} \label{sec:sim:stars}
 
@@ -520,11 +528,17 @@ coadded regions for shear measurement, which we call ``cells'' because they are
 small subregions of the larger ``tract'' regions defined within the \dm\
 framework.
 
+Each cell definition has an extra boundary area that overlaps neighboring
+cells.  This extra area provides a buffer that reduces measurement problems
+that can occur at the image edge.  Objects with a measured center inside
+overlaps are trimmed after the detection phase to avoid duplication.
+
 We ran simulations with and without cells in order to control for issues
 specific to the cell processing and trimming of objects to non overlapping
-regions.  We adopted the cell definitions outlined above: 250x250 pixel cells
-with 50 pixel overlaps. The object list was trimmed to the non-overlapping
-region in post-processing.
+regions.
+
+%We adopted the cell definitions outlined above: 250x250 pixel cells
+%with 50 pixel overlaps.
 
 \subsection{Shear Patterns} \label{sec:sim:shears}
 
@@ -811,12 +825,12 @@ canceling method of \cite{pujol2019}.  For randomized shear directions, the
 shape measurements from different scenes were rotated into a common reference
 frame before averaging to get a mean shear.
 
-We estimated the uncertainty in the averaged shear measurements using a
-jackknife technique \citep{LuptonStats1993}, with chunks defined as a few tens
-to hundreds of scenes.  The jackknife technique gives a significantly larger
-uncertainty than a naive error propagation, which we attribute to additional
-sources of error associated with masking, deblending, stellar contamination and
-variable response.
+We estimated the uncertainty in the averaged shear measurements
+$\sigma_{\gamma}$ using a jackknife technique \citep{LuptonStats1993}, with
+chunks defined as a few tens to hundreds of scenes.  The jackknife technique
+gives a significantly larger uncertainty than a naive error propagation, which
+we attribute to additional sources of error associated with masking,
+deblending, stellar contamination and variable response.
 
 \section{Results} \label{sec:results}
 
