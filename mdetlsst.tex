@@ -802,15 +802,15 @@ moments, and ellipticity derived from the second moments:
 where $I(x, y)$ is the intensity of the image, and $\sigma^2(I(x, y))$ is the
 noise variance. The sums run over all pixels in a 48x48 postage stamp image
 extracted around the object of interest.  The $x$ and $y$ coordinates are
-relative to the center found during detection. We measured
-the full covariance of the matrix of the moments, but for brevity we have shown only
-the error on the flux $\sigma(F)$. Covariance elements 
-can all be derived from measurements of the general form
-$C_{i, j} = \sum G(x, y)^2 \sigma^2(I(x, y)) x^j y^j, \forall i, j \in [0, 2], i + j \le 2$.
-We also propagated the errors to derived quantities such as $e_1$ and $e_2$.
-Note the noise in the warped images is spatially correlated
-due to interpolation, but only the zero lag variance was included in the
-the covariance calculations.
+relative to the center found during detection.
+
+We measured the full covariance of the matrix of the moments, but for brevity
+we have shown only the error on the flux $\sigma(F)$. Covariance elements can
+all be generated from measurements of the general form $C_{i, j} = \sum G(x, y)^2
+\sigma^2(I(x, y)) x^j y^j, \forall i, j \in [0, 2], i + j \le 2$.  We also
+propagated the errors to derived quantities such as $e_1$ and $e_2$.  Note the
+noise in the warped images is spatially correlated due to interpolation, but
+only the zero lag variance was included in the the covariance calculations.
 
 Note $T$ is an estimate of the observed object's size squared, not the
 pre-PSF size.  We also record the moments of the coadd PSF, after
